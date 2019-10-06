@@ -19,7 +19,9 @@ class DropdownBlock extends React.Component{
     return(
       <div className='inputDiv'>
         {this.props.children}
-        <select className="dropdownList">
+        <select 
+          className="dropdownList"
+          onChange={ event  => this.props.valueReceived( event.target.value )} >
           {this.renderOption()}
         </select>
       </div>

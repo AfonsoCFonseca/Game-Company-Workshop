@@ -1,0 +1,68 @@
+> .structure > .module, > .structure {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+> .structure {
+  align-items: center;
+  background-color: white;
+  border: 1px solid #BABABA;
+  border-radius: 8px;
+  height: auto;
+  width: 70%;
+  margin-top: 15px;
+}
+> .structure > .module {
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+> .structure > .module > .inputDiv {
+  width: 95%;
+  /** DESCRIPTION COMP **/
+  /** DROPDOWN COMP **/
+  /** INPUT COMP **/
+}
+> .structure > .module > .inputDiv > p {
+  font-weight: 800;
+}
+> .structure > .module > .inputDiv > .inputDescriptionDiv {
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid #BABABA;
+  border-radius: 5px;
+}
+> .structure > .module > .inputDiv > .inputDescriptionDiv > i {
+  color: #BABABA;
+}
+> .structure > .module > .inputDiv > .inputDescriptionDiv > .descriptionInnerChild {
+  width: 100%;
+  height: 100px;
+}
+> .structure > .module > .inputDiv > .inputDescriptionDiv > .descriptionInnerChild > p {
+  font-size: 11px;
+  color: #333333;
+  padding: 8px;
+}
+> .structure > .module > .inputDiv > .dropdownList {
+  margin-top: 10px;
+  width: 100%;
+  border: 1px solid #BABABA;
+}
+> .structure > .module > .inputDiv > input {
+  border: 1px solid #BABABA;
+  width: 50%;
+}
+> .structure > .module > .inputDiv > textarea {
+  border: 1px solid #BABABA;
+  height: 100px;
+  width: 100%;
+  resize: none;
+}
+
+/*# sourceMappingURL=structurestyles.css.map */

@@ -10,7 +10,9 @@ class InputBlock extends React.Component{
     return(
       <div className='inputDiv'>
         {this.props.children}
-        <input onValue={ e => console.log( e )}></input>
+        { this.props.size == null ? 
+                  <input onChange={ e => this.props.valueReceived( e.target.value ) } /> :
+                  <textarea onChange={ e => this.props.valueReceived( e.target.value ) } /> }
       </div>
     )
   }

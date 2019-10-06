@@ -33,6 +33,11 @@ $grey_dark: #BABABA;
     >.inputDiv {
       width: 95%;
 
+      /** DESCRIPTION COMP **/
+      >p{
+        font-weight: 800;
+      }
+
       >.inputDescriptionDiv{
         cursor: pointer;
         background-color: white;
@@ -56,9 +61,26 @@ $grey_dark: #BABABA;
 
       }
 
+      /** DROPDOWN COMP **/
+
       >.dropdownList {
         margin-top: 10px;
         width: 100%;
+        border: 1px solid $grey_dark;
+      }
+
+      /** INPUT COMP **/
+
+      >input {
+        border: 1px solid $grey_dark;
+        width: 50%;
+      }
+
+      >textarea{
+        border: 1px solid $grey_dark;
+        height: 100px;
+        width: 100%;
+        resize: none;
       }
 
     }

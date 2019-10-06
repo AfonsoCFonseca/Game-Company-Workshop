@@ -19,17 +19,23 @@ class Description extends React.Component{
 
   }
 
+  renderDescriptionDiv(){
+    return ( this.props.description == null ? null : 
+      <div className="inputDescriptionDiv" onClick={ this.expandDiv }>
+        <i className="fa fa-chevron-down" aria-hidden="true"></i>
+        <div className="descriptionInnerChild" style={{display: this.state.showDescription ? 'block' : 'none' }}>
+          <p>{this.props.description}</p>
+        </div>
+      </div>
+    )
+  }
+
   render(){
 
     return(
       <React.Fragment>
         <p>{this.props.title}</p>
-        <div className="inputDescriptionDiv" onClick={ this.expandDiv }>
-          <i className="fa fa-chevron-down" aria-hidden="true"></i>
-          <div className="descriptionInnerChild" style={{display: this.state.showDescription ? 'block' : 'none' }}>
-            <p>{this.props.description}</p>
-          </div>
-        </div>
+        { this.renderDescriptionDiv() }
       </React.Fragment>
     )
   }

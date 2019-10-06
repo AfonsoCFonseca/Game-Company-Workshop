@@ -1,0 +1,35 @@
+> .timer {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+> .timer {
+  align-items: center;
+  flex-direction: column;
+  width: 80%;
+  height: 160px;
+  background-color: white;
+  border: 1px solid #F2F2F2;
+  border-radius: 8px;
+}
+> .timer > .title {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+> .timer > .imageCounter {
+  height: 20px;
+  width: 60%;
+  background-color: green;
+  border: 2px solid #BABABA;
+  border-radius: 20px;
+}
+> .timer > .imageCounter > .imageInnerFiller {
+  height: 100%;
+  background-color: yellow;
+  border-radius: 20px;
+}
+
+/*# sourceMappingURL=timerstyles.css.map */

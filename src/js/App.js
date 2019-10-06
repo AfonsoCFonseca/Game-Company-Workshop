@@ -5,9 +5,13 @@ class PageContent extends React.Component {
 
     this.state = {
       year: 0,
+      company: {
+        name: ''
+      }
     }
 
     this.goNext = this.goNext.bind( this )
+    this.editCompanyState = this.editCompanyState.bind( this )
   }
 
   goNext(){
@@ -18,11 +22,19 @@ class PageContent extends React.Component {
     })
   }
 
+  editCompanyState( name, value ){
+    this.setState({
+      'company' : {
+        [ name ] : value
+      }
+    })
+  }
+
   renderModule(){
 
     switch ( this.state.year ) {
       case 0:
-        return <Module_0Year/>
+        return <Module_0Year editCompanyState={ this.editCompanyState } />
         break;
       case 2:
         return <Module_2Year/>
@@ -42,6 +54,7 @@ class PageContent extends React.Component {
   }
 
   render(){
+    console.log( this.state )
     return(
       <React.Fragment>
         <Timer year={ this.state.year }/>

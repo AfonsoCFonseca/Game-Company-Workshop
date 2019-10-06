@@ -34,16 +34,16 @@ class PageContent extends React.Component {
 
     switch ( this.state.year ) {
       case 0:
-        return <Module_0Year editCompanyState={ this.editCompanyState } />
+        return React.createElement(Module_0Year, {editCompanyState:  this.editCompanyState})
         break;
       case 2:
-        return <Module_2Year/>
+        return React.createElement(Module_2Year, null)
         break;
       case 4:
-        return <Module_4Year/>
+        return React.createElement(Module_4Year, null)
         break;
       case 6:
-        return <Module_6Year/>
+        return React.createElement(Module_6Year, null)
         break;
       default:
       console.log( "retornou null" )
@@ -56,15 +56,15 @@ class PageContent extends React.Component {
   render(){
     console.log( this.state )
     return(
-      <React.Fragment>
-        <Timer year={ this.state.year }/>
-        <div className='structure'>
-          {this.renderModule()}
-        </div>
-        <Footer
-          goNext={ this.goNext }
-        />
-      </React.Fragment>
+      React.createElement(React.Fragment, null, 
+        React.createElement(Timer, {year:  this.state.year}), 
+        React.createElement("div", {className: "structure"}, 
+          this.renderModule()
+        ), 
+        React.createElement(Footer, {
+          goNext:  this.goNext}
+        )
+      )
     )
   }
 
@@ -92,22 +92,22 @@ class PageContent extends React.Component {
 
   renderDescriptionDiv(){
     return ( this.props.description == null ? null : 
-      <div className="inputDescriptionDiv" onClick={ this.expandDiv }>
-        <i className="fa fa-chevron-down" aria-hidden="true"></i>
-        <div className="descriptionInnerChild" style={{display: this.state.showDescription ? 'block' : 'none' }}>
-          <p>{this.props.description}</p>
-        </div>
-      </div>
+      React.createElement("div", {className: "inputDescriptionDiv", onClick:  this.expandDiv}, 
+        React.createElement("i", {className: "fa fa-chevron-down", "aria-hidden": "true"}), 
+        React.createElement("div", {className: "descriptionInnerChild", style: {display: this.state.showDescription ? 'block' : 'none'}}, 
+          React.createElement("p", null, this.props.description)
+        )
+      )
     )
   }
 
   render(){
 
     return(
-      <React.Fragment>
-        <p>{this.props.title}</p>
-        { this.renderDescriptionDiv() }
-      </React.Fragment>
+      React.createElement(React.Fragment, null, 
+        React.createElement("p", null, this.props.title), 
+         this.renderDescriptionDiv() 
+      )
     )
   }
 
@@ -122,7 +122,7 @@ class PageContent extends React.Component {
   renderOption(){
 
     let options = this.props.dataEntries.map( entry => {
-      return ( <option key={`dataEntry_${entry}`}>{entry}</option> )
+      return ( React.createElement("option", {key: `dataEntry_${entry}`}, entry) )
     })
 
     return options
@@ -132,14 +132,14 @@ class PageContent extends React.Component {
   render(){
 
     return(
-      <div className='inputDiv'>
-        {this.props.children}
-        <select 
-          className="dropdownList"
-          onChange={ event  => this.props.valueReceived( event.target.value )} >
-          {this.renderOption()}
-        </select>
-      </div>
+      React.createElement("div", {className: "inputDiv"}, 
+        this.props.children, 
+        React.createElement("select", {
+          className: "dropdownList", 
+          onChange:  event  => this.props.valueReceived( event.target.value )}, 
+          this.renderOption()
+        )
+      )
     )
   }
 
@@ -154,12 +154,12 @@ class PageContent extends React.Component {
   render(){
 
     return(
-      <div className='inputDiv'>
-        {this.props.children}
-        { this.props.size == null ? 
-                  <input onChange={ e => this.props.valueReceived( e.target.value ) } /> :
-                  <textarea onChange={ e => this.props.valueReceived( e.target.value ) } /> }
-      </div>
+      React.createElement("div", {className: "inputDiv"}, 
+        this.props.children, 
+         this.props.size == null ? 
+                  React.createElement("input", {onChange:  e => this.props.valueReceived( e.target.value )}) :
+                  React.createElement("textarea", {onChange:  e => this.props.valueReceived( e.target.value )})
+      )
     )
   }
 
@@ -174,9 +174,9 @@ class PageContent extends React.Component {
 
   render(){
     return(
-      <div className='footer'>
-        <button onClick={ this.props.goNext }>next</button>
-      </div>
+      React.createElement("div", {className: "footer"}, 
+        React.createElement("button", {onClick:  this.props.goNext}, "next")
+      )
     )
   }
 
@@ -192,31 +192,31 @@ class PageContent extends React.Component {
 
     return(
 
-      <div className='module'>
+      React.createElement("div", {className: "module"}, 
 
-        <InputBlock 
-          valueReceived={ value => this.props.editCompanyState( "name", value ) }>
-           <Description title='Company Name' />
-        </InputBlock>
-        <InputBlock 
-          valueReceived={ value => this.props.editCompanyState( "companyDescription", value ) }
-          size='large'>
-           <Description title='Description ( Optional )'/>
-        </InputBlock>
+        React.createElement(InputBlock, {
+          valueReceived:  value => this.props.editCompanyState( "name", value )}, 
+           React.createElement(Description, {title: "Company Name"})
+        ), 
+        React.createElement(InputBlock, {
+          valueReceived:  value => this.props.editCompanyState( "companyDescription", value ), 
+          size: "large"}, 
+           React.createElement(Description, {title: "Description ( Optional )"})
+        ), 
 
-        <DropdownBlock 
-          dataEntries={ genres }
-          valueReceived={ value => this.props.editCompanyState( "genres", value ) }>
-          <Description title={ 'Genre' } description={ descriptionPlatform }/>
-        </DropdownBlock>
+        React.createElement(DropdownBlock, {
+          dataEntries:  genres, 
+          valueReceived:  value => this.props.editCompanyState( "genres", value )}, 
+          React.createElement(Description, {title:  'Genre', description:  descriptionPlatform })
+        ), 
 
-        <DropdownBlock 
-          dataEntries={ platforms }
-          valueReceived={ value => this.props.editCompanyState( "platform", value ) }>
-          <Description title={ 'Platform' } />
-        </DropdownBlock>
+        React.createElement(DropdownBlock, {
+          dataEntries:  platforms, 
+          valueReceived:  value => this.props.editCompanyState( "platform", value )}, 
+          React.createElement(Description, {title:  'Platform' })
+        )
 
-      </div>
+      )
 
     )
 
@@ -232,10 +232,10 @@ class PageContent extends React.Component {
   render() {
 
     return(
-      <div className='module'>
-        Year2
-        <input onValue={ e => console.log( e )}></input>
-      </div>
+      React.createElement("div", {className: "module"}, 
+        "Year2", 
+        React.createElement("input", {onValue:  e => console.log( e )})
+      )
     )
 
   }
@@ -250,10 +250,10 @@ class PageContent extends React.Component {
   render() {
 
     return(
-      <div className='module'>
-        YEAR 5
-        <input onValue={ e => console.log( e )}></input>
-      </div>
+      React.createElement("div", {className: "module"}, 
+        "YEAR 5", 
+        React.createElement("input", {onValue:  e => console.log( e )})
+      )
     )
 
   }
@@ -268,10 +268,10 @@ class PageContent extends React.Component {
   render() {
 
     return(
-      <div className='module'>
-        YEAR 8 
-        <input onValue={ e => console.log( e )}></input>
-      </div>
+      React.createElement("div", {className: "module"}, 
+        "YEAR 8",  
+        React.createElement("input", {onValue:  e => console.log( e )})
+      )
     )
 
   }
@@ -386,28 +386,28 @@ console.log(  this.timer30Minutes )
 
   render(){
     return(
-      <div className='timer'>
+      React.createElement("div", {className: "timer"}, 
 
-        <div className='title'>Year { this.state.year } of your Company</div>
+        React.createElement("div", {className: "title"}, "Year ",  this.state.year, " of your Company"), 
 
-        <div className='imageCounter'>
-          <div className='imageInnerObject'>
-            <div className='firstStep'>
-            </div>
+        React.createElement("div", {className: "imageCounter"}, 
+          React.createElement("div", {className: "imageInnerObject"}, 
+            React.createElement("div", {className: "firstStep"}
+            )
 
-          </div>
-          <div className='imageInnerFiller' style={{ width: this.state.progress + "%" }}>
-          </div>
-        </div>
+          ), 
+          React.createElement("div", {className: "imageInnerFiller", style: { width: this.state.progress + "%"}}
+          )
+        ), 
 
-        <div className='counter'>10:10</div>
+        React.createElement("div", {className: "counter"}, "10:10")
 
-      </div>
+      )
     )
   }
 
 }
 ;ReactDOM.render(
-  <PageContent/>,
+  React.createElement(PageContent, null),
   document.getElementById('content')
 );

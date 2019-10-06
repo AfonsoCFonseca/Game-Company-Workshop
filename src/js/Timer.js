@@ -1,7 +1,10 @@
 class Timer extends React.Component {
-
+//1800000 30 minutos
   constructor( props ){
     super( props )
+
+    this.timer30Minutes = 60 * 30
+    this.actualTimer = 0
 
     this.state = {
       year: props.year,
@@ -9,10 +12,32 @@ class Timer extends React.Component {
     }
 
     this.incr = this.incr.bind( this )
+    this.startTime = this.startTime.bind( this )
   }
 
   componentDidMount(){
     this.incr()
+    this.startTime()
+  }
+
+  startTime(){
+
+console.log(  this.actualTimer )
+console.log(  this.timer30Minutes )
+     if ( this.actualTimer < this.timer30Minutes) {
+        setInterval(() => {
+            this.actualTimer++;
+            console.log("A PASSAR AQUI")
+            this.startTime();
+
+        }, 1000);
+    }
+
+
+  }
+
+  resetTimer(){
+
   }
 
   incr(){
@@ -34,7 +59,7 @@ class Timer extends React.Component {
     return(
       <div className='timer'>
 
-        <div className='title'>{this.state.year}</div>
+        <div className='title'>Year { this.state.year } of your Company</div>
 
         <div className='imageCounter'>
           <div className='imageInnerObject'>

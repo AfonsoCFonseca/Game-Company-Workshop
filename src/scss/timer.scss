@@ -22,7 +22,8 @@ $grey_dark: #BABABA;
   border-radius: 8px;
 
   >.title {
-
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
 
   >.counter {
@@ -30,7 +31,7 @@ $grey_dark: #BABABA;
   }
 
   >.imageCounter {
-    height: 50px;
+    height: 20px;
     width: 60%;
     background-color: green;
     border: 2px solid $grey_dark;
