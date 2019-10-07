@@ -76,6 +76,25 @@ body pre {
   padding-top: 20px;
   padding-bottom: 20px;
 }
+#content > .timer > .totalTimer {
+  width: 40%;
+  height: 10px;
+  margin-top: 2px;
+}
+#content > .timer > .totalTimer > .twoYearsBatch {
+  display: inline-flex;
+  width: 20%;
+  height: 100%;
+  margin-left: 4%;
+  background-color: #d0ecd2;
+  border-radius: 25px;
+}
+#content > .timer > .totalTimer > .twoYearsBatch.filled {
+  background-color: green;
+}
+#content > .timer > .counter {
+  margin-top: 15px;
+}
 #content > .timer > .imageCounter {
   height: 20px;
   width: 60%;
@@ -84,6 +103,7 @@ body pre {
   border-radius: 20px;
 }
 #content > .timer > .imageCounter > .imageInnerFiller {
+  width: 0%;
   height: 100%;
   background-color: yellow;
   border-radius: 20px;

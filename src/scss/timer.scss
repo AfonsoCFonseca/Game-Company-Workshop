@@ -26,9 +26,29 @@ $grey_dark: #BABABA;
     padding-bottom: 20px;
   }
 
-  >.counter {
+  >.totalTimer {
+    width: 40%;
+    height: 10px;
+    margin-top:2px;
+
+    >.twoYearsBatch {
+      display: inline-flex;
+      width: 20%;
+      height: 100%;
+      margin-left: 4%;
+      background-color: #d0ecd2;
+      border-radius: 25px;
+
+      &.filled {
+        background-color: green;
+      }
+    }
 
   }
+
+  >.counter {
+    margin-top: 15px;
+  } 
 
   >.imageCounter {
     height: 20px;
@@ -38,6 +58,7 @@ $grey_dark: #BABABA;
     border-radius: 20px;
 
     >.imageInnerFiller {
+      width: 0%;
       height: 100%;
       background-color: yellow;
       border-radius: 20px;

@@ -5,6 +5,7 @@ class PageContent extends React.Component {
 
     this.state = {
       year: 0,
+      goingDev: false,
       company: {
         name: ''
       }
@@ -12,7 +13,41 @@ class PageContent extends React.Component {
 
     this.goNext = this.goNext.bind( this )
     this.editCompanyState = this.editCompanyState.bind( this )
+    this._handleKeyDown = this._handleKeyDown.bind( this )
   }
+
+  componentDidMount(){
+    document.addEventListener("keydown", this._handleKeyDown )
+  }
+
+  _handleKeyDown ( ev ) {
+
+    const CONTROL_KEY = 17;
+    const SHIFT_KEY = 16;
+    const B_KEY = 66;
+    var key;
+    var isShift;
+    
+    if (window.event) {
+      key = window.event.keyCode;
+      isShift = !!window.event.shiftKey;
+    } else {
+      key = ev.which;
+      isShift = !!ev.shiftKey;
+    }
+    if ( isShift ) {
+      switch (key) {
+        case 16:
+          break;
+        default:
+          if( key == B_KEY ) this.setState({ goingDev: !this.state.goingDev })
+          break;
+      }
+    }
+
+  }
+
+
 
   goNext(){
     let year = this.state.year
@@ -61,9 +96,13 @@ class PageContent extends React.Component {
         <div className='structure'>
           {this.renderModule()}
         </div>
-        <Footer
-          goNext={ this.goNext }
-        />
+        {
+         this.state.goingDev ? 
+          <Footer
+            goNext={ this.goNext }
+          /> :
+            null 
+        }
       </React.Fragment>
     )
   }

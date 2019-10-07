@@ -19,6 +19,25 @@
   padding-top: 20px;
   padding-bottom: 20px;
 }
+> .timer > .totalTimer {
+  width: 40%;
+  height: 10px;
+  margin-top: 2px;
+}
+> .timer > .totalTimer > .twoYearsBatch {
+  display: inline-flex;
+  width: 20%;
+  height: 100%;
+  margin-left: 4%;
+  background-color: #d0ecd2;
+  border-radius: 25px;
+}
+> .timer > .totalTimer > .twoYearsBatch.filled {
+  background-color: green;
+}
+> .timer > .counter {
+  margin-top: 15px;
+}
 > .timer > .imageCounter {
   height: 20px;
   width: 60%;
@@ -27,6 +46,7 @@
   border-radius: 20px;
 }
 > .timer > .imageCounter > .imageInnerFiller {
+  width: 0%;
   height: 100%;
   background-color: yellow;
   border-radius: 20px;

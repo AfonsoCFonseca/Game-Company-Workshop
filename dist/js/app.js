@@ -5,6 +5,7 @@ class PageContent extends React.Component {
 
     this.state = {
       year: 0,
+      goingDev: false,
       company: {
         name: ''
       }
@@ -12,7 +13,41 @@ class PageContent extends React.Component {
 
     this.goNext = this.goNext.bind( this )
     this.editCompanyState = this.editCompanyState.bind( this )
+    this._handleKeyDown = this._handleKeyDown.bind( this )
   }
+
+  componentDidMount(){
+    document.addEventListener("keydown", this._handleKeyDown )
+  }
+
+  _handleKeyDown ( ev ) {
+
+    const CONTROL_KEY = 17;
+    const SHIFT_KEY = 16;
+    const B_KEY = 66;
+    var key;
+    var isShift;
+    
+    if (window.event) {
+      key = window.event.keyCode;
+      isShift = !!window.event.shiftKey;
+    } else {
+      key = ev.which;
+      isShift = !!ev.shiftKey;
+    }
+    if ( isShift ) {
+      switch (key) {
+        case 16:
+          break;
+        default:
+          if( key == B_KEY ) this.setState({ goingDev: !this.state.goingDev })
+          break;
+      }
+    }
+
+  }
+
+
 
   goNext(){
     let year = this.state.year
@@ -61,9 +96,13 @@ class PageContent extends React.Component {
         React.createElement("div", {className: "structure"}, 
           this.renderModule()
         ), 
-        React.createElement(Footer, {
-          goNext:  this.goNext}
-        )
+        
+         this.state.goingDev ? 
+          React.createElement(Footer, {
+            goNext:  this.goNext}
+          ) :
+            null
+        
       )
     )
   }
@@ -332,56 +371,66 @@ const platforms = [
   constructor( props ){
     super( props )
 
-    this.timer30Minutes = 60 * 30
+    this.timer30Minutes = 60 * 30 //60 * 30
     this.actualTimer = 0
 
     this.state = {
       year: props.year,
-      progress: 10,
     }
 
-    this.incr = this.incr.bind( this )
     this.startTime = this.startTime.bind( this )
+    this.doTheMath = this.doTheMath.bind( this )
+    this.drawYearTiles = this.drawYearTiles.bind( this )
   }
 
   componentDidMount(){
-    this.incr()
     this.startTime()
   }
 
   startTime(){
 
-console.log(  this.actualTimer )
-console.log(  this.timer30Minutes )
-     if ( this.actualTimer < this.timer30Minutes) {
-        setInterval(() => {
+     if ( this.actualTimer < this.timer30Minutes ) {
+
+        setTimeout( () => {
+
             this.actualTimer++;
-            console.log("A PASSAR AQUI")
             this.startTime();
+            this.doTheMath()
 
         }, 1000);
+
     }
 
-
   }
 
-  resetTimer(){
+  doTheMath(){
+    var valueInPercentage = parseInt( ( this.actualTimer * 100 ) / this.timer30Minutes )
 
+    $('.imageInnerFiller').animate({
+        width: valueInPercentage + '%'
+    })
+
+    var timerValue = giveMinutesAndSeconds( this.actualTimer )
+    this.setState({ timerValue })
   }
 
-  incr(){
-    setTimeout(() => {
-      this.setState({
-        progress: ( this.state.progress < 100 ? this.state.progress + 2 : 100 )
-      })
-      this.incr()
-    }, 2000 )
-  }
-
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps( props, state ) {
     return {
       year: props.year
     }
+  }
+
+  drawYearTiles(){
+
+    return(
+      React.createElement(React.Fragment, null, 
+        React.createElement("div", {className:  `twoYearsBatch ${ (this.state.year >= 2 ? 'filled' : '') }`}), 
+        React.createElement("div", {className:  `twoYearsBatch ${ (this.state.year >= 4 ? 'filled' : '') }`}), 
+        React.createElement("div", {className:  `twoYearsBatch ${ (this.state.year >= 6 ? 'filled' : '') }`}), 
+        React.createElement("div", {className:  `twoYearsBatch ${ (this.state.year >= 8 ? 'filled' : '') }`})
+      )
+    )
+
   }
 
   render(){
@@ -396,18 +445,40 @@ console.log(  this.timer30Minutes )
             )
 
           ), 
-          React.createElement("div", {className: "imageInnerFiller", style: { width: this.state.progress + "%"}}
+          React.createElement("div", {className: "imageInnerFiller"}
           )
         ), 
-
-        React.createElement("div", {className: "counter"}, "10:10")
+        React.createElement("div", {className: "totalTimer"}, 
+           this.drawYearTiles() 
+        ), 
+        React.createElement("div", {className: "counter"},  this.state.timerValue)
 
       )
     )
   }
 
 }
-;ReactDOM.render(
+;function giveMinutesAndSeconds( seconds ){
+    var dateObj = new Date( seconds * 1000);
+    var hours = dateObj.getUTCHours();
+    var minutes = dateObj.getUTCMinutes();
+    var seconds = dateObj.getSeconds();
+
+    return  minutes.toString().padStart(2, '0') + ':' + 
+        seconds.toString().padStart(2, '0');
+}
+
+function giveMinutesSecondsAndHours( seconds ){
+	var dateObj = new Date( seconds * 1000);
+    var hours = dateObj.getUTCHours();
+    var minutes = dateObj.getUTCMinutes();
+    var seconds = dateObj.getSeconds();
+
+    return hours.toString().padStart(2, '0') + ':' + 
+        minutes.toString().padStart(2, '0') + ':' + 
+        seconds.toString().padStart(2, '0');
+
+};ReactDOM.render(
   React.createElement(PageContent, null),
   document.getElementById('content')
 );

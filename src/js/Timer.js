@@ -3,56 +3,66 @@ class Timer extends React.Component {
   constructor( props ){
     super( props )
 
-    this.timer30Minutes = 60 * 30
+    this.timer30Minutes = 60 * 30 //60 * 30
     this.actualTimer = 0
 
     this.state = {
       year: props.year,
-      progress: 10,
     }
 
-    this.incr = this.incr.bind( this )
     this.startTime = this.startTime.bind( this )
+    this.doTheMath = this.doTheMath.bind( this )
+    this.drawYearTiles = this.drawYearTiles.bind( this )
   }
 
   componentDidMount(){
-    this.incr()
     this.startTime()
   }
 
   startTime(){
 
-console.log(  this.actualTimer )
-console.log(  this.timer30Minutes )
-     if ( this.actualTimer < this.timer30Minutes) {
-        setInterval(() => {
+     if ( this.actualTimer < this.timer30Minutes ) {
+
+        setTimeout( () => {
+
             this.actualTimer++;
-            console.log("A PASSAR AQUI")
             this.startTime();
+            this.doTheMath()
 
         }, 1000);
+
     }
 
-
   }
 
-  resetTimer(){
+  doTheMath(){
+    var valueInPercentage = parseInt( ( this.actualTimer * 100 ) / this.timer30Minutes )
 
+    $('.imageInnerFiller').animate({
+        width: valueInPercentage + '%'
+    })
+
+    var timerValue = giveMinutesAndSeconds( this.actualTimer )
+    this.setState({ timerValue })
   }
 
-  incr(){
-    setTimeout(() => {
-      this.setState({
-        progress: ( this.state.progress < 100 ? this.state.progress + 2 : 100 )
-      })
-      this.incr()
-    }, 2000 )
-  }
-
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps( props, state ) {
     return {
       year: props.year
     }
+  }
+
+  drawYearTiles(){
+
+    return(
+      <React.Fragment>
+        <div className={ `twoYearsBatch ${ (this.state.year >= 2 ? 'filled' : '') }` }></div>
+        <div className={ `twoYearsBatch ${ (this.state.year >= 4 ? 'filled' : '') }` }></div>
+        <div className={ `twoYearsBatch ${ (this.state.year >= 6 ? 'filled' : '') }` }></div>
+        <div className={ `twoYearsBatch ${ (this.state.year >= 8 ? 'filled' : '') }` }></div>
+      </React.Fragment>
+    )
+
   }
 
   render(){
@@ -67,11 +77,13 @@ console.log(  this.timer30Minutes )
             </div>
 
           </div>
-          <div className='imageInnerFiller' style={{ width: this.state.progress + "%" }}>
+          <div className='imageInnerFiller'>
           </div>
         </div>
-
-        <div className='counter'>10:10</div>
+        <div className='totalTimer'>
+          { this.drawYearTiles() }
+        </div>
+        <div className='counter'>{ this.state.timerValue }</div>
 
       </div>
     )
