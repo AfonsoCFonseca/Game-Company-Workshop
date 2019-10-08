@@ -5,7 +5,7 @@ class PageContent extends React.Component {
 
     this.state = {
       year: 0,
-      goingDev: false,
+      goingDev: true,
       company: {
         name: ''
       }
@@ -89,10 +89,13 @@ class PageContent extends React.Component {
   }
 
   render(){
-    console.log( this.state )
+  
     return(
       <React.Fragment>
-        <Timer year={ this.state.year }/>
+        <Timer 
+          year={ this.state.year }
+          nextYear={ this.goNext }
+        />
         <div className='structure'>
           {this.renderModule()}
         </div>
@@ -100,6 +103,7 @@ class PageContent extends React.Component {
          this.state.goingDev ? 
           <Footer
             goNext={ this.goNext }
+            logState={ () => console.log( this.state ) }
           /> :
             null 
         }
@@ -203,7 +207,23 @@ class PageContent extends React.Component {
   }
 
 }
-;class Footer extends React.Component {
+;const TextField = ({ textValue, title }) => {
+
+	let text;
+	if( textValue.typeof == "string" ){
+		text = textValue
+	}
+	else {
+		text = textValue
+	}
+
+	return(
+		<div className='textFieldDiv'>
+			<h3>{ title }</h3>
+			<p>{ text }</p>
+		</div>
+	)
+};class Footer extends React.Component {
 
   constructor( props ){
     super( props )
@@ -215,6 +235,7 @@ class PageContent extends React.Component {
     return(
       <div className='footer'>
         <button onClick={ this.props.goNext }>next</button>
+        <button onClick={ this.props.logState }>Log</button>
       </div>
     )
   }
@@ -273,7 +294,7 @@ class PageContent extends React.Component {
     return(
       <div className='module'>
         Year2
-        <input onValue={ e => console.log( e )}></input>
+        <TextField title='Focus' textValue='hey hey'/>
       </div>
     )
 
@@ -371,7 +392,7 @@ const platforms = [
   constructor( props ){
     super( props )
 
-    this.timer30Minutes = 60 * 30 //60 * 30
+    this.timer30Minutes = 6 * 3 //60 * 30
     this.actualTimer = 0
 
     this.state = {
@@ -400,6 +421,15 @@ const platforms = [
         }, 1000);
 
     }
+    else this.resetTimer()
+
+  }
+
+  resetTimer(){
+
+    this.actualTimer = 0
+    this.props.nextYear()
+    this.startTime()
 
   }
 

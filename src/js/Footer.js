@@ -10,6 +10,7 @@ class Footer extends React.Component {
     return(
       <div className='footer'>
         <button onClick={ this.props.goNext }>next</button>
+        <button onClick={ this.props.logState }>Log</button>
       </div>
     )
   }

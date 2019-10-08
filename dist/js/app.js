@@ -5,7 +5,7 @@ class PageContent extends React.Component {
 
     this.state = {
       year: 0,
-      goingDev: false,
+      goingDev: true,
       company: {
         name: ''
       }
@@ -89,17 +89,21 @@ class PageContent extends React.Component {
   }
 
   render(){
-    console.log( this.state )
+  
     return(
       React.createElement(React.Fragment, null, 
-        React.createElement(Timer, {year:  this.state.year}), 
+        React.createElement(Timer, {
+          year:  this.state.year, 
+          nextYear:  this.goNext}
+        ), 
         React.createElement("div", {className: "structure"}, 
           this.renderModule()
         ), 
         
          this.state.goingDev ? 
           React.createElement(Footer, {
-            goNext:  this.goNext}
+            goNext:  this.goNext, 
+            logState:  () => console.log( this.state )}
           ) :
             null
         
@@ -203,7 +207,23 @@ class PageContent extends React.Component {
   }
 
 }
-;class Footer extends React.Component {
+;const TextField = ({ textValue, title }) => {
+
+	let text;
+	if( textValue.typeof == "string" ){
+		text = textValue
+	}
+	else {
+		text = textValue
+	}
+
+	return(
+		React.createElement("div", {className: "textFieldDiv"}, 
+			React.createElement("h3", null,  title ), 
+			React.createElement("p", null,  text )
+		)
+	)
+};class Footer extends React.Component {
 
   constructor( props ){
     super( props )
@@ -214,7 +234,8 @@ class PageContent extends React.Component {
   render(){
     return(
       React.createElement("div", {className: "footer"}, 
-        React.createElement("button", {onClick:  this.props.goNext}, "next")
+        React.createElement("button", {onClick:  this.props.goNext}, "next"), 
+        React.createElement("button", {onClick:  this.props.logState}, "Log")
       )
     )
   }
@@ -273,7 +294,7 @@ class PageContent extends React.Component {
     return(
       React.createElement("div", {className: "module"}, 
         "Year2", 
-        React.createElement("input", {onValue:  e => console.log( e )})
+        React.createElement(TextField, {title: "Focus", textValue: "hey hey"})
       )
     )
 
@@ -371,7 +392,7 @@ const platforms = [
   constructor( props ){
     super( props )
 
-    this.timer30Minutes = 60 * 30 //60 * 30
+    this.timer30Minutes = 6 * 3 //60 * 30
     this.actualTimer = 0
 
     this.state = {
@@ -400,6 +421,15 @@ const platforms = [
         }, 1000);
 
     }
+    else this.resetTimer()
+
+  }
+
+  resetTimer(){
+
+    this.actualTimer = 0
+    this.props.nextYear()
+    this.startTime()
 
   }
 

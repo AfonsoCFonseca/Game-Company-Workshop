@@ -173,6 +173,19 @@ body pre {
   width: 100%;
   resize: none;
 }
+#content > .structure > .module .textFieldDiv {
+  width: 95%;
+}
+#content > .structure > .module .textFieldDiv > p {
+  font-size: 11px;
+  color: #333333;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+#content > .structure > .module .textFieldDiv > h3 {
+  padding: 5px;
+  border-bottom: 2px solid #F2F2F2;
+}
 #content > .footer {
   position: fixed;
   bottom: 0;

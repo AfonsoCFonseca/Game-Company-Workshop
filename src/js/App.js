@@ -5,7 +5,7 @@ class PageContent extends React.Component {
 
     this.state = {
       year: 0,
-      goingDev: false,
+      goingDev: true,
       company: {
         name: ''
       }
@@ -89,10 +89,13 @@ class PageContent extends React.Component {
   }
 
   render(){
-    console.log( this.state )
+  
     return(
       <React.Fragment>
-        <Timer year={ this.state.year }/>
+        <Timer 
+          year={ this.state.year }
+          nextYear={ this.goNext }
+        />
         <div className='structure'>
           {this.renderModule()}
         </div>
@@ -100,6 +103,7 @@ class PageContent extends React.Component {
          this.state.goingDev ? 
           <Footer
             goNext={ this.goNext }
+            logState={ () => console.log( this.state ) }
           /> :
             null 
         }
