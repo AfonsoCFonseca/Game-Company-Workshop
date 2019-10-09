@@ -6,14 +6,18 @@ class PageContent extends React.Component {
     this.state = {
       year: 0,
       goingDev: true,
+      isPaused: false,
       company: {
-        name: ''
+        name: '',
+        income: 0,
+        equity: 100,
       }
     }
 
     this.goNext = this.goNext.bind( this )
     this.editCompanyState = this.editCompanyState.bind( this )
     this._handleKeyDown = this._handleKeyDown.bind( this )
+    this.stopTime = this.stopTime.bind( this )
   }
 
   componentDidMount(){
@@ -57,12 +61,20 @@ class PageContent extends React.Component {
     })
   }
 
+  stopTime(){
+    console.log("||PAUSED||")
+    this.setState({isPaused: !this.state.isPaused})
+  }
+
   editCompanyState( name, value ){
-    this.setState({
-      'company' : {
-        [ name ] : value
-      }
-    })
+    var company = {}
+    if( this.state.company != null ){
+      company = this.state.company
+    }
+
+    company[ name ] = value
+
+    this.setState({ company })
   }
 
   renderModule(){
@@ -72,13 +84,13 @@ class PageContent extends React.Component {
         return <Module_0Year editCompanyState={ this.editCompanyState } />
         break;
       case 2:
-        return <Module_2Year/>
+        return <Module_2Year editCompanyState={ this.editCompanyState } />
         break;
       case 4:
-        return <Module_4Year/>
+        return <Module_4Year editCompanyState={ this.editCompanyState }/>
         break;
       case 6:
-        return <Module_6Year/>
+        return <Module_6Year editCompanyState={ this.editCompanyState }/>
         break;
       default:
       console.log( "retornou null" )
@@ -95,6 +107,7 @@ class PageContent extends React.Component {
         <Timer 
           year={ this.state.year }
           nextYear={ this.goNext }
+          isTimerPaused={ this.state.isPaused }
         />
         <div className='structure'>
           {this.renderModule()}
@@ -104,6 +117,7 @@ class PageContent extends React.Component {
           <Footer
             goNext={ this.goNext }
             logState={ () => console.log( this.state ) }
+            pauseState= { this.stopTime }
           /> :
             null 
         }

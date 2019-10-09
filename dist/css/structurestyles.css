@@ -32,6 +32,7 @@
   font-weight: 800;
 }
 > .structure > .module > .inputDiv > .inputDescriptionDiv {
+  margin-bottom: 10px;
   cursor: pointer;
   background-color: white;
   border: 1px solid #BABABA;
@@ -39,10 +40,11 @@
 }
 > .structure > .module > .inputDiv > .inputDescriptionDiv > i {
   color: #BABABA;
+  margin-left: 10px;
 }
 > .structure > .module > .inputDiv > .inputDescriptionDiv > .descriptionInnerChild {
   width: 100%;
-  height: 100px;
+  height: auto;
 }
 > .structure > .module > .inputDiv > .inputDescriptionDiv > .descriptionInnerChild > p {
   font-size: 11px;
@@ -50,7 +52,6 @@
   padding: 8px;
 }
 > .structure > .module > .inputDiv > .dropdownList {
-  margin-top: 10px;
   width: 100%;
   border: 1px solid #BABABA;
 }

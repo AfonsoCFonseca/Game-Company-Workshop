@@ -5,5 +5,8 @@
   height: 30px;
   background-color: white;
 }
+> .footer > button {
+  margin-left: 10px;
+}
 
 /*# sourceMappingURL=footerstyles.css.map */

@@ -2,8 +2,7 @@ class Module_0Year extends React.Component {
 
   constructor( props ){
     super( props )
-
-  }
+    }
 
   render() {
 
@@ -19,6 +18,13 @@ class Module_0Year extends React.Component {
           valueReceived={ value => this.props.editCompanyState( "companyDescription", value ) }
           size='large'>
            <Description title='Description ( Optional )'/>
+        </InputBlock>
+
+        <TextField title='First Game' textValue={ secondGameDescription }/>
+
+        <InputBlock 
+          valueReceived={ value => this.props.editCompanyState( "gameName1", value ) }>
+           <Description title='Game Name' />
         </InputBlock>
 
         <DropdownBlock 

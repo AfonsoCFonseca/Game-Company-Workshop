@@ -8,6 +8,7 @@ class Timer extends React.Component {
 
     this.state = {
       year: props.year,
+      isTimerPaused: false,
     }
 
     this.startTime = this.startTime.bind( this )
@@ -25,9 +26,11 @@ class Timer extends React.Component {
 
         setTimeout( () => {
 
+          if( this.state.isTimerPaused == false ){
             this.actualTimer++;
-            this.startTime();
             this.doTheMath()
+          }
+           this.startTime();
 
         }, 1000);
 
@@ -57,7 +60,8 @@ class Timer extends React.Component {
 
   static getDerivedStateFromProps( props, state ) {
     return {
-      year: props.year
+      year: props.year,
+      isTimerPaused: props.isTimerPaused,
     }
   }
 

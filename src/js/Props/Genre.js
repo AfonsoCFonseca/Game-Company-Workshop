@@ -39,6 +39,7 @@ const platforms = [
   'PC',
   'Nintendo Switch',
   'PS4',
+  'VR',
   'Mobile',
   'Xbox One',
   'NES ( Going full retro )',

@@ -6,14 +6,18 @@ class PageContent extends React.Component {
     this.state = {
       year: 0,
       goingDev: true,
+      isPaused: false,
       company: {
-        name: ''
+        name: '',
+        income: 0,
+        equity: 100,
       }
     }
 
     this.goNext = this.goNext.bind( this )
     this.editCompanyState = this.editCompanyState.bind( this )
     this._handleKeyDown = this._handleKeyDown.bind( this )
+    this.stopTime = this.stopTime.bind( this )
   }
 
   componentDidMount(){
@@ -57,12 +61,20 @@ class PageContent extends React.Component {
     })
   }
 
+  stopTime(){
+    console.log("||PAUSED||")
+    this.setState({isPaused: !this.state.isPaused})
+  }
+
   editCompanyState( name, value ){
-    this.setState({
-      'company' : {
-        [ name ] : value
-      }
-    })
+    var company = {}
+    if( this.state.company != null ){
+      company = this.state.company
+    }
+
+    company[ name ] = value
+
+    this.setState({ company })
   }
 
   renderModule(){
@@ -72,13 +84,13 @@ class PageContent extends React.Component {
         return <Module_0Year editCompanyState={ this.editCompanyState } />
         break;
       case 2:
-        return <Module_2Year/>
+        return <Module_2Year editCompanyState={ this.editCompanyState } />
         break;
       case 4:
-        return <Module_4Year/>
+        return <Module_4Year editCompanyState={ this.editCompanyState }/>
         break;
       case 6:
-        return <Module_6Year/>
+        return <Module_6Year editCompanyState={ this.editCompanyState }/>
         break;
       default:
       console.log( "retornou null" )
@@ -95,6 +107,7 @@ class PageContent extends React.Component {
         <Timer 
           year={ this.state.year }
           nextYear={ this.goNext }
+          isTimerPaused={ this.state.isPaused }
         />
         <div className='structure'>
           {this.renderModule()}
@@ -104,6 +117,7 @@ class PageContent extends React.Component {
           <Footer
             goNext={ this.goNext }
             logState={ () => console.log( this.state ) }
+            pauseState= { this.stopTime }
           /> :
             null 
         }
@@ -207,20 +221,38 @@ class PageContent extends React.Component {
   }
 
 }
-;const TextField = ({ textValue, title }) => {
+;class Story extends React.Component{
+
+
+	render(){
+		return  (
+		 <div className='storyDiv'>
+		 the story so far
+		</div> 
+		)
+
+	}
+};const TextField = ({ textValue, title }) => {
 
 	let text;
 	if( textValue.typeof == "string" ){
 		text = textValue
 	}
 	else {
-		text = textValue
+		text = textValue[ getRandomInt( 0, textValue.length ) ]
 	}
 
 	return(
 		<div className='textFieldDiv'>
 			<h3>{ title }</h3>
 			<p>{ text }</p>
+		</div>
+	)
+};const TitleDiv = ({ text }) => {
+	
+	return(
+		<div className='titleDiv'>
+			<h3>{ text }</h3>
 		</div>
 	)
 };class Footer extends React.Component {
@@ -236,6 +268,7 @@ class PageContent extends React.Component {
       <div className='footer'>
         <button onClick={ this.props.goNext }>next</button>
         <button onClick={ this.props.logState }>Log</button>
+        <button onClick={ this.props.pauseState }> Pause</button>
       </div>
     )
   }
@@ -245,8 +278,7 @@ class PageContent extends React.Component {
 
   constructor( props ){
     super( props )
-
-  }
+    }
 
   render() {
 
@@ -262,6 +294,13 @@ class PageContent extends React.Component {
           valueReceived={ value => this.props.editCompanyState( "companyDescription", value ) }
           size='large'>
            <Description title='Description ( Optional )'/>
+        </InputBlock>
+
+        <TextField title='First Game' textValue={ secondGameDescription }/>
+
+        <InputBlock 
+          valueReceived={ value => this.props.editCompanyState( "gameName1", value ) }>
+           <Description title='Game Name' />
         </InputBlock>
 
         <DropdownBlock 
@@ -293,8 +332,34 @@ class PageContent extends React.Component {
 
     return(
       <div className='module'>
-        Year2
-        <TextField title='Focus' textValue='hey hey'/>
+
+        <Story year='2'>
+
+        <InputBlock 
+          valueReceived={ value => this.props.editCompanyState( "sentMoneyYear2", value ) }
+          size='large'>
+           <Description 
+              title='Where to spend the money'
+              description={ descriptionSpentMoney } />
+        </InputBlock>
+
+        <TextField title='Focus' textValue={ focusDescription }/>
+
+        <TextField title='Second Game' textValue={ secondGameDescription }/>
+
+        <InputBlock 
+          valueReceived={ value => this.props.editCompanyState( "gameTitle2", value ) }>
+           <Description 
+              title='Game Title'/>
+        </InputBlock>
+
+        <InputBlock 
+          valueReceived={ value => this.props.editCompanyState( "gameDescription2", value ) }
+          size='large'>
+           <Description 
+              title='Game genre, style, mechanics'/>
+        </InputBlock>
+
       </div>
     )
 
@@ -341,7 +406,17 @@ class PageContent extends React.Component {
  Maecenas mauris dolor, lobortis id ipsum vitae, dapibus tincidunt est. Pellentesque mattis
  pretium nisi, sed rutrum lectus faucibus a. Morbi pretium mi tortor. Fusce ac vestibulum diam,
  tempus gravida metus. Pellentesque dictum purus ut lectus tempor fermentum. `
-;const genres = [
+
+var descriptionSpentMoney = `Making the right decision on the right time is everything. Check what went bad on your recap of the last 2 years
+and focus on that. Choose wisely when thinking where to spent the company money. Investing on growing your team is always a good move.
+ Check what if you need a new department, like UX/UI Design, new artists, SFX, more developers, someone to promote your game
+ and take care of marketing.`
+
+ var secondGameDescription = `Now is a good time to start think in releasing a new game. Do you think your first game went well? If yes, should you go for a 
+ second instalment? Or maybe if you wanna change thinks a bit or your last game didnt went so well, you can try a new genre or a new story or a new platform.
+ If you wanna go for something different, just try the random roll.`
+
+ var focusDescription = ['option1', 'option2', 'option3'];const genres = [
   'Platform games',
   'Shooter games',
   'Fighting games',
@@ -382,6 +457,7 @@ const platforms = [
   'PC',
   'Nintendo Switch',
   'PS4',
+  'VR',
   'Mobile',
   'Xbox One',
   'NES ( Going full retro )',
@@ -397,6 +473,7 @@ const platforms = [
 
     this.state = {
       year: props.year,
+      isTimerPaused: false,
     }
 
     this.startTime = this.startTime.bind( this )
@@ -414,9 +491,11 @@ const platforms = [
 
         setTimeout( () => {
 
+          if( this.state.isTimerPaused == false ){
             this.actualTimer++;
-            this.startTime();
             this.doTheMath()
+          }
+           this.startTime();
 
         }, 1000);
 
@@ -446,7 +525,8 @@ const platforms = [
 
   static getDerivedStateFromProps( props, state ) {
     return {
-      year: props.year
+      year: props.year,
+      isTimerPaused: props.isTimerPaused,
     }
   }
 
@@ -507,7 +587,11 @@ function giveMinutesSecondsAndHours( seconds ){
     return hours.toString().padStart(2, '0') + ':' + 
         minutes.toString().padStart(2, '0') + ':' + 
         seconds.toString().padStart(2, '0');
+}
 
+
+function getRandomInt( min = 1, max ){
+    return Math.floor(Math.random() * (max - min + 1) + min);
 };ReactDOM.render(
   <PageContent/>,
   document.getElementById('content')

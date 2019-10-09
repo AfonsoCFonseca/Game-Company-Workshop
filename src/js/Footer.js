@@ -11,6 +11,7 @@ class Footer extends React.Component {
       <div className='footer'>
         <button onClick={ this.props.goNext }>next</button>
         <button onClick={ this.props.logState }>Log</button>
+        <button onClick={ this.props.pauseState }> Pause</button>
       </div>
     )
   }

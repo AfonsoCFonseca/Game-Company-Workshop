@@ -5,7 +5,7 @@ const TextField = ({ textValue, title }) => {
 		text = textValue
 	}
 	else {
-		text = textValue
+		text = textValue[ getRandomInt( 0, textValue.length ) ]
 	}
 
 	return(

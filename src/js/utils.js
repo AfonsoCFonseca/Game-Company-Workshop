@@ -17,5 +17,9 @@ function giveMinutesSecondsAndHours( seconds ){
     return hours.toString().padStart(2, '0') + ':' + 
         minutes.toString().padStart(2, '0') + ':' + 
         seconds.toString().padStart(2, '0');
+}
 
+
+function getRandomInt( min = 1, max ){
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
