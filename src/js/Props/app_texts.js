@@ -13,3 +13,17 @@ and focus on that. Choose wisely when thinking where to spent the company money.
  If you wanna go for something different, just try the random roll.`
 
  var focusDescription = ['option1', 'option2', 'option3']
+
+
+ var createStory = function( state ){
+
+ 	return({
+ 		title: '2 Years have passed',
+ 		description: getDescriptionStory()
+ 	})
+
+ }
+
+ function getDescriptionStory( ){
+ 	return 'description descriptionde scriptiondesc riptiondescription descriptiondescription description'
+ }

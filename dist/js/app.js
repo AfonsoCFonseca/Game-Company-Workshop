@@ -7,6 +7,7 @@ class PageContent extends React.Component {
       year: 0,
       goingDev: true,
       isPaused: false,
+      moduleShow: false,
       company: {
         name: '',
         income: 0,
@@ -14,7 +15,8 @@ class PageContent extends React.Component {
       }
     }
 
-    this.goNext = this.goNext.bind( this )
+    this.prepareNextYear = this.prepareNextYear.bind( this )
+    this.changeYear = this.changeYear.bind( this )
     this.editCompanyState = this.editCompanyState.bind( this )
     this._handleKeyDown = this._handleKeyDown.bind( this )
     this.stopTime = this.stopTime.bind( this )
@@ -53,13 +55,26 @@ class PageContent extends React.Component {
 
 
 
-  goNext(){
+  prepareNextYear(){
     let year = this.state.year
 
     this.setState({
-      year: ( year < 6 ? this.state.year + 2 : 6 )
+      moduleShow: true,
+      isPaused: true,
     })
   }
+
+  changeYear(){
+    let year = this.state.year
+
+    this.setState({
+      year: ( year < 6 ? this.state.year + 2 : 6 ),
+      isPaused: false,
+      moduleShow: false,
+    })
+
+  }
+  
 
   stopTime(){
     console.log("||PAUSED||")
@@ -75,6 +90,20 @@ class PageContent extends React.Component {
     company[ name ] = value
 
     this.setState({ company })
+  }
+
+  renderStoryModal( ){
+
+    var { title, description } = createStory( this.state )
+    return ( 
+      React.createElement(Modal, {
+        numberButtons: "2", 
+        title: title, 
+        description: description}, 
+        React.createElement("button", {onClick:  this.changeYear}, "Confirm")
+      )
+    )
+
   }
 
   renderModule(){
@@ -93,7 +122,7 @@ class PageContent extends React.Component {
         return React.createElement(Module_6Year, {editCompanyState:  this.editCompanyState})
         break;
       default:
-      console.log( "retornou null" )
+        console.log( "retornou null" )
         return null;
 
     }
@@ -106,16 +135,19 @@ class PageContent extends React.Component {
       React.createElement(React.Fragment, null, 
         React.createElement(Timer, {
           year:  this.state.year, 
-          nextYear:  this.goNext, 
+          nextYear:  this.prepareNextYear, 
           isTimerPaused:  this.state.isPaused}
         ), 
+
+         this.state.moduleShow ? this.renderStoryModal() : null, 
+
         React.createElement("div", {className: "structure"}, 
           this.renderModule()
         ), 
         
          this.state.goingDev ? 
           React.createElement(Footer, {
-            goNext:  this.goNext, 
+            goNext:  this.prepareNextYear, 
             logState:  () => console.log( this.state ), 
             pauseState:  this.stopTime}
           ) :
@@ -221,7 +253,43 @@ class PageContent extends React.Component {
   }
 
 }
-;const TextField = ({ textValue, title }) => {
+;class Modal extends React.Component {
+	
+	constructor( props ){
+		super( props )
+
+		this.state = {
+			numberButtons: props.numberButtons || 1 
+		}
+
+		this.innerStyle={
+			width: this.props.width || '450px',
+			height: this.props.height || '350px',
+		}
+
+	}
+
+	render(){
+
+		return(
+			React.createElement("div", {className: "modal"}, 
+				React.createElement("div", {className: "modalInner", style:  this.innerStyle}, 
+					React.createElement("div", {className: "header"}, 
+						React.createElement("h3", {className: "titleModal"}, " ",  this.props.title, " ")
+					), 
+					React.createElement("div", {className: "body"}, 
+						React.createElement("p", {className: "descriptionModal"}, " ",  this.props.description, " ")
+					), 
+					React.createElement("div", {className: "footer center"}, 
+						this.props.children
+					)
+				)
+			)
+		)
+
+	}
+
+};const TextField = ({ textValue, title }) => {
 
 	let text;
 	if( textValue.typeof == "string" ){
@@ -403,7 +471,21 @@ and focus on that. Choose wisely when thinking where to spent the company money.
  second instalment? Or maybe if you wanna change thinks a bit or your last game didnt went so well, you can try a new genre or a new story or a new platform.
  If you wanna go for something different, just try the random roll.`
 
- var focusDescription = ['option1', 'option2', 'option3'];const genres = [
+ var focusDescription = ['option1', 'option2', 'option3']
+
+
+ var createStory = function( state ){
+
+ 	return({
+ 		title: '2 Years have passed',
+ 		description: getDescriptionStory()
+ 	})
+
+ }
+
+ function getDescriptionStory( ){
+ 	return 'description descriptionde scriptiondesc riptiondescription descriptiondescription description'
+ };const genres = [
   'Platform games',
   'Shooter games',
   'Fighting games',

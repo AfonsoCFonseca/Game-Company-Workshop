@@ -9,8 +9,6 @@ class Module_2Year extends React.Component {
     return(
       <div className='module'>
 
-        <Story year='2'>
-
         <InputBlock 
           valueReceived={ value => this.props.editCompanyState( "sentMoneyYear2", value ) }
           size='large'>

@@ -7,6 +7,7 @@ class PageContent extends React.Component {
       year: 0,
       goingDev: true,
       isPaused: false,
+      moduleShow: false,
       company: {
         name: '',
         income: 0,
@@ -14,7 +15,8 @@ class PageContent extends React.Component {
       }
     }
 
-    this.goNext = this.goNext.bind( this )
+    this.prepareNextYear = this.prepareNextYear.bind( this )
+    this.changeYear = this.changeYear.bind( this )
     this.editCompanyState = this.editCompanyState.bind( this )
     this._handleKeyDown = this._handleKeyDown.bind( this )
     this.stopTime = this.stopTime.bind( this )
@@ -53,13 +55,26 @@ class PageContent extends React.Component {
 
 
 
-  goNext(){
+  prepareNextYear(){
     let year = this.state.year
 
     this.setState({
-      year: ( year < 6 ? this.state.year + 2 : 6 )
+      moduleShow: true,
+      isPaused: true,
     })
   }
+
+  changeYear(){
+    let year = this.state.year
+
+    this.setState({
+      year: ( year < 6 ? this.state.year + 2 : 6 ),
+      isPaused: false,
+      moduleShow: false,
+    })
+
+  }
+  
 
   stopTime(){
     console.log("||PAUSED||")
@@ -75,6 +90,20 @@ class PageContent extends React.Component {
     company[ name ] = value
 
     this.setState({ company })
+  }
+
+  renderStoryModal( ){
+
+    var { title, description } = createStory( this.state )
+    return ( 
+      <Modal 
+        numberButtons='2'
+        title={title}
+        description={description}>
+        <button onClick={ this.changeYear }>Confirm</button>
+      </Modal>
+    )
+
   }
 
   renderModule(){
@@ -93,7 +122,7 @@ class PageContent extends React.Component {
         return <Module_6Year editCompanyState={ this.editCompanyState }/>
         break;
       default:
-      console.log( "retornou null" )
+        console.log( "retornou null" )
         return null;
 
     }
@@ -106,16 +135,19 @@ class PageContent extends React.Component {
       <React.Fragment>
         <Timer 
           year={ this.state.year }
-          nextYear={ this.goNext }
+          nextYear={ this.prepareNextYear }
           isTimerPaused={ this.state.isPaused }
         />
+
+        { this.state.moduleShow ? this.renderStoryModal() : null }
+
         <div className='structure'>
           {this.renderModule()}
         </div>
         {
          this.state.goingDev ? 
           <Footer
-            goNext={ this.goNext }
+            goNext={ this.prepareNextYear }
             logState={ () => console.log( this.state ) }
             pauseState= { this.stopTime }
           /> :
