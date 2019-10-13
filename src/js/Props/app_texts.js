@@ -17,6 +17,10 @@ and focus on that. Choose wisely when thinking where to spent the company money.
 
  var focusDescription = ['option1', 'option2', 'option3']
 
+ var team0YearDescription = `Pick one of the options below for starting your team. Dont forget that what you choose will reflect on your games
+ If you go for a designer and a developer, your game will have a great UX/UI design and some unique style but i'll have a few bugs.
+ If you go for two developers, you'll choose a bug free game but it will lack the design and an unique touch`
+
 
  var createStory = function( state ){
 

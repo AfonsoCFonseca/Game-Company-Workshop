@@ -45,3 +45,8 @@ const platforms = [
   'NES ( Going full retro )',
   'Nintendo DS / 3DS'
 ]
+
+const teamArrayYear0 = [
+  '1 Developer, 1 Artist',
+  '2 Developers'
+]

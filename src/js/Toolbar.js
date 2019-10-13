@@ -20,7 +20,7 @@ class Toolbar extends React.Component {
 			companyName: props.name,
 			team: props.team,
 	    }
-	  }
+	}
 
 	render(){
 		return(

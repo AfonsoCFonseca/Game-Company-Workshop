@@ -1,7 +1,6 @@
 const TextField = ({ textValue, title }) => {
 
 	let text;
-	console.log( textValue.typeof )
 	if( typeof textValue === "string" ){
 		text = textValue
 	}

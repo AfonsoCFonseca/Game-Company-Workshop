@@ -188,7 +188,7 @@ class PageContent extends React.Component {
     return ( this.props.description == null ? React.createElement("p", null, this.props.title) : 
       React.createElement("div", {className: "inputDescriptionDiv"}, 
         React.createElement("p", {className: "withDescriptionTitle"}, this.props.title), 
-        React.createElement("i", {class: "fa fa-info-circle", "aria-hidden": "true", onClick:  this.expandDiv}), 
+        React.createElement("i", {className: "fa fa-info-circle", "aria-hidden": "true", onClick:  this.expandDiv}), 
         React.createElement("div", {className: "descriptionInnerChild", style: {display: this.state.showDescription ? 'block' : 'none'}}, 
           React.createElement("p", null, this.props.description)
         )
@@ -294,10 +294,63 @@ class PageContent extends React.Component {
 
 	}
 
+};class RadioButtonBlock extends React.Component {
+	
+	constructor( props ){
+		super( props )
+
+		this.state = {
+			selectedOption: null,
+		}
+
+		this.handleOptionChange = this.handleOptionChange.bind( this )
+	}
+
+
+	handleOptionChange(changeEvent) {
+
+		this.setState({
+			selectedOption: changeEvent.target.value
+		});
+		this.props.valueReceived( changeEvent.target.value )
+	}
+
+	renderOptions(){
+
+		var options = this.props.valuesSent.map( option => {
+
+			return(
+				React.createElement("div", {key:  `radio ${ option }`, className: "radio"}, 
+			      React.createElement("label", null, 
+			        React.createElement("input", {type: "radio", value:  option, 
+	                  checked:  this.state.selectedOption === option, 
+	                  onChange:  this.handleOptionChange}), 
+			         option 
+			      )
+			    )
+			)
+
+		})
+
+		return( 
+			React.createElement("div", {className: "radioButtonDiv"}, 
+			 	 options 
+			) 
+		)
+
+	}
+
+	render(){
+		return(
+		React.createElement("div", {className: "inputDiv"}, 	
+			 this.props.children, 
+			 this.renderOptions() 
+		)
+		)
+	}
 };const TextField = ({ textValue, title }) => {
 
 	let text;
-	console.log( textValue.typeof )
 	if( typeof textValue === "string" ){
 		text = textValue
 	}
@@ -311,13 +364,6 @@ class PageContent extends React.Component {
 			React.createElement("div", {className: "textFieldDiv"}, 
 				React.createElement("p", null,  text )
 			)
-		)
-	)
-};const TitleDiv = ({ text }) => {
-	
-	return(
-		React.createElement("div", {className: "titleDiv"}, 
-			React.createElement("h3", null,  text )
 		)
 	)
 };class Footer extends React.Component {
@@ -343,7 +389,26 @@ class PageContent extends React.Component {
 
   constructor( props ){
     super( props )
+
+    this.takeInputValueFromRadioButton = this.takeInputValueFromRadioButton.bind( this )
+  }
+
+
+  takeInputValueFromRadioButton( value ){
+
+    if( value.indexOf( 'Developers' ) !== -1 ){
+      this.props.editCompanyState( "team", {
+        'developers': 2,
+      })
     }
+    else{
+      this.props.editCompanyState( "team", {
+        'developers': 1,
+        'designers': 1,
+      })
+    }
+    
+  }
 
   render() {
 
@@ -357,10 +422,17 @@ class PageContent extends React.Component {
           valueReceived:  value => this.props.editCompanyState( "name", value )}, 
            React.createElement(Description, {title: "Company Name"})
         ), 
+
         React.createElement(InputBlock, {
           valueReceived:  value => this.props.editCompanyState( "companyDescription", value ), 
           size: "large"}, 
            React.createElement(Description, {title: "Description ( Optional )"})
+        ), 
+
+        React.createElement(RadioButtonBlock, {
+            valuesSent:  teamArrayYear0, 
+            valueReceived:  this.takeInputValueFromRadioButton}, 
+           React.createElement(Description, {title: "Team", description:  team0YearDescription })
         ), 
 
         React.createElement(TextField, {title: "First Game", textValue:  secondGameDescription }), 
@@ -486,6 +558,10 @@ and focus on that. Choose wisely when thinking where to spent the company money.
 
  var focusDescription = ['option1', 'option2', 'option3']
 
+ var team0YearDescription = `Pick one of the options below for starting your team. Dont forget that what you choose will reflect on your games
+ If you go for a designer and a developer, your game will have a great UX/UI design and some unique style but i'll have a few bugs.
+ If you go for two developers, you'll choose a bug free game but it will lack the design and an unique touch`
+
 
  var createStory = function( state ){
 
@@ -545,7 +621,11 @@ const platforms = [
   'NES ( Going full retro )',
   'Nintendo DS / 3DS'
 ]
-;class Timer extends React.Component {
+
+const teamArrayYear0 = [
+  '1 Developer, 1 Artist',
+  '2 Developers'
+];class Timer extends React.Component {
 //1800000 30 minutos
   constructor( props ){
     super( props )
@@ -672,7 +752,7 @@ const platforms = [
 			companyName: props.name,
 			team: props.team,
 	    }
-	  }
+	}
 
 	render(){
 		return(

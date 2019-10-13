@@ -51,6 +51,7 @@
   align-items: right;
 }
 .modal > .modalInner > .footer > button {
+  cursor: pointer;
   background-color: #d0ecd2;
   border-radius: 8px;
   border: 0;
@@ -58,6 +59,10 @@
   height: 30px;
   margin-left: 5px;
   margin-right: 5px;
+}
+.modal > .modalInner > .footer > button:hover {
+  background-color: #409c58;
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=modalstyles.css.map */

@@ -76,6 +76,16 @@
   width: 100%;
   resize: none;
 }
+> .structure > .module > .inputDiv > .radioButtonDiv {
+  width: 100%;
+  height: auto;
+}
+> .structure > .module > .inputDiv > .radioButtonDiv > .radio {
+  margin: 5px;
+}
+> .structure > .module > .inputDiv > .radioButtonDiv > .radio > label > input {
+  margin-right: 10px;
+}
 > .structure > .module .textFieldDiv {
   width: 95%;
 }

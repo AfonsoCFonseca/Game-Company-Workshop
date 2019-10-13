@@ -103,6 +103,19 @@ $optionalGreen: #d0ecd2;
         resize: none;
       }
 
+
+      >.radioButtonDiv{
+        width: 100%;
+        height: auto;
+        >.radio {
+          margin: 5px;
+          >label>input {
+              margin-right: 10px;
+          }
+        }
+
+      }
+
     }
 
     .textFieldDiv {
@@ -130,10 +143,6 @@ $optionalGreen: #d0ecd2;
         }
       }
 
-    }
-
-    .titleDiv{
-      
     }
 
   }
