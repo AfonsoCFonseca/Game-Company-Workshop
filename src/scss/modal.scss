@@ -9,6 +9,10 @@
 $grey_light: #F2F2F2;
 $grey_dark: #BABABA;
 
+$backgroundGreen: #d0ecd2;
+$mainGreen: #409c58;
+$optionalGreen: #d0ecd2;
+
 .modal {
 	@extend %display_flexbox;
 	justify-content: center;
@@ -62,6 +66,9 @@ $grey_dark: #BABABA;
 			}
 
 			>button{
+				background-color: $backgroundGreen;
+				border-radius: 8px;
+				border: 0;
 				width: 120px;
 				height: 30px;
 				margin-left: 5px;

@@ -17,6 +17,10 @@ $grey_light: #F2F2F2;
 $grey_dark: #BABABA;
 $grey_darker: #595959;
 
+$backgroundGreen: #d0ecd2;
+$mainGreen: #d0ecd2;
+$optionalGreen: #d0ecd2;
+
 >.structure{
   @extend %display_flexbox;
   align-items: center;

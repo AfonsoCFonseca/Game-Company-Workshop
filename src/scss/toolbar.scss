@@ -4,12 +4,16 @@
   display: inline-flex;
 }
 
+$backgroundGreen: #d0ecd2;
+$mainGreen: #409c58;
+$optionalGreen: #d0ecd2;
+
 >.toolBar{
 	position: fixed;
 	width: 100%;
 	height: 30px;
 	background-color: white;
-	border-bottom: 2px solid green;
+	border-bottom: 2px solid $mainGreen;
 	@extend %display_inlineflex;
 
 	-webkit-box-shadow: 0px 10px 14px -4px rgba(105,105,105,0.5);

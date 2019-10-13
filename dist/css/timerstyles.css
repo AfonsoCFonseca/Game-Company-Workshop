@@ -23,8 +23,14 @@
   border-radius: 8px;
 }
 > .timer > .title {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #F2F2F2;
+  margin-top: 20px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 > .timer > .totalTimer {
   width: 40%;
@@ -39,7 +45,7 @@
   border-radius: 25px;
 }
 > .timer > .totalTimer > .twoYearsBatch.filled {
-  background-color: green;
+  background-color: #409c58;
 }
 > .timer > .counter {
   margin-top: 15px;
@@ -47,14 +53,14 @@
 > .timer > .imageCounter {
   height: 20px;
   width: 60%;
-  background-color: green;
+  background-color: #d0ecd2;
   border: 2px solid #BABABA;
   border-radius: 20px;
 }
 > .timer > .imageCounter > .imageInnerFiller {
   width: 0%;
   height: 100%;
-  background-color: yellow;
+  background-color: #409c58;
   border-radius: 20px;
 }
 
