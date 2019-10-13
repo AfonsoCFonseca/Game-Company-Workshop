@@ -12,7 +12,7 @@ class PageContent extends React.Component {
         name: '',
         income: 0,
         equity: 100,
-        team: 0,
+        team: null,
       }
     }
 

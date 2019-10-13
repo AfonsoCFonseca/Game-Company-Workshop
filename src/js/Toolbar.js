@@ -4,34 +4,36 @@ class Toolbar extends React.Component {
 		super( props )
 
 		this.state = {
-			equity: props.equity || 100,
-			income: props.income || 0,
-			games: props.games || 0,
-			companyName: props.name || "", 
-			team: props.team || "", 
+			equity: props.company.equity || 100,
+			income: props.company.income || 0,
+			games: props.company.games || 0,
+			companyName: props.company.name || "", 
+			team: props.company.team || "", 
 		}
 	}
 
 	static getDerivedStateFromProps( props, state ) {
+
 	    return {
-	      	equity: props.equity,
-			income: props.income,
-			games: props.games,
-			companyName: props.name,
-			team: props.team,
+	      	equity: props.company.equity,
+			income: props.company.income,
+			games: props.company.games,
+			companyName: props.company.name,
+			team: countTeam( props.company.team ),
 	    }
 	}
 
 	render(){
+
 		return(
 			<div className='toolBar'>
 				<div className='left'>
-					<p>{ this.state.companyName }</p>
-					<p>Team: { this.state.team }</p>
+					<p style={{marginLeft: '10px'}} > <b>{ this.state.companyName } </b></p>
 				</div>
 				<div className='right'>
-					<p>Income: { this.state.income }</p>
-					<p>Equity: { this.state.equity }</p>
+					<p>Income: <b>{ this.state.income }</b></p>
+					<p>Equity: <b>{ this.state.equity }%</b></p>
+					<p>Team: <b>{ this.state.team }</b></p>
 				</div>
 			</div>
 		)

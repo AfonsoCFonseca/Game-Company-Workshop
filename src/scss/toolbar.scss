@@ -22,10 +22,14 @@ $optionalGreen: #d0ecd2;
 
 	>.left {
 		@extend %display_inlineflex;
-		width: 50%;
+		width: 30%;
 		height: 100%;
 
 		>p {
+			>b{
+				margin-left: 5px;
+			}
+			width: 150px;
 			margin: 0;
 			@extend %display_inlineflex;
 			align-items: center;
@@ -34,10 +38,14 @@ $optionalGreen: #d0ecd2;
 
 	>.right {
 		@extend %display_inlineflex;
-		width: 50%;
+		width: 70%;
 		height: 100%;
 
 		>p {
+			>b{
+				margin-left: 5px;
+			}
+			width: 150px;
 			margin: 0;
 			@extend %display_inlineflex;
 			align-items: center;

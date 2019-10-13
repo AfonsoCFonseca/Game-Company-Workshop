@@ -23,3 +23,11 @@ function giveMinutesSecondsAndHours( seconds ){
 function getRandomInt( min = 1, max ){
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+function countTeam( teamObj ){
+    var contador = 0
+    for( var x in teamObj ){
+        contador += teamObj[x]
+    }
+    return contador
+}

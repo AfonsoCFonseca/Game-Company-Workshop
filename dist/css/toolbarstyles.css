@@ -15,20 +15,28 @@
   box-shadow: 0px 10px 14px -4px rgba(105, 105, 105, 0.5);
 }
 > .toolBar > .left {
-  width: 50%;
+  width: 30%;
   height: 100%;
 }
 > .toolBar > .left > p {
+  width: 150px;
   margin: 0;
   align-items: center;
 }
+> .toolBar > .left > p > b {
+  margin-left: 5px;
+}
 > .toolBar > .right {
-  width: 50%;
+  width: 70%;
   height: 100%;
 }
 > .toolBar > .right > p {
+  width: 150px;
   margin: 0;
   align-items: center;
+}
+> .toolBar > .right > p > b {
+  margin-left: 5px;
 }
 
 /*# sourceMappingURL=toolbarstyles.css.map */
