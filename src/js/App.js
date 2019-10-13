@@ -6,12 +6,13 @@ class PageContent extends React.Component {
     this.state = {
       year: 0,
       goingDev: true,
-      isPaused: false,
+      isPaused: true,
       moduleShow: false,
       company: {
         name: '',
         income: 0,
         equity: 100,
+        team: 0,
       }
     }
 
@@ -133,6 +134,10 @@ class PageContent extends React.Component {
   
     return(
       <React.Fragment>
+        <Toolbar 
+          company={ this.state.company } 
+        />
+
         <Timer 
           year={ this.state.year }
           nextYear={ this.prepareNextYear }

@@ -8,6 +8,13 @@ $grey_dark: #BABABA;
     display: flex;
 }
 
+%display_inlineflex{
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+
 >.timer{
   @extend %display_flexbox;
 
@@ -16,6 +23,7 @@ $grey_dark: #BABABA;
 
   width: 80%;
   height: 160px;
+  margin-top: 50px;
 
   background-color: white;
   border: 1px solid #F2F2F2;
@@ -32,7 +40,7 @@ $grey_dark: #BABABA;
     margin-top:2px;
 
     >.twoYearsBatch {
-      display: inline-flex;
+      @extend %display_inlineflex;
       width: 20%;
       height: 100%;
       margin-left: 4%;

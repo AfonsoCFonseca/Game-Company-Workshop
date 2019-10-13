@@ -6,8 +6,16 @@
     display: flex;
 }
 
+%display_inlineflex{
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+$grey_lighter: #fafafa;
 $grey_light: #F2F2F2;
 $grey_dark: #BABABA;
+$grey_darker: #595959;
 
 >.structure{
   @extend %display_flexbox;
@@ -35,19 +43,23 @@ $grey_dark: #BABABA;
 
       /** DESCRIPTION COMP **/
       >p{
+        font-size: 12px;
         font-weight: 800;
+        color: $grey_darker;
       }
 
       >.inputDescriptionDiv{
-        margin-bottom: 10px;
-        cursor: pointer;
         background-color: white;
-        border: 1px solid $grey_dark;
-        border-radius: 5px;
 
         >i {
+          cursor: pointer;
           color: $grey_dark;
           margin-left: 10px;
+        }
+
+        >.withDescriptionTitle {
+          @extend %display_inlineflex;
+          font-weight: 800;
         }
 
         >.descriptionInnerChild {
@@ -57,7 +69,10 @@ $grey_dark: #BABABA;
           >p {
             font-size: 11px;
             color: #333333;
-            padding: 8px;
+            margin: 0;
+            margin-bottom: 10px;
+            padding-left:10px;
+            padding-right:10px;
           }
         }
 
@@ -87,23 +102,34 @@ $grey_dark: #BABABA;
     }
 
     .textFieldDiv {
-    width: 95%;
+      width: 95%;
 
-      >p {
-        font-size: 11px;
-        color: #333333;
-        margin-left: 5px;
-        margin-right: 5px;
-      }
 
       >h3 {
         padding: 5px;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: center;
         border-bottom: 2px solid $grey_light;
       }
+
+      >.textFieldDiv{
+        width:100%;
+        background-color: $grey_lighter;
+
+        >p {
+          padding: 10px;
+          padding-left: 20px;
+          padding-right: 20px;
+          font-size: 11px;
+          color: #333333;
+        }
+      }
+
     }
 
     .titleDiv{
-    
+      
     }
 
   }

@@ -12,6 +12,9 @@ and focus on that. Choose wisely when thinking where to spent the company money.
  second instalment? Or maybe if you wanna change thinks a bit or your last game didnt went so well, you can try a new genre or a new story or a new platform.
  If you wanna go for something different, just try the random roll.`
 
+ var gameCompanyDescription = `To make great games, you need to start a company first. Your company is what gives soul to your games and your team.
+ For that start by establishing and vision and objectives.`
+
  var focusDescription = ['option1', 'option2', 'option3']
 
 

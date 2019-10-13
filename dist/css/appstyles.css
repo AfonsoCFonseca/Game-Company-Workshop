@@ -1,5 +1,6 @@
 body {
   background-color: #d0ecd2;
+  margin: 0;
 }
 body h1 {
   font-family: Verdana, Geneva, sans-serif;
@@ -63,11 +64,17 @@ body pre {
   display: -ms-flexbox;
   display: flex;
 }
+#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle, #content > .timer > .totalTimer > .twoYearsBatch {
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
 #content > .timer {
   align-items: center;
   flex-direction: column;
   width: 80%;
   height: 160px;
+  margin-top: 50px;
   background-color: white;
   border: 1px solid #F2F2F2;
   border-radius: 8px;
@@ -82,7 +89,6 @@ body pre {
   margin-top: 2px;
 }
 #content > .timer > .totalTimer > .twoYearsBatch {
-  display: inline-flex;
   width: 20%;
   height: 100%;
   margin-left: 4%;
@@ -115,6 +121,11 @@ body pre {
   display: -ms-flexbox;
   display: flex;
 }
+#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle, #content > .timer > .totalTimer > .twoYearsBatch {
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
 #content > .structure {
   align-items: center;
   background-color: white;
@@ -138,18 +149,20 @@ body pre {
   /** INPUT COMP **/
 }
 #content > .structure > .module > .inputDiv > p {
+  font-size: 12px;
   font-weight: 800;
+  color: #595959;
 }
 #content > .structure > .module > .inputDiv > .inputDescriptionDiv {
-  margin-bottom: 10px;
-  cursor: pointer;
   background-color: white;
-  border: 1px solid #BABABA;
-  border-radius: 5px;
 }
 #content > .structure > .module > .inputDiv > .inputDescriptionDiv > i {
+  cursor: pointer;
   color: #BABABA;
   margin-left: 10px;
+}
+#content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle {
+  font-weight: 800;
 }
 #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .descriptionInnerChild {
   width: 100%;
@@ -158,7 +171,10 @@ body pre {
 #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .descriptionInnerChild > p {
   font-size: 11px;
   color: #333333;
-  padding: 8px;
+  margin: 0;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 #content > .structure > .module > .inputDiv > .dropdownList {
   width: 100%;
@@ -177,15 +193,23 @@ body pre {
 #content > .structure > .module .textFieldDiv {
   width: 95%;
 }
-#content > .structure > .module .textFieldDiv > p {
-  font-size: 11px;
-  color: #333333;
-  margin-left: 5px;
-  margin-right: 5px;
-}
 #content > .structure > .module .textFieldDiv > h3 {
   padding: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
   border-bottom: 2px solid #F2F2F2;
+}
+#content > .structure > .module .textFieldDiv > .textFieldDiv {
+  width: 100%;
+  background-color: #fafafa;
+}
+#content > .structure > .module .textFieldDiv > .textFieldDiv > p {
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 11px;
+  color: #333333;
 }
 #content > .footer {
   position: fixed;
@@ -207,7 +231,7 @@ body pre {
 #content .modal {
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.75);
@@ -253,6 +277,37 @@ body pre {
   height: 30px;
   margin-left: 5px;
   margin-right: 5px;
+}
+#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .timer > .totalTimer > .twoYearsBatch, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle {
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+#content > .toolBar {
+  position: fixed;
+  width: 100%;
+  height: 30px;
+  background-color: white;
+  border-bottom: 2px solid green;
+  -webkit-box-shadow: 0px 10px 14px -4px rgba(105, 105, 105, 0.5);
+  -moz-box-shadow: 0px 10px 14px -4px rgba(105, 105, 105, 0.5);
+  box-shadow: 0px 10px 14px -4px rgba(105, 105, 105, 0.5);
+}
+#content > .toolBar > .left {
+  width: 50%;
+  height: 100%;
+}
+#content > .toolBar > .left > p {
+  margin: 0;
+  align-items: center;
+}
+#content > .toolBar > .right {
+  width: 50%;
+  height: 100%;
+}
+#content > .toolBar > .right > p {
+  margin: 0;
+  align-items: center;
 }
 
 /*# sourceMappingURL=appstyles.css.map */

@@ -10,6 +10,8 @@ class Module_0Year extends React.Component {
 
       <div className='module'>
 
+        <TextField title='Company' textValue={ gameCompanyDescription }/>
+
         <InputBlock 
           valueReceived={ value => this.props.editCompanyState( "name", value ) }>
            <Description title='Company Name' />

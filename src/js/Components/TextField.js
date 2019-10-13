@@ -1,7 +1,8 @@
 const TextField = ({ textValue, title }) => {
 
 	let text;
-	if( textValue.typeof == "string" ){
+	console.log( textValue.typeof )
+	if( typeof textValue === "string" ){
 		text = textValue
 	}
 	else {
@@ -11,7 +12,9 @@ const TextField = ({ textValue, title }) => {
 	return(
 		<div className='textFieldDiv'>
 			<h3>{ title }</h3>
-			<p>{ text }</p>
+			<div className='textFieldDiv'>
+				<p>{ text }</p> 
+			</div>
 		</div>
 	)
 }

@@ -6,6 +6,12 @@
   display: flex;
 }
 
+> .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle {
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
 > .structure {
   align-items: center;
   background-color: white;
@@ -29,18 +35,20 @@
   /** INPUT COMP **/
 }
 > .structure > .module > .inputDiv > p {
+  font-size: 12px;
   font-weight: 800;
+  color: #595959;
 }
 > .structure > .module > .inputDiv > .inputDescriptionDiv {
-  margin-bottom: 10px;
-  cursor: pointer;
   background-color: white;
-  border: 1px solid #BABABA;
-  border-radius: 5px;
 }
 > .structure > .module > .inputDiv > .inputDescriptionDiv > i {
+  cursor: pointer;
   color: #BABABA;
   margin-left: 10px;
+}
+> .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle {
+  font-weight: 800;
 }
 > .structure > .module > .inputDiv > .inputDescriptionDiv > .descriptionInnerChild {
   width: 100%;
@@ -49,7 +57,10 @@
 > .structure > .module > .inputDiv > .inputDescriptionDiv > .descriptionInnerChild > p {
   font-size: 11px;
   color: #333333;
-  padding: 8px;
+  margin: 0;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 > .structure > .module > .inputDiv > .dropdownList {
   width: 100%;
@@ -68,15 +79,23 @@
 > .structure > .module .textFieldDiv {
   width: 95%;
 }
-> .structure > .module .textFieldDiv > p {
-  font-size: 11px;
-  color: #333333;
-  margin-left: 5px;
-  margin-right: 5px;
-}
 > .structure > .module .textFieldDiv > h3 {
   padding: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
   border-bottom: 2px solid #F2F2F2;
+}
+> .structure > .module .textFieldDiv > .textFieldDiv {
+  width: 100%;
+  background-color: #fafafa;
+}
+> .structure > .module .textFieldDiv > .textFieldDiv > p {
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 11px;
+  color: #333333;
 }
 
 /*# sourceMappingURL=structurestyles.css.map */

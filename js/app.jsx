@@ -6,12 +6,13 @@ class PageContent extends React.Component {
     this.state = {
       year: 0,
       goingDev: true,
-      isPaused: false,
+      isPaused: true,
       moduleShow: false,
       company: {
         name: '',
         income: 0,
         equity: 100,
+        team: 0,
       }
     }
 
@@ -133,6 +134,10 @@ class PageContent extends React.Component {
   
     return(
       <React.Fragment>
+        <Toolbar 
+          company={ this.state.company } 
+        />
+
         <Timer 
           year={ this.state.year }
           nextYear={ this.prepareNextYear }
@@ -180,9 +185,10 @@ class PageContent extends React.Component {
   }
 
   renderDescriptionDiv(){
-    return ( this.props.description == null ? null : 
-      <div className="inputDescriptionDiv" onClick={ this.expandDiv }>
-        <i className="fa fa-chevron-down" aria-hidden="true"></i>
+    return ( this.props.description == null ? <p>{this.props.title}</p> : 
+      <div className="inputDescriptionDiv">
+        <p className='withDescriptionTitle'>{this.props.title}</p>
+        <i class="fa fa-info-circle" aria-hidden="true" onClick={ this.expandDiv }></i>
         <div className="descriptionInnerChild" style={{display: this.state.showDescription ? 'block' : 'none' }}>
           <p>{this.props.description}</p>
         </div>
@@ -194,7 +200,6 @@ class PageContent extends React.Component {
 
     return(
       <React.Fragment>
-        <p>{this.props.title}</p>
         { this.renderDescriptionDiv() }
       </React.Fragment>
     )
@@ -246,8 +251,8 @@ class PageContent extends React.Component {
       <div className='inputDiv'>
         {this.props.children}
         { this.props.size == null ? 
-                  <input onChange={ e => this.props.valueReceived( e.target.value ) } /> :
-                  <textarea onChange={ e => this.props.valueReceived( e.target.value ) } /> }
+            <input onChange={ e => this.props.valueReceived( e.target.value ) } /> :
+            <textarea onChange={ e => this.props.valueReceived( e.target.value ) } /> }
       </div>
     )
   }
@@ -292,7 +297,8 @@ class PageContent extends React.Component {
 };const TextField = ({ textValue, title }) => {
 
 	let text;
-	if( textValue.typeof == "string" ){
+	console.log( textValue.typeof )
+	if( typeof textValue === "string" ){
 		text = textValue
 	}
 	else {
@@ -302,7 +308,9 @@ class PageContent extends React.Component {
 	return(
 		<div className='textFieldDiv'>
 			<h3>{ title }</h3>
-			<p>{ text }</p>
+			<div className='textFieldDiv'>
+				<p>{ text }</p> 
+			</div>
 		</div>
 	)
 };const TitleDiv = ({ text }) => {
@@ -342,6 +350,8 @@ class PageContent extends React.Component {
     return(
 
       <div className='module'>
+
+        <TextField title='Company' textValue={ gameCompanyDescription }/>
 
         <InputBlock 
           valueReceived={ value => this.props.editCompanyState( "name", value ) }>
@@ -470,6 +480,9 @@ and focus on that. Choose wisely when thinking where to spent the company money.
  var secondGameDescription = `Now is a good time to start think in releasing a new game. Do you think your first game went well? If yes, should you go for a 
  second instalment? Or maybe if you wanna change thinks a bit or your last game didnt went so well, you can try a new genre or a new story or a new platform.
  If you wanna go for something different, just try the random roll.`
+
+ var gameCompanyDescription = `To make great games, you need to start a company first. Your company is what gives soul to your games and your team.
+ For that start by establishing and vision and objectives.`
 
  var focusDescription = ['option1', 'option2', 'option3']
 
@@ -637,7 +650,45 @@ const platforms = [
   }
 
 }
-;function giveMinutesAndSeconds( seconds ){
+;class Toolbar extends React.Component {
+	
+	constructor( props ){
+		super( props )
+
+		this.state = {
+			equity: props.equity || 100,
+			income: props.income || 0,
+			games: props.games || 0,
+			companyName: props.name || "", 
+			team: props.team || "", 
+		}
+	}
+
+	static getDerivedStateFromProps( props, state ) {
+	    return {
+	      	equity: props.equity,
+			income: props.income,
+			games: props.games,
+			companyName: props.name,
+			team: props.team,
+	    }
+	  }
+
+	render(){
+		return(
+			<div className='toolBar'>
+				<div className='left'>
+					<p>{ this.state.companyName }</p>
+					<p>Team: { this.state.team }</p>
+				</div>
+				<div className='right'>
+					<p>Income: { this.state.income }</p>
+					<p>Equity: { this.state.equity }</p>
+				</div>
+			</div>
+		)
+	}
+};function giveMinutesAndSeconds( seconds ){
     var dateObj = new Date( seconds * 1000);
     var hours = dateObj.getUTCHours();
     var minutes = dateObj.getUTCMinutes();
