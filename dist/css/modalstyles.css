@@ -35,9 +35,15 @@
 }
 .modal > .modalInner > .body > .descriptionModal {
   margin: 0;
-  padding: 15px;
+  padding: 25px;
   font-size: 12px;
   color: #333333;
+}
+.modal > .modalInner > .body > .descriptionModal-type2 {
+  margin: 0;
+  text-align: center;
+  font-size: 11px;
+  color: #595959;
 }
 .modal > .modalInner > .footer {
   height: 15%;
@@ -59,10 +65,10 @@
   height: 30px;
   margin-left: 5px;
   margin-right: 5px;
+  margin-bottom: 15px;
 }
 .modal > .modalInner > .footer > button:hover {
   background-color: #409c58;
-  font-weight: bold;
 }
 
 /*# sourceMappingURL=modalstyles.css.map */

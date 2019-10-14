@@ -10,7 +10,7 @@ class PageContent extends React.Component {
       moduleShow: false,
       company: {
         name: '',
-        income: 0,
+        income: getRandomInt( 2000, 2500 ),
         equity: 100,
         team: null,
       }
@@ -21,6 +21,7 @@ class PageContent extends React.Component {
     this.editCompanyState = this.editCompanyState.bind( this )
     this._handleKeyDown = this._handleKeyDown.bind( this )
     this.stopTime = this.stopTime.bind( this )
+    this.updateCompanyNumberValues = this.updateCompanyNumberValues.bind( this )
   }
 
   componentDidMount(){
@@ -66,6 +67,7 @@ class PageContent extends React.Component {
   }
 
   changeYear(){
+
     let year = this.state.year
 
     this.setState({
@@ -75,11 +77,16 @@ class PageContent extends React.Component {
     })
 
   }
-  
 
   stopTime(){
     console.log("||PAUSED||")
     this.setState({isPaused: !this.state.isPaused})
+  }
+
+  updateCompanyNumberValues( name, value ){
+    var newValue = this.state.company[name] + value
+
+    this.editCompanyState( name, newValue )
   }
 
   editCompanyState( name, value ){
@@ -95,13 +102,16 @@ class PageContent extends React.Component {
 
   renderStoryModal( ){
 
-    var { title, description } = createStory( this.state )
+    var { title, description, buttons } = createStory( this.state, this )
+    if( !buttons ) buttons = React.createElement("button", {onClick:  this.changeYear}, "Confirm")
+
     return ( 
       React.createElement(Modal, {
         numberButtons: "2", 
         title: title, 
         description: description}, 
         React.createElement("button", {onClick:  this.changeYear}, "Confirm")
+
       )
     )
 
@@ -263,16 +273,13 @@ class PageContent extends React.Component {
 	constructor( props ){
 		super( props )
 
-		this.state = {
-			numberButtons: props.numberButtons || 1 
-		}
-
 		this.innerStyle={
 			width: this.props.width || '450px',
-			height: this.props.height || '350px',
+			height: this.props.height || 'auto',
 		}
 
 	}
+
 
 	render(){
 
@@ -282,8 +289,8 @@ class PageContent extends React.Component {
 					React.createElement("div", {className: "header"}, 
 						React.createElement("h3", {className: "titleModal"}, " ",  this.props.title, " ")
 					), 
-					React.createElement("div", {className: "body"}, 
-						React.createElement("p", {className: "descriptionModal"}, " ",  this.props.description, " ")
+					React.createElement("div", {className: "body", dangerouslySetInnerHTML: {__html: this.props.description}}
+						
 					), 
 					React.createElement("div", {className: "footer center"}, 
 						this.props.children
@@ -545,16 +552,16 @@ class PageContent extends React.Component {
  tempus gravida metus. Pellentesque dictum purus ut lectus tempor fermentum. `
 
 var descriptionSpentMoney = `Making the right decision on the right time is everything. Check what went bad on your recap of the last 2 years
-and focus on that. Choose wisely when thinking where to spent the company money. Investing on growing your team is always a good move.
+and focus on that. Choose wisely when thinking where to spend the company money. Investing in growing your team is always a good move.
  Check what if you need a new department, like UX/UI Design, new artists, SFX, more developers, someone to promote your game
  and take care of marketing.`
 
- var secondGameDescription = `Now is a good time to start think in releasing a new game. Do you think your first game went well? If yes, should you go for a 
- second instalment? Or maybe if you wanna change thinks a bit or your last game didnt went so well, you can try a new genre or a new story or a new platform.
- If you wanna go for something different, just try the random roll.`
+ var secondGameDescription = `Now is a good time to start to think in releasing a new game. Do you think your first game went well? If yes, you should go for a 
+ second instalment? Or maybe if you want to change thinks a bit or your last game didnt went so well, you can try a new genre, a new story or a new platform.
+ If you wanna go for something different, just try the random roll. ( click on the icon )`
 
  var gameCompanyDescription = `To make great games, you need to start a company first. Your company is what gives soul to your games and your team.
- For that start by establishing and vision and objectives.`
+ For that, start by establishing and vision and objectives.`
 
  var focusDescription = ['option1', 'option2', 'option3']
 
@@ -563,7 +570,26 @@ and focus on that. Choose wisely when thinking where to spent the company money.
  If you go for two developers, you'll choose a bug free game but it will lack the design and an unique touch`
 
 
- var createStory = function( state ){
+ var createStory = function( state, parentComponent ){
+
+ 	var { team, income, equity } = state.company
+
+ 	switch( state.year ){
+ 		case 0: 
+ 			return year0Story( income, equity,team, parentComponent ) 
+
+		case 2: 
+ 			return year2Story( income, equity,team, parentComponent ) 
+
+		case 4: 
+ 			return year4Story( income, equity,team, parentComponent ) 
+
+		case 6: 
+ 			return year6Story( income, equity,team, parentComponent ) 
+
+		default: 
+			console.log( "failed loading the years")
+ 	}
 
  	return({
  		title: '2 Years have passed',
@@ -572,9 +598,134 @@ and focus on that. Choose wisely when thinking where to spent the company money.
 
  }
 
- function getDescriptionStory( ){
- 	return 'description descriptionde scriptiondesc riptiondescription descriptiondescription description'
- };const genres = [
+///////////////// YEAR 0 /////////////////
+
+ var year0Story = function( income, equity,team, pC ){
+
+	var title = ""
+	var text = ""
+
+	var teamSalary = getSalaryForTeam( team, 0 )
+
+	var buttons = React.createElement(React.Fragment, null, 
+		React.createElement("button", {
+			onClick:   () => { 
+					 pC.updateCompanyNumberValues( "equity", -20 );
+					 pC.updateCompanyNumberValues( "income", 40000 );
+				}
+			}, "Accept the offer"), 
+		React.createElement("button", {
+			onClick:  () => { 
+					 pC.updateCompanyNumberValues( "equity", -30 );
+					 pC.updateCompanyNumberValues( "income", 30000 );
+				}
+			}, "Counter Proposal")
+	)
+
+	text = `<p class='descriptionModal'> Your company had a great start! You released your first game successfully and got your team really committed </p>
+	<p class='descriptionModal-type2'> The company spent around ${ teamSalary } $ with the team Salaries </p>
+	<p class='descriptionModal'>You caught the attention of some investors that are willing to negotiate with you.</br>
+	They want to give you 40k $ for 20% of your company. Do you accept it? ( Don t forget that a counter proposal it s always an option. You can get
+	a better evaluation of the company or the investors can turn their back on the deal ) </br>
+	</br>
+	What would you do?  </p>`
+
+ 	return {
+ 		title: '2 Years have passed',
+ 		description: text,
+ 		buttons,
+ 	}
+
+ }
+
+
+
+
+ ///////////////// YEAR 2 /////////////////
+
+
+ var year2Story = function( income, equity, team, pC ){
+	console.log( income, equity,team )
+
+	var title = ""
+	var text = ""
+
+ 	return {
+ 		title: '2 Years have passed',
+ 		description: text
+ 	}
+
+ }
+
+
+
+  ///////////////// YEAR 4 /////////////////
+
+ 
+ var year4Story = function( income, equity, team, pC ){
+console.log( income, equity,team )
+
+	var title = ""
+	var text = ""
+
+ 	return {
+ 		title: '2 Years have passed',
+ 		description: text
+ 	}
+
+ }
+
+
+
+  ///////////////// YEAR 6 /////////////////
+
+ 
+ var year6Story = function( income, equity, team, pC ){
+console.log( income, equity,team )
+
+	var title = ""
+	var text = ""
+
+ 	return {
+ 		title: '2 Years have passed',
+ 		description: text
+ 	}
+
+ }
+
+
+
+
+
+
+
+   ///////////////// Others /////////////////
+
+function getSalaryForTeam ( team = null, year ){
+
+	var developers = 0
+	var designers = 0
+   	var totalSalary = 0
+
+	if( team ){
+		developers = team.developers || 0
+		designers = team.designers || 0 
+	}
+
+
+   	if( year == 0 ){
+
+   		var salaryDev = developers * 1000
+   		var salaryDesign = designers * 900
+
+   	}
+
+   	totalSalary = salaryDesign + salaryDev
+
+   	return totalSalary
+
+
+   } ;const genres = [
   'Platform games',
   'Shooter games',
   'Fighting games',
@@ -755,12 +906,18 @@ const teamArrayYear0 = [
 	    }
 	}
 
+	substringTheCompanyName( str ){
+		if( str.length > 16 )
+			return str.substring( 0, 16 ) + '...'
+		else return str
+	}
+
 	render(){
 
 		return(
 			React.createElement("div", {className: "toolBar"}, 
 				React.createElement("div", {className: "left"}, 
-					React.createElement("p", {style: {marginLeft: '10px'}}, " ", React.createElement("b", null,  this.state.companyName, " "))
+					React.createElement("p", {style: {marginLeft: '10px'}}, " ", React.createElement("b", null,  this.substringTheCompanyName( this.state.companyName), " "))
 				), 
 				React.createElement("div", {className: "right"}, 
 					React.createElement("p", null, "Income: ", React.createElement("b", null,  this.state.income)), 

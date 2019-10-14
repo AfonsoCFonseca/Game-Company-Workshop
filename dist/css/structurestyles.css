@@ -20,6 +20,7 @@
   height: auto;
   width: 70%;
   margin-top: 15px;
+  margin-bottom: 15px;
 }
 > .structure > .module {
   flex-direction: column;

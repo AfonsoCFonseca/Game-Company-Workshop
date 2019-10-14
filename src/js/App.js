@@ -10,7 +10,7 @@ class PageContent extends React.Component {
       moduleShow: false,
       company: {
         name: '',
-        income: 0,
+        income: getRandomInt( 2000, 2500 ),
         equity: 100,
         team: null,
       }
@@ -21,6 +21,7 @@ class PageContent extends React.Component {
     this.editCompanyState = this.editCompanyState.bind( this )
     this._handleKeyDown = this._handleKeyDown.bind( this )
     this.stopTime = this.stopTime.bind( this )
+    this.updateCompanyNumberValues = this.updateCompanyNumberValues.bind( this )
   }
 
   componentDidMount(){
@@ -66,6 +67,7 @@ class PageContent extends React.Component {
   }
 
   changeYear(){
+
     let year = this.state.year
 
     this.setState({
@@ -75,11 +77,16 @@ class PageContent extends React.Component {
     })
 
   }
-  
 
   stopTime(){
     console.log("||PAUSED||")
     this.setState({isPaused: !this.state.isPaused})
+  }
+
+  updateCompanyNumberValues( name, value ){
+    var newValue = this.state.company[name] + value
+
+    this.editCompanyState( name, newValue )
   }
 
   editCompanyState( name, value ){
@@ -95,13 +102,16 @@ class PageContent extends React.Component {
 
   renderStoryModal( ){
 
-    var { title, description } = createStory( this.state )
+    var { title, description, buttons } = createStory( this.state, this )
+    if( !buttons ) buttons = <button onClick={ this.changeYear }>Confirm</button>
+
     return ( 
       <Modal 
         numberButtons='2'
         title={title}
         description={description}>
-        <button onClick={ this.changeYear }>Confirm</button>
+        {<button onClick={ this.changeYear }>Confirm</button>
+}
       </Modal>
     )
 

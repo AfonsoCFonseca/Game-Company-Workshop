@@ -23,12 +23,18 @@ class Toolbar extends React.Component {
 	    }
 	}
 
+	substringTheCompanyName( str ){
+		if( str.length > 16 )
+			return str.substring( 0, 16 ) + '...'
+		else return str
+	}
+
 	render(){
 
 		return(
 			<div className='toolBar'>
 				<div className='left'>
-					<p style={{marginLeft: '10px'}} > <b>{ this.state.companyName } </b></p>
+					<p style={{marginLeft: '10px'}} > <b>{ this.substringTheCompanyName( this.state.companyName ) } </b></p>
 				</div>
 				<div className='right'>
 					<p>Income: <b>{ this.state.income }</b></p>

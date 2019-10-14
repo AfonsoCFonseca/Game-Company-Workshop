@@ -3,16 +3,13 @@ class Modal extends React.Component {
 	constructor( props ){
 		super( props )
 
-		this.state = {
-			numberButtons: props.numberButtons || 1 
-		}
-
 		this.innerStyle={
 			width: this.props.width || '450px',
-			height: this.props.height || '350px',
+			height: this.props.height || 'auto',
 		}
 
 	}
+
 
 	render(){
 
@@ -22,8 +19,8 @@ class Modal extends React.Component {
 					<div className='header'>
 						<h3 className='titleModal'> { this.props.title } </h3>
 					</div>
-					<div className='body'>
-						<p className='descriptionModal'> { this.props.description } </p>
+					<div className='body' dangerouslySetInnerHTML={{__html: this.props.description}}>
+						
 					</div>
 					<div className='footer center'>
 						{this.props.children}
