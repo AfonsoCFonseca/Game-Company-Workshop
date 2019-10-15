@@ -17,7 +17,7 @@ class Module_0Year extends React.Component {
     else{
       this.props.editCompanyState( "team", {
         'developers': 1,
-        'designers': 1,
+        'artists': 1,
       })
     }
     

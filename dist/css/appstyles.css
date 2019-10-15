@@ -64,7 +64,7 @@ body pre {
   display: -ms-flexbox;
   display: flex;
 }
-#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle, #content > .timer > .totalTimer > .twoYearsBatch {
+#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle, #content > .structure > .module > .inputDiv > .inputDivInner, #content > .timer > .totalTimer > .twoYearsBatch {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -127,7 +127,7 @@ body pre {
   display: -ms-flexbox;
   display: flex;
 }
-#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle, #content > .timer > .totalTimer > .twoYearsBatch {
+#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle, #content > .structure > .module > .inputDiv > .inputDivInner, #content > .timer > .totalTimer > .twoYearsBatch {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -154,6 +154,26 @@ body pre {
   /** DESCRIPTION COMP **/
   /** DROPDOWN COMP **/
   /** INPUT COMP **/
+}
+#content > .structure > .module > .inputDiv > .inputDivInner {
+  margin-top: 10px;
+  width: 100%;
+}
+#content > .structure > .module > .inputDiv > .inputDivInner > p {
+  width: 100px;
+  margin: 0;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #595959;
+}
+#content > .structure > .module > .inputDiv > .inputDivInner > input {
+  border: 1px solid #BABABA;
+  width: 85%;
+}
+#content > .structure > .module > .inputDiv > .inputDivInner > input.small {
+  width: 20%;
 }
 #content > .structure > .module > .inputDiv > p {
   font-size: 12px;
@@ -309,7 +329,7 @@ body pre {
 #content .modal > .modalInner > .footer > button:hover {
   background-color: #409c58;
 }
-#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .timer > .totalTimer > .twoYearsBatch, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle {
+#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .timer > .totalTimer > .twoYearsBatch, #content > .structure > .module > .inputDiv > .inputDivInner, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;

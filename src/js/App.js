@@ -4,7 +4,7 @@ class PageContent extends React.Component {
     super( props )
 
     this.state = {
-      year: 0,
+      year: 2,
       goingDev: true,
       isPaused: true,
       moduleShow: false,
@@ -107,11 +107,9 @@ class PageContent extends React.Component {
 
     return ( 
       <Modal 
-        numberButtons='2'
         title={title}
         description={description}>
-        {<button onClick={ this.changeYear }>Confirm</button>
-}
+        { buttons }
       </Modal>
     )
 

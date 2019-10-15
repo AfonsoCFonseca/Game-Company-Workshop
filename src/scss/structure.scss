@@ -46,12 +46,39 @@ $optionalGreen: #d0ecd2;
     >.inputDiv {
       width: 95%;
 
-      /** DESCRIPTION COMP **/
+      >.inputDivInner {
+        @extend %display_inlineflex;
+        margin-top: 10px;
+        width: 100%;
+
+        >p{
+          width: 100px;
+          margin:0;
+          padding-right:10px;
+          padding-left:10px;
+          font-size: 12px;
+          font-weight: 800;
+          color: $grey_darker;
+        }
+
+        >input {
+          border: 1px solid $grey_dark;
+          width: 85%;
+
+          &.small{
+            width: 20%;
+          }
+        }
+
+      }
+      
       >p{
         font-size: 12px;
         font-weight: 800;
         color: $grey_darker;
       }
+
+      /** DESCRIPTION COMP **/
 
       >.inputDescriptionDiv{
         background-color: white;
