@@ -4,7 +4,7 @@ class PageContent extends React.Component {
     super( props )
 
     this.state = {
-      year: 4,
+      year: 0,
       goingDev: true,
       isPaused: true,
       moduleShow: false,
@@ -16,6 +16,7 @@ class PageContent extends React.Component {
       }
     }
 
+    this.goPreviousYear = this.goPreviousYear.bind( this )
     this.prepareNextYear = this.prepareNextYear.bind( this )
     this.changeYear = this.changeYear.bind( this )
     this.editCompanyState = this.editCompanyState.bind( this )
@@ -55,7 +56,15 @@ class PageContent extends React.Component {
 
   }
 
-
+  goPreviousYear(){
+    let year = this.state.year
+    
+     this.setState({
+      year: ( year > 0 ? this.state.year - 2 : 0 ),
+      isPaused: false,
+      moduleShow: false,
+    })
+  }
 
   prepareNextYear(){
     let year = this.state.year
@@ -163,6 +172,7 @@ class PageContent extends React.Component {
             goNext={ this.prepareNextYear }
             logState={ () => console.log( this.state ) }
             pauseState= { this.stopTime }
+            goPrevious={ this.goPreviousYear }
           /> :
             null 
         }
