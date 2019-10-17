@@ -4,7 +4,7 @@ class PageContent extends React.Component {
     super( props )
 
     this.state = {
-      year: 2,
+      year: 4,
       goingDev: true,
       isPaused: true,
       moduleShow: false,
@@ -548,19 +548,104 @@ class PageContent extends React.Component {
     super( props )
   }
 
+  //'https://www.gamasutra.com/blogs/SergioJimenez/20131106/204134/Gamification_Model_Canvas.php'
+
   render() {
 
     return(
       React.createElement("div", {className: "module"}, 
-        "YEAR 5", 
-        React.createElement("input", {onValue:  e => console.log( e )})
+        React.createElement(TextField, {title: "Getting the hang of it", textValue:  modelCanvasExplanation }), 
+
+        React.createElement("div", {className: "businessModuleCanvas"}, 
+          
+          React.createElement("div", {className: "imgDiv"}, 
+            React.createElement("img", {src: "/public/images/business_Model_Canvas_Template.jpg"}), 
+            React.createElement("img", {src: "/public/images/maxresdefault.jpg"})
+          ), 
+          React.createElement("div", {className: "textDiv"}, 
+            React.createElement("p", null, "Business Modal Canvas ( empty )"), 
+            React.createElement("p", null, "Business Modal Canvas ( filled )")
+          )
+        ), 
+
+        React.createElement(InputBlock, {
+          size: "large", 
+          valueReceived:  value => this.props.editCompanyState( "KeyPartners", value )}, 
+           React.createElement(Description, {
+              title: "Key Partners", 
+              description:  description4YearKeyPartners })
+        ), 
+
+        React.createElement(InputBlock, {
+          size: "large", 
+          valueReceived:  value => this.props.editCompanyState( "KeyActivities", value )}, 
+           React.createElement(Description, {
+              title: "Key Activities", 
+              description:  description4YearKeyActivities })
+        ), 
+
+        React.createElement(InputBlock, {
+          size: "large", 
+          valueReceived:  value => this.props.editCompanyState( "ValuePropositions", value )}, 
+           React.createElement(Description, {
+              title: "Value Propositions", 
+              description:  description4YearValuePropositions })
+        ), 
+
+        React.createElement(InputBlock, {
+          size: "large", 
+          valueReceived:  value => this.props.editCompanyState( "KeyResources", value )}, 
+           React.createElement(Description, {
+              title: "Key Resources", 
+              description:  description4YearKeyResources })
+        ), 
+
+        React.createElement(InputBlock, {
+          size: "large", 
+          valueReceived:  value => this.props.editCompanyState( "CustomerRelationships", value )}, 
+           React.createElement(Description, {
+              title: "Customer Relationships", 
+              description:  description4YearCustomerRelationships })
+        ), 
+
+        React.createElement(InputBlock, {
+          size: "large", 
+          valueReceived:  value => this.props.editCompanyState( "CustomerSegments", value )}, 
+           React.createElement(Description, {
+              title: "Customer Segments", 
+              description:  description4YearCustomerSegments })
+        ), 
+
+        React.createElement(InputBlock, {
+          size: "large", 
+          valueReceived:  value => this.props.editCompanyState( "Channels", value )}, 
+           React.createElement(Description, {
+              title: "Channels", 
+              description:  description4YearChannels })
+        ), 
+
+        React.createElement(InputBlock, {
+          size: "large", 
+          valueReceived:  value => this.props.editCompanyState( "RevenueStream", value )}, 
+           React.createElement(Description, {
+              title: "Revenue Stream", 
+              description:  description4YearRevenueStream })
+        ), 
+
+        React.createElement(InputBlock, {
+          size: "large", 
+          valueReceived:  value => this.props.editCompanyState( "CostStructure", value )}, 
+           React.createElement(Description, {
+              title: "Cost Structure", 
+              description:  description4YearCostStructure })
+        )
+
       )
     )
 
   }
 
-}
-;class Module_6Year extends React.Component {
+};class Module_6Year extends React.Component {
 
   constructor( props ){
     super( props )
@@ -766,15 +851,31 @@ and focus on that. Choose wisely when thinking where to spend the company money.
 
 
 
-
-
-
-
 ////////////////////////////////// YEAR 4 //////////////////////////////////
 
+var modelCanvasExplanation = `Everything is going perfect with the company and you started to firgure it out how to go to market with 
+your games. And for that, your created a Canvas... And you know, if you fill the canvas for your third game, that will be a sure hit on the market`
+
+var description4YearKeyPartners = `Describe the plarforms`
+
+var description4YearKeyActivities = `Describe the plarforms`
+
+var description4YearValuePropositions = `Describe the plarforms`
+
+var description4YearKeyResources = `Describe the plarforms`
+
+var description4YearCustomerRelationships = `Describe the plarforms`
+
+var description4YearCustomerSegments = `Describe the plarforms`
+
+var description4YearChannels = `Describe the plarforms`
+
+var description4YearRevenueStream = `Describe the plarforms`
+
+var description4YearCostStructure = `Describe the plarforms`
  
  var year4Story = function( income, equity, team, pC ){
-console.log( income, equity,team )
+
 
 	var title = ""
 	var text = ""

@@ -135,15 +135,31 @@ and focus on that. Choose wisely when thinking where to spend the company money.
 
 
 
-
-
-
-
 ////////////////////////////////// YEAR 4 //////////////////////////////////
 
+var modelCanvasExplanation = `Everything is going perfect with the company and you started to firgure it out how to go to market with 
+your games. And for that, your created a Canvas... And you know, if you fill the canvas for your third game, that will be a sure hit on the market`
+
+var description4YearKeyPartners = `Describe the plarforms`
+
+var description4YearKeyActivities = `Describe the plarforms`
+
+var description4YearValuePropositions = `Describe the plarforms`
+
+var description4YearKeyResources = `Describe the plarforms`
+
+var description4YearCustomerRelationships = `Describe the plarforms`
+
+var description4YearCustomerSegments = `Describe the plarforms`
+
+var description4YearChannels = `Describe the plarforms`
+
+var description4YearRevenueStream = `Describe the plarforms`
+
+var description4YearCostStructure = `Describe the plarforms`
  
  var year4Story = function( income, equity, team, pC ){
-console.log( income, equity,team )
+
 
 	var title = ""
 	var text = ""

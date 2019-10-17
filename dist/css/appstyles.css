@@ -64,7 +64,7 @@ body pre {
   display: -ms-flexbox;
   display: flex;
 }
-#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle, #content > .structure > .module > .inputDiv > .inputDivInner, #content > .timer > .totalTimer > .twoYearsBatch {
+#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .structure > .module .businessModuleCanvas > .textDiv, #content > .structure > .module .businessModuleCanvas > .imgDiv, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle, #content > .structure > .module > .inputDiv > .inputDivInner, #content > .timer > .totalTimer > .twoYearsBatch {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -127,7 +127,7 @@ body pre {
   display: -ms-flexbox;
   display: flex;
 }
-#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle, #content > .structure > .module > .inputDiv > .inputDivInner, #content > .timer > .totalTimer > .twoYearsBatch {
+#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .structure > .module .businessModuleCanvas > .textDiv, #content > .structure > .module .businessModuleCanvas > .imgDiv, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle, #content > .structure > .module > .inputDiv > .inputDivInner, #content > .timer > .totalTimer > .twoYearsBatch {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -248,6 +248,27 @@ body pre {
   font-size: 11px;
   color: #333333;
 }
+#content > .structure > .module .businessModuleCanvas {
+  width: 80%;
+  padding-top: 35px;
+  padding-bottom: 25px;
+}
+#content > .structure > .module .businessModuleCanvas > .imgDiv {
+  width: 100%;
+  justify-content: space-between;
+}
+#content > .structure > .module .businessModuleCanvas > .imgDiv > img {
+  width: 40%;
+}
+#content > .structure > .module .businessModuleCanvas > .textDiv {
+  justify-content: space-between;
+  width: 100%;
+}
+#content > .structure > .module .businessModuleCanvas > .textDiv > p {
+  font-size: 11px;
+  color: #595959;
+  font-weight: bold;
+}
 #content > .footer {
   position: fixed;
   bottom: 0;
@@ -329,7 +350,7 @@ body pre {
 #content .modal > .modalInner > .footer > button:hover {
   background-color: #409c58;
 }
-#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .timer > .totalTimer > .twoYearsBatch, #content > .structure > .module > .inputDiv > .inputDivInner, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle {
+#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .timer > .totalTimer > .twoYearsBatch, #content > .structure > .module > .inputDiv > .inputDivInner, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle, #content > .structure > .module .businessModuleCanvas > .imgDiv, #content > .structure > .module .businessModuleCanvas > .textDiv {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;

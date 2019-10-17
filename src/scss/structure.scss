@@ -173,5 +173,36 @@ $optionalGreen: #d0ecd2;
 
     }
 
+
+    .businessModuleCanvas {
+      width: 80%;
+      padding-top: 35px;
+      padding-bottom: 25px;
+
+      >.imgDiv{
+        width: 100%;
+        @extend %display_inlineflex;
+        justify-content: space-between;
+
+        >img{
+         width: 40%; 
+        }
+      }
+
+      >.textDiv{
+        @extend %display_inlineflex;
+        justify-content: space-between;
+        width: 100%;
+
+        >p{
+         font-size: 11px; 
+         color: $grey_darker;
+         font-weight: bold;
+        }
+
+      }
+
+    }
+
   }
 }

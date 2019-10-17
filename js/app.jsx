@@ -4,7 +4,7 @@ class PageContent extends React.Component {
     super( props )
 
     this.state = {
-      year: 2,
+      year: 4,
       goingDev: true,
       isPaused: true,
       moduleShow: false,
@@ -548,19 +548,104 @@ class PageContent extends React.Component {
     super( props )
   }
 
+  //'https://www.gamasutra.com/blogs/SergioJimenez/20131106/204134/Gamification_Model_Canvas.php'
+
   render() {
 
     return(
       <div className='module'>
-        YEAR 5
-        <input onValue={ e => console.log( e )}></input>
+        <TextField title='Getting the hang of it' textValue={ modelCanvasExplanation }/>
+
+        <div className='businessModuleCanvas'>
+          
+          <div className='imgDiv'>
+            <img src='/public/images/business_Model_Canvas_Template.jpg' />
+            <img src='/public/images/maxresdefault.jpg' />
+          </div>
+          <div className='textDiv'>
+            <p>Business Modal Canvas ( empty )</p>
+            <p>Business Modal Canvas ( filled )</p>
+          </div>
+        </div>
+
+        <InputBlock 
+          size='large'
+          valueReceived={ value => this.props.editCompanyState( "KeyPartners", value ) }>
+           <Description 
+              title='Key Partners'
+              description={ description4YearKeyPartners } />
+        </InputBlock>
+
+        <InputBlock 
+          size='large'
+          valueReceived={ value => this.props.editCompanyState( "KeyActivities", value ) }>
+           <Description 
+              title='Key Activities'
+              description={ description4YearKeyActivities } />
+        </InputBlock>
+
+        <InputBlock 
+          size='large'
+          valueReceived={ value => this.props.editCompanyState( "ValuePropositions", value ) }>
+           <Description 
+              title='Value Propositions'
+              description={ description4YearValuePropositions } />
+        </InputBlock>
+
+        <InputBlock 
+          size='large'
+          valueReceived={ value => this.props.editCompanyState( "KeyResources", value ) }>
+           <Description 
+              title='Key Resources'
+              description={ description4YearKeyResources } />
+        </InputBlock>
+
+        <InputBlock 
+          size='large'
+          valueReceived={ value => this.props.editCompanyState( "CustomerRelationships", value ) }>
+           <Description 
+              title='Customer Relationships'
+              description={ description4YearCustomerRelationships } />
+        </InputBlock>
+
+        <InputBlock 
+          size='large'
+          valueReceived={ value => this.props.editCompanyState( "CustomerSegments", value ) }>
+           <Description 
+              title='Customer Segments'
+              description={ description4YearCustomerSegments } />
+        </InputBlock>
+
+        <InputBlock 
+          size='large'
+          valueReceived={ value => this.props.editCompanyState( "Channels", value ) }>
+           <Description 
+              title='Channels'
+              description={ description4YearChannels } />
+        </InputBlock>
+
+        <InputBlock 
+          size='large'
+          valueReceived={ value => this.props.editCompanyState( "RevenueStream", value ) }>
+           <Description 
+              title='Revenue Stream'
+              description={ description4YearRevenueStream } />
+        </InputBlock>
+
+        <InputBlock 
+          size='large'
+          valueReceived={ value => this.props.editCompanyState( "CostStructure", value ) }>
+           <Description 
+              title='Cost Structure'
+              description={ description4YearCostStructure } />
+        </InputBlock>
+
       </div>
     )
 
   }
 
-}
-;class Module_6Year extends React.Component {
+};class Module_6Year extends React.Component {
 
   constructor( props ){
     super( props )
@@ -766,15 +851,31 @@ and focus on that. Choose wisely when thinking where to spend the company money.
 
 
 
-
-
-
-
 ////////////////////////////////// YEAR 4 //////////////////////////////////
 
+var modelCanvasExplanation = `Everything is going perfect with the company and you started to firgure it out how to go to market with 
+your games. And for that, your created a Canvas... And you know, if you fill the canvas for your third game, that will be a sure hit on the market`
+
+var description4YearKeyPartners = `Describe the plarforms`
+
+var description4YearKeyActivities = `Describe the plarforms`
+
+var description4YearValuePropositions = `Describe the plarforms`
+
+var description4YearKeyResources = `Describe the plarforms`
+
+var description4YearCustomerRelationships = `Describe the plarforms`
+
+var description4YearCustomerSegments = `Describe the plarforms`
+
+var description4YearChannels = `Describe the plarforms`
+
+var description4YearRevenueStream = `Describe the plarforms`
+
+var description4YearCostStructure = `Describe the plarforms`
  
  var year4Story = function( income, equity, team, pC ){
-console.log( income, equity,team )
+
 
 	var title = ""
 	var text = ""
