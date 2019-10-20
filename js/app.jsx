@@ -4,9 +4,9 @@ class PageContent extends React.Component {
     super( props )
 
     this.state = {
-      year: 4,
+      year: 0,
       goingDev: true,
-      isPaused: true,
+      isPaused: false,
       moduleShow: false,
       company: {
         name: '',
@@ -466,7 +466,7 @@ class PageContent extends React.Component {
            <Description title='Team' description={ team0YearDescription }/>
         </RadioButtonBlock>
 
-        <TextField title='First Game' textValue={ secondGameDescription }/>
+        <TextField title='First Game' textValue={ firstGameDescription }/>
 
         <InputBlock 
           valueReceived={ value => this.props.editCompanyState( "gameName1", value ) }>
@@ -579,52 +579,29 @@ class PageContent extends React.Component {
           </div>
         </div>
 
-        <InputBlock
-          size='large'
-          valueReceived={ value => this.props.editCompanyState( "KeyPartners", value ) }>
-           <Description
-              title='Key Partners'
-              description={ description4YearKeyPartners } />
+         <InputBlock
+            size='large'
+            valueReceived={ value => this.props.editCompanyState( "ValuePropositions", value ) }>
+             <Description
+                title='Value Propositions'
+                description={ description4YearValuePropositions } />
         </InputBlock>
 
-        <InputBlock
-          size='large'
-          valueReceived={ value => this.props.editCompanyState( "KeyActivities", value ) }>
-           <Description
-              title='Key Activities'
-              description={ description4YearKeyActivities } />
-        </InputBlock>
 
-        <InputBlock
-          size='large'
-          valueReceived={ value => this.props.editCompanyState( "ValuePropositions", value ) }>
-           <Description
-              title='Value Propositions'
-              description={ description4YearValuePropositions } />
-        </InputBlock>
-
-        <InputBlock
-          size='large'
-          valueReceived={ value => this.props.editCompanyState( "KeyResources", value ) }>
-           <Description
-              title='Key Resources'
-              description={ description4YearKeyResources } />
-        </InputBlock>
-
-        <InputBlock
-          size='large'
-          valueReceived={ value => this.props.editCompanyState( "CustomerRelationships", value ) }>
-           <Description
-              title='Customer Relationships'
-              description={ description4YearCustomerRelationships } />
-        </InputBlock>
-
-        <InputBlock
+         <InputBlock
           size='large'
           valueReceived={ value => this.props.editCompanyState( "CustomerSegments", value ) }>
            <Description
               title='Customer Segments'
               description={ description4YearCustomerSegments } />
+        </InputBlock>
+
+         <InputBlock
+          size='large'
+          valueReceived={ value => this.props.editCompanyState( "CustomerRelationships", value ) }>
+           <Description
+              title='Customer Relationships'
+              description={ description4YearCustomerRelationships } />
         </InputBlock>
 
         <InputBlock
@@ -637,10 +614,26 @@ class PageContent extends React.Component {
 
         <InputBlock
           size='large'
-          valueReceived={ value => this.props.editCompanyState( "RevenueStream", value ) }>
+          valueReceived={ value => this.props.editCompanyState( "KeyActivities", value ) }>
            <Description
-              title='Revenue Stream'
-              description={ description4YearRevenueStream } />
+              title='Key Activities'
+              description={ description4YearKeyActivities } />
+        </InputBlock>
+
+        <InputBlock
+          size='large'
+          valueReceived={ value => this.props.editCompanyState( "KeyResources", value ) }>
+           <Description
+              title='Key Resources'
+              description={ description4YearKeyResources } />
+        </InputBlock>
+
+        <InputBlock
+          size='large'
+          valueReceived={ value => this.props.editCompanyState( "KeyPartners", value ) }>
+           <Description
+              title='Key Partners'
+              description={ description4YearKeyPartners } />
         </InputBlock>
 
         <InputBlock
@@ -649,6 +642,14 @@ class PageContent extends React.Component {
            <Description
               title='Cost Structure'
               description={ description4YearCostStructure } />
+        </InputBlock>
+
+        <InputBlock
+          size='large'
+          valueReceived={ value => this.props.editCompanyState( "RevenueStream", value ) }>
+           <Description
+              title='Revenue Stream'
+              description={ description4YearRevenueStream } />
         </InputBlock>
 
       </div>
@@ -757,13 +758,17 @@ var createStory = function( state, parentComponent ){
 
 ////////////////////////////////// YEAR 0 //////////////////////////////////
 
+var gameCompanyDescription = `To make great games, you need to start a company first. Your company is what gives soul to your games and your team.
+ For that, start by establishing and vision and objectives.`
+
 var descriptionPlatform = `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
  Maecenas mauris dolor, lobortis id ipsum vitae, dapibus tincidunt est. Pellentesque mattis
  pretium nisi, sed rutrum lectus faucibus a. Morbi pretium mi tortor. Fusce ac vestibulum diam,
  tempus gravida metus. Pellentesque dictum purus ut lectus tempor fermentum. `
 
-var gameCompanyDescription = `To make great games, you need to start a company first. Your company is what gives soul to your games and your team.
- For that, start by establishing and vision and objectives.`
+var firstGameDescription = `Your company is pretty fresh and still needs some money to start betting in big ideias for games.
+Start by creating a game small but addictive, choosing a hot genre ( Moba's, autochess ) but with a original twist. 
+The game needs to be an assure hit to bring some money and investment to the company` 
 
  var team0YearDescription = `Pick one of the options below for starting your team. Dont forget that what you choose will reflect on your games
  If you go for a designer and a developer, your game will have a great UX/UI design and some unique style but i'll have a few bugs.
@@ -798,7 +803,7 @@ var gameCompanyDescription = `To make great games, you need to start a company f
 	text = `<p class='descriptionModal'> Your company had a great start! You released your first game successfully and got your team really committed </p>
 	<p class='descriptionModal-type2'> The company spent around ${ teamSalary } $ with the team Salaries </p>
 	<p class='descriptionModal'>You caught the attention of some investors that are willing to negotiate with you.</br>
-	They want to give you 40k $ for 20% of your company. Do you accept it? ( Don t forget that a counter proposal it s always an option. You can get
+	They want to give you 40k $ for 20% of your company. Do you accept it? ( Don t forget that a counter proposal it's always an option. You can get
 	a better evaluation of the company or the investors can turn their back on the deal ) </br>
 	</br>
 	What would you do?  </p>`
@@ -865,32 +870,47 @@ and focus on that. Choose wisely when thinking where to spend the company money.
 
 ////////////////////////////////// YEAR 4 //////////////////////////////////
 
-var modelCanvasExplanation = `Everything is going perfect with the company and you started to firgure it out how to go to market with
-your games. And for that, your created a Canvas... And you know, if you fill the canvas for your third game, that will be a sure hit on the market
-Every big company used this canvas and it's named "Business Modal Canvas. The purpose of it is to quickly and easily define your product / game"`
 
-var description4YearKeyPartners = `Describe the plarforms`
+var modelCanvasExplanation = `Everything is going perfect with the company and you started to figure it out how to go to market with
+your games. And for that, your created a Canvas... And you know, if you fill the canvas for your third game, it will be a sure hit on the market
+Every big company used this canvas and it's named Business Modal Canvas. It's purpose is to quickly and easily define your product / game`
 
-var description4YearKeyActivities = `Describe the plarforms`
+
 
 var description4YearValuePropositions = `Here you have to describe the purpose of your game. What it as to offer to your client/player. What does the player have to win with your game?
-Trains logic or reaction? Learn to communicate in a online game? Working togheter in a co-op game? In a nutshell, why would someone want to have this problem solved?
-What does your game offer that can be converted in a value to the player?`
-
-var description4YearKeyResources = `Describe the plarforms`
-
-var description4YearCustomerRelationships = `The Customer Relationship is what bounds and sticks the player to your game, is what makes the player go back to your game the day after... If you are talking of a PvP game, probably the competitive games, if you are developing an MMORPG, level system are the thing to look. If the game have a solid singlePlayer
-, it can be focus on the "Collectathon" or the Story. Try to think and explorer what the player really looks forward when playing a game. Think of your self playing that type of game`
+Trains logic or reaction? Learn to strategy in a online game? Working together in a co-op game? In a nutshell, why would someone want to have this problem solved?
+What does your game offers, that can be converted in a value to the player?`
 
 var description4YearCustomerSegments = `In the customer Segment your think of your target player and try to break them in small parts. For gender, age, interests or habits.
-This way you can start to check the market for what does this group of targets look for. What type of genre, story or commitment to the game`
+This way you can start to check the market for what does this group of targets look for, what type of genre, story or commitment to the game`
 
-var description4YearChannels = `Channels is what makes the player find your game. What channel does your game is mentioned? through facebook? Ads on mobile applications? A Brand activision.
-It's important to that this figured it out, if this fails your game will not be mentioned and will not have the credit it deserves. Normaly this is studied on marketing campaigns`
+var description4YearCustomerRelationships = `The Customer Relationship is what bounds and sticks the player to your game, is what makes the player go back to it the day after... If you are talking of a PvP ( Player vs Player) game, probably the competitive games,
+if you are developing an MMORPG, level system are the thing to look. If the game is a solid Single Player
+, it can be focus on the "Collectathon" or the Story. Try to think and explorer what the player really looks forward when playing a game. Think of your self playing that type of game. What do you want from it?`
 
-var description4YearRevenueStream = `Describe the plarforms`
+var description4YearChannels = `Channels is what makes the player find your game. What channel does your game is mentioned? through facebook? Ads on mobile applications? A Brand activision?
+It's important to have this figured it out. If this fails, your game will not be mentioned and will not have the credit it deserves. Normaly the channels to approach is studied on marketing campaigns`
 
-var description4YearCostStructure = `Describe the plarforms`
+var description4YearKeyActivities = `The Key Activities is what resources does your company need to create and mantain the game your are building.
+When creating a game you have to worry about desigining, development, marketing... And after creating a game, you need to figure it out how you will maintain it.
+Probably you will need patches, testing, updating.. If you think in realeasing DLCs and new features, you need to invest on the story and testing.
+What is the activities your game need to offer the value proposition to your players?`
+
+var description4YearKeyResources = `What resources you need to make your game doable. You need staff/team, computers, internet, office space, workshops, electricity... Think of every resource you need
+if you want your company to make a game`
+
+var description4YearKeyPartners = `Your partners are third parties company that help you build the game. The best example for this is to think what platform you will be releasing your game, if it's a mobile app, your partners
+will be Apple or Google ( AppStore or PlayStore ), if you choose a PC game, than Steam, Epic Game Laucher, Humble Bundle Store will be your partners. 
+The Partners are external companies that help you create, maintain and distribute your product/game`
+
+var description4YearCostStructure = `Your product have costs being created ( Key Activities ), you need to worry about sustaining a valueable product once it goes live ( patches, updates, server, DataBases )
+How much do you pay for your partnerships? 2 Years from now, what do you think you will have to pay for your server? For this answer, i dont want you to think precise costs but to write what are the costs you need to 
+worry about when your game is created and goes live`
+
+var description4YearRevenueStream = `The Revenue Streams is one of the thinks that makes the wheels turn and keep to product moving. This is what makes your income grow, what let's the company
+keep going forward and what pays the games that you are making. Where does your game makes money? what way? Through selling the game itself? By microtransactions or maybe Ads revenue? There's a lot of ways
+to bring revenue to the company.. Always keep one think in mind, the revenue that comes from the game needs to be equal or bigger to the costs related to his development.`
+
 
  var year4Story = function( income, equity, team, pC ){
 

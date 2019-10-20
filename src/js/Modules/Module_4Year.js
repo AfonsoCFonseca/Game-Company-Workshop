@@ -24,52 +24,29 @@ class Module_4Year extends React.Component {
           </div>
         </div>
 
-        <InputBlock
-          size='large'
-          valueReceived={ value => this.props.editCompanyState( "KeyPartners", value ) }>
-           <Description
-              title='Key Partners'
-              description={ description4YearKeyPartners } />
+         <InputBlock
+            size='large'
+            valueReceived={ value => this.props.editCompanyState( "ValuePropositions", value ) }>
+             <Description
+                title='Value Propositions'
+                description={ description4YearValuePropositions } />
         </InputBlock>
 
-        <InputBlock
-          size='large'
-          valueReceived={ value => this.props.editCompanyState( "KeyActivities", value ) }>
-           <Description
-              title='Key Activities'
-              description={ description4YearKeyActivities } />
-        </InputBlock>
 
-        <InputBlock
-          size='large'
-          valueReceived={ value => this.props.editCompanyState( "ValuePropositions", value ) }>
-           <Description
-              title='Value Propositions'
-              description={ description4YearValuePropositions } />
-        </InputBlock>
-
-        <InputBlock
-          size='large'
-          valueReceived={ value => this.props.editCompanyState( "KeyResources", value ) }>
-           <Description
-              title='Key Resources'
-              description={ description4YearKeyResources } />
-        </InputBlock>
-
-        <InputBlock
-          size='large'
-          valueReceived={ value => this.props.editCompanyState( "CustomerRelationships", value ) }>
-           <Description
-              title='Customer Relationships'
-              description={ description4YearCustomerRelationships } />
-        </InputBlock>
-
-        <InputBlock
+         <InputBlock
           size='large'
           valueReceived={ value => this.props.editCompanyState( "CustomerSegments", value ) }>
            <Description
               title='Customer Segments'
               description={ description4YearCustomerSegments } />
+        </InputBlock>
+
+         <InputBlock
+          size='large'
+          valueReceived={ value => this.props.editCompanyState( "CustomerRelationships", value ) }>
+           <Description
+              title='Customer Relationships'
+              description={ description4YearCustomerRelationships } />
         </InputBlock>
 
         <InputBlock
@@ -82,10 +59,26 @@ class Module_4Year extends React.Component {
 
         <InputBlock
           size='large'
-          valueReceived={ value => this.props.editCompanyState( "RevenueStream", value ) }>
+          valueReceived={ value => this.props.editCompanyState( "KeyActivities", value ) }>
            <Description
-              title='Revenue Stream'
-              description={ description4YearRevenueStream } />
+              title='Key Activities'
+              description={ description4YearKeyActivities } />
+        </InputBlock>
+
+        <InputBlock
+          size='large'
+          valueReceived={ value => this.props.editCompanyState( "KeyResources", value ) }>
+           <Description
+              title='Key Resources'
+              description={ description4YearKeyResources } />
+        </InputBlock>
+
+        <InputBlock
+          size='large'
+          valueReceived={ value => this.props.editCompanyState( "KeyPartners", value ) }>
+           <Description
+              title='Key Partners'
+              description={ description4YearKeyPartners } />
         </InputBlock>
 
         <InputBlock
@@ -94,6 +87,14 @@ class Module_4Year extends React.Component {
            <Description
               title='Cost Structure'
               description={ description4YearCostStructure } />
+        </InputBlock>
+
+        <InputBlock
+          size='large'
+          valueReceived={ value => this.props.editCompanyState( "RevenueStream", value ) }>
+           <Description
+              title='Revenue Stream'
+              description={ description4YearRevenueStream } />
         </InputBlock>
 
       </div>

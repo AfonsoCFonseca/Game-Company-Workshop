@@ -4,9 +4,9 @@ class PageContent extends React.Component {
     super( props )
 
     this.state = {
-      year: 4,
+      year: 0,
       goingDev: true,
-      isPaused: true,
+      isPaused: false,
       moduleShow: false,
       company: {
         name: '',

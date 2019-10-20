@@ -48,7 +48,7 @@ class Module_0Year extends React.Component {
            <Description title='Team' description={ team0YearDescription }/>
         </RadioButtonBlock>
 
-        <TextField title='First Game' textValue={ secondGameDescription }/>
+        <TextField title='First Game' textValue={ firstGameDescription }/>
 
         <InputBlock 
           valueReceived={ value => this.props.editCompanyState( "gameName1", value ) }>
