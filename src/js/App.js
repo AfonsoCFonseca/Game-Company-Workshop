@@ -4,7 +4,7 @@ class PageContent extends React.Component {
     super( props )
 
     this.state = {
-      year: 0,
+      year: 4,
       goingDev: true,
       isPaused: true,
       moduleShow: false,
@@ -36,7 +36,7 @@ class PageContent extends React.Component {
     const B_KEY = 66;
     var key;
     var isShift;
-    
+
     if (window.event) {
       key = window.event.keyCode;
       isShift = !!window.event.shiftKey;
@@ -58,7 +58,7 @@ class PageContent extends React.Component {
 
   goPreviousYear(){
     let year = this.state.year
-    
+
      this.setState({
       year: ( year > 0 ? this.state.year - 2 : 0 ),
       isPaused: false,
@@ -114,8 +114,8 @@ class PageContent extends React.Component {
     var { title, description, buttons } = createStory( this.state, this )
     if( !buttons ) buttons = <button onClick={ this.changeYear }>Confirm</button>
 
-    return ( 
-      <Modal 
+    return (
+      <Modal
         title={title}
         description={description}>
         { buttons }
@@ -148,14 +148,14 @@ class PageContent extends React.Component {
   }
 
   render(){
-  
+
     return(
       <React.Fragment>
-        <Toolbar 
-          company={ this.state.company } 
+        <Toolbar
+          company={ this.state.company }
         />
 
-        <Timer 
+        <Timer
           year={ this.state.year }
           nextYear={ this.prepareNextYear }
           isTimerPaused={ this.state.isPaused }
@@ -167,14 +167,14 @@ class PageContent extends React.Component {
           {this.renderModule()}
         </div>
         {
-         this.state.goingDev ? 
+         this.state.goingDev ?
           <Footer
             goNext={ this.prepareNextYear }
             logState={ () => console.log( this.state ) }
             pauseState= { this.stopTime }
             goPrevious={ this.goPreviousYear }
           /> :
-            null 
+            null
         }
       </React.Fragment>
     )

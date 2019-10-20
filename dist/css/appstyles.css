@@ -263,8 +263,11 @@ body pre {
 #content > .structure > .module .businessModuleCanvas > .textDiv {
   justify-content: space-between;
   width: 100%;
+  padding-top: 15px;
 }
-#content > .structure > .module .businessModuleCanvas > .textDiv > p {
+#content > .structure > .module .businessModuleCanvas > .textDiv > a {
+  text-align: center;
+  width: 40%;
   font-size: 11px;
   color: #595959;
   font-weight: bold;

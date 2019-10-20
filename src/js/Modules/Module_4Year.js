@@ -13,85 +13,85 @@ class Module_4Year extends React.Component {
         <TextField title='Getting the hang of it' textValue={ modelCanvasExplanation }/>
 
         <div className='businessModuleCanvas'>
-          
+
           <div className='imgDiv'>
             <img src='/public/images/business_Model_Canvas_Template.jpg' />
             <img src='/public/images/maxresdefault.jpg' />
           </div>
           <div className='textDiv'>
-            <p>Business Modal Canvas ( empty )</p>
-            <p>Business Modal Canvas ( filled )</p>
+            <a href="/public/images/business_Model_Canvas_Template.jpg" download>Business Modal Canvas ( empty )</a>
+            <a href="/public/images/maxresdefault.jpg" download>Business Modal Canvas ( filled )</a>
           </div>
         </div>
 
-        <InputBlock 
+        <InputBlock
           size='large'
           valueReceived={ value => this.props.editCompanyState( "KeyPartners", value ) }>
-           <Description 
+           <Description
               title='Key Partners'
               description={ description4YearKeyPartners } />
         </InputBlock>
 
-        <InputBlock 
+        <InputBlock
           size='large'
           valueReceived={ value => this.props.editCompanyState( "KeyActivities", value ) }>
-           <Description 
+           <Description
               title='Key Activities'
               description={ description4YearKeyActivities } />
         </InputBlock>
 
-        <InputBlock 
+        <InputBlock
           size='large'
           valueReceived={ value => this.props.editCompanyState( "ValuePropositions", value ) }>
-           <Description 
+           <Description
               title='Value Propositions'
               description={ description4YearValuePropositions } />
         </InputBlock>
 
-        <InputBlock 
+        <InputBlock
           size='large'
           valueReceived={ value => this.props.editCompanyState( "KeyResources", value ) }>
-           <Description 
+           <Description
               title='Key Resources'
               description={ description4YearKeyResources } />
         </InputBlock>
 
-        <InputBlock 
+        <InputBlock
           size='large'
           valueReceived={ value => this.props.editCompanyState( "CustomerRelationships", value ) }>
-           <Description 
+           <Description
               title='Customer Relationships'
               description={ description4YearCustomerRelationships } />
         </InputBlock>
 
-        <InputBlock 
+        <InputBlock
           size='large'
           valueReceived={ value => this.props.editCompanyState( "CustomerSegments", value ) }>
-           <Description 
+           <Description
               title='Customer Segments'
               description={ description4YearCustomerSegments } />
         </InputBlock>
 
-        <InputBlock 
+        <InputBlock
           size='large'
           valueReceived={ value => this.props.editCompanyState( "Channels", value ) }>
-           <Description 
+           <Description
               title='Channels'
               description={ description4YearChannels } />
         </InputBlock>
 
-        <InputBlock 
+        <InputBlock
           size='large'
           valueReceived={ value => this.props.editCompanyState( "RevenueStream", value ) }>
-           <Description 
+           <Description
               title='Revenue Stream'
               description={ description4YearRevenueStream } />
         </InputBlock>
 
-        <InputBlock 
+        <InputBlock
           size='large'
           valueReceived={ value => this.props.editCompanyState( "CostStructure", value ) }>
-           <Description 
+           <Description
               title='Cost Structure'
               description={ description4YearCostStructure } />
         </InputBlock>

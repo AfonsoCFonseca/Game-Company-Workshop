@@ -4,7 +4,7 @@ class PageContent extends React.Component {
     super( props )
 
     this.state = {
-      year: 0,
+      year: 4,
       goingDev: true,
       isPaused: true,
       moduleShow: false,
@@ -36,7 +36,7 @@ class PageContent extends React.Component {
     const B_KEY = 66;
     var key;
     var isShift;
-    
+
     if (window.event) {
       key = window.event.keyCode;
       isShift = !!window.event.shiftKey;
@@ -58,7 +58,7 @@ class PageContent extends React.Component {
 
   goPreviousYear(){
     let year = this.state.year
-    
+
      this.setState({
       year: ( year > 0 ? this.state.year - 2 : 0 ),
       isPaused: false,
@@ -114,7 +114,7 @@ class PageContent extends React.Component {
     var { title, description, buttons } = createStory( this.state, this )
     if( !buttons ) buttons = React.createElement("button", {onClick:  this.changeYear}, "Confirm")
 
-    return ( 
+    return (
       React.createElement(Modal, {
         title: title, 
         description: description}, 
@@ -148,7 +148,7 @@ class PageContent extends React.Component {
   }
 
   render(){
-  
+
     return(
       React.createElement(React.Fragment, null, 
         React.createElement(Toolbar, {
@@ -167,7 +167,7 @@ class PageContent extends React.Component {
           this.renderModule()
         ), 
         
-         this.state.goingDev ? 
+         this.state.goingDev ?
           React.createElement(Footer, {
             goNext:  this.prepareNextYear, 
             logState:  () => console.log( this.state ), 
@@ -568,14 +568,14 @@ class PageContent extends React.Component {
         React.createElement(TextField, {title: "Getting the hang of it", textValue:  modelCanvasExplanation }), 
 
         React.createElement("div", {className: "businessModuleCanvas"}, 
-          
+
           React.createElement("div", {className: "imgDiv"}, 
             React.createElement("img", {src: "/public/images/business_Model_Canvas_Template.jpg"}), 
             React.createElement("img", {src: "/public/images/maxresdefault.jpg"})
           ), 
           React.createElement("div", {className: "textDiv"}, 
-            React.createElement("p", null, "Business Modal Canvas ( empty )"), 
-            React.createElement("p", null, "Business Modal Canvas ( filled )")
+            React.createElement("a", {href: "/public/images/business_Model_Canvas_Template.jpg", download: true}, "Business Modal Canvas ( empty )"), 
+            React.createElement("a", {href: "/public/images/maxresdefault.jpg", download: true}, "Business Modal Canvas ( filled )")
           )
         ), 
 
@@ -656,7 +656,8 @@ class PageContent extends React.Component {
 
   }
 
-};class Module_6Year extends React.Component {
+}
+;class Module_6Year extends React.Component {
 
   constructor( props ){
     super( props )
@@ -731,19 +732,19 @@ var createStory = function( state, parentComponent ){
  	var { team, income, equity } = state.company
 
  	switch( state.year ){
- 		case 0: 
- 			return year0Story( income, equity,team, parentComponent ) 
+ 		case 0:
+ 			return year0Story( income, equity,team, parentComponent )
 
-		case 2: 
- 			return year2Story( income, equity,team, parentComponent ) 
+		case 2:
+ 			return year2Story( income, equity,team, parentComponent )
 
-		case 4: 
- 			return year4Story( income, equity,team, parentComponent ) 
+		case 4:
+ 			return year4Story( income, equity,team, parentComponent )
 
-		case 6: 
- 			return year6Story( income, equity,team, parentComponent ) 
+		case 6:
+ 			return year6Story( income, equity,team, parentComponent )
 
-		default: 
+		default:
 			console.log( "failed loading the years")
  	}
 
@@ -779,14 +780,14 @@ var gameCompanyDescription = `To make great games, you need to start a company f
 
 	var buttons = React.createElement(React.Fragment, null, 
 		React.createElement("button", {
-			onClick:   () => { 
+			onClick:   () => {
 					 pC.updateCompanyNumberValues( "equity", -20 );
 					 pC.updateCompanyNumberValues( "income", 40000 );
 					 pC.changeYear()
 				}
 			}, "Accept the offer"), 
 		React.createElement("button", {
-			onClick:  () => { 
+			onClick:  () => {
 					 pC.updateCompanyNumberValues( "equity", -30 );
 					 pC.updateCompanyNumberValues( "income", 30000 );
 					 pC.changeYear()
@@ -823,7 +824,7 @@ and focus on that. Choose wisely when thinking where to spend the company money.
  Check what if you need a new department, like UX/UI Design, new artists, SFX, more developers, someone to promote your game
  and take care of marketing.`
 
- var secondGameDescription = `Now is a good time to start to think in releasing a new game. Do you think your first game went well? If yes, you should go for a 
+ var secondGameDescription = `Now is a good time to start to think in releasing a new game. Do you think your first game went well? If yes, you should go for a
  second instalment? Or maybe if you want to change thinks a bit or your last game didnt went so well, you can try a new genre, a new story or a new platform.
  If you wanna go for something different, just try the random roll. ( click on the icon )`
 
@@ -833,14 +834,14 @@ and focus on that. Choose wisely when thinking where to spend the company money.
  var focusOption2 = `You are RTS ( real time strategy ) lover. You played everything Age of empires, Warcraft III, Rome total war... You name it.
  The ideia of making RTS game doesn t leave your mind. So you decided to make one for your second game. And you wanna try something new on the genre`
 
- var focusOption3 = `The last 2 years were pretty stressfull and that made you take great pleasure in gory games. After a day of work you just want to 
+ var focusOption3 = `The last 2 years were pretty stressfull and that made you take great pleasure in gory games. After a day of work you just want to
  relaxe on the sofa and play some Doom. With that in mind, you decided that your next game will take any kind of genre but will, for sure, be a bloody gory game`
 
 
- var focusDescription = [ 
+ var focusDescription = [
  	focusOption1,
- 	focusOption2, 
- 	focusOption3 
+ 	focusOption2,
+ 	focusOption3
  ]
 
 ////////////////////////////////// MAIN EVENT
@@ -864,27 +865,33 @@ and focus on that. Choose wisely when thinking where to spend the company money.
 
 ////////////////////////////////// YEAR 4 //////////////////////////////////
 
-var modelCanvasExplanation = `Everything is going perfect with the company and you started to firgure it out how to go to market with 
-your games. And for that, your created a Canvas... And you know, if you fill the canvas for your third game, that will be a sure hit on the market`
+var modelCanvasExplanation = `Everything is going perfect with the company and you started to firgure it out how to go to market with
+your games. And for that, your created a Canvas... And you know, if you fill the canvas for your third game, that will be a sure hit on the market
+Every big company used this canvas and it's named "Business Modal Canvas. The purpose of it is to quickly and easily define your product / game"`
 
 var description4YearKeyPartners = `Describe the plarforms`
 
 var description4YearKeyActivities = `Describe the plarforms`
 
-var description4YearValuePropositions = `Describe the plarforms`
+var description4YearValuePropositions = `Here you have to describe the purpose of your game. What it as to offer to your client/player. What does the player have to win with your game?
+Trains logic or reaction? Learn to communicate in a online game? Working togheter in a co-op game? In a nutshell, why would someone want to have this problem solved?
+What does your game offer that can be converted in a value to the player?`
 
 var description4YearKeyResources = `Describe the plarforms`
 
-var description4YearCustomerRelationships = `Describe the plarforms`
+var description4YearCustomerRelationships = `The Customer Relationship is what bounds and sticks the player to your game, is what makes the player go back to your game the day after... If you are talking of a PvP game, probably the competitive games, if you are developing an MMORPG, level system are the thing to look. If the game have a solid singlePlayer
+, it can be focus on the "Collectathon" or the Story. Try to think and explorer what the player really looks forward when playing a game. Think of your self playing that type of game`
 
-var description4YearCustomerSegments = `Describe the plarforms`
+var description4YearCustomerSegments = `In the customer Segment your think of your target player and try to break them in small parts. For gender, age, interests or habits.
+This way you can start to check the market for what does this group of targets look for. What type of genre, story or commitment to the game`
 
-var description4YearChannels = `Describe the plarforms`
+var description4YearChannels = `Channels is what makes the player find your game. What channel does your game is mentioned? through facebook? Ads on mobile applications? A Brand activision.
+It's important to that this figured it out, if this fails your game will not be mentioned and will not have the credit it deserves. Normaly this is studied on marketing campaigns`
 
 var description4YearRevenueStream = `Describe the plarforms`
 
 var description4YearCostStructure = `Describe the plarforms`
- 
+
  var year4Story = function( income, equity, team, pC ){
 
 
@@ -907,7 +914,7 @@ var description4YearCostStructure = `Describe the plarforms`
 
 ////////////////////////////////// YEAR 6 //////////////////////////////////
 
- 
+
  var year6Story = function( income, equity, team, pC ){
 console.log( income, equity,team )
 
@@ -937,7 +944,7 @@ function getSalaryForTeam ( team = null, year ){
 
 	if( team ){
 		developers = team.developers || 0
-		designers = team.designers || 0 
+		designers = team.designers || 0
 	}
 
 
@@ -953,7 +960,8 @@ function getSalaryForTeam ( team = null, year ){
    	return totalSalary
 
 
-   } ;class Timer extends React.Component {
+   }
+;class Timer extends React.Component {
 //1800000 30 minutos
   constructor( props ){
     super( props )

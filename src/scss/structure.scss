@@ -71,7 +71,7 @@ $optionalGreen: #d0ecd2;
         }
 
       }
-      
+
       >p{
         font-size: 12px;
         font-weight: 800;
@@ -185,7 +185,7 @@ $optionalGreen: #d0ecd2;
         justify-content: space-between;
 
         >img{
-         width: 40%; 
+         width: 40%;
         }
       }
 
@@ -193,9 +193,12 @@ $optionalGreen: #d0ecd2;
         @extend %display_inlineflex;
         justify-content: space-between;
         width: 100%;
+        padding-top: 15px;
 
-        >p{
-         font-size: 11px; 
+        >a{
+         text-align: center;
+         width: 40%;
+         font-size: 11px;
          color: $grey_darker;
          font-weight: bold;
         }
