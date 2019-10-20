@@ -111,7 +111,7 @@ and focus on that. Choose wisely when thinking where to spend the company money.
  The ideia of making RTS game doesn t leave your mind. So you decided to make one for your second game. And you wanna try something new on the genre`
 
  var focusOption3 = `The last 2 years were pretty stressfull and that made you take great pleasure in gory games. After a day of work you just want to
- relaxe on the sofa and play some Doom. With that in mind, you decided that your next game will take any kind of genre but will, for sure, be a bloody gory game`
+ relax on the sofa and play some Doom. With that in mind, you decided that your next game will take any kind of genre but will, for sure, be a bloody gory game`
 
 
  var focusDescription = [
@@ -137,10 +137,10 @@ and focus on that. Choose wisely when thinking where to spend the company money.
 ////////////////////////////////// MID YEAR EVENT
 
 
+///////////////////////////////// YEAR 4 //////////////////////////////////
 
-
-////////////////////////////////// YEAR 4 //////////////////////////////////
-
+//Resources
+//https://medium.com/seed-digital/how-to-business-model-canvas-explained-ad3676b6fe4a
 
 var modelCanvasExplanation = `Everything is going perfect with the company and you started to figure it out how to go to market with
 your games. And for that, your created a Canvas... And you know, if you fill the canvas for your third game, it will be a sure hit on the market
@@ -195,12 +195,6 @@ to bring revenue to the company.. Always keep one think in mind, the revenue tha
  	}
 
  }
-
-
-
-
-
-
 
 
 ////////////////////////////////// YEAR 6 //////////////////////////////////

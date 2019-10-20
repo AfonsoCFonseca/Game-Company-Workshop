@@ -39,7 +39,7 @@ class Module_0Year extends React.Component {
         <InputBlock 
           valueReceived={ value => this.props.editCompanyState( "companyDescription", value ) }
           size='large'>
-           <Description title='Description ( Optional )' />
+           <Description title='Dsrazeecription ( Optional )' />
         </InputBlock>
 
         <RadioButtonBlock 

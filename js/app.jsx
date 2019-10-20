@@ -16,7 +16,6 @@ class PageContent extends React.Component {
       }
     }
 
-    this.goPreviousYear = this.goPreviousYear.bind( this )
     this.prepareNextYear = this.prepareNextYear.bind( this )
     this.changeYear = this.changeYear.bind( this )
     this.editCompanyState = this.editCompanyState.bind( this )
@@ -56,16 +55,6 @@ class PageContent extends React.Component {
 
   }
 
-  goPreviousYear(){
-    let year = this.state.year
-
-     this.setState({
-      year: ( year > 0 ? this.state.year - 2 : 0 ),
-      isPaused: false,
-      moduleShow: false,
-    })
-  }
-
   prepareNextYear(){
     let year = this.state.year
 
@@ -75,12 +64,18 @@ class PageContent extends React.Component {
     })
   }
 
-  changeYear(){
+  changeYear( type ){
 
     let year = this.state.year
+    let nextYear
+    
+    if( type == "next" )
+      nextYear = ( year < 6 ? this.state.year + 2 : 6 )
+    else if( type == "previous")
+      nextYear = ( year > 0 ? this.state.year - 2 : 0 )
 
     this.setState({
-      year: ( year < 6 ? this.state.year + 2 : 6 ),
+      year: nextYear,
       isPaused: false,
       moduleShow: false,
     })
@@ -112,7 +107,7 @@ class PageContent extends React.Component {
   renderStoryModal( ){
 
     var { title, description, buttons } = createStory( this.state, this )
-    if( !buttons ) buttons = <button onClick={ this.changeYear }>Confirm</button>
+    if( !buttons ) buttons = <button onClick={ this.changeYear( 'next') }>Confirm</button>
 
     return (
       <Modal
@@ -172,7 +167,7 @@ class PageContent extends React.Component {
             goNext={ this.prepareNextYear }
             logState={ () => console.log( this.state ) }
             pauseState= { this.stopTime }
-            goPrevious={ this.goPreviousYear }
+            goPrevious={ this.changeYear }
           /> :
             null
         }
@@ -407,7 +402,7 @@ class PageContent extends React.Component {
   render(){
     return(
       <div className='footer'>
-        <button onClick={ this.props.goPrevious }>back</button>
+        <button onClick={ this.props.goPrevious( 'previous' ) }>back</button>
         <button onClick={ this.props.goNext }>next</button>
         <button onClick={ this.props.logState }>Log</button>
         <button onClick={ this.props.pauseState }> Pause</button>
@@ -457,7 +452,7 @@ class PageContent extends React.Component {
         <InputBlock 
           valueReceived={ value => this.props.editCompanyState( "companyDescription", value ) }
           size='large'>
-           <Description title='Description ( Optional )' />
+           <Description title='Dsrazeecription ( Optional )' />
         </InputBlock>
 
         <RadioButtonBlock 
@@ -840,7 +835,7 @@ and focus on that. Choose wisely when thinking where to spend the company money.
  The ideia of making RTS game doesn t leave your mind. So you decided to make one for your second game. And you wanna try something new on the genre`
 
  var focusOption3 = `The last 2 years were pretty stressfull and that made you take great pleasure in gory games. After a day of work you just want to
- relaxe on the sofa and play some Doom. With that in mind, you decided that your next game will take any kind of genre but will, for sure, be a bloody gory game`
+ relax on the sofa and play some Doom. With that in mind, you decided that your next game will take any kind of genre but will, for sure, be a bloody gory game`
 
 
  var focusDescription = [
@@ -866,10 +861,10 @@ and focus on that. Choose wisely when thinking where to spend the company money.
 ////////////////////////////////// MID YEAR EVENT
 
 
+///////////////////////////////// YEAR 4 //////////////////////////////////
 
-
-////////////////////////////////// YEAR 4 //////////////////////////////////
-
+//Resources
+//https://medium.com/seed-digital/how-to-business-model-canvas-explained-ad3676b6fe4a
 
 var modelCanvasExplanation = `Everything is going perfect with the company and you started to figure it out how to go to market with
 your games. And for that, your created a Canvas... And you know, if you fill the canvas for your third game, it will be a sure hit on the market
@@ -924,12 +919,6 @@ to bring revenue to the company.. Always keep one think in mind, the revenue tha
  	}
 
  }
-
-
-
-
-
-
 
 
 ////////////////////////////////// YEAR 6 //////////////////////////////////

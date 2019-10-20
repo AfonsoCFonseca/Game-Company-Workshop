@@ -16,7 +16,6 @@ class PageContent extends React.Component {
       }
     }
 
-    this.goPreviousYear = this.goPreviousYear.bind( this )
     this.prepareNextYear = this.prepareNextYear.bind( this )
     this.changeYear = this.changeYear.bind( this )
     this.editCompanyState = this.editCompanyState.bind( this )
@@ -56,16 +55,6 @@ class PageContent extends React.Component {
 
   }
 
-  goPreviousYear(){
-    let year = this.state.year
-
-     this.setState({
-      year: ( year > 0 ? this.state.year - 2 : 0 ),
-      isPaused: false,
-      moduleShow: false,
-    })
-  }
-
   prepareNextYear(){
     let year = this.state.year
 
@@ -75,12 +64,18 @@ class PageContent extends React.Component {
     })
   }
 
-  changeYear(){
+  changeYear( type ){
 
     let year = this.state.year
+    let nextYear
+    
+    if( type == "next" )
+      nextYear = ( year < 6 ? this.state.year + 2 : 6 )
+    else if( type == "previous")
+      nextYear = ( year > 0 ? this.state.year - 2 : 0 )
 
     this.setState({
-      year: ( year < 6 ? this.state.year + 2 : 6 ),
+      year: nextYear,
       isPaused: false,
       moduleShow: false,
     })
@@ -112,7 +107,7 @@ class PageContent extends React.Component {
   renderStoryModal( ){
 
     var { title, description, buttons } = createStory( this.state, this )
-    if( !buttons ) buttons = <button onClick={ this.changeYear }>Confirm</button>
+    if( !buttons ) buttons = <button onClick={ this.changeYear( 'next') }>Confirm</button>
 
     return (
       <Modal
@@ -172,7 +167,7 @@ class PageContent extends React.Component {
             goNext={ this.prepareNextYear }
             logState={ () => console.log( this.state ) }
             pauseState= { this.stopTime }
-            goPrevious={ this.goPreviousYear }
+            goPrevious={ this.changeYear }
           /> :
             null
         }
