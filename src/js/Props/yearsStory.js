@@ -25,7 +25,14 @@ var createStory = function( state, parentComponent ){
  		description: getDescriptionStory()
  	})
 
- }
+}
+
+
+////////////////////////////////// OPTIONAL CARDS //////////////////////////////////
+
+var startingCardDescription = `You are about to start your company. To do so, write down the name and a small description
+of something unique that you want to do in it.`
+
 
 ////////////////////////////////// YEAR 0 //////////////////////////////////
 

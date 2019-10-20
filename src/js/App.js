@@ -6,8 +6,9 @@ class PageContent extends React.Component {
     this.state = {
       year: 0,
       goingDev: true,
-      isPaused: false,
+      isPaused: true,
       moduleShow: false,
+      optionalScreen: true,
       company: {
         name: '',
         income: getRandomInt( 2000, 2500 ),
@@ -48,7 +49,7 @@ class PageContent extends React.Component {
         case 16:
           break;
         default:
-          if( key == B_KEY ) this.setState({ goingDev: !this.state.goingDev })
+          if( key == this ) B_KEY.setState({ goingDev: !this.state.goingDev })
           break;
       }
     }
@@ -68,7 +69,7 @@ class PageContent extends React.Component {
 
     let year = this.state.year
     let nextYear
-    
+
     if( type == "next" )
       nextYear = ( year < 6 ? this.state.year + 2 : 6 )
     else if( type == "previous")
@@ -121,6 +122,10 @@ class PageContent extends React.Component {
 
   renderModule(){
 
+    if( this.state.optionalScreen == true ){
+      return <OptionalCard goNext={ () => this.setState({ optionalScreen: false }) } title='Company Form'/>
+    }
+
     switch ( this.state.year ) {
       case 0:
         return <Module_0Year editCompanyState={ this.editCompanyState } />
@@ -146,15 +151,12 @@ class PageContent extends React.Component {
 
     return(
       <React.Fragment>
-        <Toolbar
-          company={ this.state.company }
-        />
-
-        <Timer
+        { !this.state.optionalScreen ? <Toolbar company={ this.state.company } /> : null }
+        { !this.state.optionalScreen ? <Timer
           year={ this.state.year }
           nextYear={ this.prepareNextYear }
           isTimerPaused={ this.state.isPaused }
-        />
+        /> : null }
 
         { this.state.moduleShow ? this.renderStoryModal() : null }
 
@@ -165,11 +167,11 @@ class PageContent extends React.Component {
          this.state.goingDev ?
           <Footer
             goNext={ this.prepareNextYear }
-            logState={ () => console.log( this.state ) }
+            logState={ console.log( this.state ) }
             pauseState= { this.stopTime }
             goPrevious={ this.changeYear }
           /> :
-            null
+          null
         }
       </React.Fragment>
     )

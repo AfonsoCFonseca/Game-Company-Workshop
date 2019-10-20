@@ -18,8 +18,10 @@ $grey_dark: #BABABA;
 $grey_darker: #595959;
 
 $backgroundGreen: #d0ecd2;
-$mainGreen: #d0ecd2;
-$optionalGreen: #d0ecd2;
+$mainGreen: #409c58;
+$optionalGreen: #84c294;
+
+
 
 >.structure{
   @extend %display_flexbox;
@@ -115,6 +117,7 @@ $optionalGreen: #d0ecd2;
       >.dropdownList {
         width: 100%;
         border: 1px solid $grey_dark;
+
       }
 
       /** INPUT COMP **/
@@ -122,6 +125,13 @@ $optionalGreen: #d0ecd2;
       >input {
         border: 1px solid $grey_dark;
         width: 50%;
+
+        &:hover{
+          border: 1px solid $grey_darker;
+        }
+        &:focus{
+          border: 1px solid $grey_darker;
+        }
       }
 
       >textarea{
@@ -129,6 +139,13 @@ $optionalGreen: #d0ecd2;
         height: 100px;
         width: 100%;
         resize: none;
+
+        &:hover{
+          border: 1px solid $grey_darker;
+        }
+        &:focus{
+          border: 1px solid $grey_darker;
+        }
       }
 
 
@@ -140,6 +157,7 @@ $optionalGreen: #d0ecd2;
           >label>input {
               margin-right: 10px;
           }
+
         }
 
       }
@@ -207,5 +225,64 @@ $optionalGreen: #d0ecd2;
 
     }
 
+  }
+
+
+  .optionalCard{
+    height: 400px;
+    width: 100%;
+    margin: 30px;
+
+    .optionalCard-inner{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      >.title{
+        width: 100%;
+        font-size: 18px;
+        text-align: center;
+        padding-bottom: 10px;
+        border-bottom: 2px solid $grey_light;
+      }
+
+      >.optionalCard-text{
+        background-color: $grey_lighter;
+        >p {
+            padding: 10px;
+            padding-left: 20px;
+            padding-right: 20px;
+            font-size: 11px;
+            color: #333333;
+          }
+      }
+
+      >.optionalCard-input{
+        margin-top: 15px; 
+        width: 55%;
+      }
+
+      >.optionalCard-label{
+        margin-top: 5px; 
+        font-size: 11px;
+        color: $grey_dark;
+      }
+
+      >.optionalCard-button{
+        margin-top: 15px; 
+        justify-content: center;
+        cursor: pointer;
+        background-color: $backgroundGreen;
+        border-radius: 8px;
+        border: 0;
+        width: 120px;
+        height: 30px;
+        &:hover{
+          background-color: $mainGreen;
+        }
+      }
+
+    }
   }
 }

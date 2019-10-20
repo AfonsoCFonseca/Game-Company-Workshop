@@ -6,8 +6,9 @@ class PageContent extends React.Component {
     this.state = {
       year: 0,
       goingDev: true,
-      isPaused: false,
+      isPaused: true,
       moduleShow: false,
+      optionalScreen: true,
       company: {
         name: '',
         income: getRandomInt( 2000, 2500 ),
@@ -48,7 +49,7 @@ class PageContent extends React.Component {
         case 16:
           break;
         default:
-          if( key == B_KEY ) this.setState({ goingDev: !this.state.goingDev })
+          if( key == this ) B_KEY.setState({ goingDev: !this.state.goingDev })
           break;
       }
     }
@@ -68,7 +69,7 @@ class PageContent extends React.Component {
 
     let year = this.state.year
     let nextYear
-    
+
     if( type == "next" )
       nextYear = ( year < 6 ? this.state.year + 2 : 6 )
     else if( type == "previous")
@@ -121,6 +122,10 @@ class PageContent extends React.Component {
 
   renderModule(){
 
+    if( this.state.optionalScreen == true ){
+      return React.createElement(OptionalCard, {goNext:  () => this.setState({ optionalScreen: false }), title: "Company Form"})
+    }
+
     switch ( this.state.year ) {
       case 0:
         return React.createElement(Module_0Year, {editCompanyState:  this.editCompanyState})
@@ -146,15 +151,12 @@ class PageContent extends React.Component {
 
     return(
       React.createElement(React.Fragment, null, 
-        React.createElement(Toolbar, {
-          company:  this.state.company}
-        ), 
-
-        React.createElement(Timer, {
+         !this.state.optionalScreen ? React.createElement(Toolbar, {company:  this.state.company}) : null, 
+         !this.state.optionalScreen ? React.createElement(Timer, {
           year:  this.state.year, 
           nextYear:  this.prepareNextYear, 
           isTimerPaused:  this.state.isPaused}
-        ), 
+        ) : null, 
 
          this.state.moduleShow ? this.renderStoryModal() : null, 
 
@@ -165,11 +167,11 @@ class PageContent extends React.Component {
          this.state.goingDev ?
           React.createElement(Footer, {
             goNext:  this.prepareNextYear, 
-            logState:  () => console.log( this.state ), 
+            logState:  console.log( this.state), 
             pauseState:  this.stopTime, 
             goPrevious:  this.changeYear}
           ) :
-            null
+          null
         
       )
     )
@@ -402,7 +404,7 @@ class PageContent extends React.Component {
   render(){
     return(
       React.createElement("div", {className: "footer"}, 
-        React.createElement("button", {onClick:  this.props.goPrevious( 'previous') }, "back"), 
+        React.createElement("button", {onClick:  () => this.props.goPrevious( 'previous' )}, "back"), 
         React.createElement("button", {onClick:  this.props.goNext}, "next"), 
         React.createElement("button", {onClick:  this.props.logState}, "Log"), 
         React.createElement("button", {onClick:  this.props.pauseState}, " Pause")
@@ -452,7 +454,7 @@ class PageContent extends React.Component {
         React.createElement(InputBlock, {
           valueReceived:  value => this.props.editCompanyState( "companyDescription", value ), 
           size: "large"}, 
-           React.createElement(Description, {title: "Dsrazeecription ( Optional )"})
+           React.createElement(Description, {title: "Description ( Optional )"})
         ), 
 
         React.createElement(RadioButtonBlock, {
@@ -671,7 +673,36 @@ class PageContent extends React.Component {
   }
 
 }
-;const genres = [
+;class OptionalCard extends React.Component{
+
+	constructor( props ){
+		super( props )
+	}
+
+	render(){
+		return(
+			React.createElement("div", {className: "optionalCard"}, 
+				React.createElement("div", {className: "optionalCard-inner"}, 
+					React.createElement("h3", {className: "title"},  this.props.title), 
+					React.createElement("div", {className: "optionalCard-text"}, 
+						React.createElement("p", null, startingCardDescription)
+					), 
+
+					React.createElement("input", {className: "optionalCard-input"}
+						
+					), 
+					React.createElement("input", {className: "optionalCard-input"}
+						
+					), 
+
+					React.createElement("button", {className: "optionalCard-button", onClick:  () => this.props.goNext()}, "Start"), 
+					React.createElement("label", {className: "optionalCard-label"}, "When ready, press \"Start\"")
+
+				)
+			)
+			)
+	}
+};const genres = [
   'Platform games',
   'Shooter games',
   'Fighting games',
@@ -749,7 +780,14 @@ var createStory = function( state, parentComponent ){
  		description: getDescriptionStory()
  	})
 
- }
+}
+
+
+////////////////////////////////// OPTIONAL CARDS //////////////////////////////////
+
+var startingCardDescription = `You are about to start your company. To do so, write down the name and a small description
+of something unique that you want to do in it.`
+
 
 ////////////////////////////////// YEAR 0 //////////////////////////////////
 
