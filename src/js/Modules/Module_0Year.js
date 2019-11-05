@@ -57,12 +57,14 @@ class Module_0Year extends React.Component {
 
         <DropdownBlock 
           dataEntries={ genres }
+          placeholder='Pick a genre'
           valueReceived={ value => this.props.editCompanyState( "genres", value ) }>
           <Description title={ 'Genre' } description={ descriptionPlatform }/>
         </DropdownBlock>
 
         <DropdownBlock 
           dataEntries={ platforms }
+          placeholder='Pick a platform'
           valueReceived={ value => this.props.editCompanyState( "platform", value ) }>
           <Description title={ 'Platform' } />
         </DropdownBlock>

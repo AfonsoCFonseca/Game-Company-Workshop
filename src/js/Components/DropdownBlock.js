@@ -2,11 +2,19 @@ class DropdownBlock extends React.Component{
 
   constructor( props ){
     super( props )
+
   }
 
   renderOption(){
 
-    let options = this.props.dataEntries.map( entry => {
+    var newArrayEntries = this.props.dataEntries.slice();
+
+    if( this.props.placeholder ){
+      newArrayEntries.unshift( this.props.placeholder )
+    }
+    
+    let options = newArrayEntries.map( ( entry, i )=> {
+      if( i == 0) return ( <option selected disabled key={`dataEntry_${entry}`}>{entry}</option> )
       return ( <option key={`dataEntry_${entry}`}>{entry}</option> )
     })
 
@@ -19,7 +27,8 @@ class DropdownBlock extends React.Component{
     return(
       <div className='inputDiv'>
         {this.props.children}
-        <select 
+        <select
+          placeholder={ this.props.placeholder }
           className="dropdownList"
           onChange={ event  => this.props.valueReceived( event.target.value )} >
           {this.renderOption()}

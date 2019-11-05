@@ -226,11 +226,19 @@ class PageContent extends React.Component {
 
   constructor( props ){
     super( props )
+
   }
 
   renderOption(){
 
-    let options = this.props.dataEntries.map( entry => {
+    var newArrayEntries = this.props.dataEntries.slice();
+
+    if( this.props.placeholder ){
+      newArrayEntries.unshift( this.props.placeholder )
+    }
+    
+    let options = newArrayEntries.map( ( entry, i )=> {
+      if( i == 0) return ( React.createElement("option", {selected: true, disabled: true, key: `dataEntry_${entry}`}, entry) )
       return ( React.createElement("option", {key: `dataEntry_${entry}`}, entry) )
     })
 
@@ -244,6 +252,7 @@ class PageContent extends React.Component {
       React.createElement("div", {className: "inputDiv"}, 
         this.props.children, 
         React.createElement("select", {
+          placeholder:  this.props.placeholder, 
           className: "dropdownList", 
           onChange:  event  => this.props.valueReceived( event.target.value )}, 
           this.renderOption()
@@ -472,12 +481,14 @@ class PageContent extends React.Component {
 
         React.createElement(DropdownBlock, {
           dataEntries:  genres, 
+          placeholder: "Pick a genre", 
           valueReceived:  value => this.props.editCompanyState( "genres", value )}, 
           React.createElement(Description, {title:  'Genre', description:  descriptionPlatform })
         ), 
 
         React.createElement(DropdownBlock, {
           dataEntries:  platforms, 
+          placeholder: "Pick a platform", 
           valueReceived:  value => this.props.editCompanyState( "platform", value )}, 
           React.createElement(Description, {title:  'Platform' })
         )
@@ -673,35 +684,30 @@ class PageContent extends React.Component {
   }
 
 }
-;class OptionalCard extends React.Component{
+;const OptionalCard = ( props ) => {
 
-	constructor( props ){
-		super( props )
-	}
+	return(
+		React.createElement("div", {className: "optionalCard"}, 
+			React.createElement("div", {className: "optionalCard-inner"}, 
+				React.createElement("h3", {className: "title"},  props.title), 
+				React.createElement("div", {className: "optionalCard-text"}, 
+					React.createElement("p", null, startingCardDescription)
+				), 
 
-	render(){
-		return(
-			React.createElement("div", {className: "optionalCard"}, 
-				React.createElement("div", {className: "optionalCard-inner"}, 
-					React.createElement("h3", {className: "title"},  this.props.title), 
-					React.createElement("div", {className: "optionalCard-text"}, 
-						React.createElement("p", null, startingCardDescription)
-					), 
+				React.createElement("input", {
+					className: "optionalCard-input", 
+					placeholder: "Company Name"}), 
+				React.createElement("textarea", {
+					className: "optionalCard-textarea", 
+					placeholder: "Small Description"}), 
 
-					React.createElement("input", {className: "optionalCard-input"}
-						
-					), 
-					React.createElement("input", {className: "optionalCard-input"}
-						
-					), 
+				React.createElement("button", {className: "optionalCard-button", onClick:  () => props.goNext()}, "Start"), 
+				React.createElement("label", {className: "optionalCard-label"}, "When ready, press \"Start\"")
 
-					React.createElement("button", {className: "optionalCard-button", onClick:  () => this.props.goNext()}, "Start"), 
-					React.createElement("label", {className: "optionalCard-label"}, "When ready, press \"Start\"")
-
-				)
 			)
-			)
-	}
+		)
+	)
+
 };const genres = [
   'Platform games',
   'Shooter games',

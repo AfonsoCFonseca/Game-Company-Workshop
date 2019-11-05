@@ -93,7 +93,9 @@ $optionalGreen: #84c294;
 
         >.withDescriptionTitle {
           @extend %display_inlineflex;
+          font-size: 12px;
           font-weight: 800;
+          color: $grey_darker;
         }
 
         >.descriptionInnerChild {
@@ -154,8 +156,13 @@ $optionalGreen: #84c294;
         height: auto;
         >.radio {
           margin: 5px;
-          >label>input {
+          >label{
+            display: flex;
+            height:100%;
+            font-size: 11px;
+            >input {
               margin-right: 10px;
+            }
           }
 
         }
@@ -261,6 +268,15 @@ $optionalGreen: #84c294;
       >.optionalCard-input{
         margin-top: 15px; 
         width: 55%;
+        border: 1px solid $grey_dark;
+        resize: none;
+      }
+
+      >.optionalCard-textarea{
+        margin-top: 15px; 
+        width: 55%;
+        border: 1px solid $grey_dark;
+        resize: none;
       }
 
       >.optionalCard-label{

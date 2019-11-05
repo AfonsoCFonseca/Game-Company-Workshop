@@ -226,11 +226,19 @@ class PageContent extends React.Component {
 
   constructor( props ){
     super( props )
+
   }
 
   renderOption(){
 
-    let options = this.props.dataEntries.map( entry => {
+    var newArrayEntries = this.props.dataEntries.slice();
+
+    if( this.props.placeholder ){
+      newArrayEntries.unshift( this.props.placeholder )
+    }
+    
+    let options = newArrayEntries.map( ( entry, i )=> {
+      if( i == 0) return ( <option selected disabled key={`dataEntry_${entry}`}>{entry}</option> )
       return ( <option key={`dataEntry_${entry}`}>{entry}</option> )
     })
 
@@ -243,7 +251,8 @@ class PageContent extends React.Component {
     return(
       <div className='inputDiv'>
         {this.props.children}
-        <select 
+        <select
+          placeholder={ this.props.placeholder }
           className="dropdownList"
           onChange={ event  => this.props.valueReceived( event.target.value )} >
           {this.renderOption()}
@@ -472,12 +481,14 @@ class PageContent extends React.Component {
 
         <DropdownBlock 
           dataEntries={ genres }
+          placeholder='Pick a genre'
           valueReceived={ value => this.props.editCompanyState( "genres", value ) }>
           <Description title={ 'Genre' } description={ descriptionPlatform }/>
         </DropdownBlock>
 
         <DropdownBlock 
           dataEntries={ platforms }
+          placeholder='Pick a platform'
           valueReceived={ value => this.props.editCompanyState( "platform", value ) }>
           <Description title={ 'Platform' } />
         </DropdownBlock>
@@ -673,35 +684,30 @@ class PageContent extends React.Component {
   }
 
 }
-;class OptionalCard extends React.Component{
+;const OptionalCard = ( props ) => {
 
-	constructor( props ){
-		super( props )
-	}
-
-	render(){
-		return(
-			<div className='optionalCard'>
-				<div className='optionalCard-inner'>
-					<h3 className='title'>{ this.props.title }</h3>
-					<div className='optionalCard-text'>
-						<p>{startingCardDescription}</p>
-					</div>
-
-					<input className='optionalCard-input'>
-						
-					</input>
-					<input className='optionalCard-input'>
-						
-					</input>
-
-					<button className='optionalCard-button' onClick={ () => this.props.goNext() }>Start</button>
-					<label className='optionalCard-label'>When ready, press "Start"</label>
-
+	return(
+		<div className='optionalCard'>
+			<div className='optionalCard-inner'>
+				<h3 className='title'>{ props.title }</h3>
+				<div className='optionalCard-text'>
+					<p>{startingCardDescription}</p>
 				</div>
+
+				<input 
+					className='optionalCard-input'
+					placeholder='Company Name'></input>
+				<textarea 
+					className='optionalCard-textarea'
+					placeholder='Small Description'></textarea>
+
+				<button className='optionalCard-button' onClick={ () => props.goNext() }>Start</button>
+				<label className='optionalCard-label'>When ready, press "Start"</label>
+
 			</div>
-			)
-	}
+		</div>
+	)
+
 };const genres = [
   'Platform games',
   'Shooter games',

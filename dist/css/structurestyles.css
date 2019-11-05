@@ -69,7 +69,9 @@
   margin-left: 10px;
 }
 > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle {
+  font-size: 12px;
   font-weight: 800;
+  color: #595959;
 }
 > .structure > .module > .inputDiv > .inputDescriptionDiv > .descriptionInnerChild {
   width: 100%;
@@ -115,6 +117,11 @@
 }
 > .structure > .module > .inputDiv > .radioButtonDiv > .radio {
   margin: 5px;
+}
+> .structure > .module > .inputDiv > .radioButtonDiv > .radio > label {
+  display: flex;
+  height: 100%;
+  font-size: 11px;
 }
 > .structure > .module > .inputDiv > .radioButtonDiv > .radio > label > input {
   margin-right: 10px;
@@ -195,6 +202,14 @@
 > .structure .optionalCard .optionalCard-inner > .optionalCard-input {
   margin-top: 15px;
   width: 55%;
+  border: 1px solid #BABABA;
+  resize: none;
+}
+> .structure .optionalCard .optionalCard-inner > .optionalCard-textarea {
+  margin-top: 15px;
+  width: 55%;
+  border: 1px solid #BABABA;
+  resize: none;
 }
 > .structure .optionalCard .optionalCard-inner > .optionalCard-label {
   margin-top: 5px;
