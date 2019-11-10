@@ -8,7 +8,7 @@ class PageContent extends React.Component {
       goingDev: true,
       isPaused: false,
       moduleShow: false,
-      optionalScreen: false,
+      optionalScreen: true,
       middleEvent: false,
       company: {
         name: '',
@@ -77,9 +77,17 @@ class PageContent extends React.Component {
 
     let year = this.state.year
     let nextYear
+    let optionalScreen = false
 
-    if( type == "next" )
-      nextYear = ( year < 4 ? this.state.year + 2 : 4 )
+    if( type == "next" ){
+      if( year < 4 ){
+        nextYear = this.state.year + 2
+      }
+      else {
+        nextYear = 4
+        optionalScreen = true
+      }
+    }
     else if( type == "previous")
       nextYear = ( year > 0 ? this.state.year - 2 : 0 )
 
@@ -87,6 +95,7 @@ class PageContent extends React.Component {
       year: nextYear,
       isPaused: false,
       moduleShow: false,
+      optionalScreen
     })
 
   }
@@ -157,9 +166,17 @@ class PageContent extends React.Component {
   renderModule(){
 
     if( this.state.optionalScreen == true ){
-      return <OptionalCard 
-        goNext={ () => this.setState({ optionalScreen: false }) } 
-        title='Company Form'/>
+      if( this.state.year == 4 ){
+         return <ClosingCard 
+          goNext={ () => this.setState({ optionalScreen: false }) } 
+          title='Closing'/>
+      }
+      else{
+         return <BeginningCard 
+          goNext={ () => this.setState({ optionalScreen: false }) } 
+          title='Company Form'/>
+      }
+
     }
 
     switch ( this.state.year ) {

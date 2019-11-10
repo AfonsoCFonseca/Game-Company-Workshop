@@ -235,12 +235,12 @@ $optionalGreen: #84c294;
   }
 
 
-  .optionalCard{
+  .beginningCard{
     height: 400px;
     width: 100%;
     margin: 30px;
 
-    .optionalCard-inner{
+    .beginningCard-inner{
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -254,7 +254,7 @@ $optionalGreen: #84c294;
         border-bottom: 2px solid $grey_light;
       }
 
-      >.optionalCard-text{
+      >.beginningCard-text{
         background-color: $grey_lighter;
         >p {
             padding: 10px;
@@ -265,27 +265,27 @@ $optionalGreen: #84c294;
           }
       }
 
-      >.optionalCard-input{
+      >.beginningCard-input{
         margin-top: 15px; 
         width: 55%;
         border: 1px solid $grey_dark;
         resize: none;
       }
 
-      >.optionalCard-textarea{
+      >.beginningCard-textarea{
         margin-top: 15px; 
         width: 55%;
         border: 1px solid $grey_dark;
         resize: none;
       }
 
-      >.optionalCard-label{
+      >.beginningCard-label{
         margin-top: 5px; 
         font-size: 11px;
         color: $grey_dark;
       }
 
-      >.optionalCard-button{
+      >.beginningCard-button{
         margin-top: 15px; 
         justify-content: center;
         cursor: pointer;
@@ -300,5 +300,9 @@ $optionalGreen: #84c294;
       }
 
     }
+  }
+
+  .closingCard {
+    
   }
 }

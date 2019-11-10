@@ -8,7 +8,7 @@ class PageContent extends React.Component {
       goingDev: true,
       isPaused: false,
       moduleShow: false,
-      optionalScreen: false,
+      optionalScreen: true,
       middleEvent: false,
       company: {
         name: '',
@@ -77,9 +77,17 @@ class PageContent extends React.Component {
 
     let year = this.state.year
     let nextYear
+    let optionalScreen = false
 
-    if( type == "next" )
-      nextYear = ( year < 4 ? this.state.year + 2 : 4 )
+    if( type == "next" ){
+      if( year < 4 ){
+        nextYear = this.state.year + 2
+      }
+      else {
+        nextYear = 4
+        optionalScreen = true
+      }
+    }
     else if( type == "previous")
       nextYear = ( year > 0 ? this.state.year - 2 : 0 )
 
@@ -87,6 +95,7 @@ class PageContent extends React.Component {
       year: nextYear,
       isPaused: false,
       moduleShow: false,
+      optionalScreen
     })
 
   }
@@ -157,9 +166,17 @@ class PageContent extends React.Component {
   renderModule(){
 
     if( this.state.optionalScreen == true ){
-      return React.createElement(OptionalCard, {
-        goNext:  () => this.setState({ optionalScreen: false }), 
-        title: "Company Form"})
+      if( this.state.year == 4 ){
+         return React.createElement(ClosingCard, {
+          goNext:  () => this.setState({ optionalScreen: false }), 
+          title: "Closing"})
+      }
+      else{
+         return React.createElement(BeginningCard, {
+          goNext:  () => this.setState({ optionalScreen: false }), 
+          title: "Company Form"})
+      }
+
     }
 
     switch ( this.state.year ) {
@@ -212,7 +229,31 @@ class PageContent extends React.Component {
   }
 
 }
-;class Description extends React.Component{
+;const BeginningCard = ( props ) => {
+
+	return(
+		React.createElement("div", {className: "beginningCard"}, 
+			React.createElement("div", {className: "beginningCard-inner"}, 
+				React.createElement("h3", {className: "title"},  props.title), 
+				React.createElement("div", {className: "beginningCard-text"}, 
+					React.createElement("p", null, startingCardDescription)
+				), 
+
+				React.createElement("input", {
+					className: "beginningCard-input", 
+					placeholder: "Company Name"}), 
+				React.createElement("textarea", {
+					className: "beginningCard-textarea", 
+					placeholder: "Small Description"}), 
+
+				React.createElement("button", {className: "beginningCard-button", onClick:  () => props.goNext()}, "Start"), 
+				React.createElement("label", {className: "beginningCard-label"}, "When ready, press \"Start\"")
+
+			)
+		)
+	)
+
+};class Description extends React.Component{
 
   constructor( props ){
     super( props )
@@ -436,6 +477,30 @@ class PageContent extends React.Component {
 			)
 		)
 	)
+};const ClosingCard = ( props ) => {
+
+	return(
+		React.createElement("div", {className: "endingCard"}, 
+			React.createElement("div", {className: "endingCard-inner"}, 
+				React.createElement("h3", {className: "title"},  props.title), 
+				React.createElement("div", {className: "endingCard-text"}, 
+					React.createElement("p", null, startingCardDescription)
+				), 
+
+				React.createElement("input", {
+					className: "endingCard-input", 
+					placeholder: "Company Name"}), 
+				React.createElement("textarea", {
+					className: "endingCard-textarea", 
+					placeholder: "Small Description"}), 
+
+				React.createElement("button", {className: "endingCard-button", onClick:  () => props.goNext()}, "Start"), 
+				React.createElement("label", {className: "endingCard-label"}, "When ready, press \"Start\"")
+
+			)
+		)
+	)
+
 };class Footer extends React.Component {
 
   constructor( props ){
@@ -687,31 +752,7 @@ class PageContent extends React.Component {
   }
 
 }
-;const OptionalCard = ( props ) => {
-
-	return(
-		React.createElement("div", {className: "optionalCard"}, 
-			React.createElement("div", {className: "optionalCard-inner"}, 
-				React.createElement("h3", {className: "title"},  props.title), 
-				React.createElement("div", {className: "optionalCard-text"}, 
-					React.createElement("p", null, startingCardDescription)
-				), 
-
-				React.createElement("input", {
-					className: "optionalCard-input", 
-					placeholder: "Company Name"}), 
-				React.createElement("textarea", {
-					className: "optionalCard-textarea", 
-					placeholder: "Small Description"}), 
-
-				React.createElement("button", {className: "optionalCard-button", onClick:  () => props.goNext()}, "Start"), 
-				React.createElement("label", {className: "optionalCard-label"}, "When ready, press \"Start\"")
-
-			)
-		)
-	)
-
-};const genres = [
+;const genres = [
   'Platform games',
   'Shooter games',
   'Fighting games',
