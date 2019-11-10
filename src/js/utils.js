@@ -31,3 +31,7 @@ function countTeam( teamObj ){
     }
     return contador
 }
+
+function countSalary( teamObj ){
+    
+}

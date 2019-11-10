@@ -5,6 +5,7 @@ var createStory = function( state, parentComponent ){
 
  	switch( state.year ){
  		case 0:
+ 			if( state.middleEvent == true ) return year0MiddleEventStory( income, equity,team, parentComponent)
  			return year0Story( income, equity,team, parentComponent )
 
 		case 2:
@@ -53,7 +54,7 @@ The game needs to be an assure hit to bring some money and investment to the com
 
  var year0Story = function( income, equity,team, pC ){
 
-	var title = ""
+	var title = "2 Years have passed"
 	var text = ""
 
 	var teamSalary = getSalaryForTeam( team, 0 )
@@ -84,7 +85,7 @@ The game needs to be an assure hit to bring some money and investment to the com
 	What would you do?  </p>`
 
  	return {
- 		title: '2 Years have passed',
+ 		title,
  		description: text,
  		buttons,
  	}
@@ -93,7 +94,49 @@ The game needs to be an assure hit to bring some money and investment to the com
 
 ////////////////////////////////// MID YEAR EVENT
 
+var year0MiddleEventStory = function( income, equity, team, pC ){
 
+	let year0 = {
+      middleEvent : {}
+    }
+
+	var title = 'Event Middle'
+	var text = `<p class='descriptionModal'>Since you've started to work with a team, the game is developing
+	faster since the beggining but you can't shake the feeling that the company could do a lot better, the team
+	is unorganized and not that commited as you expected.</p>
+	<p class='descriptionModal-type2'> What do you do? </p>
+	<p class='descriptionModal'>You can raise the salary of the team, and maybe they'll be happier and more focused or
+	you can start to make meetings with them, so the game is more right on track.</p>`
+
+	var buttons = <React.Fragment>
+		<button
+			onClick={  () => {
+				year0.middleEvent = {
+					event: 1,
+	    			chose: "salary",
+				}
+				pC.closeMiddleEvent( "year0", year0 )
+				}
+			}>Raise 100$ Salary</button>
+		<button
+			onClick={ () => {
+				year0.middleEvent = {
+					event: 2,
+	    			chose: "meetings",
+				}
+
+				pC.closeMiddleEvent( "year0", year0 )
+				} 
+			}>Start doing meetings</button>
+	</React.Fragment>
+
+	return {
+ 		title,
+ 		description: text,
+ 		buttons,
+ 	}
+
+}
 
 
 

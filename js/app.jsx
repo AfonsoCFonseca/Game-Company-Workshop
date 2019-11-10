@@ -6,14 +6,18 @@ class PageContent extends React.Component {
     this.state = {
       year: 0,
       goingDev: true,
-      isPaused: true,
+      isPaused: false,
       moduleShow: false,
       optionalScreen: false,
+      middleEvent: false,
       company: {
         name: '',
         income: 2500,
         equity: 100,
         team: null,
+      },
+      year0:{
+        middleEvent: null,
       }
     }
 
@@ -23,6 +27,9 @@ class PageContent extends React.Component {
     this._handleKeyDown = this._handleKeyDown.bind( this )
     this.stopTime = this.stopTime.bind( this )
     this.updateCompanyNumberValues = this.updateCompanyNumberValues.bind( this )
+    this.renderMiddleYearModal = this.renderMiddleYearModal.bind( this )
+    this.editGeneralState = this.editGeneralState.bind( this )
+    this.closeMiddleEvent = this.closeMiddleEvent.bind( this )
   }
 
   componentDidMount(){
@@ -70,12 +77,9 @@ class PageContent extends React.Component {
 
     let year = this.state.year
     let nextYear
-console.log( type)
-    if( type == "next" ){
+
+    if( type == "next" )
       nextYear = ( year < 4 ? this.state.year + 2 : 4 )
-      console.log( "year", year)
-      console.log( "nextYear", nextYear)
-    }
     else if( type == "previous")
       nextYear = ( year > 0 ? this.state.year - 2 : 0 )
 
@@ -88,7 +92,6 @@ console.log( type)
   }
 
   stopTime(){
-    console.log("||PAUSED||")
     this.setState({isPaused: !this.state.isPaused})
   }
 
@@ -96,6 +99,13 @@ console.log( type)
     var newValue = this.state.company[name] + value
 
     this.editCompanyState( name, newValue )
+  }
+
+  editGeneralState( name, value ){
+    var actualState = this.state
+    actualState[ name ] = value
+
+    this.setState( actualState )
   }
 
   editCompanyState( name, value ){
@@ -124,6 +134,26 @@ console.log( type)
 
   }
 
+///////MIDDLE EVENT
+  renderMiddleYearModal( ){
+      this.setState({
+        middleEvent: true,
+        moduleShow: true,
+        isPaused: true,
+      })
+  }
+
+  closeMiddleEvent( eventName, eventToUpdate ){
+    this.editGeneralState( eventName, eventToUpdate )
+
+     this.setState({
+      middleEvent: false,
+      isPaused: false,
+      moduleShow: false,
+    })
+  }
+
+///////RENDER MODULE
   renderModule(){
 
     if( this.state.optionalScreen == true ){
@@ -159,6 +189,7 @@ console.log( type)
           year={ this.state.year }
           nextYear={ this.prepareNextYear }
           isTimerPaused={ this.state.isPaused }
+          middleEventTrigger={ this.renderMiddleYearModal }
         /> : null }
 
         { this.state.moduleShow ? this.renderStoryModal() : null }
@@ -738,6 +769,7 @@ var createStory = function( state, parentComponent ){
 
  	switch( state.year ){
  		case 0:
+ 			if( state.middleEvent == true ) return year0MiddleEventStory( income, equity,team, parentComponent)
  			return year0Story( income, equity,team, parentComponent )
 
 		case 2:
@@ -786,7 +818,7 @@ The game needs to be an assure hit to bring some money and investment to the com
 
  var year0Story = function( income, equity,team, pC ){
 
-	var title = ""
+	var title = "2 Years have passed"
 	var text = ""
 
 	var teamSalary = getSalaryForTeam( team, 0 )
@@ -817,7 +849,7 @@ The game needs to be an assure hit to bring some money and investment to the com
 	What would you do?  </p>`
 
  	return {
- 		title: '2 Years have passed',
+ 		title,
  		description: text,
  		buttons,
  	}
@@ -826,7 +858,49 @@ The game needs to be an assure hit to bring some money and investment to the com
 
 ////////////////////////////////// MID YEAR EVENT
 
+var year0MiddleEventStory = function( income, equity, team, pC ){
 
+	let year0 = {
+      middleEvent : {}
+    }
+
+	var title = 'Event Middle'
+	var text = `<p class='descriptionModal'>Since you've started to work with a team, the game is developing
+	faster since the beggining but you can't shake the feeling that the company could do a lot better, the team
+	is unorganized and not that commited as you expected.</p>
+	<p class='descriptionModal-type2'> What do you do? </p>
+	<p class='descriptionModal'>You can raise the salary of the team, and maybe they'll be happier and more focused or
+	you can start to make meetings with them, so the game is more right on track.</p>`
+
+	var buttons = <React.Fragment>
+		<button
+			onClick={  () => {
+				year0.middleEvent = {
+					event: 1,
+	    			chose: "salary",
+				}
+				pC.closeMiddleEvent( "year0", year0 )
+				}
+			}>Raise 100$ Salary</button>
+		<button
+			onClick={ () => {
+				year0.middleEvent = {
+					event: 2,
+	    			chose: "meetings",
+				}
+
+				pC.closeMiddleEvent( "year0", year0 )
+				} 
+			}>Start doing meetings</button>
+	</React.Fragment>
+
+	return {
+ 		title,
+ 		description: text,
+ 		buttons,
+ 	}
+
+}
 
 
 
@@ -968,6 +1042,8 @@ function getSalaryForTeam ( team = null, year ){
 
     this.timer30Minutes = 6 * 3 //60 * 30
     this.actualTimer = 0
+    // 20 80
+    this.middleYearEvent = getRandomInt( (this.timer30Minutes/ 2) - 2 , (this.timer30Minutes/ 2) + 5 )
 
     this.state = {
       year: props.year,
@@ -1011,14 +1087,21 @@ function getSalaryForTeam ( team = null, year ){
   }
 
   doTheMath(){
-    var valueInPercentage = parseInt( ( this.actualTimer * 100 ) / this.timer30Minutes )
+    let valueInPercentage = parseInt( ( this.actualTimer * 100 ) / this.timer30Minutes )
+    let isTimerPaused = false
 
     $('.imageInnerFiller').animate({
         width: valueInPercentage + '%'
     })
 
+    if( this.middleYearEvent == this.actualTimer ){
+      this.props.middleEventTrigger()
+    }
+
     var timerValue = giveMinutesAndSeconds( this.actualTimer )
-    this.setState({ timerValue })
+    this.setState({ 
+      timerValue,
+    })
   }
 
   static getDerivedStateFromProps( props, state ) {
@@ -1143,6 +1226,10 @@ function countTeam( teamObj ){
         contador += teamObj[x]
     }
     return contador
+}
+
+function countSalary( teamObj ){
+    
 };ReactDOM.render(
   <PageContent/>,
   document.getElementById('content')

@@ -6,14 +6,18 @@ class PageContent extends React.Component {
     this.state = {
       year: 0,
       goingDev: true,
-      isPaused: true,
+      isPaused: false,
       moduleShow: false,
       optionalScreen: false,
+      middleEvent: false,
       company: {
         name: '',
         income: 2500,
         equity: 100,
         team: null,
+      },
+      year0:{
+        middleEvent: null,
       }
     }
 
@@ -23,6 +27,9 @@ class PageContent extends React.Component {
     this._handleKeyDown = this._handleKeyDown.bind( this )
     this.stopTime = this.stopTime.bind( this )
     this.updateCompanyNumberValues = this.updateCompanyNumberValues.bind( this )
+    this.renderMiddleYearModal = this.renderMiddleYearModal.bind( this )
+    this.editGeneralState = this.editGeneralState.bind( this )
+    this.closeMiddleEvent = this.closeMiddleEvent.bind( this )
   }
 
   componentDidMount(){
@@ -70,12 +77,9 @@ class PageContent extends React.Component {
 
     let year = this.state.year
     let nextYear
-console.log( type)
-    if( type == "next" ){
+
+    if( type == "next" )
       nextYear = ( year < 4 ? this.state.year + 2 : 4 )
-      console.log( "year", year)
-      console.log( "nextYear", nextYear)
-    }
     else if( type == "previous")
       nextYear = ( year > 0 ? this.state.year - 2 : 0 )
 
@@ -88,7 +92,6 @@ console.log( type)
   }
 
   stopTime(){
-    console.log("||PAUSED||")
     this.setState({isPaused: !this.state.isPaused})
   }
 
@@ -96,6 +99,13 @@ console.log( type)
     var newValue = this.state.company[name] + value
 
     this.editCompanyState( name, newValue )
+  }
+
+  editGeneralState( name, value ){
+    var actualState = this.state
+    actualState[ name ] = value
+
+    this.setState( actualState )
   }
 
   editCompanyState( name, value ){
@@ -124,6 +134,26 @@ console.log( type)
 
   }
 
+///////MIDDLE EVENT
+  renderMiddleYearModal( ){
+      this.setState({
+        middleEvent: true,
+        moduleShow: true,
+        isPaused: true,
+      })
+  }
+
+  closeMiddleEvent( eventName, eventToUpdate ){
+    this.editGeneralState( eventName, eventToUpdate )
+
+     this.setState({
+      middleEvent: false,
+      isPaused: false,
+      moduleShow: false,
+    })
+  }
+
+///////RENDER MODULE
   renderModule(){
 
     if( this.state.optionalScreen == true ){
@@ -159,6 +189,7 @@ console.log( type)
           year={ this.state.year }
           nextYear={ this.prepareNextYear }
           isTimerPaused={ this.state.isPaused }
+          middleEventTrigger={ this.renderMiddleYearModal }
         /> : null }
 
         { this.state.moduleShow ? this.renderStoryModal() : null }

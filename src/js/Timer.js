@@ -5,6 +5,8 @@ class Timer extends React.Component {
 
     this.timer30Minutes = 6 * 3 //60 * 30
     this.actualTimer = 0
+    // 20 80
+    this.middleYearEvent = getRandomInt( (this.timer30Minutes/ 2) - 2 , (this.timer30Minutes/ 2) + 5 )
 
     this.state = {
       year: props.year,
@@ -48,14 +50,21 @@ class Timer extends React.Component {
   }
 
   doTheMath(){
-    var valueInPercentage = parseInt( ( this.actualTimer * 100 ) / this.timer30Minutes )
+    let valueInPercentage = parseInt( ( this.actualTimer * 100 ) / this.timer30Minutes )
+    let isTimerPaused = false
 
     $('.imageInnerFiller').animate({
         width: valueInPercentage + '%'
     })
 
+    if( this.middleYearEvent == this.actualTimer ){
+      this.props.middleEventTrigger()
+    }
+
     var timerValue = giveMinutesAndSeconds( this.actualTimer )
-    this.setState({ timerValue })
+    this.setState({ 
+      timerValue,
+    })
   }
 
   static getDerivedStateFromProps( props, state ) {
