@@ -31,6 +31,7 @@ class PageContent extends React.Component {
     this.editGeneralState = this.editGeneralState.bind( this )
     this.closeMiddleEvent = this.closeMiddleEvent.bind( this )
     this.exportToImage = this.exportToImage.bind( this )
+    this.startCompany = this.startCompany.bind( this )
   }
 
   componentDidMount(){
@@ -144,6 +145,16 @@ class PageContent extends React.Component {
 
   }
 
+///////STARTING APP
+
+ startCompany( title, description ){
+  this.setState({ 
+    optionalScreen: false 
+  })
+  this.editCompanyState( "name", title )
+  this.editCompanyState( "description", description )
+ }
+
 ///////MIDDLE EVENT
   renderMiddleYearModal( ){
       this.setState({
@@ -189,7 +200,7 @@ class PageContent extends React.Component {
       }
       else{
          return <BeginningCard 
-          goNext={ () => this.setState({ optionalScreen: false }) } 
+          goNext={ this.startCompany } 
           title='Company Form'/>
       }
 

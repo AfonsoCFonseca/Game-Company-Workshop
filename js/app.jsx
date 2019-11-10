@@ -31,6 +31,7 @@ class PageContent extends React.Component {
     this.editGeneralState = this.editGeneralState.bind( this )
     this.closeMiddleEvent = this.closeMiddleEvent.bind( this )
     this.exportToImage = this.exportToImage.bind( this )
+    this.startCompany = this.startCompany.bind( this )
   }
 
   componentDidMount(){
@@ -144,6 +145,16 @@ class PageContent extends React.Component {
 
   }
 
+///////STARTING APP
+
+ startCompany( title, description ){
+  this.setState({ 
+    optionalScreen: false 
+  })
+  this.editCompanyState( "name", title )
+  this.editCompanyState( "description", description )
+ }
+
 ///////MIDDLE EVENT
   renderMiddleYearModal( ){
       this.setState({
@@ -189,7 +200,7 @@ class PageContent extends React.Component {
       }
       else{
          return <BeginningCard 
-          goNext={ () => this.setState({ optionalScreen: false }) } 
+          goNext={ this.startCompany } 
           title='Company Form'/>
       }
 
@@ -247,6 +258,9 @@ class PageContent extends React.Component {
 }
 ;const BeginningCard = ( props ) => {
 
+	var title;
+	var description;
+
 	return(
 		<div className='beginningCard'>
 			<div className='beginningCard-inner'>
@@ -256,13 +270,15 @@ class PageContent extends React.Component {
 				</div>
 
 				<input 
+					onChange={ event => title = event.target.value }
 					className='beginningCard-input'
 					placeholder='Company Name'></input>
 				<textarea 
+					onChange={ event => description = event.target.value }
 					className='beginningCard-textarea'
 					placeholder='Small Description'></textarea>
 
-				<button className='beginningCard-button' onClick={ () => props.goNext() }>Start</button>
+				<button className='beginningCard-button' onClick={ () => props.goNext( title, description ) }>Start</button>
 				<label className='beginningCard-label'>When ready, press "Start"</label>
 
 			</div>
