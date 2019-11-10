@@ -8,18 +8,25 @@ class Module_0Year extends React.Component {
 
 
   takeInputValueFromRadioButton( value ){
+    let year0 = {}
 
     if( value.indexOf( 'Developers' ) !== -1 ){
-      this.props.editCompanyState( "team", {
-        'developers': 2,
-      })
+      year0 = {
+        teamChoice: {
+          'developers': 2,
+        }
+      }
     }
     else{
-      this.props.editCompanyState( "team", {
-        'developers': 1,
-        'artists': 1,
-      })
+      year0 = {
+        teamChoice: {
+          'developers': 1,
+          'artists': 1,
+        }
+      }
     }
+
+    this.props.editGeneralState( 'year0', year0 )
     
   }
 

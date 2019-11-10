@@ -14,7 +14,7 @@ class DropdownBlock extends React.Component{
     }
     
     let options = newArrayEntries.map( ( entry, i )=> {
-      if( i == 0) return ( <option selected disabled key={`dataEntry_${entry}`}>{entry}</option> )
+      if( i == 0) return ( <option defaultValue disabled key={`dataEntry_${entry}`}>{entry}</option> )
       return ( <option key={`dataEntry_${entry}`}>{entry}</option> )
     })
 

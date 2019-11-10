@@ -6,7 +6,8 @@ var createStory = function( state, parentComponent ){
  	switch( state.year ){
  		case 0:
  			if( state.middleEvent == true ) return year0MiddleEventStory( income, equity,team, parentComponent)
- 			return year0Story( income, equity,team, parentComponent )
+ 			else if( state.recapEvent == true ) return recapScreen( state, parentComponent )
+ 			else return year0Story( income, equity,team, parentComponent )
 
 		case 2:
  			return year2Story( income, equity,team, parentComponent )
@@ -65,16 +66,16 @@ The game needs to be an assure hit to bring some money and investment to the com
 	var buttons = <React.Fragment>
 		<button
 			onClick={  () => {
-					 pC.updateCompanyNumberValues( "equity", -20 );
-					 pC.updateCompanyNumberValues( "income", 40000 );
-					 pC.changeYear( "next" )
+					/* pC.updateCompanyNumberValues( "equity", -20 );
+					 pC.updateCompanyNumberValues( "income", 40000 );*/
+					 pC.recapTheYear( )
 				}
 			}>Accept the offer</button>
 		<button
 			onClick={ () => {
-					 pC.updateCompanyNumberValues( "equity", -30 );
-					 pC.updateCompanyNumberValues( "income", 30000 );
-					 pC.changeYear( "next" )
+					 /*pC.updateCompanyNumberValues( "equity", -30 );
+					 pC.updateCompanyNumberValues( "income", 30000 );*/
+					 pC.recapTheYear( )
 				} 
 			}>Counter Proposal</button>
 	</React.Fragment>
@@ -274,3 +275,25 @@ function getSalaryForTeam ( team = null, year ){
 
 
    }
+
+
+
+var recapScreen = function( state, pC ){
+
+	var { title, description } = createRecapBasedOnChoices( state )
+
+	var buttons = <React.Fragment>
+		<button
+			onClick={  () => {
+				pC.changeYear('next')
+				}
+			}> Continue </button>
+	</React.Fragment>
+
+	return {
+ 		title,
+ 		description,
+ 		buttons,
+ 	}
+
+}

@@ -8,8 +8,9 @@ class PageContent extends React.Component {
       goingDev: true,
       isPaused: false,
       moduleShow: false,
-      optionalScreen: true,
+      optionalScreen: false,
       middleEvent: false,
+      recapEvent: false,
       company: {
         name: '',
         income: 2500,
@@ -32,6 +33,7 @@ class PageContent extends React.Component {
     this.closeMiddleEvent = this.closeMiddleEvent.bind( this )
     this.exportToImage = this.exportToImage.bind( this )
     this.startCompany = this.startCompany.bind( this )
+    this.recapTheYear = this.recapTheYear.bind( this )
   }
 
   componentDidMount(){
@@ -114,7 +116,16 @@ class PageContent extends React.Component {
 
   editGeneralState( name, value ){
     var actualState = this.state
-    actualState[ name ] = value
+
+    if( actualState[ name ] ){
+      
+      if( typeof value === 'object' ){
+        for( var x in value ){
+          actualState[ name ][x] = value[x]
+        }
+      }
+      else actualState[ name ] = value
+    }
 
     this.setState( actualState )
   }
@@ -143,6 +154,11 @@ class PageContent extends React.Component {
       </Modal>
     )
 
+  }
+
+///////RECAP SCREEN
+  recapTheYear(){
+    this.setState({ recapEvent: true })
   }
 
 ///////STARTING APP
@@ -208,13 +224,16 @@ class PageContent extends React.Component {
 
     switch ( this.state.year ) {
       case 0:
-        return <Module_0Year editCompanyState={ this.editCompanyState } />
+        return <Module_0Year editGeneralState={ this.editGeneralState } 
+          editCompanyState={ this.editCompanyState } />
         break;
       case 2:
-        return <Module_2Year editCompanyState={ this.editCompanyState } />
+        return <Module_2Year editGeneralState={ this.editGeneralState }
+          editCompanyState={ this.editCompanyState } />
         break;
       case 4:
-        return <Module_4Year editCompanyState={ this.editCompanyState }/>
+        return <Module_4Year editGeneralState={ this.editGeneralState }
+          editCompanyState={ this.editCompanyState }/>
         break;
       default:
         console.log( "retornou null" )
@@ -245,7 +264,7 @@ class PageContent extends React.Component {
          this.state.goingDev ?
           <Footer
             goNext={ this.prepareNextYear }
-            logState={ console.log( this.state ) }
+            logState={ () => console.log( this.state ) }
             pauseState= { this.stopTime }
             goPrevious={ this.changeYear }
           /> :

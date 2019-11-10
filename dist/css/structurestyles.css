@@ -205,6 +205,9 @@
   border: 1px solid #BABABA;
   resize: none;
 }
+> .structure .beginningCard .beginningCard-inner > .beginningCard-input.missingTitle {
+  border: 1px solid red;
+}
 > .structure .beginningCard .beginningCard-inner > .beginningCard-textarea {
   margin-top: 15px;
   width: 55%;

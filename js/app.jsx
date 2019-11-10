@@ -8,8 +8,9 @@ class PageContent extends React.Component {
       goingDev: true,
       isPaused: false,
       moduleShow: false,
-      optionalScreen: true,
+      optionalScreen: false,
       middleEvent: false,
+      recapEvent: false,
       company: {
         name: '',
         income: 2500,
@@ -32,6 +33,7 @@ class PageContent extends React.Component {
     this.closeMiddleEvent = this.closeMiddleEvent.bind( this )
     this.exportToImage = this.exportToImage.bind( this )
     this.startCompany = this.startCompany.bind( this )
+    this.recapTheYear = this.recapTheYear.bind( this )
   }
 
   componentDidMount(){
@@ -114,7 +116,16 @@ class PageContent extends React.Component {
 
   editGeneralState( name, value ){
     var actualState = this.state
-    actualState[ name ] = value
+
+    if( actualState[ name ] ){
+      
+      if( typeof value === 'object' ){
+        for( var x in value ){
+          actualState[ name ][x] = value[x]
+        }
+      }
+      else actualState[ name ] = value
+    }
 
     this.setState( actualState )
   }
@@ -143,6 +154,11 @@ class PageContent extends React.Component {
       </Modal>
     )
 
+  }
+
+///////RECAP SCREEN
+  recapTheYear(){
+    this.setState({ recapEvent: true })
   }
 
 ///////STARTING APP
@@ -208,13 +224,16 @@ class PageContent extends React.Component {
 
     switch ( this.state.year ) {
       case 0:
-        return <Module_0Year editCompanyState={ this.editCompanyState } />
+        return <Module_0Year editGeneralState={ this.editGeneralState } 
+          editCompanyState={ this.editCompanyState } />
         break;
       case 2:
-        return <Module_2Year editCompanyState={ this.editCompanyState } />
+        return <Module_2Year editGeneralState={ this.editGeneralState }
+          editCompanyState={ this.editCompanyState } />
         break;
       case 4:
-        return <Module_4Year editCompanyState={ this.editCompanyState }/>
+        return <Module_4Year editGeneralState={ this.editGeneralState }
+          editCompanyState={ this.editCompanyState }/>
         break;
       default:
         console.log( "retornou null" )
@@ -245,7 +264,7 @@ class PageContent extends React.Component {
          this.state.goingDev ?
           <Footer
             goNext={ this.prepareNextYear }
-            logState={ console.log( this.state ) }
+            logState={ () => console.log( this.state ) }
             pauseState= { this.stopTime }
             goPrevious={ this.changeYear }
           /> :
@@ -256,34 +275,56 @@ class PageContent extends React.Component {
   }
 
 }
-;const BeginningCard = ( props ) => {
+;class BeginningCard extends React.Component {
 
-	var title;
-	var description;
+	constructor( props ){
+		super( props )
 
-	return(
-		<div className='beginningCard'>
-			<div className='beginningCard-inner'>
-				<h3 className='title'>{ props.title }</h3>
-				<div className='beginningCard-text'>
-					<p>{startingCardDescription}</p>
+		this.title = "";
+		this.description;
+
+		this.state ={
+			missingTitle: false
+		}
+	}
+
+	checkInit(){
+		if( this.title != "" )
+			this.props.goNext( this.title, this.description )
+		else {
+			this.setState({
+				missingTitle: true
+			}) 
+		}
+	}
+
+	render(){
+
+		return(
+			<div className='beginningCard'>
+				<div className='beginningCard-inner'>
+					<h3 className='title'>{ this.props.title }</h3>
+					<div className='beginningCard-text'>
+						<p>{startingCardDescription}</p>
+					</div>
+
+					<input 
+						onChange={ event => this.title = event.target.value }
+						className={`beginningCard-input ${ this.state.missingTitle ? "missingTitle" : ""}`}
+						placeholder='Company Name'></input>
+					<textarea 
+						onChange={ event => this.description = event.target.value }
+						className='beginningCard-textarea'
+						placeholder='Small Description'></textarea>
+
+					<button className='beginningCard-button' onClick={ () => this.checkInit() }>Start</button>
+					<label className='beginningCard-label'>When ready, press "Start"</label>
+
 				</div>
-
-				<input 
-					onChange={ event => title = event.target.value }
-					className='beginningCard-input'
-					placeholder='Company Name'></input>
-				<textarea 
-					onChange={ event => description = event.target.value }
-					className='beginningCard-textarea'
-					placeholder='Small Description'></textarea>
-
-				<button className='beginningCard-button' onClick={ () => props.goNext( title, description ) }>Start</button>
-				<label className='beginningCard-label'>When ready, press "Start"</label>
-
 			</div>
-		</div>
-	)
+		)
+
+	}
 
 };class Description extends React.Component{
 
@@ -345,7 +386,7 @@ class PageContent extends React.Component {
     }
     
     let options = newArrayEntries.map( ( entry, i )=> {
-      if( i == 0) return ( <option selected disabled key={`dataEntry_${entry}`}>{entry}</option> )
+      if( i == 0) return ( <option defaultValue disabled key={`dataEntry_${entry}`}>{entry}</option> )
       return ( <option key={`dataEntry_${entry}`}>{entry}</option> )
     })
 
@@ -609,18 +650,25 @@ class PageContent extends React.Component {
 
 
   takeInputValueFromRadioButton( value ){
+    let year0 = {}
 
     if( value.indexOf( 'Developers' ) !== -1 ){
-      this.props.editCompanyState( "team", {
-        'developers': 2,
-      })
+      year0 = {
+        teamChoice: {
+          'developers': 2,
+        }
+      }
     }
     else{
-      this.props.editCompanyState( "team", {
-        'developers': 1,
-        'artists': 1,
-      })
+      year0 = {
+        teamChoice: {
+          'developers': 1,
+          'artists': 1,
+        }
+      }
     }
+
+    this.props.editGeneralState( 'year0', year0 )
     
   }
 
@@ -833,12 +881,10 @@ class PageContent extends React.Component {
 ;const genres = [
   'Platform games',
   'Shooter games',
-  'Fighting games',
   'Beat em up games',
   'Stealth game',
   'Survival games',
   'Battle royale',
-  'Rhythm games',
   'Action-adventure',
   'Survival horror',
   'Metroidvania',
@@ -849,22 +895,11 @@ class PageContent extends React.Component {
   'Roguelikes',
   'First-person party-based RPG',
   'Construction and management simulation',
-  'Life simulation',
-  'Vehicle simulation',
-  'Auto battler (auto chess)',
   'Multiplayer online battle arena (MOBA)',
   'Real-time strategy (RTS)',
-  'Real-time tactics (RTT)',
   'Tower defense',
-  'Turn-based strategy (TBS)',
-  'Turn-based tactics (TBT)',
-  'Racing',
-  'Sports game',
-  'Sports-based fighting',
   'MMO',
   'Party game',
-  'Logic game',
-  'Idle gaming',
 ]
 
 const platforms = [
@@ -881,7 +916,52 @@ const platforms = [
 const teamArrayYear0 = [
   '1 Developer, 1 Artist',
   '2 Developers'
-];
+];var createRecapBasedOnChoices = function( state ){
+
+		switch( state.year ){
+			case 0:
+				return year0Recap()
+				break;
+			case 2: 
+				return year2Recap()
+				break;
+			case 4: 
+				return year4Recap()
+				break;
+	}
+
+}
+
+	// var text = `<p class='descriptionModal'>Since you've started to work with a team, the game is developing
+	// faster since the beggining but you can't shake the feeling that the company could do a lot better, the team
+	// is unorganized and not that commited as you expected.</p>
+	// <p class='descriptionModal-type2'> What do you do? </p>
+	// <p class='descriptionModal'>You can raise the salary of the team, and maybe they'll be happier and more focused or
+	// you can start to make meetings with them, so the game is more right on track.</p>`
+
+
+function year0Recap(){
+	return {
+		title: "year 0", 
+		description: "description 0"
+	}
+}	
+
+
+function year2Recap(){
+	return {
+		title: "year 2", 
+		description: "description 2"
+	}
+}
+
+
+function year4Recap(){
+	return {
+		title: "year 4", 
+		description: "description 4"
+	}
+};
 var createStory = function( state, parentComponent ){
 
  	var { team, income, equity } = state.company
@@ -889,7 +969,8 @@ var createStory = function( state, parentComponent ){
  	switch( state.year ){
  		case 0:
  			if( state.middleEvent == true ) return year0MiddleEventStory( income, equity,team, parentComponent)
- 			return year0Story( income, equity,team, parentComponent )
+ 			else if( state.recapEvent == true ) return recapScreen( state, parentComponent )
+ 			else return year0Story( income, equity,team, parentComponent )
 
 		case 2:
  			return year2Story( income, equity,team, parentComponent )
@@ -948,16 +1029,16 @@ The game needs to be an assure hit to bring some money and investment to the com
 	var buttons = <React.Fragment>
 		<button
 			onClick={  () => {
-					 pC.updateCompanyNumberValues( "equity", -20 );
-					 pC.updateCompanyNumberValues( "income", 40000 );
-					 pC.changeYear( "next" )
+					/* pC.updateCompanyNumberValues( "equity", -20 );
+					 pC.updateCompanyNumberValues( "income", 40000 );*/
+					 pC.recapTheYear( )
 				}
 			}>Accept the offer</button>
 		<button
 			onClick={ () => {
-					 pC.updateCompanyNumberValues( "equity", -30 );
-					 pC.updateCompanyNumberValues( "income", 30000 );
-					 pC.changeYear( "next" )
+					 /*pC.updateCompanyNumberValues( "equity", -30 );
+					 pC.updateCompanyNumberValues( "income", 30000 );*/
+					 pC.recapTheYear( )
 				} 
 			}>Counter Proposal</button>
 	</React.Fragment>
@@ -1157,7 +1238,28 @@ function getSalaryForTeam ( team = null, year ){
 
 
    }
-;class Timer extends React.Component {
+
+
+
+var recapScreen = function( state, pC ){
+
+	var { title, description } = createRecapBasedOnChoices( state )
+
+	var buttons = <React.Fragment>
+		<button
+			onClick={  () => {
+				pC.changeYear('next')
+				}
+			}> Continue </button>
+	</React.Fragment>
+
+	return {
+ 		title,
+ 		description,
+ 		buttons,
+ 	}
+
+};class Timer extends React.Component {
 //1800000 30 minutos
   constructor( props ){
     super( props )
