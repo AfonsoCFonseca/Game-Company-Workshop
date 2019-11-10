@@ -8,10 +8,10 @@ class PageContent extends React.Component {
       goingDev: true,
       isPaused: true,
       moduleShow: false,
-      optionalScreen: true,
+      optionalScreen: false,
       company: {
         name: '',
-        income: getRandomInt( 2000, 2500 ),
+        income: 2500,
         equity: 100,
         team: null,
       }
@@ -63,15 +63,19 @@ class PageContent extends React.Component {
       moduleShow: true,
       isPaused: true,
     })
+
   }
 
   changeYear( type ){
 
     let year = this.state.year
     let nextYear
-
-    if( type == "next" )
-      nextYear = ( year < 6 ? this.state.year + 2 : 6 )
+console.log( type)
+    if( type == "next" ){
+      nextYear = ( year < 4 ? this.state.year + 2 : 4 )
+      console.log( "year", year)
+      console.log( "nextYear", nextYear)
+    }
     else if( type == "previous")
       nextYear = ( year > 0 ? this.state.year - 2 : 0 )
 
@@ -108,7 +112,7 @@ class PageContent extends React.Component {
   renderStoryModal( ){
 
     var { title, description, buttons } = createStory( this.state, this )
-    if( !buttons ) buttons = React.createElement("button", {onClick:  this.changeYear( 'next') }, "Confirm")
+    if( !buttons ) buttons = React.createElement("button", {onClick:  this.changeYear( "next") }, "Confirm")
 
     return (
       React.createElement(Modal, {
@@ -123,7 +127,9 @@ class PageContent extends React.Component {
   renderModule(){
 
     if( this.state.optionalScreen == true ){
-      return React.createElement(OptionalCard, {goNext:  () => this.setState({ optionalScreen: false }), title: "Company Form"})
+      return React.createElement(OptionalCard, {
+        goNext:  () => this.setState({ optionalScreen: false }), 
+        title: "Company Form"})
     }
 
     switch ( this.state.year ) {
@@ -135,9 +141,6 @@ class PageContent extends React.Component {
         break;
       case 4:
         return React.createElement(Module_4Year, {editCompanyState:  this.editCompanyState})
-        break;
-      case 6:
-        return React.createElement(Module_6Year, {editCompanyState:  this.editCompanyState})
         break;
       default:
         console.log( "retornou null" )
@@ -453,19 +456,6 @@ class PageContent extends React.Component {
 
       React.createElement("div", {className: "module"}, 
 
-        React.createElement(TextField, {title: "Company", textValue:  gameCompanyDescription }), 
-
-        React.createElement(InputBlock, {
-          valueReceived:  value => this.props.editCompanyState( "name", value )}, 
-           React.createElement(Description, {title: "Company Name"})
-        ), 
-
-        React.createElement(InputBlock, {
-          valueReceived:  value => this.props.editCompanyState( "companyDescription", value ), 
-          size: "large"}, 
-           React.createElement(Description, {title: "Description ( Optional )"})
-        ), 
-
         React.createElement(RadioButtonBlock, {
             valuesSent:  teamArrayYear0, 
             valueReceived:  this.takeInputValueFromRadioButton}, 
@@ -666,24 +656,6 @@ class PageContent extends React.Component {
   }
 
 }
-;class Module_6Year extends React.Component {
-
-  constructor( props ){
-    super( props )
-  }
-
-  render() {
-
-    return(
-      React.createElement("div", {className: "module"}, 
-        "YEAR 8",  
-        React.createElement("input", {onValue:  e => console.log( e )})
-      )
-    )
-
-  }
-
-}
 ;const OptionalCard = ( props ) => {
 
 	return(
@@ -774,9 +746,6 @@ var createStory = function( state, parentComponent ){
 		case 4:
  			return year4Story( income, equity,team, parentComponent )
 
-		case 6:
- 			return year6Story( income, equity,team, parentComponent )
-
 		default:
 			console.log( "failed loading the years")
  	}
@@ -827,14 +796,14 @@ The game needs to be an assure hit to bring some money and investment to the com
 			onClick:   () => {
 					 pC.updateCompanyNumberValues( "equity", -20 );
 					 pC.updateCompanyNumberValues( "income", 40000 );
-					 pC.changeYear()
+					 pC.changeYear( "next" )
 				}
 			}, "Accept the offer"), 
 		React.createElement("button", {
 			onClick:  () => {
 					 pC.updateCompanyNumberValues( "equity", -30 );
 					 pC.updateCompanyNumberValues( "income", 30000 );
-					 pC.changeYear()
+					 pC.changeYear( "next" )
 				}
 			}, "Counter Proposal")
 	)
@@ -965,28 +934,6 @@ to bring revenue to the company.. Always keep one think in mind, the revenue tha
  }
 
 
-////////////////////////////////// YEAR 6 //////////////////////////////////
-
-
- var year6Story = function( income, equity, team, pC ){
-console.log( income, equity,team )
-
-	var title = ""
-	var text = ""
-
- 	return {
- 		title: '2 Years have passed',
- 		description: text
- 	}
-
- }
-
-
-
-
-
-
-
 ////////////////////////////////// Others //////////////////////////////////
 
 function getSalaryForTeam ( team = null, year ){
@@ -1087,8 +1034,7 @@ function getSalaryForTeam ( team = null, year ){
       React.createElement(React.Fragment, null, 
         React.createElement("div", {className:  `twoYearsBatch ${ (this.state.year >= 2 ? 'filled' : '') }`}), 
         React.createElement("div", {className:  `twoYearsBatch ${ (this.state.year >= 4 ? 'filled' : '') }`}), 
-        React.createElement("div", {className:  `twoYearsBatch ${ (this.state.year >= 6 ? 'filled' : '') }`}), 
-        React.createElement("div", {className:  `twoYearsBatch ${ (this.state.year >= 8 ? 'filled' : '') }`})
+        React.createElement("div", {className:  `twoYearsBatch ${ (this.state.year >= 6 ? 'filled' : '') }`})
       )
     )
 

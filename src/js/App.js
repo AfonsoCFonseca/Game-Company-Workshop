@@ -8,10 +8,10 @@ class PageContent extends React.Component {
       goingDev: true,
       isPaused: true,
       moduleShow: false,
-      optionalScreen: true,
+      optionalScreen: false,
       company: {
         name: '',
-        income: getRandomInt( 2000, 2500 ),
+        income: 2500,
         equity: 100,
         team: null,
       }
@@ -63,15 +63,19 @@ class PageContent extends React.Component {
       moduleShow: true,
       isPaused: true,
     })
+
   }
 
   changeYear( type ){
 
     let year = this.state.year
     let nextYear
-
-    if( type == "next" )
-      nextYear = ( year < 6 ? this.state.year + 2 : 6 )
+console.log( type)
+    if( type == "next" ){
+      nextYear = ( year < 4 ? this.state.year + 2 : 4 )
+      console.log( "year", year)
+      console.log( "nextYear", nextYear)
+    }
     else if( type == "previous")
       nextYear = ( year > 0 ? this.state.year - 2 : 0 )
 
@@ -108,7 +112,7 @@ class PageContent extends React.Component {
   renderStoryModal( ){
 
     var { title, description, buttons } = createStory( this.state, this )
-    if( !buttons ) buttons = <button onClick={ this.changeYear( 'next') }>Confirm</button>
+    if( !buttons ) buttons = <button onClick={ this.changeYear( "next" ) }>Confirm</button>
 
     return (
       <Modal
@@ -123,7 +127,9 @@ class PageContent extends React.Component {
   renderModule(){
 
     if( this.state.optionalScreen == true ){
-      return <OptionalCard goNext={ () => this.setState({ optionalScreen: false }) } title='Company Form'/>
+      return <OptionalCard 
+        goNext={ () => this.setState({ optionalScreen: false }) } 
+        title='Company Form'/>
     }
 
     switch ( this.state.year ) {
@@ -135,9 +141,6 @@ class PageContent extends React.Component {
         break;
       case 4:
         return <Module_4Year editCompanyState={ this.editCompanyState }/>
-        break;
-      case 6:
-        return <Module_6Year editCompanyState={ this.editCompanyState }/>
         break;
       default:
         console.log( "retornou null" )

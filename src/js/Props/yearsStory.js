@@ -13,9 +13,6 @@ var createStory = function( state, parentComponent ){
 		case 4:
  			return year4Story( income, equity,team, parentComponent )
 
-		case 6:
- 			return year6Story( income, equity,team, parentComponent )
-
 		default:
 			console.log( "failed loading the years")
  	}
@@ -66,15 +63,15 @@ The game needs to be an assure hit to bring some money and investment to the com
 			onClick={  () => {
 					 pC.updateCompanyNumberValues( "equity", -20 );
 					 pC.updateCompanyNumberValues( "income", 40000 );
-					 pC.changeYear()
+					 pC.changeYear( "next" )
 				}
 			}>Accept the offer</button>
 		<button
 			onClick={ () => {
 					 pC.updateCompanyNumberValues( "equity", -30 );
 					 pC.updateCompanyNumberValues( "income", 30000 );
-					 pC.changeYear()
-				}
+					 pC.changeYear( "next" )
+				} 
 			}>Counter Proposal</button>
 	</React.Fragment>
 
@@ -202,28 +199,6 @@ to bring revenue to the company.. Always keep one think in mind, the revenue tha
  	}
 
  }
-
-
-////////////////////////////////// YEAR 6 //////////////////////////////////
-
-
- var year6Story = function( income, equity, team, pC ){
-console.log( income, equity,team )
-
-	var title = ""
-	var text = ""
-
- 	return {
- 		title: '2 Years have passed',
- 		description: text
- 	}
-
- }
-
-
-
-
-
 
 
 ////////////////////////////////// Others //////////////////////////////////
