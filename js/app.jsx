@@ -30,6 +30,7 @@ class PageContent extends React.Component {
     this.renderMiddleYearModal = this.renderMiddleYearModal.bind( this )
     this.editGeneralState = this.editGeneralState.bind( this )
     this.closeMiddleEvent = this.closeMiddleEvent.bind( this )
+    this.exportToImage = this.exportToImage.bind( this )
   }
 
   componentDidMount(){
@@ -163,13 +164,28 @@ class PageContent extends React.Component {
   }
 
 ///////RENDER MODULE
+  exportToImage(){
+
+  var node = document.getElementById('endingCard-overview');
+
+  domtoimage.toPng(node)
+    .then(function (dataUrl) {
+        download( dataUrl, "dlDataUrlBin.jpeg", "image/jpeg");
+    })
+    .catch(function (error) {
+        console.error('oops, something went wrong!', error);
+    });
+
+  }
+
+///////RENDER MODULE
   renderModule(){
 
     if( this.state.optionalScreen == true ){
       if( this.state.year == 4 ){
-         return <ClosingCard 
-          goNext={ () => this.setState({ optionalScreen: false }) } 
-          title='Closing'/>
+         return <EndingCard 
+          sendEverything={ this.state }
+          exportToImage={ this.exportToImage } />
       }
       else{
          return <BeginningCard 
@@ -477,25 +493,71 @@ class PageContent extends React.Component {
 			</div>
 		</div>
 	)
-};const ClosingCard = ( props ) => {
+};const EndingCard = ( props ) => {
+	var everything = props.sendEverything
+	var company = everything.company
+
+	function makeTextForPdf(){
+		return ( 
+			<React.Fragment> 
+
+					<div className='yearCapDiv'>
+						<p>2 Years</p> 
+					</div> 
+					<div className='textIncome'>
+						<p>First Game:</p> 
+						<label>${company.income}</label> 
+					</div> 
+				<hr/>
+
+					<div className='yearCapDiv'>
+						<p>4 Years</p> 
+					</div> 
+					<div className='textIncome'>
+						<p>First Game:</p> 
+						<label>${company.income}</label> 
+					</div> 
+					<div className='textIncome'>
+						<p>Investment</p> 
+						<label>${company.income}</label> 
+					</div> 
+				<hr/>
+
+					<div className='yearCapDiv'>
+						<p>6 Years</p> 
+					</div>
+					<div className='textIncome'>
+						<p>First Game:</p> 
+						<label>${company.income}</label> 
+					</div> 
+				<hr/>
+
+				<div style={{marginTop : '20px'}} className='textIncome'>
+					<p>Total Income:</p> 
+					<label>${company.income}</label> 
+				</div> 
+			</React.Fragment> 
+		)
+	}
+
+
+	this.endingOverview = makeTextForPdf( )
 
 	return(
 		<div className='endingCard'>
 			<div className='endingCard-inner'>
-				<h3 className='title'>{ props.title }</h3>
+				<h3 className='title'>The Company made 6 Years</h3>
 				<div className='endingCard-text'>
-					<p>{startingCardDescription}</p>
+					<p>{endingCardDescription}</p>
 				</div>
 
-				<input 
-					className='endingCard-input'
-					placeholder='Company Name'></input>
-				<textarea 
-					className='endingCard-textarea'
-					placeholder='Small Description'></textarea>
+				<div id='endingCard-overview'>
+					<h3 className='title'>Company Overview</h3> 
+					{ this.endingOverview }
+				</div>
 
-				<button className='endingCard-button' onClick={ () => props.goNext() }>Start</button>
-				<label className='endingCard-label'>When ready, press "Start"</label>
+				<button className='endingCard-button' onClick={ () => props.exportToImage() }>Download Overview</button>
+				<label className='endingCard-label'>Download your Workshop, click thhe button above </label>
 
 			</div>
 		</div>
@@ -835,6 +897,9 @@ var createStory = function( state, parentComponent ){
 
 var startingCardDescription = `You are about to start your company. To do so, write down the name and a small description
 of something unique that you want to do in it.`
+
+let endingCardDescription = `Congratulations. Your company is up and running for six years.
+Below you can see the overview of the comapany since the beginning.`
 
 
 ////////////////////////////////// YEAR 0 //////////////////////////////////

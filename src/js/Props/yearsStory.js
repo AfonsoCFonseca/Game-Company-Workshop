@@ -31,6 +31,9 @@ var createStory = function( state, parentComponent ){
 var startingCardDescription = `You are about to start your company. To do so, write down the name and a small description
 of something unique that you want to do in it.`
 
+let endingCardDescription = `Congratulations. Your company is up and running for six years.
+Below you can see the overview of the comapany since the beginning.`
+
 
 ////////////////////////////////// YEAR 0 //////////////////////////////////
 

@@ -302,7 +302,97 @@ $optionalGreen: #84c294;
     }
   }
 
-  .closingCard {
-    
+  .endingCard {
+    height: auto;
+    width: 100%;
+    margin: 30px;
+
+    .endingCard-inner{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      >.title{
+        width: 100%;
+        font-size: 18px;
+        text-align: center;
+        padding-bottom: 10px;
+        border-bottom: 2px solid $grey_light;
+      }
+
+      >.endingCard-text{
+        background-color: $grey_lighter;
+        >p {
+            padding: 10px;
+            padding-left: 20px;
+            padding-right: 20px;
+            font-size: 11px;
+            color: #333333;
+          }
+      }
+
+      >.endingCard-label{
+        margin-top: 5px; 
+        font-size: 11px;
+        color: $grey_dark;
+      }
+
+      >.endingCard-button{
+        margin-top: 25px; 
+        justify-content: center;
+        cursor: pointer;
+        background-color: $backgroundGreen;
+        border-radius: 8px;
+        border: 0;
+        width: 120px;
+        height: 40px;
+        &:hover{
+          background-color: $mainGreen;
+        }
+      }
+
+      >#endingCard-overview{
+        margin-top: 20px;
+        width: 80%;
+        border-radius: 10px;
+        background-color: $grey_lighter;
+        padding: 20px;
+        padding-left: 40px;
+        padding-right: 40px;
+        border: 2px solid $mainGreen;
+
+        >.title{
+          margin-bottom: 40px;
+          text-align: center;
+        }
+
+        >.subtitle{
+  
+        }
+
+        >.yearCapDiv {
+
+        }
+
+        >.textIncome{
+          width: 100%;
+          display: inline-flex;
+          justify-content: space-between;
+
+          >p{
+            margin:0; 
+            margin-left:15px;
+          }
+          >label{
+            text-align: right;
+            font-weight: bold;
+          }  
+        }
+
+      }
+
+    }
   }
+
 }

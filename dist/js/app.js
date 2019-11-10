@@ -30,6 +30,7 @@ class PageContent extends React.Component {
     this.renderMiddleYearModal = this.renderMiddleYearModal.bind( this )
     this.editGeneralState = this.editGeneralState.bind( this )
     this.closeMiddleEvent = this.closeMiddleEvent.bind( this )
+    this.exportToImage = this.exportToImage.bind( this )
   }
 
   componentDidMount(){
@@ -163,13 +164,28 @@ class PageContent extends React.Component {
   }
 
 ///////RENDER MODULE
+  exportToImage(){
+
+  var node = document.getElementById('endingCard-overview');
+
+  domtoimage.toPng(node)
+    .then(function (dataUrl) {
+        download( dataUrl, "dlDataUrlBin.jpeg", "image/jpeg");
+    })
+    .catch(function (error) {
+        console.error('oops, something went wrong!', error);
+    });
+
+  }
+
+///////RENDER MODULE
   renderModule(){
 
     if( this.state.optionalScreen == true ){
       if( this.state.year == 4 ){
-         return React.createElement(ClosingCard, {
-          goNext:  () => this.setState({ optionalScreen: false }), 
-          title: "Closing"})
+         return React.createElement(EndingCard, {
+          sendEverything:  this.state, 
+          exportToImage:  this.exportToImage})
       }
       else{
          return React.createElement(BeginningCard, {
@@ -477,25 +493,71 @@ class PageContent extends React.Component {
 			)
 		)
 	)
-};const ClosingCard = ( props ) => {
+};const EndingCard = ( props ) => {
+	var everything = props.sendEverything
+	var company = everything.company
+
+	function makeTextForPdf(){
+		return ( 
+			React.createElement(React.Fragment, null, 
+
+					React.createElement("div", {className: "yearCapDiv"}, 
+						React.createElement("p", null, "2 Years")
+					), 
+					React.createElement("div", {className: "textIncome"}, 
+						React.createElement("p", null, "First Game:"), 
+						React.createElement("label", null, "$", company.income)
+					), 
+				React.createElement("hr", null), 
+
+					React.createElement("div", {className: "yearCapDiv"}, 
+						React.createElement("p", null, "4 Years")
+					), 
+					React.createElement("div", {className: "textIncome"}, 
+						React.createElement("p", null, "First Game:"), 
+						React.createElement("label", null, "$", company.income)
+					), 
+					React.createElement("div", {className: "textIncome"}, 
+						React.createElement("p", null, "Investment"), 
+						React.createElement("label", null, "$", company.income)
+					), 
+				React.createElement("hr", null), 
+
+					React.createElement("div", {className: "yearCapDiv"}, 
+						React.createElement("p", null, "6 Years")
+					), 
+					React.createElement("div", {className: "textIncome"}, 
+						React.createElement("p", null, "First Game:"), 
+						React.createElement("label", null, "$", company.income)
+					), 
+				React.createElement("hr", null), 
+
+				React.createElement("div", {style: {marginTop : '20px'}, className: "textIncome"}, 
+					React.createElement("p", null, "Total Income:"), 
+					React.createElement("label", null, "$", company.income)
+				)
+			) 
+		)
+	}
+
+
+	this.endingOverview = makeTextForPdf( )
 
 	return(
 		React.createElement("div", {className: "endingCard"}, 
 			React.createElement("div", {className: "endingCard-inner"}, 
-				React.createElement("h3", {className: "title"},  props.title), 
+				React.createElement("h3", {className: "title"}, "The Company made 6 Years"), 
 				React.createElement("div", {className: "endingCard-text"}, 
-					React.createElement("p", null, startingCardDescription)
+					React.createElement("p", null, endingCardDescription)
 				), 
 
-				React.createElement("input", {
-					className: "endingCard-input", 
-					placeholder: "Company Name"}), 
-				React.createElement("textarea", {
-					className: "endingCard-textarea", 
-					placeholder: "Small Description"}), 
+				React.createElement("div", {id: "endingCard-overview"}, 
+					React.createElement("h3", {className: "title"}, "Company Overview"), 
+					 this.endingOverview
+				), 
 
-				React.createElement("button", {className: "endingCard-button", onClick:  () => props.goNext()}, "Start"), 
-				React.createElement("label", {className: "endingCard-label"}, "When ready, press \"Start\"")
+				React.createElement("button", {className: "endingCard-button", onClick:  () => props.exportToImage()}, "Download Overview"), 
+				React.createElement("label", {className: "endingCard-label"}, "Download your Workshop, click thhe button above ")
 
 			)
 		)
@@ -835,6 +897,9 @@ var createStory = function( state, parentComponent ){
 
 var startingCardDescription = `You are about to start your company. To do so, write down the name and a small description
 of something unique that you want to do in it.`
+
+let endingCardDescription = `Congratulations. Your company is up and running for six years.
+Below you can see the overview of the comapany since the beginning.`
 
 
 ////////////////////////////////// YEAR 0 //////////////////////////////////

@@ -30,6 +30,7 @@ class PageContent extends React.Component {
     this.renderMiddleYearModal = this.renderMiddleYearModal.bind( this )
     this.editGeneralState = this.editGeneralState.bind( this )
     this.closeMiddleEvent = this.closeMiddleEvent.bind( this )
+    this.exportToImage = this.exportToImage.bind( this )
   }
 
   componentDidMount(){
@@ -163,13 +164,28 @@ class PageContent extends React.Component {
   }
 
 ///////RENDER MODULE
+  exportToImage(){
+
+  var node = document.getElementById('endingCard-overview');
+
+  domtoimage.toPng(node)
+    .then(function (dataUrl) {
+        download( dataUrl, "dlDataUrlBin.jpeg", "image/jpeg");
+    })
+    .catch(function (error) {
+        console.error('oops, something went wrong!', error);
+    });
+
+  }
+
+///////RENDER MODULE
   renderModule(){
 
     if( this.state.optionalScreen == true ){
       if( this.state.year == 4 ){
-         return <ClosingCard 
-          goNext={ () => this.setState({ optionalScreen: false }) } 
-          title='Closing'/>
+         return <EndingCard 
+          sendEverything={ this.state }
+          exportToImage={ this.exportToImage } />
       }
       else{
          return <BeginningCard 
