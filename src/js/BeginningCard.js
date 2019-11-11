@@ -26,9 +26,17 @@ class BeginningCard extends React.Component {
 		return(
 			<div className='beginningCard'>
 				<div className='beginningCard-inner'>
-					<h3 className='title'>{ this.props.title }</h3>
+					<h3 className='title'>Start Your Videogame Company Now</h3>
 					<div className='beginningCard-text'>
-						<p>{startingCardDescription}</p>
+
+						<p className="beginningCard-label">Introduction</p>
+						<p className='beginningCard-descrp'>{startingCardIntroduction}</p>
+
+						<p className="beginningCard-label">How To</p>
+						<p className='beginningCard-descrp'>{startingCardHowTo}</p>
+
+						<p className="beginningCard-label">Story</p>
+						<p style={{marginBottom : '25px'}} className='beginningCard-descrp'>{startingCardStory}</p>
 					</div>
 
 					<input 

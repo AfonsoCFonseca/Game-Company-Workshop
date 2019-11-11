@@ -7,10 +7,10 @@ class PageContent extends React.Component {
       year: 0,
       goingDev: true,
       isPaused: false,
-      moduleShow: false,
-      optionalScreen: false,
-      middleEvent: false,
-      recapEvent: false,
+      moduleShow: false,  // Ecra de Eventos
+      optionalScreen: false, // Ecra de entrada e final
+      middleEvent: false, // Trigger para o middle Event
+      recapEvent: false, // Recap Event após o modulo final
       company: {
         name: '',
         income: 2500,
@@ -18,6 +18,12 @@ class PageContent extends React.Component {
         team: null,
       },
       year0:{
+        middleEvent: null,
+      },
+      year2:{
+        middleEvent: null,
+      },
+      year4:{
         middleEvent: null,
       }
     }
@@ -216,8 +222,7 @@ class PageContent extends React.Component {
       }
       else{
          return <BeginningCard 
-          goNext={ this.startCompany } 
-          title='Company Form'/>
+          goNext={ this.startCompany } />
       }
 
     }

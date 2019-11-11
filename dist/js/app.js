@@ -7,10 +7,10 @@ class PageContent extends React.Component {
       year: 0,
       goingDev: true,
       isPaused: false,
-      moduleShow: false,
-      optionalScreen: false,
-      middleEvent: false,
-      recapEvent: false,
+      moduleShow: false,  // Ecra de Eventos
+      optionalScreen: false, // Ecra de entrada e final
+      middleEvent: false, // Trigger para o middle Event
+      recapEvent: false, // Recap Event após o modulo final
       company: {
         name: '',
         income: 2500,
@@ -18,6 +18,12 @@ class PageContent extends React.Component {
         team: null,
       },
       year0:{
+        middleEvent: null,
+      },
+      year2:{
+        middleEvent: null,
+      },
+      year4:{
         middleEvent: null,
       }
     }
@@ -216,8 +222,7 @@ class PageContent extends React.Component {
       }
       else{
          return React.createElement(BeginningCard, {
-          goNext:  this.startCompany, 
-          title: "Company Form"})
+          goNext:  this.startCompany})
       }
 
     }
@@ -303,9 +308,17 @@ class PageContent extends React.Component {
 		return(
 			React.createElement("div", {className: "beginningCard"}, 
 				React.createElement("div", {className: "beginningCard-inner"}, 
-					React.createElement("h3", {className: "title"},  this.props.title), 
+					React.createElement("h3", {className: "title"}, "Start Your Videogame Company Now"), 
 					React.createElement("div", {className: "beginningCard-text"}, 
-						React.createElement("p", null, startingCardDescription)
+
+						React.createElement("p", {className: "beginningCard-label"}, "Introduction"), 
+						React.createElement("p", {className: "beginningCard-descrp"}, startingCardIntroduction), 
+
+						React.createElement("p", {className: "beginningCard-label"}, "How To"), 
+						React.createElement("p", {className: "beginningCard-descrp"}, startingCardHowTo), 
+
+						React.createElement("p", {className: "beginningCard-label"}, "Story"), 
+						React.createElement("p", {style: {marginBottom : '25px'}, className: "beginningCard-descrp"}, startingCardStory)
 					), 
 
 					React.createElement("input", {
@@ -932,18 +945,32 @@ const teamArrayYear0 = [
 
 }
 
-	// var text = `<p class='descriptionModal'>Since you've started to work with a team, the game is developing
-	// faster since the beggining but you can't shake the feeling that the company could do a lot better, the team
-	// is unorganized and not that commited as you expected.</p>
-	// <p class='descriptionModal-type2'> What do you do? </p>
-	// <p class='descriptionModal'>You can raise the salary of the team, and maybe they'll be happier and more focused or
-	// you can start to make meetings with them, so the game is more right on track.</p>`
-
 
 function year0Recap(){
+
+	var title = "2 Years have passed"
+	var description = `<div class='recap'>
+		<div class='recap-numbers'>
+			Game1 <label>+10000</label>
+		</div>
+		<div class='recap-numbers'>
+			Developers <label>-1000</label>
+		</div>
+		<div class='recap-numbers'>
+			Artist <label>-1000</label>
+		</div>
+		<div class='recap-numbers'>
+			Infrastructures <label>-1500</label>
+		</div>
+		<hr/>
+		<div class='recap-numbers total'>
+			Total <label>-1500</label>
+		</div>
+	</div>`
+
 	return {
-		title: "year 0", 
-		description: "description 0"
+		title,
+		description
 	}
 }	
 
@@ -992,7 +1019,14 @@ var createStory = function( state, parentComponent ){
 
 ////////////////////////////////// OPTIONAL CARDS //////////////////////////////////
 
-var startingCardDescription = `You are about to start your company. To do so, write down the name and a small description
+var startingCardIntroduction = `Starting you professional life can be hard and complex. The purpose of this 
+workshop is to help you understand a bit better what it takes to start a videogame company, as well, as creating a vision for your products and manage
+your future team.`
+
+var startingCardHowTo = `This web application simulates two years of your company life for each thirty minutes of real life. 
+Try to be honest, make your choices, give original and funny answers and enjoy.` 
+
+var startingCardStory = `You are about to start your company. To do so, write down the name and a small description
 of something unique that you want to do in it.`
 
 let endingCardDescription = `Congratulations. Your company is up and running for six years.
@@ -1043,13 +1077,13 @@ The game needs to be an assure hit to bring some money and investment to the com
 			}, "Counter Proposal")
 	)
 
-	text = `<p class='descriptionModal'> Your company had a great start! You released your first game successfully and got your team really committed </p>
+	text = `<div class='descriptionDiv'><p class='descriptionModal'> Your company had a great start! You released your first game successfully and got your team really committed </p>
 	<p class='descriptionModal-type2'> The company spent around ${ teamSalary } $ with the team Salaries </p>
 	<p class='descriptionModal'>You caught the attention of some investors that are willing to negotiate with you.</br>
 	They want to give you 40k $ for 20% of your company. Do you accept it? ( Don t forget that a counter proposal it's always an option. You can get
 	a better evaluation of the company or the investors can turn their back on the deal ) </br>
 	</br>
-	What would you do?  </p>`
+	<p class='descriptionModal-type2'>What would you do?  </p></div>`
 
  	return {
  		title,
@@ -1068,12 +1102,12 @@ var year0MiddleEventStory = function( income, equity, team, pC ){
     }
 
 	var title = 'Event Middle'
-	var text = `<p class='descriptionModal'>Since you've started to work with a team, the game is developing
+	var text = `<div class='descriptionDiv'><p class='descriptionModal'>Since you've started to work with a team, the game is developing
 	faster since the beggining but you can't shake the feeling that the company could do a lot better, the team
 	is unorganized and not that commited as you expected.</p>
 	<p class='descriptionModal-type2'> What do you do? </p>
 	<p class='descriptionModal'>You can raise the salary of the team, and maybe they'll be happier and more focused or
-	you can start to make meetings with them, so the game is more right on track.</p>`
+	you can start to make meetings with them, so the game is more right on track.</p></div>`
 
 	var buttons = React.createElement(React.Fragment, null, 
 		React.createElement("button", {
@@ -1245,10 +1279,18 @@ var recapScreen = function( state, pC ){
 
 	var { title, description } = createRecapBasedOnChoices( state )
 
+	var code
+	var validationCode
+	if( state.year == 0 ) validationCode = "1991"
+	else if( state.year == 2 ) validationCode = "JAN"
+	else if( state.year == 4 ) validationCode = "JAN17"
+
 	var buttons = React.createElement(React.Fragment, null, 
+		React.createElement("input", {placeholder: "Password", type: "text", name: "name", onChange:  e => code = e.target.value}), 
 		React.createElement("button", {
 			onClick:   () => {
-				pC.changeYear('next')
+				if( code == validationCode )
+					pC.changeYear('next')
 				}
 			}, " Continue ")
 	)

@@ -33,17 +33,48 @@
   height: 70%;
   width: 100%;
 }
-.modal > .modalInner > .body > .descriptionModal {
+.modal > .modalInner > .body > .descriptionDiv {
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #fafafa;
+  border: 2px solid #409c58;
+  width: 80%;
+  border-radius: 10px;
+}
+.modal > .modalInner > .body > .descriptionDiv > .descriptionModal {
   margin: 0;
-  padding: 25px;
+  padding: 15px;
   font-size: 12px;
   color: #333333;
 }
-.modal > .modalInner > .body > .descriptionModal-type2 {
+.modal > .modalInner > .body > .descriptionDiv > .descriptionModal-type2 {
   margin: 0;
+  margin-bottom: 10px;
   text-align: center;
   font-size: 11px;
   color: #595959;
+}
+.modal > .modalInner > .body > .recap {
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #fafafa;
+  border: 2px solid #409c58;
+  width: 80%;
+  border-radius: 10px;
+}
+.modal > .modalInner > .body > .recap > .recap-numbers {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+.modal > .modalInner > .body > .recap > .recap-numbers > label {
+  color: #595959;
+  font-weight: 600;
+}
+.modal > .modalInner > .body > .recap > .recap-numbers.total {
+  font-weight: 600;
 }
 .modal > .modalInner > .footer {
   height: 15%;
@@ -52,6 +83,11 @@
 }
 .modal > .modalInner > .footer.center {
   align-items: center;
+}
+.modal > .modalInner > .footer.center > input {
+  margin-bottom: 15px;
+  width: 100px;
+  margin-right: 10px;
 }
 .modal > .modalInner > .footer.right {
   align-items: right;

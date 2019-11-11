@@ -236,7 +236,7 @@ $optionalGreen: #84c294;
 
 
   .beginningCard{
-    height: 400px;
+    height: auto;
     width: 100%;
     margin: 30px;
 
@@ -256,17 +256,26 @@ $optionalGreen: #84c294;
 
       >.beginningCard-text{
         background-color: $grey_lighter;
-        >p {
-            padding: 10px;
+        border-radius: 10px;
+        border: 2px solid $mainGreen;
+
+        >.beginningCard-descrp {
             padding-left: 20px;
             padding-right: 20px;
+            margin-top: 5px;
             font-size: 11px;
             color: #333333;
-          }
+        }
+        >.beginningCard-label {
+          color: #333333;
+          text-align: center;
+          margin-top: 25px;
+          margin-bottom: 0;
+        }
       }
 
       >.beginningCard-input{
-        margin-top: 15px; 
+        margin-top: 25px; 
         width: 55%;
         border: 1px solid $grey_dark;
         resize: none;

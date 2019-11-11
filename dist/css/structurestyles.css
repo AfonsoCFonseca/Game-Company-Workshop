@@ -172,7 +172,7 @@
   font-weight: bold;
 }
 > .structure .beginningCard {
-  height: 400px;
+  height: auto;
   width: 100%;
   margin: 30px;
 }
@@ -191,16 +191,24 @@
 }
 > .structure .beginningCard .beginningCard-inner > .beginningCard-text {
   background-color: #fafafa;
+  border-radius: 10px;
+  border: 2px solid #409c58;
 }
-> .structure .beginningCard .beginningCard-inner > .beginningCard-text > p {
-  padding: 10px;
+> .structure .beginningCard .beginningCard-inner > .beginningCard-text > .beginningCard-descrp {
   padding-left: 20px;
   padding-right: 20px;
+  margin-top: 5px;
   font-size: 11px;
   color: #333333;
 }
+> .structure .beginningCard .beginningCard-inner > .beginningCard-text > .beginningCard-label {
+  color: #333333;
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 0;
+}
 > .structure .beginningCard .beginningCard-inner > .beginningCard-input {
-  margin-top: 15px;
+  margin-top: 25px;
   width: 55%;
   border: 1px solid #BABABA;
   resize: none;

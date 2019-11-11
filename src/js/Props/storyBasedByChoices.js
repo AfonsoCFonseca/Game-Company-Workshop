@@ -14,18 +14,32 @@ var createRecapBasedOnChoices = function( state ){
 
 }
 
-	// var text = `<p class='descriptionModal'>Since you've started to work with a team, the game is developing
-	// faster since the beggining but you can't shake the feeling that the company could do a lot better, the team
-	// is unorganized and not that commited as you expected.</p>
-	// <p class='descriptionModal-type2'> What do you do? </p>
-	// <p class='descriptionModal'>You can raise the salary of the team, and maybe they'll be happier and more focused or
-	// you can start to make meetings with them, so the game is more right on track.</p>`
-
 
 function year0Recap(){
+
+	var title = "2 Years have passed"
+	var description = `<div class='recap'>
+		<div class='recap-numbers'>
+			Game1 <label>+10000</label>
+		</div>
+		<div class='recap-numbers'>
+			Developers <label>-1000</label>
+		</div>
+		<div class='recap-numbers'>
+			Artist <label>-1000</label>
+		</div>
+		<div class='recap-numbers'>
+			Infrastructures <label>-1500</label>
+		</div>
+		<hr/>
+		<div class='recap-numbers total'>
+			Total <label>-1500</label>
+		</div>
+	</div>`
+
 	return {
-		title: "year 0", 
-		description: "description 0"
+		title,
+		description
 	}
 }	
 
