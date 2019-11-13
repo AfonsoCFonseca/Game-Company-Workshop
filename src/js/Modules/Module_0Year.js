@@ -27,6 +27,7 @@ class Module_0Year extends React.Component {
     }
 
     this.props.editCompanyState( 'year0', { "teamChoice": teamChoice } )
+    this.props.editCompanyState( "team", teamChoice )
     
   }
 

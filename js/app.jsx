@@ -6,7 +6,7 @@ class PageContent extends React.Component {
     this.state = {
       year: 0,
       goingDev: true,
-      isPaused: false,
+      isPaused: true,
       moduleShow: false,  // Ecra de Eventos
       optionalScreen: false, // Ecra de entrada e final
       middleEvent: false, // Trigger para o middle Event
@@ -150,8 +150,9 @@ class PageContent extends React.Component {
   }
 
 ///////RECAP SCREEN
-  recapTheYear(){
+  recapTheYear( recapOfYearText ){
     this.setState({ recapEvent: true })
+    this.editCompanyState( 'year0', { "recapOfYearText": recapOfYearText } )
   }
 
 ///////STARTING APP
@@ -669,6 +670,7 @@ class PageContent extends React.Component {
     }
 
     this.props.editCompanyState( 'year0', { "teamChoice": teamChoice } )
+    this.props.editCompanyState( "team", teamChoice )
     
   }
 
@@ -977,23 +979,80 @@ function year0Recap( state ){
 	var companyYear = state.company.year0
 	console.log( companyYear )
 
+	//middleEvent event chose
+	//middleEvent.event 1 salary or meetings
+	//middleEvent.event 2 beta or ignore
+	var plus = 0 
+	if( companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "salary" )
+		plus = 100
+	salaries = countSalary( state.company.team, plus) 
+	var total =  salaries.total * 24
+	var developersSalary = salaries.developersSalary * 24
+	var artistsSalary = salaries.artistsSalary * 24
+
+
+	var toSendBack = {
+		vision: companyYear.vision,
+	}
+
+
+	//endEvent
+	var investment = 0
+	var equity = 80
+	if( companyYear.endEvent == "accept" ){
+		investment = 40000
+	}
+	else{
+		investment = 30000
+	}
+
+	//recapOfYearText
+	//vision
+
+	//if organization + 
+	//if event beta 
+	var gameRevenue = 40500
+	if( companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "meetings" )
+		gameRevenue += 2000
+	if( companyYear.middleEvent.event == 2 && companyYear.middleEvent.chose == "beta" )
+		gameRevenue += 2000
+
+	var infrastructures = "2400" // 100 per month
+
+	var finalTotal = 0
+	finalTotal += ( investment + gameRevenue )
+	finalTotal -= developersSalary 
+	finalTotal -= artistsSalary 
+	finalTotal -= infrastructures 
+
+
 	var title = "2 Years have passed"
-	var description = `<div class='recap'>
+	var description = `
+
+	<div class='descriptionDiv'>
+		<p class='descriptionModal'>
+			${companyYear.recapOfYearText}
+		</p>
+	</div>
+	<div class='recap'>
 		<div class='recap-numbers'>
-			Game1 <label>+10000</label>
+			Investment <label>+${investment}</label>
 		</div>
 		<div class='recap-numbers'>
-			Developers <label>-1000</label>
+			Game1 <label>+${gameRevenue}</label>
 		</div>
 		<div class='recap-numbers'>
-			Artist <label>-1000</label>
+			Developers <label>-${developersSalary}</label>
 		</div>
 		<div class='recap-numbers'>
-			Infrastructures <label>-1500</label>
+			Artist <label>-${artistsSalary}</label>
+		</div>
+		<div class='recap-numbers'>
+			Infrastructures <label>-${infrastructures}</label>
 		</div>
 		<hr/>
 		<div class='recap-numbers total'>
-			Total <label>-1500</label>
+			Total <label>${ finalTotal }</label>
 		</div>
 	</div>`
 
@@ -1095,11 +1154,14 @@ var vision0YearDescription = `To make things more fun, pick of the choices down 
 	will affect some inputs and choices you'll have to make in the next years`
 
 
-let focusYear0First = `1`
+let intro1Focus = "You are in front of your computer and ready to start think about game that your company will make."
+let focusYear0First = `${intro1Focus} You know that you wanna do something different for the consoles. 
+Think of a mobile game that you love and try to make similar game but for a console`
 
-let focusYear1First = `2`
+let focusYear1First = `${intro1Focus} You wanna do something different, so you are making your main game mechanics based on sound`
 
-let focusYear2First = `3`
+let focusYear2First = `${intro1Focus} You are feeling pretty confident and relaxed, so you decided that this game will be something pretty relaxing.
+Something like ( Journey, Everything or Katamari )`
 
 var focusYear0 = [
 	focusYear0First,
@@ -1111,86 +1173,130 @@ var focusYear0 = [
 
  var year0Story = function( income, equity,team, pC ){
 
-	var title = "2 Years have passed"
-	var text = ""
+	var text = `
+	<div class='descriptionDiv'>
+		<p class='descriptionModal'> Your company had a great start! You released your first game successfully and got your team really committed </p>
+		<p class='descriptionModal-type2'> The company spent around ${ teamSalary } $ with the team Salaries </p>
+		<p class='descriptionModal'>You caught the attention of some investors that are willing to negotiate with you.</br>
+		They want to give you 40k $ for 20% of your company. Do you accept it? ( Don t forget that a counter proposal it's always an option. You can get
+		a better evaluation of the company or the investors can turn their back on the deal ) </br>
+		</br></p>
+		<p class='descriptionModal-type2'>What would you do?  </p>
+	</div>`
+
+	var firstChoice = "You accepted the offer and got 40.000$ for 20% equity of the company"
+
+	var secondChoice = `The counter proposal made your investors think you dont know exacly what you are doing. So, now, they
+	are only offering 30.000$ for 20% equity of the company`
 
 	var teamSalary = getSalaryForTeam( team, 0 )
+	var year0 = {}
 
 	var buttons = <React.Fragment>
 		<button
 			onClick={  () => {
-					/* pC.updateCompanyNumberValues( "equity", -20 );
-					 pC.updateCompanyNumberValues( "income", 40000 );*/
-					 pC.recapTheYear( )
+					year0 = {
+						endEvent: "accept"
+					}
+					pC.editCompanyState( "year0", year0 )
+					pC.recapTheYear( firstChoice )
+
 				}
 			}>Accept the offer</button>
 		<button
 			onClick={ () => {
-					 /*pC.updateCompanyNumberValues( "equity", -30 );
-					 pC.updateCompanyNumberValues( "income", 30000 );*/
-					 pC.recapTheYear( )
+					year0 = {
+						endEvent: "counter"
+					}
+					pC.editCompanyState( "year0", year0 )
+					pC.recapTheYear( secondChoice )
+
 				} 
 			}>Counter Proposal</button>
 	</React.Fragment>
 
-	text = `<div class='descriptionDiv'><p class='descriptionModal'> Your company had a great start! You released your first game successfully and got your team really committed </p>
-	<p class='descriptionModal-type2'> The company spent around ${ teamSalary } $ with the team Salaries </p>
-	<p class='descriptionModal'>You caught the attention of some investors that are willing to negotiate with you.</br>
-	They want to give you 40k $ for 20% of your company. Do you accept it? ( Don t forget that a counter proposal it's always an option. You can get
-	a better evaluation of the company or the investors can turn their back on the deal ) </br>
-	</br>
-	<p class='descriptionModal-type2'>What would you do?  </p></div>`
-
  	return {
- 		title,
+ 		title: "2 Years have passed",
  		description: text,
  		buttons,
  	}
 
- }
+}
 
 ////////////////////////////////// MID YEAR EVENT
 
 var year0MiddleEventStory = function( income, equity, team, pC ){
 
-	let year0 = {
-      middleEvent : {}
-    }
+	let year0 = {}
 
-	var title = 'Event Middle'
-	var text = `<div class='descriptionDiv'><p class='descriptionModal'>Since you've started to work with a team, the game is developing
-	faster since the beggining but you can't shake the feeling that the company could do a lot better, the team
-	is unorganized and not that commited as you expected.</p>
-	<p class='descriptionModal-type2'> What do you do? </p>
-	<p class='descriptionModal'>You can raise the salary of the team, and maybe they'll be happier and more focused or
-	you can start to make meetings with them, so the game is more right on track.</p></div>`
+	var text1 = `
+	<div class='descriptionDiv'>
+		<p class='descriptionModal'>Since you've started to work with a team, the game is developing
+		faster since the beggining but you can't shake the feeling that the company could do a lot better, the team
+		is unorganized and not that commited as you expected.</p>
+		<p class='descriptionModal-type2'> What do you do? </p>
+		<p class='descriptionModal'>You can raise the salary of the team, and maybe they'll be happier and more focused or
+		you can start to make meetings with them, so the game is more right on track.</p>
+	</div>`
 
-	var buttons = <React.Fragment>
-		<button
-			onClick={  () => {
-				year0.middleEvent = {
-					event: 1,
-	    			chose: "salary",
-				}
-				pC.closeMiddleEvent( "year0", year0 )
-				}
-			}>Raise 100$ Salary</button>
-		<button
-			onClick={ () => {
-				year0.middleEvent = {
-					event: 2,
-	    			chose: "meetings",
-				}
-
-				pC.closeMiddleEvent( "year0", year0 )
-				} 
-			}>Start doing meetings</button>
+	var buttons1 = <React.Fragment>
+	<button
+		onClick={  () => {
+			year0.middleEvent = {
+				event: 1,
+    			chose: "salary",
+			}
+			pC.closeMiddleEvent( "year0", year0 )
+			}
+		}>Raise 100$ Salary</button>
+	<button
+		onClick={ () => {
+			year0.middleEvent = {
+				event: 1,
+    			chose: "meetings",
+			}
+			pC.closeMiddleEvent( "year0", year0 )
+			} 
+		}>Start doing meetings</button>
 	</React.Fragment>
 
+	var text2 = `
+	<div class='descriptionDiv'>
+		<p class='descriptionModal'>Beta versions normaly give you some good feedback from the users. But for making one, you always have to loose
+		time with that and compromise the last build of the game on the release day.</p>
+		<p class='descriptionModal-type2'> What do you choose? </p>
+		<p class='descriptionModal'>Take a few days to make a beta version and get feedback? or keep doing the normal development?</p>
+	</div>`
+
+	var buttons2 = <React.Fragment>
+	<button
+		onClick={  () => {
+			year0.middleEvent = {
+				event: 2,
+    			chose: "beta",
+			}
+			pC.closeMiddleEvent( "year0", year0 )
+			}
+		}>Beta Version</button>
+	<button
+		onClick={ () => {
+			year0.middleEvent = {
+				event: 2,
+    			chose: "ignore",
+			}
+			pC.closeMiddleEvent( "year0", year0 )
+			} 
+		}>Ignore</button>
+	</React.Fragment>
+
+	var version = getRandomInt( 1, 2 )
+	var description = version == 1 ? text1 : text2
+	var buttons = version == 1 ? buttons1 : buttons2
+
 	return {
- 		title,
- 		description: text,
- 		buttons,
+ 		title: "Middle Year Event",
+ 		description: description,
+ 		buttons: buttons,
  	}
 
 }
@@ -1544,14 +1650,36 @@ function getRandomInt( min = 1, max ){
 
 function countTeam( teamObj ){
     var contador = 0
+
     for( var x in teamObj ){
         contador += teamObj[x]
     }
     return contador
 }
 
-function countSalary( teamObj ){
+function countSalary( teamObj, plus = 0 ){
     
+    var developers = teamObj.developers
+    var artists = teamObj.artists || null
+
+    var totalSalary = 0
+    var developersSalary = 0
+    var artistsSalary = 0
+
+    developersSalary = developers * ( 900 + plus )
+    artistsSalary = artists * ( 800 + plus )
+
+        console.log( {
+        total: developersSalary + artistsSalary,
+        developersSalary,
+        artistsSalary,
+    })
+    return {
+        total: developersSalary + artistsSalary,
+        developersSalary,
+        artistsSalary,
+    }
+
 }
 
 function objInsideChecker( actualState, name, value ){
@@ -1565,6 +1693,8 @@ function objInsideChecker( actualState, name, value ){
       }
       else actualState[ name ] = value
     }
+    else actualState[ name ] = value
+
 
     return actualState
 };ReactDOM.render(

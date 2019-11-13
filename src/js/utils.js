@@ -26,14 +26,36 @@ function getRandomInt( min = 1, max ){
 
 function countTeam( teamObj ){
     var contador = 0
+
     for( var x in teamObj ){
         contador += teamObj[x]
     }
     return contador
 }
 
-function countSalary( teamObj ){
+function countSalary( teamObj, plus = 0 ){
     
+    var developers = teamObj.developers
+    var artists = teamObj.artists || null
+
+    var totalSalary = 0
+    var developersSalary = 0
+    var artistsSalary = 0
+
+    developersSalary = developers * ( 900 + plus )
+    artistsSalary = artists * ( 800 + plus )
+
+        console.log( {
+        total: developersSalary + artistsSalary,
+        developersSalary,
+        artistsSalary,
+    })
+    return {
+        total: developersSalary + artistsSalary,
+        developersSalary,
+        artistsSalary,
+    }
+
 }
 
 function objInsideChecker( actualState, name, value ){
@@ -47,6 +69,8 @@ function objInsideChecker( actualState, name, value ){
       }
       else actualState[ name ] = value
     }
+    else actualState[ name ] = value
+
 
     return actualState
 }

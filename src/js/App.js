@@ -6,7 +6,7 @@ class PageContent extends React.Component {
     this.state = {
       year: 0,
       goingDev: true,
-      isPaused: false,
+      isPaused: true,
       moduleShow: false,  // Ecra de Eventos
       optionalScreen: false, // Ecra de entrada e final
       middleEvent: false, // Trigger para o middle Event
@@ -150,8 +150,9 @@ class PageContent extends React.Component {
   }
 
 ///////RECAP SCREEN
-  recapTheYear(){
+  recapTheYear( recapOfYearText ){
     this.setState({ recapEvent: true })
+    this.editCompanyState( 'year0', { "recapOfYearText": recapOfYearText } )
   }
 
 ///////STARTING APP
