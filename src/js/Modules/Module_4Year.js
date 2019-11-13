@@ -6,6 +6,10 @@ class Module_4Year extends React.Component {
 
   //'https://www.gamasutra.com/blogs/SergioJimenez/20131106/204134/Gamification_Model_Canvas.php'
 
+  updateToParent( name, value ){
+    this.props.editCompanyState( "year4", { [name]: value })
+  }
+
   render() {
 
     return(

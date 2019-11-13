@@ -2,7 +2,7 @@ var createRecapBasedOnChoices = function( state ){
 
 		switch( state.year ){
 			case 0:
-				return year0Recap()
+				return year0Recap( state )
 				break;
 			case 2: 
 				return year2Recap()
@@ -15,7 +15,10 @@ var createRecapBasedOnChoices = function( state ){
 }
 
 
-function year0Recap(){
+function year0Recap( state ){
+
+	var companyYear = state.company.year0
+	console.log( companyYear )
 
 	var title = "2 Years have passed"
 	var description = `<div class='recap'>

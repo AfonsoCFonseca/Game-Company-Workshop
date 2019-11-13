@@ -3,11 +3,14 @@ var createStory = function( state, parentComponent ){
 
  	var { team, income, equity } = state.company
 
+ 	var title = ""
+
  	switch( state.year ){
  		case 0:
  			if( state.middleEvent == true ) return year0MiddleEventStory( income, equity,team, parentComponent)
  			else if( state.recapEvent == true ) return recapScreen( state, parentComponent )
  			else return year0Story( income, equity,team, parentComponent )
+ 			title = '2 Years have passed'
 
 		case 2:
  			return year2Story( income, equity,team, parentComponent )
@@ -20,7 +23,7 @@ var createStory = function( state, parentComponent ){
  	}
 
  	return({
- 		title: '2 Years have passed',
+ 		title,
  		description: getDescriptionStory()
  	})
 
@@ -46,20 +49,44 @@ Below you can see the overview of the comapany since the beginning.`
 ////////////////////////////////// YEAR 0 //////////////////////////////////
 
 var gameCompanyDescription = `To make great games, you need to start a company first. Your company is what gives soul to your games and your team.
- For that, start by establishing and vision and objectives.`
+	For that, start by establishing and vision and objectives.`
 
 var descriptionPlatform = `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- Maecenas mauris dolor, lobortis id ipsum vitae, dapibus tincidunt est. Pellentesque mattis
- pretium nisi, sed rutrum lectus faucibus a. Morbi pretium mi tortor. Fusce ac vestibulum diam,
- tempus gravida metus. Pellentesque dictum purus ut lectus tempor fermentum. `
+	Maecenas mauris dolor, lobortis id ipsum vitae, dapibus tincidunt est. Pellentesque mattis
+	pretium nisi, sed rutrum lectus faucibus a. Morbi pretium mi tortor. Fusce ac vestibulum diam,
+	tempus gravida metus. Pellentesque dictum purus ut lectus tempor fermentum. `
 
 var firstGameDescription = `Your company is pretty fresh and still needs some money to start betting in big ideias for games.
-Start by creating a game small but addictive, choosing a hot genre ( Moba's, autochess ) but with a original twist. 
-The game needs to be an assure hit to bring some money and investment to the company` 
+	Start by creating a game small but addictive, choosing a hot genre ( Moba's, autochess ) but with a original twist. 
+	The game needs to be an assure hit to bring some money and investment to the company` 
 
- var team0YearDescription = `Pick one of the options below for starting your team. Dont forget that what you choose will reflect on your games
- If you go for a designer and a developer, your game will have a great UX/UI design and some unique style but i'll have a few bugs.
- If you go for two developers, you'll choose a bug free game but it will lack the design and an unique touch`
+var team0YearDescription = `Pick one of the options below for starting your team. Dont forget that what you choose will reflect on your games
+	If you go for a designer and a developer, your game will have a great UX/UI design and some unique style but i'll have a few bugs.
+	If you go for two developers, you'll choose a bug free game but it will lack the design and an unique touch`
+
+var environment0YearDescription = `From now on you'll have an office to maintain. You can set the rules and see if it makes sense, from the 
+	working scheduel, to behaviour inside the office, you are the one to have the last word. Can people work remotely? Can the team make breaks and play videogames?
+	Tell some of the rules you would like to settle`
+
+var teamBuilding0YearDescription = `Team bulding means activities you and your team do not related with company work, it's used normaly to enhance social 
+	relations and create bounds with the team. A board game on monday nights, going to the cinema every month, camping every two month... Just thing of fun 
+	activities to do with your team outside your work`
+
+var vision0YearDescription = `To make things more fun, pick of the choices down below. Your choice for the vision of the games you are creating
+	will affect some inputs and choices you'll have to make in the next years`
+
+
+let focusYear0First = `1`
+
+let focusYear1First = `2`
+
+let focusYear2First = `3`
+
+var focusYear0 = [
+	focusYear0First,
+	focusYear1First,
+	focusYear2First
+] 
 
 ////////////////////////////////// MAIN EVENT
 

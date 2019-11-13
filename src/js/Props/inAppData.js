@@ -37,3 +37,9 @@ const teamArrayYear0 = [
   '1 Developer, 1 Artist',
   '2 Developers'
 ]
+
+const visionArrayYear0 = [
+  "Simple but addictive games",
+  "Focus on the story",
+  "Online Competetive"
+]

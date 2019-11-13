@@ -6,6 +6,10 @@ class Module_2Year extends React.Component {
     this.focusDescription = focusDescription[ getRandomInt( 0, 2 ) ]
   }
 
+  updateToParent( name, value ){
+    this.props.editCompanyState( "year2", { [name]: value })
+  }
+
   render() {
 
     return(

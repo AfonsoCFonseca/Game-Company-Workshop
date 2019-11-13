@@ -16,16 +16,16 @@ class PageContent extends React.Component {
         income: 2500,
         equity: 100,
         team: null,
+        year0:{
+          middleEvent: null,
+        },
+        year2:{
+          middleEvent: null,
+        },
+        year4:{
+          middleEvent: null,
+        }
       },
-      year0:{
-        middleEvent: null,
-      },
-      year2:{
-        middleEvent: null,
-      },
-      year4:{
-        middleEvent: null,
-      }
     }
 
     this.prepareNextYear = this.prepareNextYear.bind( this )
@@ -123,27 +123,14 @@ class PageContent extends React.Component {
   editGeneralState( name, value ){
     var actualState = this.state
 
-    if( actualState[ name ] ){
-      
-      if( typeof value === 'object' ){
-        for( var x in value ){
-          actualState[ name ][x] = value[x]
-        }
-      }
-      else actualState[ name ] = value
-    }
-
+    actualState = objInsideChecker( actualState, name, value )
     this.setState( actualState )
   }
 
   editCompanyState( name, value ){
-    var company = {}
-    if( this.state.company != null ){
-      company = this.state.company
-    }
+    var company = this.state.company || {}
 
-    company[ name ] = value
-
+    company = objInsideChecker( company, name, value )
     this.setState({ company })
   }
 
@@ -187,7 +174,7 @@ class PageContent extends React.Component {
   }
 
   closeMiddleEvent( eventName, eventToUpdate ){
-    this.editGeneralState( eventName, eventToUpdate )
+    this.editCompanyState( eventName, eventToUpdate )
 
      this.setState({
       middleEvent: false,

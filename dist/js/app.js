@@ -16,16 +16,16 @@ class PageContent extends React.Component {
         income: 2500,
         equity: 100,
         team: null,
+        year0:{
+          middleEvent: null,
+        },
+        year2:{
+          middleEvent: null,
+        },
+        year4:{
+          middleEvent: null,
+        }
       },
-      year0:{
-        middleEvent: null,
-      },
-      year2:{
-        middleEvent: null,
-      },
-      year4:{
-        middleEvent: null,
-      }
     }
 
     this.prepareNextYear = this.prepareNextYear.bind( this )
@@ -123,27 +123,14 @@ class PageContent extends React.Component {
   editGeneralState( name, value ){
     var actualState = this.state
 
-    if( actualState[ name ] ){
-      
-      if( typeof value === 'object' ){
-        for( var x in value ){
-          actualState[ name ][x] = value[x]
-        }
-      }
-      else actualState[ name ] = value
-    }
-
+    actualState = objInsideChecker( actualState, name, value )
     this.setState( actualState )
   }
 
   editCompanyState( name, value ){
-    var company = {}
-    if( this.state.company != null ){
-      company = this.state.company
-    }
+    var company = this.state.company || {}
 
-    company[ name ] = value
-
+    company = objInsideChecker( company, name, value )
     this.setState({ company })
   }
 
@@ -187,7 +174,7 @@ class PageContent extends React.Component {
   }
 
   closeMiddleEvent( eventName, eventToUpdate ){
-    this.editGeneralState( eventName, eventToUpdate )
+    this.editCompanyState( eventName, eventToUpdate )
 
      this.setState({
       middleEvent: false,
@@ -658,68 +645,93 @@ class PageContent extends React.Component {
   constructor( props ){
     super( props )
 
-    this.takeInputValueFromRadioButton = this.takeInputValueFromRadioButton.bind( this )
+    this.getRadioTeamValue = this.getRadioTeamValue.bind( this )
+
+    this.focusYear0 = focusYear0[ getRandomInt( 0, focusYear0.length - 1 ) ]
+
+    this.updateToParent = this.updateToParent.bind( this )
   }
 
 
-  takeInputValueFromRadioButton( value ){
-    let year0 = {}
+  getRadioTeamValue( value ){
+    let teamChoice = {}
 
     if( value.indexOf( 'Developers' ) !== -1 ){
-      year0 = {
-        teamChoice: {
-          'developers': 2,
-        }
+      teamChoice = {
+        'developers': 2,
       }
     }
     else{
-      year0 = {
-        teamChoice: {
-          'developers': 1,
-          'artists': 1,
-        }
+      teamChoice = {
+        'developers': 1,
+        'artists': 1,
       }
     }
 
-    this.props.editGeneralState( 'year0', year0 )
+    this.props.editCompanyState( 'year0', { "teamChoice": teamChoice } )
     
+  }
+
+  updateToParent( name, value ){
+    this.props.editCompanyState( "year0", { [name]: value })
   }
 
   render() {
 
     return(
-
       React.createElement("div", {className: "module"}, 
-
-        React.createElement(RadioButtonBlock, {
-            valuesSent:  teamArrayYear0, 
-            valueReceived:  this.takeInputValueFromRadioButton}, 
-           React.createElement(Description, {title: "Team", description:  team0YearDescription })
-        ), 
-
-        React.createElement(TextField, {title: "First Game", textValue:  firstGameDescription }), 
+        React.createElement(TextField, {title: "Your Focus", textValue:  this.focusYear0}), 
 
         React.createElement(InputBlock, {
-          valueReceived:  value => this.props.editCompanyState( "gameName1", value )}, 
-           React.createElement(Description, {title: "Game Name"})
+          valueReceived:  value => this.updateToParent( "gameName", value )}, 
+          React.createElement(Description, {title: "Game Name"})
         ), 
 
         React.createElement(DropdownBlock, {
           dataEntries:  genres, 
           placeholder: "Pick a genre", 
-          valueReceived:  value => this.props.editCompanyState( "genres", value )}, 
-          React.createElement(Description, {title:  'Genre', description:  descriptionPlatform })
+          valueReceived:  value => this.updateToParent( "genres", value )}, 
+          React.createElement(Description, {title:  'Genre' })
         ), 
 
         React.createElement(DropdownBlock, {
           dataEntries:  platforms, 
           placeholder: "Pick a platform", 
-          valueReceived:  value => this.props.editCompanyState( "platform", value )}, 
+          valueReceived:  value => this.updateToParent( "platform", value )}, 
           React.createElement(Description, {title:  'Platform' })
+        ), 
+
+        React.createElement(InputBlock, {
+          size: "large", 
+          valueReceived:  value => this.updateToParent( "gameDescription", value )}, 
+           React.createElement(Description, {title: "Description"})
+        ), 
+
+        React.createElement(RadioButtonBlock, {
+            valuesSent:  teamArrayYear0, 
+            valueReceived:  this.getRadioTeamValue}, 
+           React.createElement(Description, {title: "Team", description:  team0YearDescription })
+        ), 
+
+        React.createElement(InputBlock, {
+          size: "large", 
+          valueReceived:  value => this.updateToParent( "environment", value )}, 
+           React.createElement(Description, {title: "Company Environment", description:  environment0YearDescription })
+        ), 
+
+        React.createElement(InputBlock, {
+          size: "large", 
+          valueReceived:  value => this.updateToParent( "teamBuilding", value )}, 
+           React.createElement(Description, {title: "Team Building", description:  teamBuilding0YearDescription })
+        ), 
+
+        React.createElement(RadioButtonBlock, {
+            valuesSent:  visionArrayYear0, 
+            valueReceived:  value => this.updateToParent( "vision", value )}, 
+           React.createElement(Description, {title: "Vision", description:  vision0YearDescription })
         )
 
       )
-
     )
 
   }
@@ -731,6 +743,10 @@ class PageContent extends React.Component {
     super( props )
 
     this.focusDescription = focusDescription[ getRandomInt( 0, 2 ) ]
+  }
+
+  updateToParent( name, value ){
+    this.props.editCompanyState( "year2", { [name]: value })
   }
 
   render() {
@@ -793,6 +809,10 @@ class PageContent extends React.Component {
   }
 
   //'https://www.gamasutra.com/blogs/SergioJimenez/20131106/204134/Gamification_Model_Canvas.php'
+
+  updateToParent( name, value ){
+    this.props.editCompanyState( "year4", { [name]: value })
+  }
 
   render() {
 
@@ -929,11 +949,17 @@ const platforms = [
 const teamArrayYear0 = [
   '1 Developer, 1 Artist',
   '2 Developers'
+]
+
+const visionArrayYear0 = [
+  "Simple but addictive games",
+  "Focus on the story",
+  "Online Competetive"
 ];var createRecapBasedOnChoices = function( state ){
 
 		switch( state.year ){
 			case 0:
-				return year0Recap()
+				return year0Recap( state )
 				break;
 			case 2: 
 				return year2Recap()
@@ -946,7 +972,10 @@ const teamArrayYear0 = [
 }
 
 
-function year0Recap(){
+function year0Recap( state ){
+
+	var companyYear = state.company.year0
+	console.log( companyYear )
 
 	var title = "2 Years have passed"
 	var description = `<div class='recap'>
@@ -993,11 +1022,14 @@ var createStory = function( state, parentComponent ){
 
  	var { team, income, equity } = state.company
 
+ 	var title = ""
+
  	switch( state.year ){
  		case 0:
  			if( state.middleEvent == true ) return year0MiddleEventStory( income, equity,team, parentComponent)
  			else if( state.recapEvent == true ) return recapScreen( state, parentComponent )
  			else return year0Story( income, equity,team, parentComponent )
+ 			title = '2 Years have passed'
 
 		case 2:
  			return year2Story( income, equity,team, parentComponent )
@@ -1010,7 +1042,7 @@ var createStory = function( state, parentComponent ){
  	}
 
  	return({
- 		title: '2 Years have passed',
+ 		title,
  		description: getDescriptionStory()
  	})
 
@@ -1036,20 +1068,44 @@ Below you can see the overview of the comapany since the beginning.`
 ////////////////////////////////// YEAR 0 //////////////////////////////////
 
 var gameCompanyDescription = `To make great games, you need to start a company first. Your company is what gives soul to your games and your team.
- For that, start by establishing and vision and objectives.`
+	For that, start by establishing and vision and objectives.`
 
 var descriptionPlatform = `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- Maecenas mauris dolor, lobortis id ipsum vitae, dapibus tincidunt est. Pellentesque mattis
- pretium nisi, sed rutrum lectus faucibus a. Morbi pretium mi tortor. Fusce ac vestibulum diam,
- tempus gravida metus. Pellentesque dictum purus ut lectus tempor fermentum. `
+	Maecenas mauris dolor, lobortis id ipsum vitae, dapibus tincidunt est. Pellentesque mattis
+	pretium nisi, sed rutrum lectus faucibus a. Morbi pretium mi tortor. Fusce ac vestibulum diam,
+	tempus gravida metus. Pellentesque dictum purus ut lectus tempor fermentum. `
 
 var firstGameDescription = `Your company is pretty fresh and still needs some money to start betting in big ideias for games.
-Start by creating a game small but addictive, choosing a hot genre ( Moba's, autochess ) but with a original twist. 
-The game needs to be an assure hit to bring some money and investment to the company` 
+	Start by creating a game small but addictive, choosing a hot genre ( Moba's, autochess ) but with a original twist. 
+	The game needs to be an assure hit to bring some money and investment to the company` 
 
- var team0YearDescription = `Pick one of the options below for starting your team. Dont forget that what you choose will reflect on your games
- If you go for a designer and a developer, your game will have a great UX/UI design and some unique style but i'll have a few bugs.
- If you go for two developers, you'll choose a bug free game but it will lack the design and an unique touch`
+var team0YearDescription = `Pick one of the options below for starting your team. Dont forget that what you choose will reflect on your games
+	If you go for a designer and a developer, your game will have a great UX/UI design and some unique style but i'll have a few bugs.
+	If you go for two developers, you'll choose a bug free game but it will lack the design and an unique touch`
+
+var environment0YearDescription = `From now on you'll have an office to maintain. You can set the rules and see if it makes sense, from the 
+	working scheduel, to behaviour inside the office, you are the one to have the last word. Can people work remotely? Can the team make breaks and play videogames?
+	Tell some of the rules you would like to settle`
+
+var teamBuilding0YearDescription = `Team bulding means activities you and your team do not related with company work, it's used normaly to enhance social 
+	relations and create bounds with the team. A board game on monday nights, going to the cinema every month, camping every two month... Just thing of fun 
+	activities to do with your team outside your work`
+
+var vision0YearDescription = `To make things more fun, pick of the choices down below. Your choice for the vision of the games you are creating
+	will affect some inputs and choices you'll have to make in the next years`
+
+
+let focusYear0First = `1`
+
+let focusYear1First = `2`
+
+let focusYear2First = `3`
+
+var focusYear0 = [
+	focusYear0First,
+	focusYear1First,
+	focusYear2First
+] 
 
 ////////////////////////////////// MAIN EVENT
 
@@ -1496,6 +1552,21 @@ function countTeam( teamObj ){
 
 function countSalary( teamObj ){
     
+}
+
+function objInsideChecker( actualState, name, value ){
+
+    if( actualState[ name ] ){
+      
+      if( typeof value === 'object' ){
+        for( var x in value ){
+          actualState[ name ][x] = value[x]
+        }
+      }
+      else actualState[ name ] = value
+    }
+
+    return actualState
 };ReactDOM.render(
   React.createElement(PageContent, null),
   document.getElementById('content')
