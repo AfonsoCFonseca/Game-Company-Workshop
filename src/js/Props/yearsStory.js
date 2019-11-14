@@ -361,7 +361,7 @@ function getSalaryForTeam ( team = null, year ){
 
 var recapScreen = function( state, pC ){
 
-	var { title, description } = createRecapBasedOnChoices( state )
+	var { title, description, toSendBack } = createRecapBasedOnChoices( state )
 
 	var code
 	var validationCode
@@ -374,7 +374,7 @@ var recapScreen = function( state, pC ){
 		<button
 			onClick={  () => {
 				if( code == validationCode )
-					pC.changeYear('next')
+					pC.changeYear('next', toSendBack )
 				}
 			}> Continue </button>
 	</React.Fragment>

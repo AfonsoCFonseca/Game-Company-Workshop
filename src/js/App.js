@@ -40,6 +40,7 @@ class PageContent extends React.Component {
     this.exportToImage = this.exportToImage.bind( this )
     this.startCompany = this.startCompany.bind( this )
     this.recapTheYear = this.recapTheYear.bind( this )
+    this.changeOfLastYear = this.changeOfLastYear.bind( this )
   }
 
   componentDidMount(){
@@ -83,7 +84,7 @@ class PageContent extends React.Component {
 
   }
 
-  changeYear( type ){
+  changeYear( type, toSendBack ){
 
     let year = this.state.year
     let nextYear
@@ -100,6 +101,8 @@ class PageContent extends React.Component {
     }
     else if( type == "previous")
       nextYear = ( year > 0 ? this.state.year - 2 : 0 )
+
+    if( toSendBack ) this.changeOfLastYear( toSendBack ) 
 
     this.setState({
       year: nextYear,
@@ -136,8 +139,8 @@ class PageContent extends React.Component {
 
   renderStoryModal( ){
 
-    var { title, description, buttons } = createStory( this.state, this )
-    if( !buttons ) buttons = <button onClick={ this.changeYear( "next" ) }>Confirm</button>
+    var { title, description, buttons, toSendBack } = createStory( this.state, this )
+    if( !buttons ) buttons = <button onClick={ this.changeYear( "next", null ) }>Confirm</button>
 
     return (
       <Modal
@@ -147,6 +150,23 @@ class PageContent extends React.Component {
       </Modal>
     )
 
+  }
+
+  changeOfLastYear( toSendBack ){
+
+    switch( this.state.year ){
+      case 0:
+        this.editCompanyState( "vision", toSendBack.vision )
+        this.editCompanyState( "income", toSendBack.finalTotal )
+        this.editCompanyState( "equity", toSendBack.equity )
+        break;
+      case 2:
+        break;
+      case 4:
+        break;
+      default: console.log( "failed year")
+    }
+    
   }
 
 ///////RECAP SCREEN

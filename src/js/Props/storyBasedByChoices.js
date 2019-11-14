@@ -18,26 +18,18 @@ var createRecapBasedOnChoices = function( state ){
 function year0Recap( state ){
 
 	var companyYear = state.company.year0
-	console.log( companyYear )
 
-	//middleEvent event chose
-	//middleEvent.event 1 salary or meetings
-	//middleEvent.event 2 beta or ignore
+	//SALARIES
 	var plus = 0 
-	if( companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "salary" )
+	if( companyYear.middleEvent && companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "salary" )
 		plus = 100
+
 	salaries = countSalary( state.company.team, plus) 
 	var total =  salaries.total * 24
 	var developersSalary = salaries.developersSalary * 24
 	var artistsSalary = salaries.artistsSalary * 24
 
-
-	var toSendBack = {
-		vision: companyYear.vision,
-	}
-
-
-	//endEvent
+	// INVESTEMENT END EVENT
 	var investment = 0
 	var equity = 80
 	if( companyYear.endEvent == "accept" ){
@@ -47,32 +39,52 @@ function year0Recap( state ){
 		investment = 30000
 	}
 
-	//recapOfYearText
-	//vision
-
-	//if organization + 
-	//if event beta 
+	// GAME REVENUE
 	var gameRevenue = 40500
-	if( companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "meetings" )
-		gameRevenue += 2000
-	if( companyYear.middleEvent.event == 2 && companyYear.middleEvent.chose == "beta" )
+	if( companyYear.middleEvent ){
+		if( companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "meetings" )
+			gameRevenue += 2000
+		if( companyYear.middleEvent.event == 2 && companyYear.middleEvent.chose == "beta" )
+			gameRevenue += 2000
+	}
+	if( state.company.team && state.company.team.developers == 1 )
 		gameRevenue += 2000
 
 	var infrastructures = "2400" // 100 per month
 
+	// FINAL MATH
 	var finalTotal = 0
 	finalTotal += ( investment + gameRevenue )
 	finalTotal -= developersSalary 
 	finalTotal -= artistsSalary 
 	finalTotal -= infrastructures 
 
+	var toSendBack = {
+		vision: companyYear.vision,
+		finalTotal,
+		equity
+	}
 
+	// FINAL TEXT 
+	var middleEvent = ""
+	if( companyYear.middleEvent  && companyYear.middleEvent.event == 1 ){
+		if( companyYear.middleEvent.chose == "salary" ) middleEvent = `Money it's not everything, you should have tried to make more meetings`
+		if( companyYear.middleEvent.chose == "meetings" ) middleEvent = `Choosing meetings instead of a raise was a wise choice and brought better performance`
+	}
+	if( companyYear.middleEvent  && companyYear.middleEvent.event == 2 ){
+		if( companyYear.middleEvent.chose == "beta" ) middleEvent = `Your beta version made your release less buggy and sold better`
+		if( companyYear.middleEvent.chose == "ignore" ) middleEvent = `Not making a beta version  made your release more buggy and you sold less`
+	}
+	
+	var textOfTheYear = `${companyYear.recapOfYearText}. Your game went well and you made some profit of it and
+	you've learn a lot about your team and how to work with them. ${middleEvent}`
+
+	// HTML DOM
 	var title = "2 Years have passed"
 	var description = `
-
 	<div class='descriptionDiv'>
 		<p class='descriptionModal'>
-			${companyYear.recapOfYearText}
+			${textOfTheYear}
 		</p>
 	</div>
 	<div class='recap'>
@@ -99,7 +111,8 @@ function year0Recap( state ){
 
 	return {
 		title,
-		description
+		description,
+		toSendBack
 	}
 }	
 

@@ -40,6 +40,7 @@ class PageContent extends React.Component {
     this.exportToImage = this.exportToImage.bind( this )
     this.startCompany = this.startCompany.bind( this )
     this.recapTheYear = this.recapTheYear.bind( this )
+    this.changeOfLastYear = this.changeOfLastYear.bind( this )
   }
 
   componentDidMount(){
@@ -83,7 +84,7 @@ class PageContent extends React.Component {
 
   }
 
-  changeYear( type ){
+  changeYear( type, toSendBack ){
 
     let year = this.state.year
     let nextYear
@@ -100,6 +101,8 @@ class PageContent extends React.Component {
     }
     else if( type == "previous")
       nextYear = ( year > 0 ? this.state.year - 2 : 0 )
+
+    if( toSendBack ) this.changeOfLastYear( toSendBack ) 
 
     this.setState({
       year: nextYear,
@@ -136,8 +139,8 @@ class PageContent extends React.Component {
 
   renderStoryModal( ){
 
-    var { title, description, buttons } = createStory( this.state, this )
-    if( !buttons ) buttons = React.createElement("button", {onClick:  this.changeYear( "next") }, "Confirm")
+    var { title, description, buttons, toSendBack } = createStory( this.state, this )
+    if( !buttons ) buttons = React.createElement("button", {onClick:  this.changeYear( "next", null) }, "Confirm")
 
     return (
       React.createElement(Modal, {
@@ -147,6 +150,23 @@ class PageContent extends React.Component {
       )
     )
 
+  }
+
+  changeOfLastYear( toSendBack ){
+
+    switch( this.state.year ){
+      case 0:
+        this.editCompanyState( "vision", toSendBack.vision )
+        this.editCompanyState( "income", toSendBack.finalTotal )
+        this.editCompanyState( "equity", toSendBack.equity )
+        break;
+      case 2:
+        break;
+      case 4:
+        break;
+      default: console.log( "failed year")
+    }
+    
   }
 
 ///////RECAP SCREEN
@@ -485,10 +505,11 @@ class PageContent extends React.Component {
 		super( props )
 
 		this.state = {
-			selectedOption: null,
+			selectedOption: this.props.valuesSent[0],
 		}
 
 		this.handleOptionChange = this.handleOptionChange.bind( this )
+		this.props.valueReceived( this.props.valuesSent[0] )
 	}
 
 
@@ -632,7 +653,7 @@ class PageContent extends React.Component {
   render(){
     return(
       React.createElement("div", {className: "footer"}, 
-        React.createElement("button", {onClick:  () => this.props.goPrevious( 'previous' )}, "back"), 
+        React.createElement("button", {onClick:  () => this.props.goPrevious( 'previous', null )}, "back"), 
         React.createElement("button", {onClick:  this.props.goNext}, "next"), 
         React.createElement("button", {onClick:  this.props.logState}, "Log"), 
         React.createElement("button", {onClick:  this.props.pauseState}, " Pause")
@@ -977,26 +998,18 @@ const visionArrayYear0 = [
 function year0Recap( state ){
 
 	var companyYear = state.company.year0
-	console.log( companyYear )
 
-	//middleEvent event chose
-	//middleEvent.event 1 salary or meetings
-	//middleEvent.event 2 beta or ignore
+	//SALARIES
 	var plus = 0 
-	if( companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "salary" )
+	if( companyYear.middleEvent && companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "salary" )
 		plus = 100
+
 	salaries = countSalary( state.company.team, plus) 
 	var total =  salaries.total * 24
 	var developersSalary = salaries.developersSalary * 24
 	var artistsSalary = salaries.artistsSalary * 24
 
-
-	var toSendBack = {
-		vision: companyYear.vision,
-	}
-
-
-	//endEvent
+	// INVESTEMENT END EVENT
 	var investment = 0
 	var equity = 80
 	if( companyYear.endEvent == "accept" ){
@@ -1006,32 +1019,52 @@ function year0Recap( state ){
 		investment = 30000
 	}
 
-	//recapOfYearText
-	//vision
-
-	//if organization + 
-	//if event beta 
+	// GAME REVENUE
 	var gameRevenue = 40500
-	if( companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "meetings" )
-		gameRevenue += 2000
-	if( companyYear.middleEvent.event == 2 && companyYear.middleEvent.chose == "beta" )
+	if( companyYear.middleEvent ){
+		if( companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "meetings" )
+			gameRevenue += 2000
+		if( companyYear.middleEvent.event == 2 && companyYear.middleEvent.chose == "beta" )
+			gameRevenue += 2000
+	}
+	if( state.company.team && state.company.team.developers == 1 )
 		gameRevenue += 2000
 
 	var infrastructures = "2400" // 100 per month
 
+	// FINAL MATH
 	var finalTotal = 0
 	finalTotal += ( investment + gameRevenue )
 	finalTotal -= developersSalary 
 	finalTotal -= artistsSalary 
 	finalTotal -= infrastructures 
 
+	var toSendBack = {
+		vision: companyYear.vision,
+		finalTotal,
+		equity
+	}
 
+	// FINAL TEXT 
+	var middleEvent = ""
+	if( companyYear.middleEvent  && companyYear.middleEvent.event == 1 ){
+		if( companyYear.middleEvent.chose == "salary" ) middleEvent = `Money it's not everything, you should have tried to make more meetings`
+		if( companyYear.middleEvent.chose == "meetings" ) middleEvent = `Choosing meetings instead of a raise was a wise choice and brought better performance`
+	}
+	if( companyYear.middleEvent  && companyYear.middleEvent.event == 2 ){
+		if( companyYear.middleEvent.chose == "beta" ) middleEvent = `Your beta version made your release less buggy and sold better`
+		if( companyYear.middleEvent.chose == "ignore" ) middleEvent = `Not making a beta version  made your release more buggy and you sold less`
+	}
+	
+	var textOfTheYear = `${companyYear.recapOfYearText}. Your game went well and you made some profit of it and
+	you've learn a lot about your team and how to work with them. ${middleEvent}`
+
+	// HTML DOM
 	var title = "2 Years have passed"
 	var description = `
-
 	<div class='descriptionDiv'>
 		<p class='descriptionModal'>
-			${companyYear.recapOfYearText}
+			${textOfTheYear}
 		</p>
 	</div>
 	<div class='recap'>
@@ -1058,7 +1091,8 @@ function year0Recap( state ){
 
 	return {
 		title,
-		description
+		description,
+		toSendBack
 	}
 }	
 
@@ -1439,7 +1473,7 @@ function getSalaryForTeam ( team = null, year ){
 
 var recapScreen = function( state, pC ){
 
-	var { title, description } = createRecapBasedOnChoices( state )
+	var { title, description, toSendBack } = createRecapBasedOnChoices( state )
 
 	var code
 	var validationCode
@@ -1452,7 +1486,7 @@ var recapScreen = function( state, pC ){
 		React.createElement("button", {
 			onClick:   () => {
 				if( code == validationCode )
-					pC.changeYear('next')
+					pC.changeYear('next', toSendBack )
 				}
 			}, " Continue ")
 	)
@@ -1659,8 +1693,11 @@ function countTeam( teamObj ){
 
 function countSalary( teamObj, plus = 0 ){
     
-    var developers = teamObj.developers
-    var artists = teamObj.artists || null
+    var developers = artists = 0
+    if( teamObj ){
+        var developers = teamObj.developers
+        var artists = teamObj.artists || null
+    }
 
     var totalSalary = 0
     var developersSalary = 0
@@ -1669,11 +1706,6 @@ function countSalary( teamObj, plus = 0 ){
     developersSalary = developers * ( 900 + plus )
     artistsSalary = artists * ( 800 + plus )
 
-        console.log( {
-        total: developersSalary + artistsSalary,
-        developersSalary,
-        artistsSalary,
-    })
     return {
         total: developersSalary + artistsSalary,
         developersSalary,

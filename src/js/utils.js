@@ -35,8 +35,11 @@ function countTeam( teamObj ){
 
 function countSalary( teamObj, plus = 0 ){
     
-    var developers = teamObj.developers
-    var artists = teamObj.artists || null
+    var developers = artists = 0
+    if( teamObj ){
+        var developers = teamObj.developers
+        var artists = teamObj.artists || null
+    }
 
     var totalSalary = 0
     var developersSalary = 0
@@ -45,11 +48,6 @@ function countSalary( teamObj, plus = 0 ){
     developersSalary = developers * ( 900 + plus )
     artistsSalary = artists * ( 800 + plus )
 
-        console.log( {
-        total: developersSalary + artistsSalary,
-        developersSalary,
-        artistsSalary,
-    })
     return {
         total: developersSalary + artistsSalary,
         developersSalary,

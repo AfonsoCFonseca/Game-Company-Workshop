@@ -4,10 +4,11 @@ class RadioButtonBlock extends React.Component {
 		super( props )
 
 		this.state = {
-			selectedOption: null,
+			selectedOption: this.props.valuesSent[0],
 		}
 
 		this.handleOptionChange = this.handleOptionChange.bind( this )
+		this.props.valueReceived( this.props.valuesSent[0] )
 	}
 
 
