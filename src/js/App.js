@@ -4,7 +4,7 @@ class PageContent extends React.Component {
     super( props )
 
     this.state = {
-      year: 0,
+      year: 2,
       goingDev: true,
       isPaused: true,
       moduleShow: false,  // Ecra de Eventos
@@ -242,6 +242,7 @@ class PageContent extends React.Component {
         break;
       case 2:
         return <Module_2Year editGeneralState={ this.editGeneralState }
+          company={ this.state.company }
           editCompanyState={ this.editCompanyState } />
         break;
       case 4:

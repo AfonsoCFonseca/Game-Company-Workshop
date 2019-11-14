@@ -196,6 +196,10 @@ body label {
   font-weight: 800;
   color: #595959;
 }
+#content > .structure > .module > .inputDiv > .inputDivInner .inputDivInnerPlus {
+  margin-left: 10px;
+  font-weight: 300 !important;
+}
 #content > .structure > .module > .inputDiv > .inputDivInner > input {
   border: 1px solid #BABABA;
   width: 85%;

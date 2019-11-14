@@ -63,6 +63,11 @@ $optionalGreen: #84c294;
           color: $grey_darker;
         }
 
+        .inputDivInnerPlus{
+          margin-left: 10px;
+          font-weight: 300 !important;
+        }
+
         >input {
           border: 1px solid $grey_dark;
           width: 85%;

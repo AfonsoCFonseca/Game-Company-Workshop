@@ -245,6 +245,13 @@ and focus on that. Choose wisely when thinking where to spend the company money.
  var focusOption3 = `The last 2 years were pretty stressfull and that made you take great pleasure in gory games. After a day of work you just want to
  relax on the sofa and play some Doom. With that in mind, you decided that your next game will take any kind of genre but will, for sure, be a bloody gory game`
 
+var officeSpaceYear2Description = `If you wanna get bigger, you'll need to pick a bigger office. You have two suggestions, one
+is a small but cosy office in the building where other startups work and you know it would be good for networking. The other suggestion is
+a much bigger office, isolated and more expansive` 
+
+var biggerTeamYear2Description = `The team keeps getting bigger and you should start to think in some standard rules, 
+so everything is well organized inside the office and with the games development. Tell some of the ideias or rules you wanna
+apply to your company`
 
  var focusDescription = [
  	focusOption1,

@@ -43,3 +43,13 @@ const visionArrayYear0 = [
   "Focus on the story",
   "Online Competetive"
 ]
+
+const officeSpaceArrayYear2 = [
+  'Small but with other start-ups near',
+  'Bigger but isolated'
+]
+
+const sequelGameArrayYear2 = [
+  'Sequel or Prequel',
+  'New Game'
+]

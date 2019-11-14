@@ -4,7 +4,7 @@ class PageContent extends React.Component {
     super( props )
 
     this.state = {
-      year: 0,
+      year: 2,
       goingDev: true,
       isPaused: true,
       moduleShow: false,  // Ecra de Eventos
@@ -242,6 +242,7 @@ class PageContent extends React.Component {
         break;
       case 2:
         return React.createElement(Module_2Year, {editGeneralState:  this.editGeneralState, 
+          company:  this.state.company, 
           editCompanyState:  this.editCompanyState})
         break;
       case 4:
@@ -436,19 +437,52 @@ class PageContent extends React.Component {
   constructor( props ){
     super( props )
 
+    this.onValueChange = this.onValueChange.bind( this )
+
+    this.state = {
+      inputValue: props.inputValue,
+    }
   }
+
+
+  static getDerivedStateFromProps( props, state ) {
+
+      return {
+          inputValue: props.inputValue
+      }
+  }
+
 
   inputRender(){
 
     if( this.props.inputTile == null )
-      return React.createElement("input", {onChange:  e => this.props.valueReceived( e.target.value )})
+      return React.createElement("input", {value:  this.state.inputValue, onChange:  this.onValueChange})
     else{
       return ( 
         React.createElement("div", {className: "inputDivInner"}, 
           React.createElement("p", null,  this.props.inputTile), 
-          React.createElement("input", {className:  this.props.typeDiv == "small" ? "small" : "", onChange:  e => this.props.valueReceived( e.target.value )})
+          React.createElement("input", {
+            value:  this.state.inputValue, 
+            className:  this.props.typeDiv == "small" ? "small" : "", 
+            onChange:  this.onValueChange}), 
+           this.props.multiplier ? React.createElement("p", {className: "inputDivInnerPlus"},  this.state.inputValue * this.props.multiplier, " $") : null
         ) )
     }
+
+  }
+
+  onValueChange( e ){
+    var value = e.target.value
+
+    if( this.props.numbers ){
+      if( value >= 2 && value <= 5 ){
+        this.props.valueReceived( value )
+      }
+    }
+    else{
+      console.log("mearas")
+      this.props.valueReceived( value )
+    } 
 
   }
 
@@ -766,10 +800,57 @@ class PageContent extends React.Component {
     super( props )
 
     this.focusDescription = focusDescription[ getRandomInt( 0, 2 ) ]
+
+    this.getRadioOffice = this.getRadioOffice.bind( this )
+    this.figureConditionsForGenres = this.figureConditionsForGenres.bind( this )
+    this.getRadioSequel = this.getRadioSequel.bind( this )
+    this.joinMembersTeam = this.joinMembersTeam.bind( this )
+    
+    var developers, artists
+    if( props.company.team ){
+      developers = props.company.team.developers 
+      artists = props.company.team.artists 
+    }
+    
+    this.state = {
+      team: {
+        developers: developers || 0,
+        artists: artists || 0,
+        designers: 0,
+        sfx: 0,
+        marketing: 0,
+      }
+    }
   }
 
   updateToParent( name, value ){
     this.props.editCompanyState( "year2", { [name]: value })
+  }
+
+  getRadioOffice( value ){
+    console.log( value )
+  }
+
+  getRadioSequel( value ){
+
+  }
+
+  joinMembersTeam( value, depart ){
+    var team = this.state.team
+    team[depart] = value 
+    this.setState({ team })
+   // this.props.editCompanyState( "gameTitle2", value )
+  }
+
+  figureConditionsForGenres(){
+    return (
+      React.createElement(DropdownBlock, {
+          dataEntries:  genres, 
+          placeholder: "Pick a genre", 
+          valueReceived:  value => this.updateToParent( "genres", value )}, 
+          React.createElement(Description, {title:  'Genre' })
+      )
+    )
   }
 
   render() {
@@ -779,44 +860,91 @@ class PageContent extends React.Component {
 
         React.createElement(TextField, {title: "Focus", textValue:  this.focusDescription}), 
 
+        "/*Impacto mais dinheiro*/", 
+        React.createElement(RadioButtonBlock, {
+            valuesSent:  officeSpaceArrayYear2, 
+            valueReceived:  this.getRadioOffice}, 
+           React.createElement(Description, {title: "Office", description:  officeSpaceYear2Description })
+        ), 
 
         React.createElement(InputBlock, {
           inputTile:  "Developers", 
           typeDiv: 'small', 
-          valueReceived:  value => this.props.editCompanyState( "sentMoneyYear2", value )}, 
+          numbers: true, 
+          multiplier: 1000, 
+          inputValue:  this.state.team.developers, 
+          valueReceived:  value =>  this.joinMembersTeam( value, "developers")}, 
            React.createElement(Description, {
               title: "Where to spend the money", 
               description:  descriptionSpentMoney })
         ), 
         React.createElement(InputBlock, {
+          inputTile:  "Artists", 
+          typeDiv: 'small', 
+          numbers: true, 
+          multiplier: 900, 
+          inputValue:  this.state.team.artists, 
+          valueReceived:  value =>  this.joinMembersTeam( value, "artists")}
+        ), 
+        React.createElement(InputBlock, {
           inputTile:  "Designers", 
           typeDiv: 'small', 
-          valueReceived:  value => this.props.editCompanyState( "gameTitle2", value )}
+          numbers: true, 
+          multiplier: 900, 
+          inputValue:  this.state.team.designers, 
+          valueReceived:  value =>  this.joinMembersTeam( value, "designers")}
         ), 
         React.createElement(InputBlock, {
           inputTile:  "SFX Studio", 
           typeDiv: 'small', 
-          valueReceived:  value => this.props.editCompanyState( "gameTitle2", value )}
+          numbers: true, 
+          multiplier: 800, 
+          inputValue:  this.state.team.sfx, 
+          valueReceived:  value =>  this.joinMembersTeam( value, "sfx")}
         ), 
         React.createElement(InputBlock, {
           inputTile:  "Marketing", 
           typeDiv: 'small', 
-          valueReceived:  value => this.props.editCompanyState( "gameTitle2", value )}
+          numbers: true, 
+          multiplier: 850, 
+          inputValue:  this.state.team.marketing, 
+          valueReceived:  value =>  this.joinMembersTeam( value, "marketing")}
+        ), 
+
+        React.createElement(InputBlock, {
+          size: "large", 
+          valueReceived:  value => this.props.editCompanyState( "biggerTeam", value )}, 
+           React.createElement(Description, {
+              title: "Bigger Team", 
+              description:  biggerTeamYear2Description })
+        ), 
+
+        "/*Influenciado*/", 
+        React.createElement(InputBlock, {
+          valueReceived:  value => this.props.editCompanyState( "unfocusTeam", value )}, 
+           React.createElement(Description, {
+              title: "Unfocused Team"})
         ), 
 
         React.createElement(TextField, {title: "Second Game", textValue:  secondGameDescription }), 
 
-        React.createElement(InputBlock, {
-          valueReceived:  value => this.props.editCompanyState( "gameTitle2", value )}, 
-           React.createElement(Description, {
-              title: "Game Title"})
+        React.createElement(RadioButtonBlock, {
+            valuesSent:  sequelGameArrayYear2, 
+            valueReceived:  this.getRadioSequel}, 
+           React.createElement(Description, {title: "What will you pick?"})
         ), 
 
         React.createElement(InputBlock, {
-          valueReceived:  value => this.props.editCompanyState( "gameDescription2", value ), 
-          size: "large"}, 
-           React.createElement(Description, {
-              title: "Game genre, style, mechanics"})
+          valueReceived:  value => this.updateToParent( "gameName", value )}, 
+          React.createElement(Description, {title: "Game Name"})
+        ), 
+
+         this.figureConditionsForGenres(), 
+
+        React.createElement(InputBlock, {
+          size: "large", 
+          valueReceived:  value => this.updateToParent( "gameDescription", value )}, 
+           React.createElement(Description, {title: "Description"})
         )
 
       )
@@ -978,6 +1106,16 @@ const visionArrayYear0 = [
   "Simple but addictive games",
   "Focus on the story",
   "Online Competetive"
+]
+
+const officeSpaceArrayYear2 = [
+  'Small but with other start-ups near',
+  'Bigger but isolated'
+]
+
+const sequelGameArrayYear2 = [
+  'Sequel or Prequel',
+  'New Game'
 ];var createRecapBasedOnChoices = function( state ){
 
 		switch( state.year ){
@@ -1357,6 +1495,13 @@ and focus on that. Choose wisely when thinking where to spend the company money.
  var focusOption3 = `The last 2 years were pretty stressfull and that made you take great pleasure in gory games. After a day of work you just want to
  relax on the sofa and play some Doom. With that in mind, you decided that your next game will take any kind of genre but will, for sure, be a bloody gory game`
 
+var officeSpaceYear2Description = `If you wanna get bigger, you'll need to pick a bigger office. You have two suggestions, one
+is a small but cosy office in the building where other startups work and you know it would be good for networking. The other suggestion is
+a much bigger office, isolated and more expansive` 
+
+var biggerTeamYear2Description = `The team keeps getting bigger and you should start to think in some standard rules, 
+so everything is well organized inside the office and with the games development. Tell some of the ideias or rules you wanna
+apply to your company`
 
  var focusDescription = [
  	focusOption1,
