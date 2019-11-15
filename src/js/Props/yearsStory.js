@@ -13,7 +13,10 @@ var createStory = function( state, parentComponent ){
  			title = '2 Years have passed'
 
 		case 2:
- 			return year2Story( income, equity,team, parentComponent )
+			if( state.middleEvent == true ) return year2MiddleEventStory( income, equity,team, parentComponent )
+			else if( state.recapEvent == true ) return recapScreen( state, parentComponent )
+ 			else return year2Story( income, equity,team, parentComponent )
+ 			title = "4 Years have passed"
 
 		case 4:
  			return year4Story( income, equity,team, parentComponent )
@@ -229,12 +232,8 @@ var year0MiddleEventStory = function( income, equity, team, pC ){
 
  var descriptionSpentMoney = `Making the right decision on the right time is everything. Check what went bad on your recap of the last 2 years
 and focus on that. Choose wisely when thinking where to spend the company money. Investing in growing your team is always a good move.
- Check what if you need a new department, like UX/UI Design, new artists, SFX, more developers, someone to promote your game
+ Check if you need a new department, like UX/UI Design, new artists, SFX, more developers, someone to promote your game
  and take care of marketing.`
-
- var secondGameDescription = `Now is a good time to start to think in releasing a new game. Do you think your first game went well? If yes, you should go for a
- second instalment? Or maybe if you want to change thinks a bit or your last game didnt went so well, you can try a new genre, a new story or a new platform.
- If you wanna go for something different, just try the random roll. ( click on the icon )`
 
  var focusOption1 = `This 2 years of work taught you a lot but i ve learn a lot from games too... All your life you ve played simulation games.
  From Sims and Simcity, to goat simulator. You know, for sure, that this type of game can teach a lot to people. So you decide to make that genre on your next game`
@@ -259,12 +258,44 @@ apply to your company`
  	focusOption3
  ]
 
+ function getDescriptionUnfocusTeam( value ){
+ 	    if( value == "Small but with other start-ups near" )
+      descriptionForUnfocusTeam = "The office it's small and cosy, but with your team getting used to work together, they started to getting noisy"+
+      "It's hard to get focused and develop. Approach the team, in an original way, asking them for being more quiet"
+    else if( value == "Bigger but isolated" )
+      descriptionForUnfocusTeam = "The office it's gigantic.. and someone of the team tought it would be cool to bring there own PS4 and television"+
+    "to play videogames on his break. But the problem it's that the rest of the team gets unfocused watching him play. Approach him, in an original way, asking him to stop that."
+    
+ }
+
+ function getDescriptionYear2( vision ){
+
+ 	var standard = "Now is a good time to start to think in releasing a new game. Do you think your first game went well?"
+
+ 	if( vision == "Simple but addictive games" ){
+ 		return standard + " But don't forget that your game must be simple but addictive"
+ 	}
+ 	else if( vision == "Focus on the story" ){
+		return standard + " Keep in mind that your next game must be focused on the story. Your vision, not mine "
+ 	}
+ 	else if( vision == "Online Competetive" ){
+		return standard + " But rember, your game needs to be an competitive online game. Good luck with that"
+ 	}
+ 	return "tipo ya"
+
+ }
+
 ////////////////////////////////// MAIN EVENT
 
  var year2Story = function( income, equity, team, pC ){
 
 	var title = ""
 	var text = ""
+/*
+	An investor approach you and offers you 200k $ for 32% equity of your company.. That's a lot of equity!
+	What do you do?
+	That's a lot of money and will, for sure, give you confort for the next company years to come*/
+	
 
  	return {
  		title: '2 Years have passed',
@@ -274,6 +305,79 @@ apply to your company`
  }
 
 ////////////////////////////////// MID YEAR EVENT
+
+var year2MiddleEventStory = function( income, equity, team, pC ){
+
+	let year2 = {}
+
+	var text1 = `
+	<div class='descriptionDiv'>
+		<p class='descriptionModal'>A developer from your team approached you</p>
+		<p class='descriptionModal'>He said that he likes what he's doing but he prefered to manage the developer team. He got the feeling
+		that sometimes the team don't know what they are doing</p>
+		<p class='descriptionModal-type2'> What do you do? </p>
+	</div>`
+
+	var buttons1 = <React.Fragment>
+	<button
+		onClick={  () => {
+			year0.middleEvent = {
+				event: 1,
+    			chose: "lead",
+			}
+			pC.closeMiddleEvent( "year2", year2 )
+			}
+		}>Make him Lead Developer</button>
+	<button
+		onClick={ () => {
+			year0.middleEvent = {
+				event: 1,
+    			chose: "ignore",
+			}
+			pC.closeMiddleEvent( "year2", year2 )
+			} 
+		}>Nahh</button>
+	</React.Fragment>
+
+	var text2 = `
+	<div class='descriptionDiv'>
+		<p class='descriptionModal'>One of the developers want ask you something</p>
+		<p class='descriptionModal-type2'>He seems a bit embarrassed</p>
+		<p class='descriptionModal'>He have an offer from another company to make a small feature for them. He assured you that he'll stay commited
+		to this company and only makes this feature when he's out of the office</div>`
+
+	var buttons2 = <React.Fragment>
+	<button
+		onClick={  () => {
+			year0.middleEvent = {
+				event: 2,
+    			chose: "accept",
+			}
+			pC.closeMiddleEvent( "year2", year2 )
+			}
+		}>Sure</button>
+	<button
+		onClick={ () => {
+			year0.middleEvent = {
+				event: 2,
+    			chose: "reject",
+			}
+			pC.closeMiddleEvent( "year2", year2 )
+			} 
+		}>Sorry but no</button>
+	</React.Fragment>
+
+	var version = getRandomInt( 1, 2 )
+	var description = version == 1 ? text1 : text2
+	var buttons = version == 1 ? buttons1 : buttons2
+
+	return {
+ 		title: "Middle Year Event",
+ 		description: description,
+ 		buttons: buttons,
+ 	}
+
+}
 
 
 ///////////////////////////////// YEAR 4 //////////////////////////////////

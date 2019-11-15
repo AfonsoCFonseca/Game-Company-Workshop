@@ -6,7 +6,7 @@ class PageContent extends React.Component {
     this.state = {
       year: 2,
       goingDev: true,
-      isPaused: true,
+      isPaused: false,
       moduleShow: false,  // Ecra de Eventos
       optionalScreen: false, // Ecra de entrada e final
       middleEvent: false, // Trigger para o middle Event
@@ -140,7 +140,7 @@ class PageContent extends React.Component {
   renderStoryModal( ){
 
     var { title, description, buttons, toSendBack } = createStory( this.state, this )
-    if( !buttons ) buttons = React.createElement("button", {onClick:  this.changeYear( "next", null) }, "Confirm")
+    if( !buttons ) buttons = React.createElement("button", {onClick:  ( ) => this.changeYear( "next", null )}, "Confirm")
 
     return (
       React.createElement(Modal, {
@@ -187,6 +187,7 @@ class PageContent extends React.Component {
 
 ///////MIDDLE EVENT
   renderMiddleYearModal( ){
+    
       this.setState({
         middleEvent: true,
         moduleShow: true,
@@ -397,20 +398,30 @@ class PageContent extends React.Component {
   constructor( props ){
     super( props )
 
+    this.renderOption = this.renderOption.bind( this )
   }
 
   renderOption(){
 
     var newArrayEntries = this.props.dataEntries.slice();
+    let options
 
     if( this.props.placeholder ){
       newArrayEntries.unshift( this.props.placeholder )
     }
     
-    let options = newArrayEntries.map( ( entry, i )=> {
-      if( i == 0) return ( React.createElement("option", {defaultValue: true, disabled: true, key: `dataEntry_${entry}`}, entry) )
-      return ( React.createElement("option", {key: `dataEntry_${entry}`}, entry) )
-    })
+    if( this.props.locked == null ){
+      options = newArrayEntries.map( ( entry, i ) => {
+        if( i == 0) return ( React.createElement("option", {defaultValue: true, disabled: true, key: `dataEntry_${entry}`}, entry) )
+        return ( React.createElement("option", {key: `dataEntry_${entry}`}, entry) )
+      })
+    }
+    else {
+      options = newArrayEntries.map( ( entry, i ) => {
+        if( entry == this.props.locked ) return ( React.createElement("option", {selected: true, key: `dataEntry_${entry}`}, entry) )
+        else return ( React.createElement("option", {key: `dataEntry_${entry}`}, entry) )
+      })
+    }
 
     return options
 
@@ -423,6 +434,7 @@ class PageContent extends React.Component {
         this.props.children, 
         React.createElement("select", {
           placeholder:  this.props.placeholder, 
+          disabled:  this.props.locked ? true : false, 
           className: "dropdownList", 
           onChange:  event  => this.props.valueReceived( event.target.value )}, 
           this.renderOption()
@@ -465,7 +477,7 @@ class PageContent extends React.Component {
             value:  this.state.inputValue, 
             className:  this.props.typeDiv == "small" ? "small" : "", 
             onChange:  this.onValueChange}), 
-           this.props.multiplier ? React.createElement("p", {className: "inputDivInnerPlus"},  this.state.inputValue * this.props.multiplier, " $") : null
+           this.props.multiplier ? React.createElement("p", {className: "inputDivInnerPlus"},  this.state.inputValue * this.props.multiplier, " $ x per month") : null
         ) )
     }
 
@@ -475,7 +487,7 @@ class PageContent extends React.Component {
     var value = e.target.value
 
     if( this.props.numbers ){
-      if( value >= 2 && value <= 5 ){
+      if( value >= 0 && value <= 4 ){
         this.props.valueReceived( value )
       }
     }
@@ -799,11 +811,16 @@ class PageContent extends React.Component {
   constructor( props ){
     super( props )
 
-    this.focusDescription = focusDescription[ getRandomInt( 0, 2 ) ]
+    this.focusPos = getRandomInt( 0, 2 )
+    this.focusDescription = focusDescription[ this.focusPos ]
+    this.dropdownGenre = null
+    if( this.focusPos == 0 ) // 1 simiulation
+      this.dropdownGenre = "Simulation"
+    else if( this.focusPos == 1 )// 2 RTS
+       this.dropdownGenre = "Real-time strategy (RTS)"
+
 
     this.getRadioOffice = this.getRadioOffice.bind( this )
-    this.figureConditionsForGenres = this.figureConditionsForGenres.bind( this )
-    this.getRadioSequel = this.getRadioSequel.bind( this )
     this.joinMembersTeam = this.joinMembersTeam.bind( this )
     
     var developers, artists
@@ -811,6 +828,9 @@ class PageContent extends React.Component {
       developers = props.company.team.developers 
       artists = props.company.team.artists 
     }
+
+    this.getDescriptionYear2 = getDescriptionYear2( props.company.vision )
+
     
     this.state = {
       team: {
@@ -819,7 +839,8 @@ class PageContent extends React.Component {
         designers: 0,
         sfx: 0,
         marketing: 0,
-      }
+      },
+      descriptionForUnfocusTeam: null,
     }
   }
 
@@ -828,10 +849,10 @@ class PageContent extends React.Component {
   }
 
   getRadioOffice( value ){
-    console.log( value )
-  }
+    var descriptionForUnfocusTeam = getDescriptionUnfocusTeam( value )
 
-  getRadioSequel( value ){
+    this.setState( {descriptionForUnfocusTeam })
+    this.updateToParent( "officeChoice", value )
 
   }
 
@@ -839,19 +860,10 @@ class PageContent extends React.Component {
     var team = this.state.team
     team[depart] = value 
     this.setState({ team })
-   // this.props.editCompanyState( "gameTitle2", value )
+    this.props.editCompanyState( "team", team )
   }
 
-  figureConditionsForGenres(){
-    return (
-      React.createElement(DropdownBlock, {
-          dataEntries:  genres, 
-          placeholder: "Pick a genre", 
-          valueReceived:  value => this.updateToParent( "genres", value )}, 
-          React.createElement(Description, {title:  'Genre' })
-      )
-    )
-  }
+
 
   render() {
 
@@ -860,7 +872,6 @@ class PageContent extends React.Component {
 
         React.createElement(TextField, {title: "Focus", textValue:  this.focusDescription}), 
 
-        "/*Impacto mais dinheiro*/", 
         React.createElement(RadioButtonBlock, {
             valuesSent:  officeSpaceArrayYear2, 
             valueReceived:  this.getRadioOffice}, 
@@ -913,38 +924,52 @@ class PageContent extends React.Component {
 
         React.createElement(InputBlock, {
           size: "large", 
-          valueReceived:  value => this.props.editCompanyState( "biggerTeam", value )}, 
+          valueReceived:  value => this.updateToParent( "biggerTeam", value )}, 
            React.createElement(Description, {
               title: "Bigger Team", 
               description:  biggerTeamYear2Description })
         ), 
 
-        "/*Influenciado*/", 
         React.createElement(InputBlock, {
-          valueReceived:  value => this.props.editCompanyState( "unfocusTeam", value )}, 
+          size: "large", 
+          valueReceived:  value => this.updateToParent( "unfocusTeam", value )}, 
            React.createElement(Description, {
-              title: "Unfocused Team"})
+              title: "Unfocused Team", 
+              description:  this.state.descriptionForUnfocusTeam})
         ), 
 
-        React.createElement(TextField, {title: "Second Game", textValue:  secondGameDescription }), 
+        React.createElement(TextField, {title: "Second Game", textValue:  this.getDescriptionYear2}), 
 
         React.createElement(RadioButtonBlock, {
             valuesSent:  sequelGameArrayYear2, 
-            valueReceived:  this.getRadioSequel}, 
+            valueReceived:  value => this.updateToParent({ "sequel": value })}, 
            React.createElement(Description, {title: "What will you pick?"})
         ), 
 
         React.createElement(InputBlock, {
-          valueReceived:  value => this.updateToParent( "gameName", value )}, 
+          valueReceived:  value => this.updateToParent( "gameNameYear2", value )}, 
           React.createElement(Description, {title: "Game Name"})
         ), 
 
-         this.figureConditionsForGenres(), 
+        React.createElement(DropdownBlock, {
+          dataEntries:  genres, 
+          locked:  this.dropdownGenre, 
+          placeholder: "Pick a genre", 
+          valueReceived:  value => this.updateToParent( "genres", value )}, 
+          React.createElement(Description, {title:  'Genre' })
+        ), 
+
+        React.createElement(DropdownBlock, {
+          dataEntries:  platforms, 
+          placeholder: "Pick a platform", 
+          valueReceived:  value => this.updateToParent( "platformYear2", value )}, 
+          React.createElement(Description, {title:  'Platform' })
+        ), 
 
         React.createElement(InputBlock, {
           size: "large", 
-          valueReceived:  value => this.updateToParent( "gameDescription", value )}, 
-           React.createElement(Description, {title: "Description"})
+          valueReceived:  value => this.updateToParent( "gameDescriptionyear2", value )}, 
+           React.createElement(Description, {title: "Game Mechanics, Features or Story"})
         )
 
       )
@@ -1070,6 +1095,7 @@ class PageContent extends React.Component {
   'Survival games',
   'Battle royale',
   'Action-adventure',
+  "Simulation",
   'Survival horror',
   'Metroidvania',
   'Adventure',
@@ -1263,7 +1289,10 @@ var createStory = function( state, parentComponent ){
  			title = '2 Years have passed'
 
 		case 2:
- 			return year2Story( income, equity,team, parentComponent )
+			if( state.middleEvent == true ) return year2MiddleEventStory( income, equity,team, parentComponent )
+			else if( state.recapEvent == true ) return recapScreen( state, parentComponent )
+ 			else return year2Story( income, equity,team, parentComponent )
+ 			title = "4 Years have passed"
 
 		case 4:
  			return year4Story( income, equity,team, parentComponent )
@@ -1479,12 +1508,8 @@ var year0MiddleEventStory = function( income, equity, team, pC ){
 
  var descriptionSpentMoney = `Making the right decision on the right time is everything. Check what went bad on your recap of the last 2 years
 and focus on that. Choose wisely when thinking where to spend the company money. Investing in growing your team is always a good move.
- Check what if you need a new department, like UX/UI Design, new artists, SFX, more developers, someone to promote your game
+ Check if you need a new department, like UX/UI Design, new artists, SFX, more developers, someone to promote your game
  and take care of marketing.`
-
- var secondGameDescription = `Now is a good time to start to think in releasing a new game. Do you think your first game went well? If yes, you should go for a
- second instalment? Or maybe if you want to change thinks a bit or your last game didnt went so well, you can try a new genre, a new story or a new platform.
- If you wanna go for something different, just try the random roll. ( click on the icon )`
 
  var focusOption1 = `This 2 years of work taught you a lot but i ve learn a lot from games too... All your life you ve played simulation games.
  From Sims and Simcity, to goat simulator. You know, for sure, that this type of game can teach a lot to people. So you decide to make that genre on your next game`
@@ -1509,12 +1534,44 @@ apply to your company`
  	focusOption3
  ]
 
+ function getDescriptionUnfocusTeam( value ){
+ 	    if( value == "Small but with other start-ups near" )
+      descriptionForUnfocusTeam = "The office it's small and cosy, but with your team getting used to work together, they started to getting noisy"+
+      "It's hard to get focused and develop. Approach the team, in an original way, asking them for being more quiet"
+    else if( value == "Bigger but isolated" )
+      descriptionForUnfocusTeam = "The office it's gigantic.. and someone of the team tought it would be cool to bring there own PS4 and television"+
+    "to play videogames on his break. But the problem it's that the rest of the team gets unfocused watching him play. Approach him, in an original way, asking him to stop that."
+    
+ }
+
+ function getDescriptionYear2( vision ){
+
+ 	var standard = "Now is a good time to start to think in releasing a new game. Do you think your first game went well?"
+
+ 	if( vision == "Simple but addictive games" ){
+ 		return standard + " But don't forget that your game must be simple but addictive"
+ 	}
+ 	else if( vision == "Focus on the story" ){
+		return standard + " Keep in mind that your next game must be focused on the story. Your vision, not mine "
+ 	}
+ 	else if( vision == "Online Competetive" ){
+		return standard + " But rember, your game needs to be an competitive online game. Good luck with that"
+ 	}
+ 	return "tipo ya"
+
+ }
+
 ////////////////////////////////// MAIN EVENT
 
  var year2Story = function( income, equity, team, pC ){
 
 	var title = ""
 	var text = ""
+/*
+	An investor approach you and offers you 200k $ for 32% equity of your company.. That's a lot of equity!
+	What do you do?
+	That's a lot of money and will, for sure, give you confort for the next company years to come*/
+	
 
  	return {
  		title: '2 Years have passed',
@@ -1524,6 +1581,79 @@ apply to your company`
  }
 
 ////////////////////////////////// MID YEAR EVENT
+
+var year2MiddleEventStory = function( income, equity, team, pC ){
+
+	let year2 = {}
+
+	var text1 = `
+	<div class='descriptionDiv'>
+		<p class='descriptionModal'>A developer from your team approached you</p>
+		<p class='descriptionModal'>He said that he likes what he's doing but he prefered to manage the developer team. He got the feeling
+		that sometimes the team don't know what they are doing</p>
+		<p class='descriptionModal-type2'> What do you do? </p>
+	</div>`
+
+	var buttons1 = React.createElement(React.Fragment, null, 
+	React.createElement("button", {
+		onClick:   () => {
+			year0.middleEvent = {
+				event: 1,
+    			chose: "lead",
+			}
+			pC.closeMiddleEvent( "year2", year2 )
+			}
+		}, "Make him Lead Developer"), 
+	React.createElement("button", {
+		onClick:  () => {
+			year0.middleEvent = {
+				event: 1,
+    			chose: "ignore",
+			}
+			pC.closeMiddleEvent( "year2", year2 )
+			}
+		}, "Nahh")
+	)
+
+	var text2 = `
+	<div class='descriptionDiv'>
+		<p class='descriptionModal'>One of the developers want ask you something</p>
+		<p class='descriptionModal-type2'>He seems a bit embarrassed</p>
+		<p class='descriptionModal'>He have an offer from another company to make a small feature for them. He assured you that he'll stay commited
+		to this company and only makes this feature when he's out of the office</div>`
+
+	var buttons2 = React.createElement(React.Fragment, null, 
+	React.createElement("button", {
+		onClick:   () => {
+			year0.middleEvent = {
+				event: 2,
+    			chose: "accept",
+			}
+			pC.closeMiddleEvent( "year2", year2 )
+			}
+		}, "Sure"), 
+	React.createElement("button", {
+		onClick:  () => {
+			year0.middleEvent = {
+				event: 2,
+    			chose: "reject",
+			}
+			pC.closeMiddleEvent( "year2", year2 )
+			}
+		}, "Sorry but no")
+	)
+
+	var version = getRandomInt( 1, 2 )
+	var description = version == 1 ? text1 : text2
+	var buttons = version == 1 ? buttons1 : buttons2
+
+	return {
+ 		title: "Middle Year Event",
+ 		description: description,
+ 		buttons: buttons,
+ 	}
+
+}
 
 
 ///////////////////////////////// YEAR 4 //////////////////////////////////

@@ -6,6 +6,7 @@ const genres = [
   'Survival games',
   'Battle royale',
   'Action-adventure',
+  "Simulation",
   'Survival horror',
   'Metroidvania',
   'Adventure',

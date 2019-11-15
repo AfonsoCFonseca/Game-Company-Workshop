@@ -3,11 +3,16 @@ class Module_2Year extends React.Component {
   constructor( props ){
     super( props )
 
-    this.focusDescription = focusDescription[ getRandomInt( 0, 2 ) ]
+    this.focusPos = getRandomInt( 0, 2 )
+    this.focusDescription = focusDescription[ this.focusPos ]
+    this.dropdownGenre = null
+    if( this.focusPos == 0 ) // 1 simiulation
+      this.dropdownGenre = "Simulation"
+    else if( this.focusPos == 1 )// 2 RTS
+       this.dropdownGenre = "Real-time strategy (RTS)"
+
 
     this.getRadioOffice = this.getRadioOffice.bind( this )
-    this.figureConditionsForGenres = this.figureConditionsForGenres.bind( this )
-    this.getRadioSequel = this.getRadioSequel.bind( this )
     this.joinMembersTeam = this.joinMembersTeam.bind( this )
     
     var developers, artists
@@ -15,6 +20,9 @@ class Module_2Year extends React.Component {
       developers = props.company.team.developers 
       artists = props.company.team.artists 
     }
+
+    this.getDescriptionYear2 = getDescriptionYear2( props.company.vision )
+
     
     this.state = {
       team: {
@@ -23,7 +31,8 @@ class Module_2Year extends React.Component {
         designers: 0,
         sfx: 0,
         marketing: 0,
-      }
+      },
+      descriptionForUnfocusTeam: null,
     }
   }
 
@@ -32,10 +41,10 @@ class Module_2Year extends React.Component {
   }
 
   getRadioOffice( value ){
-    console.log( value )
-  }
+    var descriptionForUnfocusTeam = getDescriptionUnfocusTeam( value )
 
-  getRadioSequel( value ){
+    this.setState( {descriptionForUnfocusTeam })
+    this.updateToParent( "officeChoice", value )
 
   }
 
@@ -43,19 +52,10 @@ class Module_2Year extends React.Component {
     var team = this.state.team
     team[depart] = value 
     this.setState({ team })
-   // this.props.editCompanyState( "gameTitle2", value )
+    this.props.editCompanyState( "team", team )
   }
 
-  figureConditionsForGenres(){
-    return (
-      <DropdownBlock 
-          dataEntries={ genres }
-          placeholder='Pick a genre'
-          valueReceived={ value => this.updateToParent( "genres", value ) }>
-          <Description title={ 'Genre' }/>
-      </DropdownBlock>
-    )
-  }
+
 
   render() {
 
@@ -64,7 +64,6 @@ class Module_2Year extends React.Component {
 
         <TextField title='Focus' textValue={ this.focusDescription }/>
 
-        /*Impacto mais dinheiro*/
         <RadioButtonBlock 
             valuesSent={ officeSpaceArrayYear2 }
             valueReceived={ this.getRadioOffice }>
@@ -117,38 +116,52 @@ class Module_2Year extends React.Component {
 
         <InputBlock 
           size='large'
-          valueReceived={ value => this.props.editCompanyState( "biggerTeam", value ) }>
+          valueReceived={ value => this.updateToParent( "biggerTeam", value ) }>
            <Description 
               title='Bigger Team'
               description={ biggerTeamYear2Description } />
         </InputBlock>
 
-        /*Influenciado*/
         <InputBlock 
-          valueReceived={ value => this.props.editCompanyState( "unfocusTeam", value ) }>
+          size='large'
+          valueReceived={ value => this.updateToParent( "unfocusTeam", value ) }>
            <Description 
-              title='Unfocused Team'/>
+              title='Unfocused Team'
+              description={ this.state.descriptionForUnfocusTeam }/>
         </InputBlock>
 
-        <TextField title='Second Game' textValue={ secondGameDescription }/>
+        <TextField title='Second Game' textValue={ this.getDescriptionYear2 }/>
 
         <RadioButtonBlock 
             valuesSent={ sequelGameArrayYear2 }
-            valueReceived={ this.getRadioSequel }>
+            valueReceived={ value => this.updateToParent({ "sequel": value }) }>
            <Description title='What will you pick?'/>
         </RadioButtonBlock>
 
         <InputBlock 
-          valueReceived={ value => this.updateToParent( "gameName", value ) }>
+          valueReceived={ value => this.updateToParent( "gameNameYear2", value ) }>
           <Description title='Game Name' />
         </InputBlock>
 
-        { this.figureConditionsForGenres() }
+        <DropdownBlock 
+          dataEntries={ genres }
+          locked={ this.dropdownGenre }
+          placeholder='Pick a genre'
+          valueReceived={ value => this.updateToParent( "genres", value ) }>
+          <Description title={ 'Genre' }/>
+        </DropdownBlock>
+
+        <DropdownBlock 
+          dataEntries={ platforms }
+          placeholder='Pick a platform'
+          valueReceived={ value => this.updateToParent( "platformYear2", value ) }>
+          <Description title={ 'Platform' } />
+        </DropdownBlock>
 
         <InputBlock 
           size='large'
-          valueReceived={ value => this.updateToParent( "gameDescription", value ) }>
-           <Description title='Description' />
+          valueReceived={ value => this.updateToParent( "gameDescriptionyear2", value ) }>
+           <Description title='Game Mechanics, Features or Story' />
         </InputBlock>
 
       </div>

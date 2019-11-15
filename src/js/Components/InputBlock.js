@@ -31,7 +31,7 @@ class InputBlock extends React.Component{
             value={ this.state.inputValue }
             className={ this.props.typeDiv == "small" ? "small" : "" } 
             onChange={ this.onValueChange } /> 
-          { this.props.multiplier ? <p className='inputDivInnerPlus'>{ this.state.inputValue * this.props.multiplier } $</p> : null }
+          { this.props.multiplier ? <p className='inputDivInnerPlus'>{ this.state.inputValue * this.props.multiplier } $ x per month</p> : null }
         </div> )
     }
 
@@ -41,7 +41,7 @@ class InputBlock extends React.Component{
     var value = e.target.value
 
     if( this.props.numbers ){
-      if( value >= 2 && value <= 5 ){
+      if( value >= 0 && value <= 4 ){
         this.props.valueReceived( value )
       }
     }

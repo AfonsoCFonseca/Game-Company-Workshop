@@ -6,7 +6,7 @@ class PageContent extends React.Component {
     this.state = {
       year: 2,
       goingDev: true,
-      isPaused: true,
+      isPaused: false,
       moduleShow: false,  // Ecra de Eventos
       optionalScreen: false, // Ecra de entrada e final
       middleEvent: false, // Trigger para o middle Event
@@ -140,7 +140,7 @@ class PageContent extends React.Component {
   renderStoryModal( ){
 
     var { title, description, buttons, toSendBack } = createStory( this.state, this )
-    if( !buttons ) buttons = <button onClick={ this.changeYear( "next", null ) }>Confirm</button>
+    if( !buttons ) buttons = <button onClick={ ( ) => this.changeYear( "next", null ) }>Confirm</button>
 
     return (
       <Modal
@@ -187,6 +187,7 @@ class PageContent extends React.Component {
 
 ///////MIDDLE EVENT
   renderMiddleYearModal( ){
+    
       this.setState({
         middleEvent: true,
         moduleShow: true,
