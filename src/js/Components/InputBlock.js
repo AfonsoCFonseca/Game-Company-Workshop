@@ -45,10 +45,7 @@ class InputBlock extends React.Component{
         this.props.valueReceived( value )
       }
     }
-    else{
-      console.log("mearas")
-      this.props.valueReceived( value )
-    } 
+    else this.props.valueReceived( value )
 
   }
 

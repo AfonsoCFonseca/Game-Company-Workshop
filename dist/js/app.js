@@ -6,7 +6,7 @@ class PageContent extends React.Component {
     this.state = {
       year: 2,
       goingDev: true,
-      isPaused: false,
+      isPaused: true,
       moduleShow: false,  // Ecra de Eventos
       optionalScreen: false, // Ecra de entrada e final
       middleEvent: false, // Trigger para o middle Event
@@ -139,7 +139,7 @@ class PageContent extends React.Component {
 
   renderStoryModal( ){
 
-    var { title, description, buttons, toSendBack } = createStory( this.state, this )
+    var { title, description, buttons } = createStory( this.state, this )
     if( !buttons ) buttons = React.createElement("button", {onClick:  ( ) => this.changeYear( "next", null )}, "Confirm")
 
     return (
@@ -158,7 +158,11 @@ class PageContent extends React.Component {
       case 0:
         this.editCompanyState( "vision", toSendBack.vision )
         this.editCompanyState( "income", toSendBack.finalTotal )
-        this.editCompanyState( "equity", toSendBack.equity )
+        if( toSendBack.developerLeft == true ){
+          var team = this.state.company.team
+          team.developers -= 1
+          this.editCompanyState( "team", team )
+        }
         break;
       case 2:
         break;
@@ -170,9 +174,9 @@ class PageContent extends React.Component {
   }
 
 ///////RECAP SCREEN
-  recapTheYear( recapOfYearText ){
+  recapTheYear( recapOfYearText, year ){
     this.setState({ recapEvent: true })
-    this.editCompanyState( 'year0', { "recapOfYearText": recapOfYearText } )
+    this.editCompanyState( 'year' + year , { "recapOfYearText": recapOfYearText } )
   }
 
 ///////STARTING APP
@@ -491,10 +495,7 @@ class PageContent extends React.Component {
         this.props.valueReceived( value )
       }
     }
-    else{
-      console.log("mearas")
-      this.props.valueReceived( value )
-    } 
+    else this.props.valueReceived( value )
 
   }
 
@@ -814,11 +815,14 @@ class PageContent extends React.Component {
     this.focusPos = getRandomInt( 0, 2 )
     this.focusDescription = focusDescription[ this.focusPos ]
     this.dropdownGenre = null
-    if( this.focusPos == 0 ) // 1 simiulation
+    if( this.focusPos == 0 ){// 1 simiulation
       this.dropdownGenre = "Simulation"
-    else if( this.focusPos == 1 )// 2 RTS
-       this.dropdownGenre = "Real-time strategy (RTS)"
-
+      this.updateToParent( "genres", this.dropdownGenre )
+    } 
+    else if( this.focusPos == 1 ){// 2 RTS
+      this.dropdownGenre = "Real-time strategy (RTS)"
+      this.updateToParent( "genres", this.dropdownGenre )
+    }
 
     this.getRadioOffice = this.getRadioOffice.bind( this )
     this.joinMembersTeam = this.joinMembersTeam.bind( this )
@@ -942,7 +946,7 @@ class PageContent extends React.Component {
 
         React.createElement(RadioButtonBlock, {
             valuesSent:  sequelGameArrayYear2, 
-            valueReceived:  value => this.updateToParent({ "sequel": value })}, 
+            valueReceived:  value => this.updateToParent( "sequel", value )}, 
            React.createElement(Description, {title: "What will you pick?"})
         ), 
 
@@ -1143,13 +1147,13 @@ const sequelGameArrayYear2 = [
   'Sequel or Prequel',
   'New Game'
 ];var createRecapBasedOnChoices = function( state ){
-
+console.log( state.year )
 		switch( state.year ){
 			case 0:
 				return year0Recap( state )
 				break;
 			case 2: 
-				return year2Recap()
+				return year2Recap( state )
 				break;
 			case 4: 
 				return year4Recap()
@@ -1163,6 +1167,19 @@ function year0Recap( state ){
 
 	var companyYear = state.company.year0
 
+	/*// INVESTEMENT END EVENT
+	var investment = 0
+	var equity = 80
+	if( companyYear.endEvent == "accept" ){
+		investment = 40000
+	}
+	else{
+		investment = 30000
+	}
+	<div class='recap-numbers'>
+		Investment <label>+${investment}</label>
+	</div>*/
+
 	//SALARIES
 	var plus = 0 
 	if( companyYear.middleEvent && companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "salary" )
@@ -1172,16 +1189,6 @@ function year0Recap( state ){
 	var total =  salaries.total * 24
 	var developersSalary = salaries.developersSalary * 24
 	var artistsSalary = salaries.artistsSalary * 24
-
-	// INVESTEMENT END EVENT
-	var investment = 0
-	var equity = 80
-	if( companyYear.endEvent == "accept" ){
-		investment = 40000
-	}
-	else{
-		investment = 30000
-	}
 
 	// GAME REVENUE
 	var gameRevenue = 40500
@@ -1198,7 +1205,7 @@ function year0Recap( state ){
 
 	// FINAL MATH
 	var finalTotal = 0
-	finalTotal += ( investment + gameRevenue )
+	// finalTotal += ( investment + gameRevenue )
 	finalTotal -= developersSalary 
 	finalTotal -= artistsSalary 
 	finalTotal -= infrastructures 
@@ -1206,7 +1213,7 @@ function year0Recap( state ){
 	var toSendBack = {
 		vision: companyYear.vision,
 		finalTotal,
-		equity
+		developerLeft: ( companyYear.endEvent == "changeVision" ? true : false )
 	}
 
 	// FINAL TEXT 
@@ -1233,9 +1240,6 @@ function year0Recap( state ){
 	</div>
 	<div class='recap'>
 		<div class='recap-numbers'>
-			Investment <label>+${investment}</label>
-		</div>
-		<div class='recap-numbers'>
 			Game1 <label>+${gameRevenue}</label>
 		</div>
 		<div class='recap-numbers'>
@@ -1261,10 +1265,68 @@ function year0Recap( state ){
 }	
 
 
-function year2Recap(){
+function year2Recap( state ){
+	console.log("/////")
+	console.log( state )
+
+	var companyYear = state.company.year2
+	var investment = 0
+
+	if( companyYear.endEvent == "100k" ){
+		investment = 100000
+	}
+	else if( companyYear.endEvent == "500k" ){
+		investment = 500000
+	}
+
+	var gameRevenue = 50000
+	var developersSalary = 1000
+	var artistsSalary = 1000
+	var infrastructures = 1000
+	var office = 1000
+	var finalTotal = 10000 
+
+	// HTML DOM
+	var title = "4 Years have passed"
+
+	//Falta middle eventr
+	var textOfTheYear  = `${companyYear.recapOfYearText} "FIM"`
+
+	var description = `
+		<div class='descriptionDiv'>
+			<p class='descriptionModal'>
+				${textOfTheYear}
+			</p>
+		</div>
+		<div class='recap'>
+			<div class='recap-numbers'>
+				Investment <label>+${investment}</label>
+			</div>
+			<div class='recap-numbers'>
+				Game1 <label>+${gameRevenue}</label>
+			</div>
+			<div class='recap-numbers'>
+				Developers <label>-${developersSalary}</label>
+			</div>
+			<div class='recap-numbers'>
+				Artist <label>-${artistsSalary}</label>
+			</div>
+			<div class='recap-numbers'>
+				Office <label>-${office}</label>
+			</div>
+			<div class='recap-numbers'>
+				Infrastructures <label>-${infrastructures}</label>
+			</div>
+			<hr/>
+			<div class='recap-numbers total'>
+				Total <label>${ finalTotal }</label>
+			</div>
+		</div>`
+
+
 	return {
-		title: "year 2", 
-		description: "description 2"
+		title,
+		description,
 	}
 }
 
@@ -1277,25 +1339,25 @@ function year4Recap(){
 };
 var createStory = function( state, parentComponent ){
 
- 	var { team, income, equity } = state.company
+ 	var company = state.company
 
  	var title = ""
 
  	switch( state.year ){
  		case 0:
- 			if( state.middleEvent == true ) return year0MiddleEventStory( income, equity,team, parentComponent)
+ 			if( state.middleEvent == true ) return year0MiddleEventStory( company, parentComponent)
  			else if( state.recapEvent == true ) return recapScreen( state, parentComponent )
- 			else return year0Story( income, equity,team, parentComponent )
+ 			else return year0Story( company, parentComponent )
  			title = '2 Years have passed'
 
 		case 2:
-			if( state.middleEvent == true ) return year2MiddleEventStory( income, equity,team, parentComponent )
+			if( state.middleEvent == true ) return year2MiddleEventStory( company, parentComponent )
 			else if( state.recapEvent == true ) return recapScreen( state, parentComponent )
- 			else return year2Story( income, equity,team, parentComponent )
+ 			else return year2Story( company, parentComponent )
  			title = "4 Years have passed"
 
 		case 4:
- 			return year4Story( income, equity,team, parentComponent )
+ 			return year4Story( company, parentComponent )
 
 		default:
 			console.log( "failed loading the years")
@@ -1372,48 +1434,49 @@ var focusYear0 = [
 
 ////////////////////////////////// MAIN EVENT
 
- var year0Story = function( income, equity,team, pC ){
+ var year0Story = function( company, pC ){
+
+ 	var otherVision = getOtherVisionFromArray( company.year0.vision )
 
 	var text = `
 	<div class='descriptionDiv'>
 		<p class='descriptionModal'> Your company had a great start! You released your first game successfully and got your team really committed </p>
-		<p class='descriptionModal-type2'> The company spent around ${ teamSalary } $ with the team Salaries </p>
-		<p class='descriptionModal'>You caught the attention of some investors that are willing to negotiate with you.</br>
-		They want to give you 40k $ for 20% of your company. Do you accept it? ( Don t forget that a counter proposal it's always an option. You can get
-		a better evaluation of the company or the investors can turn their back on the deal ) </br>
-		</br></p>
-		<p class='descriptionModal-type2'>What would you do?  </p>
+		<p class='descriptionModal'>In a meeting with your team, one of the members started questioning if the company vision "${company.year0.vision || ""}" made sense.</br>
+		He thinks you should go more for a "${ otherVision }" perspective and forget your first decision for the company</br>
+		</br>
+		Remember, you should listen to the team but your decision it's important too</p>
+		<p class='descriptionModal-type2'>What do you do?</p>
 	</div>`
 
-	var firstChoice = "You accepted the offer and got 40.000$ for 20% equity of the company"
+	var firstChoice = `You change your mind and go with this new "${ otherVision}" as vision of the company. The other member 
+	that saw this happenning, felt that you don't know what you are doing and decided to leave the team`
 
-	var secondChoice = `The counter proposal made your investors think you dont know exacly what you are doing. So, now, they
-	are only offering 30.000$ for 20% equity of the company`
+	var secondChoice = `You started arguing back and got the upper hand. You pretty sure that you know what you are doing and
+	your vision it's pretty clear. You made your team feel more confortable with the choices you do for the company`
 
-	var teamSalary = getSalaryForTeam( team, 0 )
 	var year0 = {}
 
 	var buttons = React.createElement(React.Fragment, null, 
 		React.createElement("button", {
 			onClick:   () => {
 					year0 = {
-						endEvent: "accept"
+						endEvent: "changeVision"
 					}
 					pC.editCompanyState( "year0", year0 )
-					pC.recapTheYear( firstChoice )
+					pC.recapTheYear( firstChoice, 0 )
 
 				}
-			}, "Accept the offer"), 
+			}, "Change Vision"), 
 		React.createElement("button", {
 			onClick:  () => {
 					year0 = {
-						endEvent: "counter"
+						endEvent: "dontChange"
 					}
 					pC.editCompanyState( "year0", year0 )
-					pC.recapTheYear( secondChoice )
+					pC.recapTheYear( secondChoice, 0 )
 
 				}
-			}, "Counter Proposal")
+			}, "Stay with yours")
 	)
 
  	return {
@@ -1557,24 +1620,57 @@ apply to your company`
  	else if( vision == "Online Competetive" ){
 		return standard + " But rember, your game needs to be an competitive online game. Good luck with that"
  	}
- 	return "tipo ya"
-
+ 	return standard + " But don't forget that your game must be simple but addictive"
  }
 
 ////////////////////////////////// MAIN EVENT
 
- var year2Story = function( income, equity, team, pC ){
+ var year2Story = function( company, pC ){
 
-	var title = ""
-	var text = ""
-/*
-	An investor approach you and offers you 200k $ for 32% equity of your company.. That's a lot of equity!
-	What do you do?
-	That's a lot of money and will, for sure, give you confort for the next company years to come*/
-	
+	var text = `
+	<div class='descriptionDiv'>
+		<p class='descriptionModal'>On a networking event, you've talked with a lot of people, about your company, the futures of games, new trends.. 
+			The way you talked caught the attention of two investors.</p>
+		<p class='descriptionModal'>
+			One offers your 100K for 20% of the company<br/>
+			The other offers you 500K for 53% of the company</p>
+		<p class='descriptionModal-type2'>What do you decide?</p>
+	</div>`
+
+	var firstChoice = `You raised 100k on a Seed round for 20% of the company. It was a wise choice.. You are, no doubt, growing
+	and it's better to give one step at a time..`
+
+	var secondChoice = `You raised 500k on a Seed round for 53%, it's a huge round of investment but comprimised your company by giving more than
+	a half to an investor. It was a bold move and it can cost you future decisions on the company`
+
+	var year2 = {}
+
+	var buttons = React.createElement(React.Fragment, null, 
+		React.createElement("button", {
+			onClick:   () => {
+					year2 = {
+						endEvent: "100k"
+					}
+					pC.editCompanyState( "year2", year2 )
+					pC.recapTheYear( firstChoice, 2 )
+
+				}
+			}, "100k for 20%"), 
+		React.createElement("button", {
+			onClick:  () => {
+					year2 = {
+						endEvent: "500k"
+					}
+					pC.editCompanyState( "year2", year2 )
+					pC.recapTheYear( secondChoice, 2 )
+
+				}
+			}, "500k for 53%")
+	)
 
  	return {
- 		title: '2 Years have passed',
+ 		title: '4 Years have passed',
+ 		buttons,
  		description: text
  	}
 
@@ -1582,7 +1678,7 @@ apply to your company`
 
 ////////////////////////////////// MID YEAR EVENT
 
-var year2MiddleEventStory = function( income, equity, team, pC ){
+var year2MiddleEventStory = function( company, pC ){
 
 	let year2 = {}
 
@@ -1702,7 +1798,7 @@ keep going forward and what pays the games that you are making. Where does your 
 to bring revenue to the company.. Always keep one think in mind, the revenue that comes from the game needs to be equal or bigger to the costs related to his development.`
 
 
- var year4Story = function( income, equity, team, pC ){
+ var year4Story = function( company, pC ){
 
 
 	var title = ""
@@ -2004,6 +2100,22 @@ function objInsideChecker( actualState, name, value ){
 
 
     return actualState
+}
+
+function getOtherVisionFromArray( vision ){
+
+    var notThis = null
+    for( var i = 0; i < visionArrayYear0.length; i++ ){
+        if( vision == visionArrayYear0[i] ) notThis = i
+    }
+    
+    var newPos;
+    do{
+        newPos = getRandomInt(0,2)
+    } while( notThis == newPos )
+
+    return visionArrayYear0[newPos]
+
 };ReactDOM.render(
   React.createElement(PageContent, null),
   document.getElementById('content')

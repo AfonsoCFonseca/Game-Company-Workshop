@@ -72,3 +72,19 @@ function objInsideChecker( actualState, name, value ){
 
     return actualState
 }
+
+function getOtherVisionFromArray( vision ){
+
+    var notThis = null
+    for( var i = 0; i < visionArrayYear0.length; i++ ){
+        if( vision == visionArrayYear0[i] ) notThis = i
+    }
+    
+    var newPos;
+    do{
+        newPos = getRandomInt(0,2)
+    } while( notThis == newPos )
+
+    return visionArrayYear0[newPos]
+
+}

@@ -6,7 +6,7 @@ class PageContent extends React.Component {
     this.state = {
       year: 2,
       goingDev: true,
-      isPaused: false,
+      isPaused: true,
       moduleShow: false,  // Ecra de Eventos
       optionalScreen: false, // Ecra de entrada e final
       middleEvent: false, // Trigger para o middle Event
@@ -139,7 +139,7 @@ class PageContent extends React.Component {
 
   renderStoryModal( ){
 
-    var { title, description, buttons, toSendBack } = createStory( this.state, this )
+    var { title, description, buttons } = createStory( this.state, this )
     if( !buttons ) buttons = <button onClick={ ( ) => this.changeYear( "next", null ) }>Confirm</button>
 
     return (
@@ -158,7 +158,11 @@ class PageContent extends React.Component {
       case 0:
         this.editCompanyState( "vision", toSendBack.vision )
         this.editCompanyState( "income", toSendBack.finalTotal )
-        this.editCompanyState( "equity", toSendBack.equity )
+        if( toSendBack.developerLeft == true ){
+          var team = this.state.company.team
+          team.developers -= 1
+          this.editCompanyState( "team", team )
+        }
         break;
       case 2:
         break;
@@ -170,9 +174,9 @@ class PageContent extends React.Component {
   }
 
 ///////RECAP SCREEN
-  recapTheYear( recapOfYearText ){
+  recapTheYear( recapOfYearText, year ){
     this.setState({ recapEvent: true })
-    this.editCompanyState( 'year0', { "recapOfYearText": recapOfYearText } )
+    this.editCompanyState( 'year' + year , { "recapOfYearText": recapOfYearText } )
   }
 
 ///////STARTING APP

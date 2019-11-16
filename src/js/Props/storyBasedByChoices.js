@@ -1,11 +1,11 @@
 var createRecapBasedOnChoices = function( state ){
-
+console.log( state.year )
 		switch( state.year ){
 			case 0:
 				return year0Recap( state )
 				break;
 			case 2: 
-				return year2Recap()
+				return year2Recap( state )
 				break;
 			case 4: 
 				return year4Recap()
@@ -19,6 +19,19 @@ function year0Recap( state ){
 
 	var companyYear = state.company.year0
 
+	/*// INVESTEMENT END EVENT
+	var investment = 0
+	var equity = 80
+	if( companyYear.endEvent == "accept" ){
+		investment = 40000
+	}
+	else{
+		investment = 30000
+	}
+	<div class='recap-numbers'>
+		Investment <label>+${investment}</label>
+	</div>*/
+
 	//SALARIES
 	var plus = 0 
 	if( companyYear.middleEvent && companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "salary" )
@@ -28,16 +41,6 @@ function year0Recap( state ){
 	var total =  salaries.total * 24
 	var developersSalary = salaries.developersSalary * 24
 	var artistsSalary = salaries.artistsSalary * 24
-
-	// INVESTEMENT END EVENT
-	var investment = 0
-	var equity = 80
-	if( companyYear.endEvent == "accept" ){
-		investment = 40000
-	}
-	else{
-		investment = 30000
-	}
 
 	// GAME REVENUE
 	var gameRevenue = 40500
@@ -54,7 +57,7 @@ function year0Recap( state ){
 
 	// FINAL MATH
 	var finalTotal = 0
-	finalTotal += ( investment + gameRevenue )
+	// finalTotal += ( investment + gameRevenue )
 	finalTotal -= developersSalary 
 	finalTotal -= artistsSalary 
 	finalTotal -= infrastructures 
@@ -62,7 +65,7 @@ function year0Recap( state ){
 	var toSendBack = {
 		vision: companyYear.vision,
 		finalTotal,
-		equity
+		developerLeft: ( companyYear.endEvent == "changeVision" ? true : false )
 	}
 
 	// FINAL TEXT 
@@ -89,9 +92,6 @@ function year0Recap( state ){
 	</div>
 	<div class='recap'>
 		<div class='recap-numbers'>
-			Investment <label>+${investment}</label>
-		</div>
-		<div class='recap-numbers'>
 			Game1 <label>+${gameRevenue}</label>
 		</div>
 		<div class='recap-numbers'>
@@ -117,10 +117,68 @@ function year0Recap( state ){
 }	
 
 
-function year2Recap(){
+function year2Recap( state ){
+	console.log("/////")
+	console.log( state )
+
+	var companyYear = state.company.year2
+	var investment = 0
+
+	if( companyYear.endEvent == "100k" ){
+		investment = 100000
+	}
+	else if( companyYear.endEvent == "500k" ){
+		investment = 500000
+	}
+
+	var gameRevenue = 50000
+	var developersSalary = 1000
+	var artistsSalary = 1000
+	var infrastructures = 1000
+	var office = 1000
+	var finalTotal = 10000 
+
+	// HTML DOM
+	var title = "4 Years have passed"
+
+	//Falta middle eventr
+	var textOfTheYear  = `${companyYear.recapOfYearText} "FIM"`
+
+	var description = `
+		<div class='descriptionDiv'>
+			<p class='descriptionModal'>
+				${textOfTheYear}
+			</p>
+		</div>
+		<div class='recap'>
+			<div class='recap-numbers'>
+				Investment <label>+${investment}</label>
+			</div>
+			<div class='recap-numbers'>
+				Game1 <label>+${gameRevenue}</label>
+			</div>
+			<div class='recap-numbers'>
+				Developers <label>-${developersSalary}</label>
+			</div>
+			<div class='recap-numbers'>
+				Artist <label>-${artistsSalary}</label>
+			</div>
+			<div class='recap-numbers'>
+				Office <label>-${office}</label>
+			</div>
+			<div class='recap-numbers'>
+				Infrastructures <label>-${infrastructures}</label>
+			</div>
+			<hr/>
+			<div class='recap-numbers total'>
+				Total <label>${ finalTotal }</label>
+			</div>
+		</div>`
+
+
 	return {
-		title: "year 2", 
-		description: "description 2"
+		title,
+		description,
 	}
 }
 

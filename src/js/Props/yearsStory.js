@@ -1,25 +1,25 @@
 
 var createStory = function( state, parentComponent ){
 
- 	var { team, income, equity } = state.company
+ 	var company = state.company
 
  	var title = ""
 
  	switch( state.year ){
  		case 0:
- 			if( state.middleEvent == true ) return year0MiddleEventStory( income, equity,team, parentComponent)
+ 			if( state.middleEvent == true ) return year0MiddleEventStory( company, parentComponent)
  			else if( state.recapEvent == true ) return recapScreen( state, parentComponent )
- 			else return year0Story( income, equity,team, parentComponent )
+ 			else return year0Story( company, parentComponent )
  			title = '2 Years have passed'
 
 		case 2:
-			if( state.middleEvent == true ) return year2MiddleEventStory( income, equity,team, parentComponent )
+			if( state.middleEvent == true ) return year2MiddleEventStory( company, parentComponent )
 			else if( state.recapEvent == true ) return recapScreen( state, parentComponent )
- 			else return year2Story( income, equity,team, parentComponent )
+ 			else return year2Story( company, parentComponent )
  			title = "4 Years have passed"
 
 		case 4:
- 			return year4Story( income, equity,team, parentComponent )
+ 			return year4Story( company, parentComponent )
 
 		default:
 			console.log( "failed loading the years")
@@ -96,48 +96,49 @@ var focusYear0 = [
 
 ////////////////////////////////// MAIN EVENT
 
- var year0Story = function( income, equity,team, pC ){
+ var year0Story = function( company, pC ){
+
+ 	var otherVision = getOtherVisionFromArray( company.year0.vision )
 
 	var text = `
 	<div class='descriptionDiv'>
 		<p class='descriptionModal'> Your company had a great start! You released your first game successfully and got your team really committed </p>
-		<p class='descriptionModal-type2'> The company spent around ${ teamSalary } $ with the team Salaries </p>
-		<p class='descriptionModal'>You caught the attention of some investors that are willing to negotiate with you.</br>
-		They want to give you 40k $ for 20% of your company. Do you accept it? ( Don t forget that a counter proposal it's always an option. You can get
-		a better evaluation of the company or the investors can turn their back on the deal ) </br>
-		</br></p>
-		<p class='descriptionModal-type2'>What would you do?  </p>
+		<p class='descriptionModal'>In a meeting with your team, one of the members started questioning if the company vision "${company.year0.vision || ""}" made sense.</br>
+		He thinks you should go more for a "${ otherVision }" perspective and forget your first decision for the company</br>
+		</br>
+		Remember, you should listen to the team but your decision it's important too</p>
+		<p class='descriptionModal-type2'>What do you do?</p>
 	</div>`
 
-	var firstChoice = "You accepted the offer and got 40.000$ for 20% equity of the company"
+	var firstChoice = `You change your mind and go with this new "${ otherVision}" as vision of the company. The other member 
+	that saw this happenning, felt that you don't know what you are doing and decided to leave the team`
 
-	var secondChoice = `The counter proposal made your investors think you dont know exacly what you are doing. So, now, they
-	are only offering 30.000$ for 20% equity of the company`
+	var secondChoice = `You started arguing back and got the upper hand. You pretty sure that you know what you are doing and
+	your vision it's pretty clear. You made your team feel more confortable with the choices you do for the company`
 
-	var teamSalary = getSalaryForTeam( team, 0 )
 	var year0 = {}
 
 	var buttons = <React.Fragment>
 		<button
 			onClick={  () => {
 					year0 = {
-						endEvent: "accept"
+						endEvent: "changeVision"
 					}
 					pC.editCompanyState( "year0", year0 )
-					pC.recapTheYear( firstChoice )
+					pC.recapTheYear( firstChoice, 0 )
 
 				}
-			}>Accept the offer</button>
+			}>Change Vision</button>
 		<button
 			onClick={ () => {
 					year0 = {
-						endEvent: "counter"
+						endEvent: "dontChange"
 					}
 					pC.editCompanyState( "year0", year0 )
-					pC.recapTheYear( secondChoice )
+					pC.recapTheYear( secondChoice, 0 )
 
 				} 
-			}>Counter Proposal</button>
+			}>Stay with yours</button>
 	</React.Fragment>
 
  	return {
@@ -281,24 +282,57 @@ apply to your company`
  	else if( vision == "Online Competetive" ){
 		return standard + " But rember, your game needs to be an competitive online game. Good luck with that"
  	}
- 	return "tipo ya"
-
+ 	return standard + " But don't forget that your game must be simple but addictive"
  }
 
 ////////////////////////////////// MAIN EVENT
 
- var year2Story = function( income, equity, team, pC ){
+ var year2Story = function( company, pC ){
 
-	var title = ""
-	var text = ""
-/*
-	An investor approach you and offers you 200k $ for 32% equity of your company.. That's a lot of equity!
-	What do you do?
-	That's a lot of money and will, for sure, give you confort for the next company years to come*/
-	
+	var text = `
+	<div class='descriptionDiv'>
+		<p class='descriptionModal'>On a networking event, you've talked with a lot of people, about your company, the futures of games, new trends.. 
+			The way you talked caught the attention of two investors.</p>
+		<p class='descriptionModal'>
+			One offers your 100K for 20% of the company<br/>
+			The other offers you 500K for 53% of the company</p>
+		<p class='descriptionModal-type2'>What do you decide?</p>
+	</div>`
+
+	var firstChoice = `You raised 100k on a Seed round for 20% of the company. It was a wise choice.. You are, no doubt, growing
+	and it's better to give one step at a time..`
+
+	var secondChoice = `You raised 500k on a Seed round for 53%, it's a huge round of investment but comprimised your company by giving more than
+	a half to an investor. It was a bold move and it can cost you future decisions on the company`
+
+	var year2 = {}
+
+	var buttons = <React.Fragment>
+		<button
+			onClick={  () => {
+					year2 = {
+						endEvent: "100k"
+					}
+					pC.editCompanyState( "year2", year2 )
+					pC.recapTheYear( firstChoice, 2 )
+
+				}
+			}>100k for 20%</button>
+		<button
+			onClick={ () => {
+					year2 = {
+						endEvent: "500k"
+					}
+					pC.editCompanyState( "year2", year2 )
+					pC.recapTheYear( secondChoice, 2 )
+
+				} 
+			}>500k for 53%</button>
+	</React.Fragment>
 
  	return {
- 		title: '2 Years have passed',
+ 		title: '4 Years have passed',
+ 		buttons,
  		description: text
  	}
 
@@ -306,7 +340,7 @@ apply to your company`
 
 ////////////////////////////////// MID YEAR EVENT
 
-var year2MiddleEventStory = function( income, equity, team, pC ){
+var year2MiddleEventStory = function( company, pC ){
 
 	let year2 = {}
 
@@ -426,7 +460,7 @@ keep going forward and what pays the games that you are making. Where does your 
 to bring revenue to the company.. Always keep one think in mind, the revenue that comes from the game needs to be equal or bigger to the costs related to his development.`
 
 
- var year4Story = function( income, equity, team, pC ){
+ var year4Story = function( company, pC ){
 
 
 	var title = ""

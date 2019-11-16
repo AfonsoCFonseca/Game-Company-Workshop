@@ -6,11 +6,14 @@ class Module_2Year extends React.Component {
     this.focusPos = getRandomInt( 0, 2 )
     this.focusDescription = focusDescription[ this.focusPos ]
     this.dropdownGenre = null
-    if( this.focusPos == 0 ) // 1 simiulation
+    if( this.focusPos == 0 ){// 1 simiulation
       this.dropdownGenre = "Simulation"
-    else if( this.focusPos == 1 )// 2 RTS
-       this.dropdownGenre = "Real-time strategy (RTS)"
-
+      this.updateToParent( "genres", this.dropdownGenre )
+    } 
+    else if( this.focusPos == 1 ){// 2 RTS
+      this.dropdownGenre = "Real-time strategy (RTS)"
+      this.updateToParent( "genres", this.dropdownGenre )
+    }
 
     this.getRadioOffice = this.getRadioOffice.bind( this )
     this.joinMembersTeam = this.joinMembersTeam.bind( this )
@@ -134,7 +137,7 @@ class Module_2Year extends React.Component {
 
         <RadioButtonBlock 
             valuesSent={ sequelGameArrayYear2 }
-            valueReceived={ value => this.updateToParent({ "sequel": value }) }>
+            valueReceived={ value => this.updateToParent( "sequel", value ) }>
            <Description title='What will you pick?'/>
         </RadioButtonBlock>
 
