@@ -53,6 +53,7 @@ class Module_2Year extends React.Component {
 
   joinMembersTeam( value, depart ){
     var team = this.state.team
+    console.log( value )
     team[depart] = value
     this.setState({ team })
     this.props.editCompanyState( "team", team )
@@ -61,7 +62,7 @@ class Module_2Year extends React.Component {
 
 
   render() {
-console.log( this.props.company )
+
     return(
       <div className='module'>
 

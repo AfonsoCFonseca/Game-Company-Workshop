@@ -28,7 +28,7 @@ function countTeam( teamObj ){
     var contador = 0
 
     for( var x in teamObj ){
-        contador += teamObj[x]
+        contador += parseInt( teamObj[x] )
     }
     return contador
 }

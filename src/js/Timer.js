@@ -90,7 +90,7 @@ class Timer extends React.Component {
     return(
       <div className='timer'>
 
-        <div className='title'>Year { this.state.year } of your Company</div>
+        <div className='title'> { this.state.year }º Year of your Company</div>
 
         <div className='imageCounter'>
           <div className='imageInnerObject'>
@@ -104,7 +104,7 @@ class Timer extends React.Component {
         <div className='totalTimer'>
           { this.drawYearTiles() }
         </div>
-        <div className='counter'>{ this.state.timerValue }</div>
+        <div className='counter'>{ ( this.state.timerValue || "00:00" ) }</div>
 
       </div>
     )

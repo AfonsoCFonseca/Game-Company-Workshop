@@ -3,6 +3,8 @@ class PageContent extends React.Component {
   constructor( props ){
     super( props )
 
+    this.backup = null
+
     this.state = {
       year: 2,
       goingDev: true,
@@ -41,10 +43,26 @@ class PageContent extends React.Component {
     this.startCompany = this.startCompany.bind( this )
     this.recapTheYear = this.recapTheYear.bind( this )
     this.changeOfLastYear = this.changeOfLastYear.bind( this )
+    this.startDoingBackups = this.startDoingBackups.bind( this )
+
   }
 
   componentDidMount(){
     document.addEventListener("keydown", this._handleKeyDown )
+
+    this.backup = new Backup( this.state );
+    this.startDoingBackups()
+  }
+
+  startDoingBackups(){
+    var timer = 60000 //minute
+    //var timer = 300000 //5 minutes
+    //var timer = 6000 //6 seconds
+
+    setInterval( _ => {
+      console.log( "Doing backup... ")
+      this.backup.addBackUp( this.state )
+    }, timer )
   }
 
   _handleKeyDown ( ev ) {
@@ -63,11 +81,13 @@ class PageContent extends React.Component {
       isShift = !!ev.shiftKey;
     }
     if ( isShift ) {
+      console.log(key)
       switch (key) {
-        case 16:
+        case B_KEY:
+          this.setState({ goingDev: !this.state.goingDev })
           break;
         default:
-          if( key == this ) B_KEY.setState({ goingDev: !this.state.goingDev })
+      /*    if( key == this ) B_KEY.setState({ goingDev: !this.state.goingDev })*/
           break;
       }
     }
@@ -285,7 +305,8 @@ class PageContent extends React.Component {
             goNext:  this.prepareNextYear, 
             logState:  () => console.log( this.state ), 
             pauseState:  this.stopTime, 
-            goPrevious:  this.changeYear}
+            goPrevious:  this.changeYear, 
+            backup:  () => this.backup.getLastBackup()}
           ) :
           null
         
@@ -294,7 +315,53 @@ class PageContent extends React.Component {
   }
 
 }
-;class BeginningCard extends React.Component {
+;class Backup {
+  constructor( state ) {
+   	this.firstBackup = state 
+   	this.backup = {
+   		third: null,
+   		second: null,
+   		first: null,
+   	}
+   	this.addBackUp( state )
+   	this.backLength = 3
+  }
+
+  getLastBackup(){
+  	console.log( this.backup )
+  	this.downloadBackup( this.backup["first"] )
+
+  }
+
+  addBackUp( state ){
+  	var third = this.backup.second 
+  	this.backup.third = third
+
+  	var second = this.backup.first
+  	this.backup.second = second
+
+  	var first = state
+  	this.backup.first = first
+  }
+
+  logBackupSpecific( pos ){
+  	return this.backup[ pos ] 
+  }
+
+  logBackup(){
+  	return this.backup
+  }
+
+  downloadBackup( json ){
+  	console.log( json )
+  	var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json));
+	var dlAnchorElem = document.getElementById('downloadAnchorElem');
+	dlAnchorElem.setAttribute("href",     dataStr     );
+	dlAnchorElem.setAttribute("download", "scene.json");
+	dlAnchorElem.click();
+  }
+
+};class BeginningCard extends React.Component {
 
 	constructor( props ){
 		super( props )
@@ -703,7 +770,8 @@ class PageContent extends React.Component {
         React.createElement("button", {onClick:  () => this.props.goPrevious( 'previous', null )}, "back"), 
         React.createElement("button", {onClick:  this.props.goNext}, "next"), 
         React.createElement("button", {onClick:  this.props.logState}, "Log"), 
-        React.createElement("button", {onClick:  this.props.pauseState}, " Pause")
+        React.createElement("button", {onClick:  this.props.pauseState}, " Pause"), 
+        React.createElement("button", {onClick:  this.props.backup}, " Backup")
       )
     )
   }
@@ -862,6 +930,7 @@ class PageContent extends React.Component {
 
   joinMembersTeam( value, depart ){
     var team = this.state.team
+    console.log( value )
     team[depart] = value
     this.setState({ team })
     this.props.editCompanyState( "team", team )
@@ -870,7 +939,7 @@ class PageContent extends React.Component {
 
 
   render() {
-console.log( this.props.company )
+
     return(
       React.createElement("div", {className: "module"}, 
 
@@ -2032,7 +2101,7 @@ var recapScreen = function( state, pC ){
     return(
       React.createElement("div", {className: "timer"}, 
 
-        React.createElement("div", {className: "title"}, "Year ",  this.state.year, " of your Company"), 
+        React.createElement("div", {className: "title"}, " ",  this.state.year, "º Year of your Company"), 
 
         React.createElement("div", {className: "imageCounter"}, 
           React.createElement("div", {className: "imageInnerObject"}, 
@@ -2046,7 +2115,7 @@ var recapScreen = function( state, pC ){
         React.createElement("div", {className: "totalTimer"}, 
            this.drawYearTiles() 
         ), 
-        React.createElement("div", {className: "counter"},  this.state.timerValue)
+        React.createElement("div", {className: "counter"},  ( this.state.timerValue || "00:00") )
 
       )
     )
@@ -2130,7 +2199,7 @@ function countTeam( teamObj ){
     var contador = 0
 
     for( var x in teamObj ){
-        contador += teamObj[x]
+        contador += parseInt( teamObj[x] )
     }
     return contador
 }

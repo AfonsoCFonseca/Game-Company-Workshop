@@ -29,7 +29,7 @@ $optionalGreen: #d0ecd2;
   flex-direction: column;
 
   width: 80%;
-  height: 160px;
+  height: 140px;
   margin-top: 50px;
 
   background-color: white;
@@ -37,6 +37,7 @@ $optionalGreen: #d0ecd2;
   border-radius: 8px;
 
   >.title {
+    width: 180px;
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 15px;
@@ -45,20 +46,31 @@ $optionalGreen: #d0ecd2;
     margin-top: 20px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+    border: 2px solid $grey_dark;
+    border-bottom: none;
+    font-weight: 600;
+    color: $grey_darker;
+    text-align: center;
   }
 
   >.totalTimer {
-    width: 40%;
-    height: 10px;
-    margin-top:2px;
+    width: 180px;
+    height: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    background-color: $grey_light;
+    border-left: 2px solid $grey_dark;
+    border-right: 2px solid $grey_dark;
 
     >.twoYearsBatch {
       @extend %display_inlineflex;
       width: 28%;
-      height: 100%;
+      height: 50%;
       margin-left: 4%;
       background-color: $backgroundGreen;
       border-radius: 25px;
+      border: 1px solid $grey_dark;
 
       &.filled {
         background-color: $mainGreen;
@@ -68,11 +80,23 @@ $optionalGreen: #d0ecd2;
   }
 
   >.counter {
-    margin-top: 15px;
+    font-weight: 600;
+    color: $grey_darker;
+    background-color: $grey_light;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border: 2px solid $grey_dark;
+    border-top: none;
+    width: 180px;
+    height:15px;
+    text-align: center;
   } 
 
   >.imageCounter {
-    height: 20px;
+    height: 25px;
     width: 60%;
     background-color: $backgroundGreen;
     border: 2px solid $grey_dark;

@@ -3,6 +3,8 @@ class PageContent extends React.Component {
   constructor( props ){
     super( props )
 
+    this.backup = null
+
     this.state = {
       year: 2,
       goingDev: true,
@@ -41,10 +43,26 @@ class PageContent extends React.Component {
     this.startCompany = this.startCompany.bind( this )
     this.recapTheYear = this.recapTheYear.bind( this )
     this.changeOfLastYear = this.changeOfLastYear.bind( this )
+    this.startDoingBackups = this.startDoingBackups.bind( this )
+
   }
 
   componentDidMount(){
     document.addEventListener("keydown", this._handleKeyDown )
+
+    this.backup = new Backup( this.state );
+    this.startDoingBackups()
+  }
+
+  startDoingBackups(){
+    var timer = 60000 //minute
+    //var timer = 300000 //5 minutes
+    //var timer = 6000 //6 seconds
+
+    setInterval( _ => {
+      console.log( "Doing backup... ")
+      this.backup.addBackUp( this.state )
+    }, timer )
   }
 
   _handleKeyDown ( ev ) {
@@ -63,11 +81,13 @@ class PageContent extends React.Component {
       isShift = !!ev.shiftKey;
     }
     if ( isShift ) {
+      console.log(key)
       switch (key) {
-        case 16:
+        case B_KEY:
+          this.setState({ goingDev: !this.state.goingDev })
           break;
         default:
-          if( key == this ) B_KEY.setState({ goingDev: !this.state.goingDev })
+      /*    if( key == this ) B_KEY.setState({ goingDev: !this.state.goingDev })*/
           break;
       }
     }
@@ -286,6 +306,7 @@ class PageContent extends React.Component {
             logState={ () => console.log( this.state ) }
             pauseState= { this.stopTime }
             goPrevious={ this.changeYear }
+            backup={ () => this.backup.getLastBackup() }
           /> :
           null
         }

@@ -13,6 +13,7 @@ class Footer extends React.Component {
         <button onClick={ this.props.goNext }>next</button>
         <button onClick={ this.props.logState }>Log</button>
         <button onClick={ this.props.pauseState }> Pause</button>
+        <button onClick={ this.props.backup }> Backup</button>
       </div>
     )
   }
