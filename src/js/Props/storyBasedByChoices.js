@@ -4,10 +4,10 @@ console.log( state.year )
 			case 0:
 				return year0Recap( state )
 				break;
-			case 2: 
+			case 2:
 				return year2Recap( state )
 				break;
-			case 4: 
+			case 4:
 				return year4Recap()
 				break;
 	}
@@ -33,11 +33,11 @@ function year0Recap( state ){
 	</div>*/
 
 	//SALARIES
-	var plus = 0 
+	var plus = 0
 	if( companyYear.middleEvent && companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "salary" )
 		plus = 100
 
-	salaries = countSalary( state.company.team, plus) 
+	salaries = countSalary( state.company.team, plus)
 	var total =  salaries.total * 24
 	var developersSalary = salaries.developersSalary * 24
 	var artistsSalary = salaries.artistsSalary * 24
@@ -58,9 +58,9 @@ function year0Recap( state ){
 	// FINAL MATH
 	var finalTotal = 0
 	// finalTotal += ( investment + gameRevenue )
-	finalTotal -= developersSalary 
-	finalTotal -= artistsSalary 
-	finalTotal -= infrastructures 
+	finalTotal -= developersSalary
+	finalTotal -= artistsSalary
+	finalTotal -= infrastructures
 
 	var toSendBack = {
 		vision: companyYear.vision,
@@ -68,7 +68,7 @@ function year0Recap( state ){
 		developerLeft: ( companyYear.endEvent == "changeVision" ? true : false )
 	}
 
-	// FINAL TEXT 
+	// FINAL TEXT
 	var middleEvent = ""
 	if( companyYear.middleEvent  && companyYear.middleEvent.event == 1 ){
 		if( companyYear.middleEvent.chose == "salary" ) middleEvent = `Money it's not everything, you should have tried to make more meetings`
@@ -78,8 +78,8 @@ function year0Recap( state ){
 		if( companyYear.middleEvent.chose == "beta" ) middleEvent = `Your beta version made your release less buggy and sold better`
 		if( companyYear.middleEvent.chose == "ignore" ) middleEvent = `Not making a beta version  made your release more buggy and you sold less`
 	}
-	
-	var textOfTheYear = `${companyYear.recapOfYearText}. Your game went well and you made some profit of it and
+
+	var textOfTheYear = `${companyYear.recapOfYearText}. Your game went well ,sellings were great ( however you were not profitable, yet ) and
 	you've learn a lot about your team and how to work with them. ${middleEvent}`
 
 	// HTML DOM
@@ -114,7 +114,7 @@ function year0Recap( state ){
 		description,
 		toSendBack
 	}
-}	
+}
 
 
 function year2Recap( state ){
@@ -136,7 +136,7 @@ function year2Recap( state ){
 	var artistsSalary = 1000
 	var infrastructures = 1000
 	var office = 1000
-	var finalTotal = 10000 
+	var finalTotal = 10000
 
 	// HTML DOM
 	var title = "4 Years have passed"
@@ -185,7 +185,7 @@ function year2Recap( state ){
 
 function year4Recap(){
 	return {
-		title: "year 4", 
+		title: "year 4",
 		description: "description 4"
 	}
 }

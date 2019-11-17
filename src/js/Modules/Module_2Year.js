@@ -9,7 +9,7 @@ class Module_2Year extends React.Component {
     if( this.focusPos == 0 ){// 1 simiulation
       this.dropdownGenre = "Simulation"
       this.updateToParent( "genres", this.dropdownGenre )
-    } 
+    }
     else if( this.focusPos == 1 ){// 2 RTS
       this.dropdownGenre = "Real-time strategy (RTS)"
       this.updateToParent( "genres", this.dropdownGenre )
@@ -17,16 +17,16 @@ class Module_2Year extends React.Component {
 
     this.getRadioOffice = this.getRadioOffice.bind( this )
     this.joinMembersTeam = this.joinMembersTeam.bind( this )
-    
+
     var developers, artists
     if( props.company.team ){
-      developers = props.company.team.developers 
-      artists = props.company.team.artists 
+      developers = props.company.team.developers
+      artists = props.company.team.artists
     }
 
     this.getDescriptionYear2 = getDescriptionYear2( props.company.vision )
 
-    
+
     this.state = {
       team: {
         developers: developers || 0,
@@ -53,7 +53,7 @@ class Module_2Year extends React.Component {
 
   joinMembersTeam( value, depart ){
     var team = this.state.team
-    team[depart] = value 
+    team[depart] = value
     this.setState({ team })
     this.props.editCompanyState( "team", team )
   }
@@ -67,24 +67,24 @@ class Module_2Year extends React.Component {
 
         <TextField title='Focus' textValue={ this.focusDescription }/>
 
-        <RadioButtonBlock 
+        <RadioButtonBlock
             valuesSent={ officeSpaceArrayYear2 }
             valueReceived={ this.getRadioOffice }>
            <Description title='Office' description={ officeSpaceYear2Description }/>
         </RadioButtonBlock>
 
-        <InputBlock 
+        <InputBlock
           inputTile={ "Developers" }
           typeDiv={'small'}
           numbers={true}
           multiplier={1000}
           inputValue={ this.state.team.developers }
           valueReceived={ value =>  this.joinMembersTeam( value, "developers") }>
-           <Description 
+           <Description
               title='Where to spend the money'
               description={ descriptionSpentMoney } />
         </InputBlock>
-        <InputBlock 
+        <InputBlock
           inputTile={ "Artists" }
           typeDiv={'small'}
           numbers={true}
@@ -92,7 +92,7 @@ class Module_2Year extends React.Component {
           inputValue={ this.state.team.artists }
           valueReceived={ value =>  this.joinMembersTeam( value, "artists") }>
         </InputBlock>
-        <InputBlock 
+        <InputBlock
           inputTile={ "Designers" }
           typeDiv={'small'}
           numbers={true}
@@ -100,7 +100,7 @@ class Module_2Year extends React.Component {
           inputValue={ this.state.team.designers }
           valueReceived={ value =>  this.joinMembersTeam( value, "designers") }>
         </InputBlock>
-        <InputBlock 
+        <InputBlock
           inputTile={ "SFX Studio" }
           typeDiv={'small'}
           numbers={true}
@@ -108,7 +108,7 @@ class Module_2Year extends React.Component {
           inputValue={ this.state.team.sfx }
           valueReceived={ value =>  this.joinMembersTeam( value, "sfx") }>
         </InputBlock>
-        <InputBlock 
+        <InputBlock
           inputTile={ "Marketing" }
           typeDiv={'small'}
           numbers={true}
@@ -117,36 +117,37 @@ class Module_2Year extends React.Component {
           valueReceived={ value =>  this.joinMembersTeam( value, "marketing") }>
         </InputBlock>
 
-        <InputBlock 
+        <InputBlock
           size='large'
+          placeholder='Scheduel, meetings, goals, working methodologies'
           valueReceived={ value => this.updateToParent( "biggerTeam", value ) }>
-           <Description 
+           <Description
               title='Bigger Team'
               description={ biggerTeamYear2Description } />
         </InputBlock>
 
-        <InputBlock 
+        <InputBlock
           size='large'
           valueReceived={ value => this.updateToParent( "unfocusTeam", value ) }>
-           <Description 
+           <Description
               title='Unfocused Team'
               description={ this.state.descriptionForUnfocusTeam }/>
         </InputBlock>
 
         <TextField title='Second Game' textValue={ this.getDescriptionYear2 }/>
 
-        <RadioButtonBlock 
+        <RadioButtonBlock
             valuesSent={ sequelGameArrayYear2 }
             valueReceived={ value => this.updateToParent( "sequel", value ) }>
            <Description title='What will you pick?'/>
         </RadioButtonBlock>
 
-        <InputBlock 
+        <InputBlock
           valueReceived={ value => this.updateToParent( "gameNameYear2", value ) }>
           <Description title='Game Name' />
         </InputBlock>
 
-        <DropdownBlock 
+        <DropdownBlock
           dataEntries={ genres }
           locked={ this.dropdownGenre }
           placeholder='Pick a genre'
@@ -154,14 +155,14 @@ class Module_2Year extends React.Component {
           <Description title={ 'Genre' }/>
         </DropdownBlock>
 
-        <DropdownBlock 
+        <DropdownBlock
           dataEntries={ platforms }
           placeholder='Pick a platform'
           valueReceived={ value => this.updateToParent( "platformYear2", value ) }>
           <Description title={ 'Platform' } />
         </DropdownBlock>
 
-        <InputBlock 
+        <InputBlock
           size='large'
           valueReceived={ value => this.updateToParent( "gameDescriptionyear2", value ) }>
            <Description title='Game Mechanics, Features or Story' />

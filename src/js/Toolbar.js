@@ -1,5 +1,5 @@
 class Toolbar extends React.Component {
-	
+
 	constructor( props ){
 		super( props )
 
@@ -7,19 +7,19 @@ class Toolbar extends React.Component {
 			equity: props.company.equity || 100,
 			income: props.company.income || 0,
 			games: props.company.games || 0,
-			companyName: props.company.name || "", 
-			team: props.company.team || "", 
+			companyName: props.company.name || "",
+			team: props.company.team || "",
 		}
 	}
 
 	static getDerivedStateFromProps( props, state ) {
 
 	    return {
-	      	equity: props.company.equity,
-			income: props.company.income,
-			games: props.company.games,
-			companyName: props.company.name,
-			team: countTeam( props.company.team ),
+		    equity: props.company.equity,
+				income: props.company.income,
+				games: props.company.games,
+				companyName: props.company.name,
+				team: countTeam( props.company.team ),
 	    }
 	}
 
@@ -37,7 +37,7 @@ class Toolbar extends React.Component {
 					<p style={{marginLeft: '10px'}} > <b>{ this.substringTheCompanyName( this.state.companyName ) } </b></p>
 				</div>
 				<div className='right'>
-					<p>Income: <b>{ this.state.income }</b></p>
+					<p>Cash: <b>{ this.state.income }</b></p>
 					<p>Equity: <b>{ this.state.equity }%</b></p>
 					<p>Team: <b>{ this.state.team }</b></p>
 				</div>

@@ -4,11 +4,11 @@ class PageContent extends React.Component {
     super( props )
 
     this.state = {
-      year: 2,
+      year: 0,
       goingDev: true,
-      isPaused: true,
+      isPaused: false,
       moduleShow: false,  // Ecra de Eventos
-      optionalScreen: false, // Ecra de entrada e final
+      optionalScreen: true, // Ecra de entrada e final
       middleEvent: false, // Trigger para o middle Event
       recapEvent: false, // Recap Event após o modulo final
       company: {
@@ -102,7 +102,7 @@ class PageContent extends React.Component {
     else if( type == "previous")
       nextYear = ( year > 0 ? this.state.year - 2 : 0 )
 
-    if( toSendBack ) this.changeOfLastYear( toSendBack ) 
+    if( toSendBack ) this.changeOfLastYear( toSendBack )
 
     this.setState({
       year: nextYear,
@@ -170,7 +170,7 @@ class PageContent extends React.Component {
         break;
       default: console.log( "failed year")
     }
-    
+
   }
 
 ///////RECAP SCREEN
@@ -182,8 +182,8 @@ class PageContent extends React.Component {
 ///////STARTING APP
 
  startCompany( title, description ){
-  this.setState({ 
-    optionalScreen: false 
+  this.setState({
+    optionalScreen: false
   })
   this.editCompanyState( "name", title )
   this.editCompanyState( "description", description )
@@ -191,7 +191,7 @@ class PageContent extends React.Component {
 
 ///////MIDDLE EVENT
   renderMiddleYearModal( ){
-    
+
       this.setState({
         middleEvent: true,
         moduleShow: true,
@@ -229,12 +229,12 @@ class PageContent extends React.Component {
 
     if( this.state.optionalScreen == true ){
       if( this.state.year == 4 ){
-         return <EndingCard 
+         return <EndingCard
           sendEverything={ this.state }
           exportToImage={ this.exportToImage } />
       }
       else{
-         return <BeginningCard 
+         return <BeginningCard
           goNext={ this.startCompany } />
       }
 
@@ -242,7 +242,7 @@ class PageContent extends React.Component {
 
     switch ( this.state.year ) {
       case 0:
-        return <Module_0Year editGeneralState={ this.editGeneralState } 
+        return <Module_0Year editGeneralState={ this.editGeneralState }
           editCompanyState={ this.editCompanyState } />
         break;
       case 2:

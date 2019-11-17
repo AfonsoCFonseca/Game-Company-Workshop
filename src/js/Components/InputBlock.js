@@ -24,13 +24,13 @@ class InputBlock extends React.Component{
     if( this.props.inputTile == null )
       return <input  value={ this.state.inputValue } onChange={ this.onValueChange } />
     else{
-      return ( 
+      return (
         <div className='inputDivInner'>
           <p>{ this.props.inputTile }</p>
-          <input 
+          <input
             value={ this.state.inputValue }
-            className={ this.props.typeDiv == "small" ? "small" : "" } 
-            onChange={ this.onValueChange } /> 
+            className={ this.props.typeDiv == "small" ? "small" : "" }
+            onChange={ this.onValueChange } />
           { this.props.multiplier ? <p className='inputDivInnerPlus'>{ this.state.inputValue * this.props.multiplier } $ x per month</p> : null }
         </div> )
     }
@@ -54,9 +54,9 @@ class InputBlock extends React.Component{
     return(
       <div className='inputDiv'>
         {this.props.children}
-        { this.props.size == null ? 
+        { this.props.size == null ?
             this.inputRender() :
-            <textarea onChange={ e => this.props.valueReceived( e.target.value ) } /> 
+            <textarea placeholder={ this.props.placeholder } onChange={ e => this.props.valueReceived( e.target.value ) } /> 
         }
       </div>
     )

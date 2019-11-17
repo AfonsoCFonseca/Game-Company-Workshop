@@ -42,7 +42,7 @@ const teamArrayYear0 = [
 const visionArrayYear0 = [
   "Simple but addictive games",
   "Focus on the story",
-  "Online Competetive"
+  "Online Competitive"
 ]
 
 const officeSpaceArrayYear2 = [

@@ -28,7 +28,7 @@ class Module_0Year extends React.Component {
 
     this.props.editCompanyState( 'year0', { "teamChoice": teamChoice } )
     this.props.editCompanyState( "team", teamChoice )
-    
+
   }
 
   updateToParent( name, value ){
@@ -38,57 +38,57 @@ class Module_0Year extends React.Component {
   render() {
 
     return(
-      <div className='module'> 
+      <div className='module'>
         <TextField title='Your Focus' textValue={ this.focusYear0 }/>
 
-        <InputBlock 
+        <RadioButtonBlock
+            valuesSent={ visionArrayYear0 }
+            valueReceived={ value => this.updateToParent( "vision", value ) }>
+           <Description title='Vision' description={ vision0YearDescription }/>
+        </RadioButtonBlock>
+
+        <InputBlock
           valueReceived={ value => this.updateToParent( "gameName", value ) }>
           <Description title='Game Name' />
         </InputBlock>
 
-        <DropdownBlock 
+        <DropdownBlock
           dataEntries={ genres }
           placeholder='Pick a genre'
           valueReceived={ value => this.updateToParent( "genres", value ) }>
           <Description title={ 'Genre' }/>
         </DropdownBlock>
 
-        <DropdownBlock 
+        <DropdownBlock
           dataEntries={ platforms }
           placeholder='Pick a platform'
           valueReceived={ value => this.updateToParent( "platform", value ) }>
           <Description title={ 'Platform' } />
         </DropdownBlock>
 
-        <InputBlock 
+        <InputBlock
           size='large'
           valueReceived={ value => this.updateToParent( "gameDescription", value ) }>
-           <Description title='Description' />
+           <Description title='Game Mechanics, Features or Story' />
         </InputBlock>
 
-        <RadioButtonBlock 
+        <RadioButtonBlock
             valuesSent={ teamArrayYear0 }
             valueReceived={ this.getRadioTeamValue }>
            <Description title='Team' description={ team0YearDescription }/>
         </RadioButtonBlock>
 
-        <InputBlock 
+        <InputBlock
           size='large'
           valueReceived={ value => this.updateToParent( "environment", value ) }>
            <Description title='Company Environment' description={ environment0YearDescription }/>
         </InputBlock>
 
-        <InputBlock 
+        <InputBlock
           size='large'
           valueReceived={ value => this.updateToParent( "teamBuilding", value ) }>
            <Description title='Team Building' description={ teamBuilding0YearDescription }/>
         </InputBlock>
-
-        <RadioButtonBlock 
-            valuesSent={ visionArrayYear0 }
-            valueReceived={ value => this.updateToParent( "vision", value ) }>
-           <Description title='Vision' description={ vision0YearDescription }/>
-        </RadioButtonBlock>
 
       </div>
     )
