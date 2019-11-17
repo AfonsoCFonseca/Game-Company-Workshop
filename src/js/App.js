@@ -6,11 +6,11 @@ class PageContent extends React.Component {
     this.backup = null
 
     this.state = {
-      year: 2,
+      year: 0,
       goingDev: true,
-      isPaused: true,
+      isPaused: false,
       moduleShow: false,  // Ecra de Eventos
-      optionalScreen: false, // Ecra de entrada e final
+      optionalScreen: true, // Ecra de entrada e final
       middleEvent: false, // Trigger para o middle Event
       recapEvent: false, // Recap Event após o modulo final
       company: {
@@ -81,7 +81,6 @@ class PageContent extends React.Component {
       isShift = !!ev.shiftKey;
     }
     if ( isShift ) {
-      console.log(key)
       switch (key) {
         case B_KEY:
           this.setState({ goingDev: !this.state.goingDev })
@@ -128,6 +127,7 @@ class PageContent extends React.Component {
       year: nextYear,
       isPaused: false,
       moduleShow: false,
+      recapEvent: false,
       optionalScreen
     })
 
@@ -152,8 +152,8 @@ class PageContent extends React.Component {
 
   editCompanyState( name, value ){
     var company = this.state.company || {}
-
-    company = objInsideChecker( company, name, value )
+    var replace = name == "team" ? true : false 
+    company = objInsideChecker( company, name, value, replace )
     this.setState({ company })
   }
 
@@ -272,6 +272,7 @@ class PageContent extends React.Component {
         break;
       case 4:
         return <Module_4Year editGeneralState={ this.editGeneralState }
+          company={ this.state.company }
           editCompanyState={ this.editCompanyState }/>
         break;
       default:

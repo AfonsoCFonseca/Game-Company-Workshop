@@ -53,7 +53,6 @@ class Module_2Year extends React.Component {
 
   joinMembersTeam( value, depart ){
     var team = this.state.team
-    console.log( value )
     team[depart] = value
     this.setState({ team })
     this.props.editCompanyState( "team", team )
@@ -138,6 +137,7 @@ class Module_2Year extends React.Component {
         <TextField title='Second Game' textValue={ this.getDescriptionYear2 }/>
 
         <InputBlock
+          placeholder='Insert game name'
           valueReceived={ value => this.updateToParent( "gameNameYear2", value ) }>
           <Description title='Game Name' />
         </InputBlock>
@@ -159,12 +159,15 @@ class Module_2Year extends React.Component {
 
         <InputBlock
           size='large'
+          placeholder="Levels, points, leaderboards, resource managment..." 
           valueReceived={ value => this.updateToParent( "gameGameMechanicsyear2", value ) }>
-           <Description title='Game Mechanics' />
+           <Description title='Game Mechanics'
+            />
         </InputBlock>
 
         <InputBlock
           size='large'
+          placeholder="A funny easter egg, social interactions or unlockables" 
           valueReceived={ value => this.updateToParent( "gameUniqueFeatureyear2", value ) }>
            <Description 
            description={gameUniqueFeatureyear2}

@@ -22,7 +22,7 @@ class InputBlock extends React.Component{
   inputRender(){
 
     if( this.props.inputTile == null )
-      return <input  value={ this.state.inputValue } onChange={ this.onValueChange } />
+      return <input placeholder={ this.props.placeholder } value={ this.state.inputValue } onChange={ this.onValueChange } />
     else{
       return (
         <div className='inputDivInner'>

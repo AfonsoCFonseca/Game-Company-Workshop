@@ -68,14 +68,14 @@ function countSalary( teamObj, plus = 0 ){
 
 }
 
-function objInsideChecker( actualState, name, value ){
+function objInsideChecker( actualState, name, value, replace = null ){
 
     if( actualState[ name ] ){
       
-      if( typeof value === 'object' ){
-        for( var x in value ){
-          actualState[ name ][x] = value[x]
-        }
+      if( typeof value === 'object' && replace == false){
+           for( var x in value ){
+              actualState[ name ][x] = value[x]
+            }
       }
       else actualState[ name ] = value
     }

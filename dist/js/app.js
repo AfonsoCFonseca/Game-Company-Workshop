@@ -6,11 +6,11 @@ class PageContent extends React.Component {
     this.backup = null
 
     this.state = {
-      year: 2,
+      year: 0,
       goingDev: true,
-      isPaused: true,
+      isPaused: false,
       moduleShow: false,  // Ecra de Eventos
-      optionalScreen: false, // Ecra de entrada e final
+      optionalScreen: true, // Ecra de entrada e final
       middleEvent: false, // Trigger para o middle Event
       recapEvent: false, // Recap Event após o modulo final
       company: {
@@ -81,7 +81,6 @@ class PageContent extends React.Component {
       isShift = !!ev.shiftKey;
     }
     if ( isShift ) {
-      console.log(key)
       switch (key) {
         case B_KEY:
           this.setState({ goingDev: !this.state.goingDev })
@@ -128,6 +127,7 @@ class PageContent extends React.Component {
       year: nextYear,
       isPaused: false,
       moduleShow: false,
+      recapEvent: false,
       optionalScreen
     })
 
@@ -152,8 +152,8 @@ class PageContent extends React.Component {
 
   editCompanyState( name, value ){
     var company = this.state.company || {}
-
-    company = objInsideChecker( company, name, value )
+    var replace = name == "team" ? true : false 
+    company = objInsideChecker( company, name, value, replace )
     this.setState({ company })
   }
 
@@ -272,6 +272,7 @@ class PageContent extends React.Component {
         break;
       case 4:
         return React.createElement(Module_4Year, {editGeneralState:  this.editGeneralState, 
+          company:  this.state.company, 
           editCompanyState:  this.editCompanyState})
         break;
       default:
@@ -539,7 +540,7 @@ class PageContent extends React.Component {
   inputRender(){
 
     if( this.props.inputTile == null )
-      return React.createElement("input", {value:  this.state.inputValue, onChange:  this.onValueChange})
+      return React.createElement("input", {placeholder:  this.props.placeholder, value:  this.state.inputValue, onChange:  this.onValueChange})
     else{
       return (
         React.createElement("div", {className: "inputDivInner"}, 
@@ -791,7 +792,7 @@ class PageContent extends React.Component {
 
 
   getRadioTeamValue( value ){
-    let teamChoice = {}
+    var teamChoice = {}
 
     if( value.indexOf( 'Developers' ) !== -1 ){
       teamChoice = {
@@ -805,8 +806,8 @@ class PageContent extends React.Component {
       }
     }
 
-    this.props.editCompanyState( 'year0', { "teamChoice": teamChoice } )
     this.props.editCompanyState( "team", teamChoice )
+    this.props.editCompanyState( 'year0', { "teamChoice": teamChoice } )
 
   }
 
@@ -827,6 +828,7 @@ class PageContent extends React.Component {
         ), 
 
         React.createElement(InputBlock, {
+          placeholder: "Insert game name", 
           valueReceived:  value => this.updateToParent( "gameName", value )}, 
           React.createElement(Description, {title: "Game Name"})
         ), 
@@ -847,8 +849,9 @@ class PageContent extends React.Component {
 
         React.createElement(InputBlock, {
           size: "large", 
+          placeholder: "Describe game mechanics, features or Story", 
           valueReceived:  value => this.updateToParent( "gameDescription", value )}, 
-           React.createElement(Description, {title: "Game Mechanics, Features or Story"})
+           React.createElement(Description, {title: "Description"})
         ), 
 
         React.createElement(RadioButtonBlock, {
@@ -930,7 +933,6 @@ class PageContent extends React.Component {
 
   joinMembersTeam( value, depart ){
     var team = this.state.team
-    console.log( value )
     team[depart] = value
     this.setState({ team })
     this.props.editCompanyState( "team", team )
@@ -1015,6 +1017,7 @@ class PageContent extends React.Component {
         React.createElement(TextField, {title: "Second Game", textValue:  this.getDescriptionYear2}), 
 
         React.createElement(InputBlock, {
+          placeholder: "Insert game name", 
           valueReceived:  value => this.updateToParent( "gameNameYear2", value )}, 
           React.createElement(Description, {title: "Game Name"})
         ), 
@@ -1036,12 +1039,15 @@ class PageContent extends React.Component {
 
         React.createElement(InputBlock, {
           size: "large", 
+          placeholder: "Levels, points, leaderboards, resource managment...", 
           valueReceived:  value => this.updateToParent( "gameGameMechanicsyear2", value )}, 
-           React.createElement(Description, {title: "Game Mechanics"})
+           React.createElement(Description, {title: "Game Mechanics"}
+            )
         ), 
 
         React.createElement(InputBlock, {
           size: "large", 
+          placeholder: "A funny easter egg, social interactions or unlockables", 
           valueReceived:  value => this.updateToParent( "gameUniqueFeatureyear2", value )}, 
            React.createElement(Description, {
            description: gameUniqueFeatureyear2, 
@@ -1058,6 +1064,8 @@ class PageContent extends React.Component {
 
   constructor( props ){
     super( props )
+
+    console.log( props )
   }
 
   //'https://www.gamasutra.com/blogs/SergioJimenez/20131106/204134/Gamification_Model_Canvas.php'
@@ -1215,7 +1223,7 @@ const officeSpaceArrayYear2 = [
   'Bigger but isolated'
 ]
 ;var createRecapBasedOnChoices = function( state ){
-console.log( state.year )
+
 		switch( state.year ){
 			case 0:
 				return year0Recap( state )
@@ -1295,8 +1303,8 @@ function year0Recap( state ){
 		if( companyYear.middleEvent.chose == "ignore" ) middleEvent = `Not making a beta version  made your release more buggy and you sold less`
 	}
 
-	var textOfTheYear = `${companyYear.recapOfYearText}. Your game went well ,sellings were great ( however you were not profitable, yet ) and
-	you've learn a lot about your team and how to work with them. ${middleEvent}`
+	var textOfTheYear = `<b>End Event: </b>${companyYear.recapOfYearText}. Your game went well ,sellings were great ( however you were not profitable, yet ) and
+	you've learn a lot about your team and how to work with them.<br/><b>Middle Event: </b> ${middleEvent}`
 
 	// HTML DOM
 	var title = "2 Years have passed"
@@ -1334,9 +1342,7 @@ function year0Recap( state ){
 
 
 function year2Recap( state ){
-	console.log("/////")
-	console.log( state )
-
+	
 	var companyYear = state.company.year2
 
 //Investment
@@ -1383,50 +1389,70 @@ function year2Recap( state ){
 
 
 //INFRASTRUCTURE
-	var infrastructures = 4800 // 200
+	var infrastructures = 500 // 200
+	infrastructures *= 24
 
 //OFFICE
 	var office = 2000
 	if( companyYear.officeChoice == "Small but with other start-ups near" )
 		office = 1500
 
+	office *= 24
 
 //GAME
-	var gameRevenue = 65000
+	var gameRevenue = 20000
 	if( companyYear.officeChoice == "Small but with other start-ups near" )
-		gameRevenue += 10000
+		gameRevenue += 2000
 
-	if( companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "lead")
-		gameRevenue += 5000
+	if( companyYear.middleEvent ){ 
+		if( companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "lead")
+			gameRevenue += 2000
 
-	if( companyYear.middleEvent.event == 2 && companyYear.middleEvent.chose == "accept" )
-		gameRevenue += 5000
+		if( companyYear.middleEvent.event == 2 && companyYear.middleEvent.chose == "accept" )
+			gameRevenue += 2000
+	}
 
-	gameRevenue += makeMathWithTeamSelection( salaries )
+	gameRevenue += makeMathWithTeamSelection(  )
 
 	function makeMathWithTeamSelection( ){
 		//salaries
-		return 0
+		var total = 10000 
+		if( salaries.developersSalary < 3 ) 
+			total -= 2000
+		if( salaries.artistsSalary < 1 && salaries.artistsSalary > 3 ) 
+			total -= 2000
+		if(  salaries.designersSalary < 1 && salaries.designersSalary > 2 )
+			total -= 1000
+		if( salaries.sfxSalary != 1 ) 
+			total -= 1000
+		if( salaries.marketingSalary != 1 ) 
+			total -= 2000
+
+		return gameRevenue + total
+
 	}
 
 
 //TOTAL
-	var finalTotal = office + gameRevenue + infrastructures + totalSalary
+	var finalTotal = office + gameRevenue + infrastructures +
+		 totalSalary + state.company.income
 
 	// HTML DOM
 	//Falta middle eventr
 	var middleEvent = ""
-	if( companyYear.middleEvent  && companyYear.middleEvent.event == 1 ){
-		if( companyYear.middleEvent.chose == "lead" ) middleEvent = `You made one of the developers lead programmer and helped a lot. He organized the sprints and developments and the game sold better because of the quality of the code.`
-		if( companyYear.middleEvent.chose == "ignore" ) middleEvent = `Ignoring the proposal of one of the developers to became a Lead programmer made him unfocused and uninterested on the job he's doing.`
-	}
-	if( companyYear.middleEvent  && companyYear.middleEvent.event == 2 ){
-		if( companyYear.middleEvent.chose == "accept" ) middleEvent = `You accepted that one of the developers start working for other company at the same time. The responsabilty 
-				he took made him work harder and make a better game for ${ state.company.name }. Your game sold better because of that choice.`
-		if( companyYear.middleEvent.chose == "reject" ) middleEvent = `Ignoring the proposal of one of the developers to make a feature for other company made him unfocused and uninterested on the job he's doing.`
+	if( companyYear.middleEvent ){
+		if( companyYear.middleEvent  && companyYear.middleEvent.event == 1 ){
+			if( companyYear.middleEvent.chose == "lead" ) middleEvent = `You made one of the developers lead programmer and helped a lot. He organized the sprints and developments and the game sold better because of the quality of the code.`
+			if( companyYear.middleEvent.chose == "ignore" ) middleEvent = `Ignoring the proposal of one of the developers to became a Lead programmer made him unfocused and uninterested on the job he's doing.`
+		}
+		if( companyYear.middleEvent  && companyYear.middleEvent.event == 2 ){
+			if( companyYear.middleEvent.chose == "accept" ) middleEvent = `You accepted that one of the developers start working for other company at the same time. The responsabilty 
+					he took made him work harder and make a better game for ${ state.company.name }. Your game sold better because of that choice.`
+			if( companyYear.middleEvent.chose == "reject" ) middleEvent = ` Ignoring the proposal of one of the developers to make a feature for other company made him unfocused and uninterested on the job he's doing.`
+		}
 	}
 
-	var textOfTheYear  = `${companyYear.recapOfYearText} ${ middleEvent }`
+	var textOfTheYear  = `<b>End Event: </b>${companyYear.recapOfYearText} <br/> <b>Middle Event: </b>${ middleEvent }`
 
 	var description = `
 		<div class='descriptionDiv'>
@@ -1435,6 +1461,9 @@ function year2Recap( state ){
 			</p>
 		</div>
 		<div class='recap'>
+			<div class='recap-numbers'>
+				Your cash: <label>${state.company.income}</label>
+			</div>
 			<div class='recap-numbers'>
 				Investment <label>+${investment}</label>
 			</div>
@@ -1474,7 +1503,7 @@ var createStory = function( state, parentComponent ){
  	var company = state.company
 
  	var title = ""
-
+console.log( state )
  	switch( state.year ){
  		case 0:
  			if( state.middleEvent == true ) return year0MiddleEventStory( company, parentComponent)
@@ -1483,6 +1512,7 @@ var createStory = function( state, parentComponent ){
  			title = '2 Years have passed'
 
 		case 2:
+		console.log( state )
 			if( state.middleEvent == true ) return year2MiddleEventStory( company, parentComponent )
 			else if( state.recapEvent == true ) return recapScreen( state, parentComponent )
  			else return year2Story( company, parentComponent )
@@ -2161,7 +2191,7 @@ var recapScreen = function( state, pC ){
 					React.createElement("p", {style: {marginLeft: '10px'}}, " ", React.createElement("b", null,  this.substringTheCompanyName( this.state.companyName), " "))
 				), 
 				React.createElement("div", {className: "right"}, 
-					React.createElement("p", null, "Cash: ", React.createElement("b", null,  this.state.income)), 
+					React.createElement("p", null, "Cash: ", React.createElement("b", null,  this.state.income, "$")), 
 					React.createElement("p", null, "Equity: ", React.createElement("b", null,  this.state.equity, "%")), 
 					React.createElement("p", null, "Team: ", React.createElement("b", null,  this.state.team))
 				)
@@ -2239,14 +2269,14 @@ function countSalary( teamObj, plus = 0 ){
 
 }
 
-function objInsideChecker( actualState, name, value ){
+function objInsideChecker( actualState, name, value, replace = null ){
 
     if( actualState[ name ] ){
       
-      if( typeof value === 'object' ){
-        for( var x in value ){
-          actualState[ name ][x] = value[x]
-        }
+      if( typeof value === 'object' && replace == false){
+           for( var x in value ){
+              actualState[ name ][x] = value[x]
+            }
       }
       else actualState[ name ] = value
     }

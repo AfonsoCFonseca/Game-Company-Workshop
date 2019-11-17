@@ -4,7 +4,7 @@ var createStory = function( state, parentComponent ){
  	var company = state.company
 
  	var title = ""
-
+console.log( state )
  	switch( state.year ){
  		case 0:
  			if( state.middleEvent == true ) return year0MiddleEventStory( company, parentComponent)
@@ -13,6 +13,7 @@ var createStory = function( state, parentComponent ){
  			title = '2 Years have passed'
 
 		case 2:
+		console.log( state )
 			if( state.middleEvent == true ) return year2MiddleEventStory( company, parentComponent )
 			else if( state.recapEvent == true ) return recapScreen( state, parentComponent )
  			else return year2Story( company, parentComponent )

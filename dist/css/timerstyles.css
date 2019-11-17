@@ -32,7 +32,7 @@
   margin-top: 20px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  border: 2px solid #BABABA;
+  border: 1px solid #BABABA;
   border-bottom: none;
   font-weight: 600;
   color: #595959;
@@ -45,8 +45,8 @@
   padding-right: 15px;
   padding-top: 5px;
   background-color: #F2F2F2;
-  border-left: 2px solid #BABABA;
-  border-right: 2px solid #BABABA;
+  border-left: 1px solid #BABABA;
+  border-right: 1px solid #BABABA;
 }
 > .timer > .totalTimer > .twoYearsBatch {
   width: 28%;
@@ -68,7 +68,7 @@
   padding-right: 15px;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
-  border: 2px solid #BABABA;
+  border: 1px solid #BABABA;
   border-top: none;
   width: 180px;
   height: 15px;

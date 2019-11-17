@@ -12,7 +12,7 @@ class Module_0Year extends React.Component {
 
 
   getRadioTeamValue( value ){
-    let teamChoice = {}
+    var teamChoice = {}
 
     if( value.indexOf( 'Developers' ) !== -1 ){
       teamChoice = {
@@ -26,8 +26,8 @@ class Module_0Year extends React.Component {
       }
     }
 
-    this.props.editCompanyState( 'year0', { "teamChoice": teamChoice } )
     this.props.editCompanyState( "team", teamChoice )
+    this.props.editCompanyState( 'year0', { "teamChoice": teamChoice } )
 
   }
 
@@ -48,6 +48,7 @@ class Module_0Year extends React.Component {
         </RadioButtonBlock>
 
         <InputBlock
+          placeholder='Insert game name'
           valueReceived={ value => this.updateToParent( "gameName", value ) }>
           <Description title='Game Name' />
         </InputBlock>
@@ -68,8 +69,9 @@ class Module_0Year extends React.Component {
 
         <InputBlock
           size='large'
+          placeholder="Describe game mechanics, features or Story"
           valueReceived={ value => this.updateToParent( "gameDescription", value ) }>
-           <Description title='Game Mechanics, Features or Story' />
+           <Description title='Description' />
         </InputBlock>
 
         <RadioButtonBlock

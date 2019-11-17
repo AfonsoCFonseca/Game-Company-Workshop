@@ -46,7 +46,7 @@ $optionalGreen: #d0ecd2;
     margin-top: 20px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    border: 2px solid $grey_dark;
+    border: 1px solid $grey_dark;
     border-bottom: none;
     font-weight: 600;
     color: $grey_darker;
@@ -60,8 +60,8 @@ $optionalGreen: #d0ecd2;
     padding-right: 15px;
     padding-top: 5px;
     background-color: $grey_light;
-    border-left: 2px solid $grey_dark;
-    border-right: 2px solid $grey_dark;
+    border-left: 1px solid $grey_dark;
+    border-right: 1px solid $grey_dark;
 
     >.twoYearsBatch {
       @extend %display_inlineflex;
@@ -88,7 +88,7 @@ $optionalGreen: #d0ecd2;
     padding-right: 15px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    border: 2px solid $grey_dark;
+    border: 1px solid $grey_dark;
     border-top: none;
     width: 180px;
     height:15px;

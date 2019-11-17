@@ -79,6 +79,8 @@ $optionalGreen: #84c294;
 		        border: 2px solid $mainGreen;
 		        width: 80%;
 		        border-radius: 10px;
+		        max-height: 250px;
+				overflow-y: scroll;
 
 		        >.recap-numbers{
 		        	display: flex;

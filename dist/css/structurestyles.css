@@ -109,6 +109,7 @@
   height: 100px;
   width: 100%;
   resize: none;
+  padding: 5px;
 }
 > .structure > .module > .inputDiv > textarea:hover {
   border: 1px solid #595959;

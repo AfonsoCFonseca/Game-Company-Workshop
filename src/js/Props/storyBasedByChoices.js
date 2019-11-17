@@ -1,5 +1,5 @@
 var createRecapBasedOnChoices = function( state ){
-console.log( state.year )
+
 		switch( state.year ){
 			case 0:
 				return year0Recap( state )
@@ -79,8 +79,8 @@ function year0Recap( state ){
 		if( companyYear.middleEvent.chose == "ignore" ) middleEvent = `Not making a beta version  made your release more buggy and you sold less`
 	}
 
-	var textOfTheYear = `${companyYear.recapOfYearText}. Your game went well ,sellings were great ( however you were not profitable, yet ) and
-	you've learn a lot about your team and how to work with them. ${middleEvent}`
+	var textOfTheYear = `<b>End Event: </b>${companyYear.recapOfYearText}. Your game went well ,sellings were great ( however you were not profitable, yet ) and
+	you've learn a lot about your team and how to work with them.<br/><b>Middle Event: </b> ${middleEvent}`
 
 	// HTML DOM
 	var title = "2 Years have passed"
@@ -118,9 +118,7 @@ function year0Recap( state ){
 
 
 function year2Recap( state ){
-	console.log("/////")
-	console.log( state )
-
+	
 	var companyYear = state.company.year2
 
 //Investment
@@ -167,50 +165,70 @@ function year2Recap( state ){
 
 
 //INFRASTRUCTURE
-	var infrastructures = 4800 // 200
+	var infrastructures = 500 // 200
+	infrastructures *= 24
 
 //OFFICE
 	var office = 2000
 	if( companyYear.officeChoice == "Small but with other start-ups near" )
 		office = 1500
 
+	office *= 24
 
 //GAME
-	var gameRevenue = 65000
+	var gameRevenue = 20000
 	if( companyYear.officeChoice == "Small but with other start-ups near" )
-		gameRevenue += 10000
+		gameRevenue += 2000
 
-	if( companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "lead")
-		gameRevenue += 5000
+	if( companyYear.middleEvent ){ 
+		if( companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "lead")
+			gameRevenue += 2000
 
-	if( companyYear.middleEvent.event == 2 && companyYear.middleEvent.chose == "accept" )
-		gameRevenue += 5000
+		if( companyYear.middleEvent.event == 2 && companyYear.middleEvent.chose == "accept" )
+			gameRevenue += 2000
+	}
 
-	gameRevenue += makeMathWithTeamSelection( salaries )
+	gameRevenue += makeMathWithTeamSelection(  )
 
 	function makeMathWithTeamSelection( ){
 		//salaries
-		return 0
+		var total = 10000 
+		if( salaries.developersSalary < 3 ) 
+			total -= 2000
+		if( salaries.artistsSalary < 1 && salaries.artistsSalary > 3 ) 
+			total -= 2000
+		if(  salaries.designersSalary < 1 && salaries.designersSalary > 2 )
+			total -= 1000
+		if( salaries.sfxSalary != 1 ) 
+			total -= 1000
+		if( salaries.marketingSalary != 1 ) 
+			total -= 2000
+
+		return gameRevenue + total
+
 	}
 
 
 //TOTAL
-	var finalTotal = office + gameRevenue + infrastructures + totalSalary
+	var finalTotal = office + gameRevenue + infrastructures +
+		 totalSalary + state.company.income
 
 	// HTML DOM
 	//Falta middle eventr
 	var middleEvent = ""
-	if( companyYear.middleEvent  && companyYear.middleEvent.event == 1 ){
-		if( companyYear.middleEvent.chose == "lead" ) middleEvent = `You made one of the developers lead programmer and helped a lot. He organized the sprints and developments and the game sold better because of the quality of the code.`
-		if( companyYear.middleEvent.chose == "ignore" ) middleEvent = `Ignoring the proposal of one of the developers to became a Lead programmer made him unfocused and uninterested on the job he's doing.`
-	}
-	if( companyYear.middleEvent  && companyYear.middleEvent.event == 2 ){
-		if( companyYear.middleEvent.chose == "accept" ) middleEvent = `You accepted that one of the developers start working for other company at the same time. The responsabilty 
-				he took made him work harder and make a better game for ${ state.company.name }. Your game sold better because of that choice.`
-		if( companyYear.middleEvent.chose == "reject" ) middleEvent = `Ignoring the proposal of one of the developers to make a feature for other company made him unfocused and uninterested on the job he's doing.`
+	if( companyYear.middleEvent ){
+		if( companyYear.middleEvent  && companyYear.middleEvent.event == 1 ){
+			if( companyYear.middleEvent.chose == "lead" ) middleEvent = `You made one of the developers lead programmer and helped a lot. He organized the sprints and developments and the game sold better because of the quality of the code.`
+			if( companyYear.middleEvent.chose == "ignore" ) middleEvent = `Ignoring the proposal of one of the developers to became a Lead programmer made him unfocused and uninterested on the job he's doing.`
+		}
+		if( companyYear.middleEvent  && companyYear.middleEvent.event == 2 ){
+			if( companyYear.middleEvent.chose == "accept" ) middleEvent = `You accepted that one of the developers start working for other company at the same time. The responsabilty 
+					he took made him work harder and make a better game for ${ state.company.name }. Your game sold better because of that choice.`
+			if( companyYear.middleEvent.chose == "reject" ) middleEvent = ` Ignoring the proposal of one of the developers to make a feature for other company made him unfocused and uninterested on the job he's doing.`
+		}
 	}
 
-	var textOfTheYear  = `${companyYear.recapOfYearText} ${ middleEvent }`
+	var textOfTheYear  = `<b>End Event: </b>${companyYear.recapOfYearText} <br/> <b>Middle Event: </b>${ middleEvent }`
 
 	var description = `
 		<div class='descriptionDiv'>
@@ -219,6 +237,9 @@ function year2Recap( state ){
 			</p>
 		</div>
 		<div class='recap'>
+			<div class='recap-numbers'>
+				Your cash: <label>${state.company.income}</label>
+			</div>
 			<div class='recap-numbers'>
 				Investment <label>+${investment}</label>
 			</div>

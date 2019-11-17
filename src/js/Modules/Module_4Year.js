@@ -2,6 +2,8 @@ class Module_4Year extends React.Component {
 
   constructor( props ){
     super( props )
+
+    console.log( props )
   }
 
   //'https://www.gamasutra.com/blogs/SergioJimenez/20131106/204134/Gamification_Model_Canvas.php'

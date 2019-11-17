@@ -133,7 +133,7 @@ $optionalGreen: #84c294;
       >input {
         border: 1px solid $grey_dark;
         width: 50%;
-
+        
         &:hover{
           border: 1px solid $grey_darker;
         }
@@ -147,6 +147,7 @@ $optionalGreen: #84c294;
         height: 100px;
         width: 100%;
         resize: none;
+        padding: 5px;
 
         &:hover{
           border: 1px solid $grey_darker;
