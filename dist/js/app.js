@@ -4,11 +4,11 @@ class PageContent extends React.Component {
     super( props )
 
     this.state = {
-      year: 0,
+      year: 2,
       goingDev: true,
-      isPaused: false,
+      isPaused: true,
       moduleShow: false,  // Ecra de Eventos
-      optionalScreen: true, // Ecra de entrada e final
+      optionalScreen: false, // Ecra de entrada e final
       middleEvent: false, // Trigger para o middle Event
       recapEvent: false, // Recap Event após o modulo final
       company: {
@@ -870,7 +870,7 @@ class PageContent extends React.Component {
 
 
   render() {
-
+console.log( this.props.company )
     return(
       React.createElement("div", {className: "module"}, 
 
@@ -890,7 +890,7 @@ class PageContent extends React.Component {
           inputValue:  this.state.team.developers, 
           valueReceived:  value =>  this.joinMembersTeam( value, "developers")}, 
            React.createElement(Description, {
-              title: "Where to spend the money", 
+              title:  `Where to spend the money ${ ( this.props.company.team == null || this.props.company.team.developers < 1 ? "( You need developers! )" : "" )}`, 
               description:  descriptionSpentMoney })
         ), 
         React.createElement(InputBlock, {
@@ -945,12 +945,6 @@ class PageContent extends React.Component {
 
         React.createElement(TextField, {title: "Second Game", textValue:  this.getDescriptionYear2}), 
 
-        React.createElement(RadioButtonBlock, {
-            valuesSent:  sequelGameArrayYear2, 
-            valueReceived:  value => this.updateToParent( "sequel", value )}, 
-           React.createElement(Description, {title: "What will you pick?"})
-        ), 
-
         React.createElement(InputBlock, {
           valueReceived:  value => this.updateToParent( "gameNameYear2", value )}, 
           React.createElement(Description, {title: "Game Name"})
@@ -973,8 +967,16 @@ class PageContent extends React.Component {
 
         React.createElement(InputBlock, {
           size: "large", 
-          valueReceived:  value => this.updateToParent( "gameDescriptionyear2", value )}, 
-           React.createElement(Description, {title: "Game Mechanics, Features or Story"})
+          valueReceived:  value => this.updateToParent( "gameGameMechanicsyear2", value )}, 
+           React.createElement(Description, {title: "Game Mechanics"})
+        ), 
+
+        React.createElement(InputBlock, {
+          size: "large", 
+          valueReceived:  value => this.updateToParent( "gameUniqueFeatureyear2", value )}, 
+           React.createElement(Description, {
+           description: gameUniqueFeatureyear2, 
+           title: "Unique Feature"})
         )
 
       )
@@ -1143,11 +1145,6 @@ const officeSpaceArrayYear2 = [
   'Small but with other start-ups near',
   'Bigger but isolated'
 ]
-
-const sequelGameArrayYear2 = [
-  'Sequel or Prequel',
-  'New Game'
-]
 ;var createRecapBasedOnChoices = function( state ){
 console.log( state.year )
 		switch( state.year ){
@@ -1272,8 +1269,9 @@ function year2Recap( state ){
 	console.log( state )
 
 	var companyYear = state.company.year2
-	var investment = 0
 
+//Investment
+	var investment = 0
 	if( companyYear.endEvent == "100k" ){
 		investment = 100000
 	}
@@ -1281,18 +1279,85 @@ function year2Recap( state ){
 		investment = 500000
 	}
 
-	var gameRevenue = 50000
-	var developersSalary = 1000
-	var artistsSalary = 1000
-	var infrastructures = 1000
-	var office = 1000
-	var finalTotal = 10000
+//SALARIES
+	var plus = 100
+	if( state.company.year0 && state.company.year0.middleEvent 
+		&& state.company.year0.middleEvent.event1 && state.company.year0.middleEvent.chose == 1 ){
+		plus = 200
+	}
+
+	salaries = countSalary( state.company.team, 100 )
+	var totalSalary =  salaries.total * 24
+
+	var salariesObj = {
+		Developers: salaries.developersSalary * 24,
+		Artist: salaries.artistsSalary * 24,
+		Designers: salaries.designersSalary * 24,
+		SFX: salaries.sfxSalary * 24,
+		Marketing: salaries.marketingSalary * 24
+	}
+
+	function drawTeamExpansives( ){
+
+		var elements = ""
+		for( var x in salariesObj ){
+			if( salariesObj[x] == 0 ) continue 
+
+			if( salariesObj[x] ){
+				elements += `<div class='recap-numbers'>${x} <label>-${salariesObj[x]}</label></div>`
+			}
+
+		}
+
+		return elements 
+	}
+
+
+//INFRASTRUCTURE
+	var infrastructures = 4800 // 200
+
+//OFFICE
+	var office = 2000
+	if( companyYear.officeChoice == "Small but with other start-ups near" )
+		office = 1500
+
+
+//GAME
+	var gameRevenue = 65000
+	if( companyYear.officeChoice == "Small but with other start-ups near" )
+		gameRevenue += 10000
+
+	if( companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "lead")
+		gameRevenue += 5000
+
+	if( companyYear.middleEvent.event == 2 && companyYear.middleEvent.chose == "accept" )
+		gameRevenue += 5000
+
+	gameRevenue += makeMathWithTeamSelection( salaries )
+
+	function makeMathWithTeamSelection( ){
+		//salaries
+		return 0
+	}
+
+
+//TOTAL
+	var finalTotal = office + gameRevenue + infrastructures + totalSalary
 
 	// HTML DOM
-	var title = "4 Years have passed"
-
 	//Falta middle eventr
-	var textOfTheYear  = `${companyYear.recapOfYearText} "FIM"`
+	var middleEvent = ""
+	if( companyYear.middleEvent  && companyYear.middleEvent.event == 1 ){
+		if( companyYear.middleEvent.chose == "lead" ) middleEvent = `You made one of the developers lead programmer and helped a lot. He organized the sprints and developments and the game sold better because of the quality of the code.`
+		if( companyYear.middleEvent.chose == "ignore" ) middleEvent = `Ignoring the proposal of one of the developers to became a Lead programmer made him unfocused and uninterested on the job he's doing.`
+	}
+	if( companyYear.middleEvent  && companyYear.middleEvent.event == 2 ){
+		if( companyYear.middleEvent.chose == "accept" ) middleEvent = `You accepted that one of the developers start working for other company at the same time. The responsabilty 
+				he took made him work harder and make a better game for ${ state.company.name }. Your game sold better because of that choice.`
+		if( companyYear.middleEvent.chose == "reject" ) middleEvent = `Ignoring the proposal of one of the developers to make a feature for other company made him unfocused and uninterested on the job he's doing.`
+	}
+
+	var textOfTheYear  = `${companyYear.recapOfYearText} ${ middleEvent }`
 
 	var description = `
 		<div class='descriptionDiv'>
@@ -1307,12 +1372,7 @@ function year2Recap( state ){
 			<div class='recap-numbers'>
 				Game1 <label>+${gameRevenue}</label>
 			</div>
-			<div class='recap-numbers'>
-				Developers <label>-${developersSalary}</label>
-			</div>
-			<div class='recap-numbers'>
-				Artist <label>-${artistsSalary}</label>
-			</div>
+			${ drawTeamExpansives() }
 			<div class='recap-numbers'>
 				Office <label>-${office}</label>
 			</div>
@@ -1327,7 +1387,7 @@ function year2Recap( state ){
 
 
 	return {
-		title,
+		title: "4 Years have passed",
 		description,
 	}
 }
@@ -1380,8 +1440,8 @@ var startingCardIntroduction = `Starting you professional life can be hard and c
 workshop is to help you understand a bit better what it takes to start a videogame company, as well as creating a vision for your products and manage
 your future team.`
 
-var startingCardHowTo = `This web application simulates two years of your company life for each thirty minutes of real life.
-Try to be honest, make your choices, give original answers and enjoy the workshop.`
+var startingCardHowTo = `This web application simulates two years of your company life for each thirty minutes of real life. You
+will start the event with 2500$, some of the choices will be yours, others will pre-determined, be honest, give original answers and enjoy the workshop.` 
 
 var startingCardStory = `You are about to start your company. To do so, write down the name for the company and a small description
 of something unique with it`
@@ -1616,16 +1676,23 @@ apply to your company`
  	var standard = "Now is a good time to start to think in releasing a new game. Do you think your first game went well?"
 
  	if( vision == "Simple but addictive games" ){
- 		return standard + " But don't forget that your game must be simple but addictive"
+ 		return standard + " But don't forget that your game must be 'Simple but Addictive'. Normaly that goes for mobile games with 1 single mechanic or movement"+
+ 		"like Super Mario Run"
  	}
  	else if( vision == "Focus on the story" ){
-		return standard + " Keep in mind that your next game must be focused on the story. Your vision, not mine "
+		return standard + " Keep in mind that your chose for the vision of the company 'Focus on the Story', so your next game must have something related"+
+		"to that. A real Life event or some book/movie you love "
  	}
  	else if( vision == "Online Competetive" ){
-		return standard + " But rember, your game needs to be an competitive online game. Good luck with that"
+		return standard + " But remember, your game needs to be an 'Competitive Online Game'. You can do the same as the others.. repeat the formula, like mobas and battleroyales"+
+		"or you can be original and give something different a try"
  	}
- 	return standard + " But don't forget that your game must be simple but addictive"
+ 	return standard + " But don't forget that your game must be 'Simple but Addictive'. Normaly that goes for mobile games with 1 single mechanic or movement"+
+ 		"like Super Mario Run"
  }
+
+ var gameUniqueFeatureyear2 = `Make something unique for this game, a story related with Real life event,
+  an unique feature for the community, like a steam workshop or interactive playthrough for streamers and his subscribers`
 
 ////////////////////////////////// MAIN EVENT
 
@@ -1712,7 +1779,7 @@ var year2MiddleEventStory = function( company, pC ){
 			}
 			pC.closeMiddleEvent( "year2", year2 )
 			}
-		}, "Nahh")
+		}, "Reject")
 	)
 
 	var text2 = `
@@ -1725,7 +1792,7 @@ var year2MiddleEventStory = function( company, pC ){
 	var buttons2 = React.createElement(React.Fragment, null, 
 	React.createElement("button", {
 		onClick:   () => {
-			year0.middleEvent = {
+			year2.middleEvent = {
 				event: 2,
     			chose: "accept",
 			}
@@ -1734,7 +1801,7 @@ var year2MiddleEventStory = function( company, pC ){
 		}, "Sure"), 
 	React.createElement("button", {
 		onClick:  () => {
-			year0.middleEvent = {
+			year2.middleEvent = {
 				event: 2,
     			chose: "reject",
 			}
@@ -2070,23 +2137,35 @@ function countTeam( teamObj ){
 
 function countSalary( teamObj, plus = 0 ){
     
-    var developers = artists = 0
+    var developers = artists = designers = sfx = marketing = 0
     if( teamObj ){
-        var developers = teamObj.developers
-        var artists = teamObj.artists || null
+        developers = teamObj.developers | 0 
+        artists = teamObj.artists || 0
+        designers = teamObj.designers || 0
+        sfx = teamObj.sfx || 0
+        marketing = teamObj.marketing || 0
     }
 
     var totalSalary = 0
     var developersSalary = 0
     var artistsSalary = 0
+    var designersSalary = 0
+    var sfxSalary = 0
+    var marketingSalary = 0
 
     developersSalary = developers * ( 900 + plus )
     artistsSalary = artists * ( 800 + plus )
+    designersSalary = developers * ( 800 + plus )
+    sfxSalary = artists * ( 700 + plus )
+    marketingSalary = developers * ( 750 + plus )
 
     return {
-        total: developersSalary + artistsSalary,
+        total: developersSalary + artistsSalary + designersSalary + sfxSalary + marketingSalary,
         developersSalary,
         artistsSalary,
+        designersSalary,
+        sfxSalary,
+        marketingSalary
     }
 
 }

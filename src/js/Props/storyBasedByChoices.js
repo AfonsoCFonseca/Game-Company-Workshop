@@ -122,8 +122,9 @@ function year2Recap( state ){
 	console.log( state )
 
 	var companyYear = state.company.year2
-	var investment = 0
 
+//Investment
+	var investment = 0
 	if( companyYear.endEvent == "100k" ){
 		investment = 100000
 	}
@@ -131,18 +132,85 @@ function year2Recap( state ){
 		investment = 500000
 	}
 
-	var gameRevenue = 50000
-	var developersSalary = 1000
-	var artistsSalary = 1000
-	var infrastructures = 1000
-	var office = 1000
-	var finalTotal = 10000
+//SALARIES
+	var plus = 100
+	if( state.company.year0 && state.company.year0.middleEvent 
+		&& state.company.year0.middleEvent.event1 && state.company.year0.middleEvent.chose == 1 ){
+		plus = 200
+	}
+
+	salaries = countSalary( state.company.team, 100 )
+	var totalSalary =  salaries.total * 24
+
+	var salariesObj = {
+		Developers: salaries.developersSalary * 24,
+		Artist: salaries.artistsSalary * 24,
+		Designers: salaries.designersSalary * 24,
+		SFX: salaries.sfxSalary * 24,
+		Marketing: salaries.marketingSalary * 24
+	}
+
+	function drawTeamExpansives( ){
+
+		var elements = ""
+		for( var x in salariesObj ){
+			if( salariesObj[x] == 0 ) continue 
+
+			if( salariesObj[x] ){
+				elements += `<div class='recap-numbers'>${x} <label>-${salariesObj[x]}</label></div>`
+			}
+
+		}
+
+		return elements 
+	}
+
+
+//INFRASTRUCTURE
+	var infrastructures = 4800 // 200
+
+//OFFICE
+	var office = 2000
+	if( companyYear.officeChoice == "Small but with other start-ups near" )
+		office = 1500
+
+
+//GAME
+	var gameRevenue = 65000
+	if( companyYear.officeChoice == "Small but with other start-ups near" )
+		gameRevenue += 10000
+
+	if( companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "lead")
+		gameRevenue += 5000
+
+	if( companyYear.middleEvent.event == 2 && companyYear.middleEvent.chose == "accept" )
+		gameRevenue += 5000
+
+	gameRevenue += makeMathWithTeamSelection( salaries )
+
+	function makeMathWithTeamSelection( ){
+		//salaries
+		return 0
+	}
+
+
+//TOTAL
+	var finalTotal = office + gameRevenue + infrastructures + totalSalary
 
 	// HTML DOM
-	var title = "4 Years have passed"
-
 	//Falta middle eventr
-	var textOfTheYear  = `${companyYear.recapOfYearText} "FIM"`
+	var middleEvent = ""
+	if( companyYear.middleEvent  && companyYear.middleEvent.event == 1 ){
+		if( companyYear.middleEvent.chose == "lead" ) middleEvent = `You made one of the developers lead programmer and helped a lot. He organized the sprints and developments and the game sold better because of the quality of the code.`
+		if( companyYear.middleEvent.chose == "ignore" ) middleEvent = `Ignoring the proposal of one of the developers to became a Lead programmer made him unfocused and uninterested on the job he's doing.`
+	}
+	if( companyYear.middleEvent  && companyYear.middleEvent.event == 2 ){
+		if( companyYear.middleEvent.chose == "accept" ) middleEvent = `You accepted that one of the developers start working for other company at the same time. The responsabilty 
+				he took made him work harder and make a better game for ${ state.company.name }. Your game sold better because of that choice.`
+		if( companyYear.middleEvent.chose == "reject" ) middleEvent = `Ignoring the proposal of one of the developers to make a feature for other company made him unfocused and uninterested on the job he's doing.`
+	}
+
+	var textOfTheYear  = `${companyYear.recapOfYearText} ${ middleEvent }`
 
 	var description = `
 		<div class='descriptionDiv'>
@@ -157,12 +225,7 @@ function year2Recap( state ){
 			<div class='recap-numbers'>
 				Game1 <label>+${gameRevenue}</label>
 			</div>
-			<div class='recap-numbers'>
-				Developers <label>-${developersSalary}</label>
-			</div>
-			<div class='recap-numbers'>
-				Artist <label>-${artistsSalary}</label>
-			</div>
+			${ drawTeamExpansives() }
 			<div class='recap-numbers'>
 				Office <label>-${office}</label>
 			</div>
@@ -177,7 +240,7 @@ function year2Recap( state ){
 
 
 	return {
-		title,
+		title: "4 Years have passed",
 		description,
 	}
 }

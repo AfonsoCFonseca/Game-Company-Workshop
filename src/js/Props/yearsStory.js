@@ -39,8 +39,8 @@ var startingCardIntroduction = `Starting you professional life can be hard and c
 workshop is to help you understand a bit better what it takes to start a videogame company, as well as creating a vision for your products and manage
 your future team.`
 
-var startingCardHowTo = `This web application simulates two years of your company life for each thirty minutes of real life.
-Try to be honest, make your choices, give original answers and enjoy the workshop.`
+var startingCardHowTo = `This web application simulates two years of your company life for each thirty minutes of real life. You
+will start the event with 2500$, some of the choices will be yours, others will pre-determined, be honest, give original answers and enjoy the workshop.` 
 
 var startingCardStory = `You are about to start your company. To do so, write down the name for the company and a small description
 of something unique with it`
@@ -275,16 +275,23 @@ apply to your company`
  	var standard = "Now is a good time to start to think in releasing a new game. Do you think your first game went well?"
 
  	if( vision == "Simple but addictive games" ){
- 		return standard + " But don't forget that your game must be simple but addictive"
+ 		return standard + " But don't forget that your game must be 'Simple but Addictive'. Normaly that goes for mobile games with 1 single mechanic or movement"+
+ 		"like Super Mario Run"
  	}
  	else if( vision == "Focus on the story" ){
-		return standard + " Keep in mind that your next game must be focused on the story. Your vision, not mine "
+		return standard + " Keep in mind that your chose for the vision of the company 'Focus on the Story', so your next game must have something related"+
+		"to that. A real Life event or some book/movie you love "
  	}
  	else if( vision == "Online Competetive" ){
-		return standard + " But rember, your game needs to be an competitive online game. Good luck with that"
+		return standard + " But remember, your game needs to be an 'Competitive Online Game'. You can do the same as the others.. repeat the formula, like mobas and battleroyales"+
+		"or you can be original and give something different a try"
  	}
- 	return standard + " But don't forget that your game must be simple but addictive"
+ 	return standard + " But don't forget that your game must be 'Simple but Addictive'. Normaly that goes for mobile games with 1 single mechanic or movement"+
+ 		"like Super Mario Run"
  }
+
+ var gameUniqueFeatureyear2 = `Make something unique for this game, a story related with Real life event,
+  an unique feature for the community, like a steam workshop or interactive playthrough for streamers and his subscribers`
 
 ////////////////////////////////// MAIN EVENT
 
@@ -371,7 +378,7 @@ var year2MiddleEventStory = function( company, pC ){
 			}
 			pC.closeMiddleEvent( "year2", year2 )
 			}
-		}>Nahh</button>
+		}>Reject</button>
 	</React.Fragment>
 
 	var text2 = `
@@ -384,7 +391,7 @@ var year2MiddleEventStory = function( company, pC ){
 	var buttons2 = <React.Fragment>
 	<button
 		onClick={  () => {
-			year0.middleEvent = {
+			year2.middleEvent = {
 				event: 2,
     			chose: "accept",
 			}
@@ -393,7 +400,7 @@ var year2MiddleEventStory = function( company, pC ){
 		}>Sure</button>
 	<button
 		onClick={ () => {
-			year0.middleEvent = {
+			year2.middleEvent = {
 				event: 2,
     			chose: "reject",
 			}

@@ -61,7 +61,7 @@ class Module_2Year extends React.Component {
 
 
   render() {
-
+console.log( this.props.company )
     return(
       <div className='module'>
 
@@ -81,7 +81,7 @@ class Module_2Year extends React.Component {
           inputValue={ this.state.team.developers }
           valueReceived={ value =>  this.joinMembersTeam( value, "developers") }>
            <Description
-              title='Where to spend the money'
+              title={ `Where to spend the money ${ ( this.props.company.team == null || this.props.company.team.developers < 1 ? "( You need developers! )" : "" )}` }
               description={ descriptionSpentMoney } />
         </InputBlock>
         <InputBlock
@@ -136,12 +136,6 @@ class Module_2Year extends React.Component {
 
         <TextField title='Second Game' textValue={ this.getDescriptionYear2 }/>
 
-        <RadioButtonBlock
-            valuesSent={ sequelGameArrayYear2 }
-            valueReceived={ value => this.updateToParent( "sequel", value ) }>
-           <Description title='What will you pick?'/>
-        </RadioButtonBlock>
-
         <InputBlock
           valueReceived={ value => this.updateToParent( "gameNameYear2", value ) }>
           <Description title='Game Name' />
@@ -164,8 +158,16 @@ class Module_2Year extends React.Component {
 
         <InputBlock
           size='large'
-          valueReceived={ value => this.updateToParent( "gameDescriptionyear2", value ) }>
-           <Description title='Game Mechanics, Features or Story' />
+          valueReceived={ value => this.updateToParent( "gameGameMechanicsyear2", value ) }>
+           <Description title='Game Mechanics' />
+        </InputBlock>
+
+        <InputBlock
+          size='large'
+          valueReceived={ value => this.updateToParent( "gameUniqueFeatureyear2", value ) }>
+           <Description 
+           description={gameUniqueFeatureyear2}
+           title='Unique Feature' />
         </InputBlock>
 
       </div>

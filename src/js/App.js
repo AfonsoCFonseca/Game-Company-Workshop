@@ -4,11 +4,11 @@ class PageContent extends React.Component {
     super( props )
 
     this.state = {
-      year: 0,
+      year: 2,
       goingDev: true,
-      isPaused: false,
+      isPaused: true,
       moduleShow: false,  // Ecra de Eventos
-      optionalScreen: true, // Ecra de entrada e final
+      optionalScreen: false, // Ecra de entrada e final
       middleEvent: false, // Trigger para o middle Event
       recapEvent: false, // Recap Event após o modulo final
       company: {

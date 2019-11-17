@@ -35,23 +35,35 @@ function countTeam( teamObj ){
 
 function countSalary( teamObj, plus = 0 ){
     
-    var developers = artists = 0
+    var developers = artists = designers = sfx = marketing = 0
     if( teamObj ){
-        var developers = teamObj.developers
-        var artists = teamObj.artists || null
+        developers = teamObj.developers | 0 
+        artists = teamObj.artists || 0
+        designers = teamObj.designers || 0
+        sfx = teamObj.sfx || 0
+        marketing = teamObj.marketing || 0
     }
 
     var totalSalary = 0
     var developersSalary = 0
     var artistsSalary = 0
+    var designersSalary = 0
+    var sfxSalary = 0
+    var marketingSalary = 0
 
     developersSalary = developers * ( 900 + plus )
     artistsSalary = artists * ( 800 + plus )
+    designersSalary = developers * ( 800 + plus )
+    sfxSalary = artists * ( 700 + plus )
+    marketingSalary = developers * ( 750 + plus )
 
     return {
-        total: developersSalary + artistsSalary,
+        total: developersSalary + artistsSalary + designersSalary + sfxSalary + marketingSalary,
         developersSalary,
         artistsSalary,
+        designersSalary,
+        sfxSalary,
+        marketingSalary
     }
 
 }
