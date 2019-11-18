@@ -1,11 +1,11 @@
-class Module_0Year extends React.Component {
+class Module_1Year extends React.Component {
 
   constructor( props ){
     super( props )
 
     this.getRadioTeamValue = this.getRadioTeamValue.bind( this )
 
-    this.focusYear0 = focusYear0[ getRandomInt( 0, focusYear0.length - 1 ) ]
+    this.focusYear1 = focusYear1[ getRandomInt( 0, focusYear1.length - 1 ) ]
 
     this.updateToParent = this.updateToParent.bind( this )
   }
@@ -27,24 +27,24 @@ class Module_0Year extends React.Component {
     }
 
     this.props.editCompanyState( "team", teamChoice )
-    this.props.editCompanyState( 'year0', { "teamChoice": teamChoice } )
+    this.props.editCompanyState( 'year1', { "teamChoice": teamChoice } )
 
   }
 
   updateToParent( name, value ){
-    this.props.editCompanyState( "year0", { [name]: value })
+    this.props.editCompanyState( "year1", { [name]: value })
   }
 
   render() {
 
     return(
       <div className='module'>
-        <TextField title='Your Focus' textValue={ this.focusYear0 }/>
+        <TextField title='Your Focus' textValue={ this.focusYear1 }/>
 
         <RadioButtonBlock
-            valuesSent={ visionArrayYear0 }
+            valuesSent={ visionArrayYear1 }
             valueReceived={ value => this.updateToParent( "vision", value ) }>
-           <Description title='Vision' description={ vision0YearDescription }/>
+           <Description title='Vision' description={ vision1YearDescription }/>
         </RadioButtonBlock>
 
         <InputBlock
@@ -75,21 +75,21 @@ class Module_0Year extends React.Component {
         </InputBlock>
 
         <RadioButtonBlock
-            valuesSent={ teamArrayYear0 }
+            valuesSent={ teamArrayYear1 }
             valueReceived={ this.getRadioTeamValue }>
-           <Description title='Team' description={ team0YearDescription }/>
+           <Description title='Team' description={ team1YearDescription }/>
         </RadioButtonBlock>
 
         <InputBlock
           size='large'
           valueReceived={ value => this.updateToParent( "environment", value ) }>
-           <Description title='Company Environment' description={ environment0YearDescription }/>
+           <Description title='Company Environment' description={ environment1YearDescription }/>
         </InputBlock>
 
         <InputBlock
           size='large'
           valueReceived={ value => this.updateToParent( "teamBuilding", value ) }>
-           <Description title='Team Building' description={ teamBuilding0YearDescription }/>
+           <Description title='Team Building' description={ teamBuilding1YearDescription }/>
         </InputBlock>
 
       </div>

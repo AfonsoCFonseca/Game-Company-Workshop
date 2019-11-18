@@ -92,7 +92,7 @@ body label {
   display: -ms-flexbox;
   display: flex;
 }
-#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .structure > .module .businessModuleCanvas > .textDiv, #content > .structure > .module .businessModuleCanvas > .imgDiv, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle, #content > .structure > .module > .inputDiv > .inputDivInner, #content > .timer > .totalTimer > .twoYearsBatch {
+#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .structure > .module .businessModelCanvas > .textDiv, #content > .structure > .module .businessModelCanvas > .imgDiv, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle, #content > .structure > .module > .inputDiv > .inputDivInner, #content > .timer > .totalTimer > .twoYearsBatch {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -179,7 +179,7 @@ body label {
   display: -ms-flexbox;
   display: flex;
 }
-#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .structure > .module .businessModuleCanvas > .textDiv, #content > .structure > .module .businessModuleCanvas > .imgDiv, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle, #content > .structure > .module > .inputDiv > .inputDivInner, #content > .timer > .totalTimer > .twoYearsBatch {
+#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .structure > .module .businessModelCanvas > .textDiv, #content > .structure > .module .businessModelCanvas > .imgDiv, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle, #content > .structure > .module > .inputDiv > .inputDivInner, #content > .timer > .totalTimer > .twoYearsBatch {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -325,24 +325,24 @@ body label {
   font-size: 11px;
   color: #333333;
 }
-#content > .structure > .module .businessModuleCanvas {
+#content > .structure > .module .businessModelCanvas {
   width: 80%;
   padding-top: 35px;
   padding-bottom: 25px;
 }
-#content > .structure > .module .businessModuleCanvas > .imgDiv {
+#content > .structure > .module .businessModelCanvas > .imgDiv {
   width: 100%;
   justify-content: space-between;
 }
-#content > .structure > .module .businessModuleCanvas > .imgDiv > img {
+#content > .structure > .module .businessModelCanvas > .imgDiv > img {
   width: 40%;
 }
-#content > .structure > .module .businessModuleCanvas > .textDiv {
+#content > .structure > .module .businessModelCanvas > .textDiv {
   justify-content: space-between;
   width: 100%;
   padding-top: 15px;
 }
-#content > .structure > .module .businessModuleCanvas > .textDiv > a {
+#content > .structure > .module .businessModelCanvas > .textDiv > a {
   text-align: center;
   width: 40%;
   font-size: 11px;
@@ -611,7 +611,7 @@ body label {
 #content .modal > .modalInner > .footer > button:hover {
   background-color: #409c58;
 }
-#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .timer > .totalTimer > .twoYearsBatch, #content > .structure > .module > .inputDiv > .inputDivInner, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle, #content > .structure > .module .businessModuleCanvas > .imgDiv, #content > .structure > .module .businessModuleCanvas > .textDiv {
+#content > .toolBar > .right > p, #content > .toolBar > .right, #content > .toolBar > .left > p, #content > .toolBar > .left, #content > .toolBar, #content > .timer > .totalTimer > .twoYearsBatch, #content > .structure > .module > .inputDiv > .inputDivInner, #content > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle, #content > .structure > .module .businessModelCanvas > .imgDiv, #content > .structure > .module .businessModelCanvas > .textDiv {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;

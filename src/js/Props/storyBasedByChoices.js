@@ -1,36 +1,23 @@
 var createRecapBasedOnChoices = function( state ){
 
 		switch( state.year ){
-			case 0:
-				return year0Recap( state )
+			case 1:
+				return year1Recap( state )
 				break;
 			case 2:
 				return year2Recap( state )
 				break;
-			case 4:
-				return year4Recap()
+			case 3:
+				return year3Recap()
 				break;
 	}
 
 }
 
 
-function year0Recap( state ){
+function year1Recap( state ){
 
-	var companyYear = state.company.year0
-
-	/*// INVESTEMENT END EVENT
-	var investment = 0
-	var equity = 80
-	if( companyYear.endEvent == "accept" ){
-		investment = 40000
-	}
-	else{
-		investment = 30000
-	}
-	<div class='recap-numbers'>
-		Investment <label>+${investment}</label>
-	</div>*/
+	var companyYear = state.company.year1
 
 	//SALARIES
 	var plus = 0
@@ -83,7 +70,7 @@ function year0Recap( state ){
 	you've learn a lot about your team and how to work with them.<br/><b>Middle Event: </b> ${middleEvent}`
 
 	// HTML DOM
-	var title = "2 Years have passed"
+	var title = "1 Year have passed"
 	var description = `
 	<div class='descriptionDiv'>
 		<p class='descriptionModal'>
@@ -122,21 +109,18 @@ function year2Recap( state ){
 	var companyYear = state.company.year2
 
 //Investment
+	var equity = 0
 	var investment = 0
 	if( companyYear.endEvent == "100k" ){
+		equity = 80 // 20
 		investment = 100000
 	}
 	else if( companyYear.endEvent == "500k" ){
+		equity = 47 // 53
 		investment = 500000
 	}
 
 //SALARIES
-	var plus = 100
-	if( state.company.year0 && state.company.year0.middleEvent 
-		&& state.company.year0.middleEvent.event1 && state.company.year0.middleEvent.chose == 1 ){
-		plus = 200
-	}
-
 	salaries = countSalary( state.company.team, 100 )
 	var totalSalary =  salaries.total * 24
 
@@ -230,6 +214,12 @@ function year2Recap( state ){
 
 	var textOfTheYear  = `<b>End Event: </b>${companyYear.recapOfYearText} <br/> <b>Middle Event: </b>${ middleEvent }`
 
+
+	var toSendBack = {
+		finalTotal,
+		equity,
+	}
+
 	var description = `
 		<div class='descriptionDiv'>
 			<p class='descriptionModal'>
@@ -261,15 +251,16 @@ function year2Recap( state ){
 
 
 	return {
-		title: "4 Years have passed",
+		title: "2 Years have passed",
 		description,
+		toSendBack,
 	}
 }
 
 
-function year4Recap(){
+function year3Recap(){
 	return {
-		title: "year 4",
-		description: "description 4"
+		title: "year 3",
+		description: "description 3"
 	}
 }

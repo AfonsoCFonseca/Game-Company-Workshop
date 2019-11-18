@@ -78,9 +78,9 @@ class Timer extends React.Component {
 
     return(
       <React.Fragment>
+        <div className={ `twoYearsBatch ${ (this.state.year >= 1 ? 'filled' : '') }` }></div>
         <div className={ `twoYearsBatch ${ (this.state.year >= 2 ? 'filled' : '') }` }></div>
-        <div className={ `twoYearsBatch ${ (this.state.year >= 4 ? 'filled' : '') }` }></div>
-        <div className={ `twoYearsBatch ${ (this.state.year >= 6 ? 'filled' : '') }` }></div>
+        <div className={ `twoYearsBatch ${ (this.state.year >= 3 ? 'filled' : '') }` }></div>
       </React.Fragment>
     )
 

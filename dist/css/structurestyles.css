@@ -6,7 +6,7 @@
   display: flex;
 }
 
-> .structure > .module .businessModuleCanvas > .textDiv, > .structure > .module .businessModuleCanvas > .imgDiv, > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle, > .structure > .module > .inputDiv > .inputDivInner {
+> .structure > .module .businessModelCanvas > .textDiv, > .structure > .module .businessModelCanvas > .imgDiv, > .structure > .module > .inputDiv > .inputDescriptionDiv > .withDescriptionTitle, > .structure > .module > .inputDiv > .inputDivInner {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -153,24 +153,24 @@
   font-size: 11px;
   color: #333333;
 }
-> .structure > .module .businessModuleCanvas {
+> .structure > .module .businessModelCanvas {
   width: 80%;
   padding-top: 35px;
   padding-bottom: 25px;
 }
-> .structure > .module .businessModuleCanvas > .imgDiv {
+> .structure > .module .businessModelCanvas > .imgDiv {
   width: 100%;
   justify-content: space-between;
 }
-> .structure > .module .businessModuleCanvas > .imgDiv > img {
+> .structure > .module .businessModelCanvas > .imgDiv > img {
   width: 40%;
 }
-> .structure > .module .businessModuleCanvas > .textDiv {
+> .structure > .module .businessModelCanvas > .textDiv {
   justify-content: space-between;
   width: 100%;
   padding-top: 15px;
 }
-> .structure > .module .businessModuleCanvas > .textDiv > a {
+> .structure > .module .businessModelCanvas > .textDiv > a {
   text-align: center;
   width: 40%;
   font-size: 11px;

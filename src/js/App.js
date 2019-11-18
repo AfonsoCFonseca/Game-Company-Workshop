@@ -6,11 +6,11 @@ class PageContent extends React.Component {
     this.backup = null
 
     this.state = {
-      year: 0,
+      year: 3,
       goingDev: true,
-      isPaused: false,
+      isPaused: true,
       moduleShow: false,  // Ecra de Eventos
-      optionalScreen: true, // Ecra de entrada e final
+      optionalScreen: false, // Ecra de entrada e final
       middleEvent: false, // Trigger para o middle Event
       recapEvent: false, // Recap Event após o modulo final
       company: {
@@ -18,13 +18,13 @@ class PageContent extends React.Component {
         income: 2500,
         equity: 100,
         team: null,
-        year0:{
+        year1:{
           middleEvent: null,
         },
         year2:{
           middleEvent: null,
         },
-        year4:{
+        year3:{
           middleEvent: null,
         }
       },
@@ -110,16 +110,16 @@ class PageContent extends React.Component {
     let optionalScreen = false
 
     if( type == "next" ){
-      if( year < 4 ){
-        nextYear = this.state.year + 2
+      if( year <= 2 ){
+        nextYear = this.state.year + 1
       }
       else {
-        nextYear = 4
+        nextYear = 2
         optionalScreen = true
       }
     }
     else if( type == "previous")
-      nextYear = ( year > 0 ? this.state.year - 2 : 0 )
+      nextYear = ( year > 0 ? this.state.year - 1 : 0 )
 
     if( toSendBack ) this.changeOfLastYear( toSendBack )
 
@@ -173,9 +173,8 @@ class PageContent extends React.Component {
   }
 
   changeOfLastYear( toSendBack ){
-
     switch( this.state.year ){
-      case 0:
+      case 1:
         this.editCompanyState( "vision", toSendBack.vision )
         this.editCompanyState( "income", toSendBack.finalTotal )
         if( toSendBack.developerLeft == true ){
@@ -185,8 +184,10 @@ class PageContent extends React.Component {
         }
         break;
       case 2:
+        this.editCompanyState( "income", toSendBack.finalTotal )
+        this.editCompanyState( "equity", toSendBack.equity )
         break;
-      case 4:
+      case 3:
         break;
       default: console.log( "failed year")
     }
@@ -248,7 +249,7 @@ class PageContent extends React.Component {
   renderModule(){
 
     if( this.state.optionalScreen == true ){
-      if( this.state.year == 4 ){
+      if( this.state.year == 2 ){
          return <EndingCard
           sendEverything={ this.state }
           exportToImage={ this.exportToImage } />
@@ -261,8 +262,8 @@ class PageContent extends React.Component {
     }
 
     switch ( this.state.year ) {
-      case 0:
-        return <Module_0Year editGeneralState={ this.editGeneralState }
+      case 1:
+        return <Module_1Year editGeneralState={ this.editGeneralState }
           editCompanyState={ this.editCompanyState } />
         break;
       case 2:
@@ -270,8 +271,8 @@ class PageContent extends React.Component {
           company={ this.state.company }
           editCompanyState={ this.editCompanyState } />
         break;
-      case 4:
-        return <Module_4Year editGeneralState={ this.editGeneralState }
+      case 3:
+        return <Module_3Year editGeneralState={ this.editGeneralState }
           company={ this.state.company }
           editCompanyState={ this.editCompanyState }/>
         break;

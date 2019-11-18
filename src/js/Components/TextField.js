@@ -1,19 +1,20 @@
 const TextField = ({ textValue, title }) => {
 
 	let text;
-	if( typeof textValue === "string" ){
-		text = textValue
+	if( textValue ){
+		if( typeof textValue === "string" ){
+			text = textValue
+		}
+		else {
+			text = textValue[ getRandomInt( 0, textValue.length ) ]
+		}
 	}
-	else {
-		text = textValue[ getRandomInt( 0, textValue.length ) ]
-	}
+
 
 	return(
 		<div className='textFieldDiv'>
 			<h3>{ title }</h3>
-			<div className='textFieldDiv'>
-				<p>{ text }</p> 
-			</div>
+			{ textValue != null ? <div className='textFieldDiv'><p>{ text }</p> </div> : null }
 		</div>
 	)
 }

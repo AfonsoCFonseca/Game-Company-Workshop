@@ -7,7 +7,7 @@ const EndingCard = ( props ) => {
 			<React.Fragment> 
 
 					<div className='yearCapDiv'>
-						<p>2 Years</p> 
+						<p>1 Years</p> 
 					</div> 
 					<div className='textIncome'>
 						<p>First Game:</p> 
@@ -16,7 +16,7 @@ const EndingCard = ( props ) => {
 				<hr/>
 
 					<div className='yearCapDiv'>
-						<p>4 Years</p> 
+						<p>2 Years</p> 
 					</div> 
 					<div className='textIncome'>
 						<p>First Game:</p> 
@@ -29,7 +29,7 @@ const EndingCard = ( props ) => {
 				<hr/>
 
 					<div className='yearCapDiv'>
-						<p>6 Years</p> 
+						<p>3 Years</p> 
 					</div>
 					<div className='textIncome'>
 						<p>First Game:</p> 
@@ -51,7 +51,7 @@ const EndingCard = ( props ) => {
 	return(
 		<div className='endingCard'>
 			<div className='endingCard-inner'>
-				<h3 className='title'>The Company made 6 Years</h3>
+				<h3 className='title'>The Company made 3 Years</h3>
 				<div className='endingCard-text'>
 					<p>{endingCardDescription}</p>
 				</div>

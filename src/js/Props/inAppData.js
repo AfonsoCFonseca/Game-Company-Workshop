@@ -34,12 +34,12 @@ const platforms = [
   'Nintendo DS / 3DS'
 ]
 
-const teamArrayYear0 = [
+const teamArrayYear1 = [
   '1 Developer, 1 Artist',
   '2 Developers'
 ]
 
-const visionArrayYear0 = [
+const visionArrayYear1 = [
   "Simple but addictive games",
   "Focus on the story",
   "Online Competitive"

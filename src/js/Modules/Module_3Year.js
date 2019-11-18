@@ -1,4 +1,4 @@
-class Module_4Year extends React.Component {
+class Module_3Year extends React.Component {
 
   constructor( props ){
     super( props )
@@ -9,7 +9,7 @@ class Module_4Year extends React.Component {
   //'https://www.gamasutra.com/blogs/SergioJimenez/20131106/204134/Gamification_Model_Canvas.php'
 
   updateToParent( name, value ){
-    this.props.editCompanyState( "year4", { [name]: value })
+    this.props.editCompanyState( "year3", { [name]: value })
   }
 
   render() {
@@ -18,7 +18,7 @@ class Module_4Year extends React.Component {
       <div className='module'>
         <TextField title='Getting the hang of it' textValue={ modelCanvasExplanation }/>
 
-        <div className='businessModuleCanvas'>
+        <div className='businessModelCanvas'>
 
           <div className='imgDiv'>
             <img src='/public/images/business_Model_Canvas_Template.jpg' />
@@ -30,21 +30,22 @@ class Module_4Year extends React.Component {
           </div>
         </div>
 
+        <TextField title='Business Model Canvas' />
+
          <InputBlock
             size='large'
             valueReceived={ value => this.props.editCompanyState( "ValuePropositions", value ) }>
              <Description
                 title='Value Propositions'
-                description={ description4YearValuePropositions } />
+                description={ description3YearValuePropositions } />
         </InputBlock>
-
 
          <InputBlock
           size='large'
           valueReceived={ value => this.props.editCompanyState( "CustomerSegments", value ) }>
            <Description
               title='Customer Segments'
-              description={ description4YearCustomerSegments } />
+              description={ description3YearCustomerSegments } />
         </InputBlock>
 
          <InputBlock
@@ -52,23 +53,7 @@ class Module_4Year extends React.Component {
           valueReceived={ value => this.props.editCompanyState( "CustomerRelationships", value ) }>
            <Description
               title='Customer Relationships'
-              description={ description4YearCustomerRelationships } />
-        </InputBlock>
-
-        <InputBlock
-          size='large'
-          valueReceived={ value => this.props.editCompanyState( "Channels", value ) }>
-           <Description
-              title='Channels'
-              description={ description4YearChannels } />
-        </InputBlock>
-
-        <InputBlock
-          size='large'
-          valueReceived={ value => this.props.editCompanyState( "KeyActivities", value ) }>
-           <Description
-              title='Key Activities'
-              description={ description4YearKeyActivities } />
+              description={ description3YearCustomerRelationships } />
         </InputBlock>
 
         <InputBlock
@@ -76,7 +61,7 @@ class Module_4Year extends React.Component {
           valueReceived={ value => this.props.editCompanyState( "KeyResources", value ) }>
            <Description
               title='Key Resources'
-              description={ description4YearKeyResources } />
+              description={ description3YearKeyResources } />
         </InputBlock>
 
         <InputBlock
@@ -84,15 +69,7 @@ class Module_4Year extends React.Component {
           valueReceived={ value => this.props.editCompanyState( "KeyPartners", value ) }>
            <Description
               title='Key Partners'
-              description={ description4YearKeyPartners } />
-        </InputBlock>
-
-        <InputBlock
-          size='large'
-          valueReceived={ value => this.props.editCompanyState( "CostStructure", value ) }>
-           <Description
-              title='Cost Structure'
-              description={ description4YearCostStructure } />
+              description={ description3YearKeyPartners } />
         </InputBlock>
 
         <InputBlock
@@ -100,7 +77,27 @@ class Module_4Year extends React.Component {
           valueReceived={ value => this.props.editCompanyState( "RevenueStream", value ) }>
            <Description
               title='Revenue Stream'
-              description={ description4YearRevenueStream } />
+              description={ description3YearRevenueStream } />
+        </InputBlock>
+
+        <TextField title='Team'  textValue={teamDescriptionYear3}/>
+
+        <InputBlock
+          size='large'
+          placeholder='Energetic, Motivational, Organized...'
+          valueReceived={ value => this.props.editCompanyState( "interviewValues", value ) }>
+           <Description
+              title='Values in people'
+              description={ teamValuesInterviewYear3 } />
+        </InputBlock>
+
+        <InputBlock
+          size='large'
+          placeholder='Do you have any personal projects? What do you see doing 5 years from now?'
+          valueReceived={ value => this.props.editCompanyState( "questionsToMake", value ) }>
+           <Description
+              title='Two Questions'
+              description={ team2QuestionsToMake } />
         </InputBlock>
 
       </div>
