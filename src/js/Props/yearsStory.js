@@ -123,7 +123,8 @@ var focusYear1 = [
 		<button
 			onClick={  () => {
 					year1 = {
-						endEvent: "changeVision"
+						endEvent: "changeVision",
+						visionChanged: otherVision
 					}
 					pC.editCompanyState( "year1", year1 )
 					pC.recapTheYear( firstChoice, 1 )
@@ -479,11 +480,52 @@ the company environment`
 
  var year3Story = function( company, pC ){
 
-	var title = ""
-	var text = ""
+	var text = `
+	<div class='descriptionDiv'>
+		<p class='descriptionModal'>The company is running for 3 straight years, now it's time for expand your business.</p>
+		<p class='descriptionModal-type2'>
+			You have two propositions
+		</p>
+		<p class='descriptionModal'>
+			Go to a moch larger office in Londom and run this company from there<br/>
+			Open a new small studio, in Hungary, called ${ company.name } 2.0, to focus on other game ideias that you have
+		</p>
+	</div>`
+
+	var firstChoice = `You decided to open a new studio. In Hungary you can start from scratch new ideias and explore, new games,
+	mechanics, platforms and ways to do revenue`
+
+	var secondChoice = `London it's a great city for game's development. You are sure that you'll learn a lot there and make a lot of 
+	new projects and contacts`
+
+	var year3 = {}
+
+	var buttons = <React.Fragment>
+		<button
+			onClick={  () => {
+					year3 = {
+						endEvent: "newStudio"
+					}
+					pC.editCompanyState( "year3", year3 )
+					pC.recapTheYear( firstChoice, 3 )
+
+				}
+			}>New Studio</button>
+		<button
+			onClick={ () => {
+					year3 = {
+						endEvent: "goToLondon"
+					}
+					pC.editCompanyState( "year3", year3 )
+					pC.recapTheYear( secondChoice, 3 )
+
+				}
+			}>Go to London</button>
+	</React.Fragment>
 
  	return {
  		title: '3 Years have passed',
+ 		buttons,
  		description: text
  	}
 
@@ -533,8 +575,9 @@ the company environment`
 	var text2 = `
 	<div class='descriptionDiv'>
 		<p class='descriptionModal'>You first game have a lot of people playing nowdays, nevertheless, someone found something about your code</p>
-		<p class='descriptionModal'>On a community forum someone posted a hack that can expose some data from your database.</div>
-		<p class='descriptionModal-type2'>What measures do you take?</p>`
+		<p class='descriptionModal'>On a community forum someone posted a hack that can expose some data from your database.</p>
+		<p class='descriptionModal-type2'>What measures do you take?</p>
+	</div>`
 
 	var buttons2 = <React.Fragment>
 	<button

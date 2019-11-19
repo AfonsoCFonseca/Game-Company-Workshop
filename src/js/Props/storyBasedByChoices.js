@@ -8,7 +8,7 @@ var createRecapBasedOnChoices = function( state ){
 				return year2Recap( state )
 				break;
 			case 3:
-				return year3Recap()
+				return year3Recap( state )
 				break;
 	}
 
@@ -18,6 +18,11 @@ var createRecapBasedOnChoices = function( state ){
 function year1Recap( state ){
 
 	var companyYear = state.company.year1
+
+	var bill = {
+		game: 0,
+		expanses: 0,
+	}
 
 	//SALARIES
 	var plus = 0
@@ -30,7 +35,7 @@ function year1Recap( state ){
 	var artistsSalary = salaries.artistsSalary * 24
 
 	// GAME REVENUE
-	var gameRevenue = 40500
+	var gameRevenue = 41534
 	if( companyYear.middleEvent ){
 		if( companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "meetings" )
 			gameRevenue += 2000
@@ -49,9 +54,15 @@ function year1Recap( state ){
 	finalTotal -= artistsSalary
 	finalTotal -= infrastructures
 
+	var expanses = parseInt( total ) + parseInt( infrastructures )
+	bill.expanses = expanses
+	bill.game = gameRevenue
+
+	var vision = companyYear.endEvent == "changeVision" ? companyYear.visionChanged : companyYear.vision
 	var toSendBack = {
-		vision: companyYear.vision,
+		vision,
 		finalTotal,
+		bill,
 		developerLeft: ( companyYear.endEvent == "changeVision" ? true : false )
 	}
 
@@ -108,6 +119,12 @@ function year2Recap( state ){
 	
 	var companyYear = state.company.year2
 
+	var bill = {
+		game: 0,
+		investment: 0,
+		expanses: 0,
+	}
+
 //Investment
 	var equity = 0
 	var investment = 0
@@ -119,6 +136,7 @@ function year2Recap( state ){
 		equity = 47 // 53
 		investment = 500000
 	}
+	bill.investment = investment
 
 //SALARIES
 	salaries = countSalary( state.company.team, 100 )
@@ -160,7 +178,7 @@ function year2Recap( state ){
 	office *= 24
 
 //GAME
-	var gameRevenue = 20000
+	var gameRevenue = 21252
 	if( companyYear.officeChoice == "Small but with other start-ups near" )
 		gameRevenue += 2000
 
@@ -195,7 +213,12 @@ function year2Recap( state ){
 
 //TOTAL
 	var finalTotal = office + gameRevenue + infrastructures +
-		 totalSalary + state.company.income
+		 totalSalary + state.company.income + investment
+
+	var expanses = office + infrastructures + totalSalary
+	bill.expanses = expanses
+
+	bill.game = gameRevenue
 
 	// HTML DOM
 	//Falta middle eventr
@@ -218,6 +241,7 @@ function year2Recap( state ){
 	var toSendBack = {
 		finalTotal,
 		equity,
+		bill,
 	}
 
 	var description = `
@@ -258,9 +282,148 @@ function year2Recap( state ){
 }
 
 
-function year3Recap(){
+function year3Recap( state ){
+	var companyYear = state.company.year3
+
+	var bill = {
+		game: 0,
+		expanses: 0,
+	}
+
+	//GAME REVENUE
+	var gameRevenue = 51321;
+	var finalTotal = state.company.income
+
+	var investors = ""
+
+	if( state.company.year2.endEvent && state.company.year2.endEvent == "500k" ){
+		gameRevenue - 10000
+		investors =`<b>Others: </b> The investors made you change a few things in your game and that made the game sold less. Since more then 50%
+		of the company belongs to them, they can make this calls whenever they want`
+	}
+
+	//SALARIES
+	salaries = countSalary( state.company.team, 100 )
+	var totalSalary = salaries.total * 24
+
+	var salariesObj = {
+		Developers: salaries.developersSalary * 24,
+		Artist: salaries.artistsSalary * 24,
+		Designers: salaries.designersSalary * 24,
+		SFX: salaries.sfxSalary * 24,
+		Marketing: salaries.marketingSalary * 24
+	}
+
+	finalTotal -= totalSalary
+
+	function drawTeamExpansives( ){
+
+		var elements = ""
+		for( var x in salariesObj ){
+			if( salariesObj[x] == 0 ) continue 
+
+			if( salariesObj[x] ){
+				elements += `<div class='recap-numbers'>${x} <label>-${salariesObj[x]}</label></div>`
+			}
+
+		}
+
+		return elements 
+	}
+
+	//INFRASTRUCTURES 
+	var infrastructures = 800 // 200
+	infrastructures *= 24
+
+	totalSalary - infrastructures
+
+	// FINAL TEXT
+	var extraDlc = null
+	var fine = null
+	var middleEvent = ""
+	if( companyYear.middleEvent  && companyYear.middleEvent.event == 1 ){
+		if( companyYear.middleEvent.chose == "dlc1dev" ){
+			middleEvent = `The dlc of your first game made some bucks but it lacked development`
+			extraDlc = 4000
+			finalTotal += extraDlc
+		}
+		if( companyYear.middleEvent.chose == "dlc2dev" ){
+			middleEvent = `Making a dlc for you first game made the community really excited and made a few bucks with it`
+			extraDlc = 7000
+			finalTotal += extraDlc
+		} 
+		if( companyYear.middleEvent.chose == "ignore" ) middleEvent = `Your community was unhappy since you ignore them on the forums for the DLC's for your first game`
+		
+	}
+	if( companyYear.middleEvent  && companyYear.middleEvent.event == 2 ){
+		if( companyYear.middleEvent.chose == "close" ) middleEvent = `You closed your first game and left the community unsatisfied`
+		if( companyYear.middleEvent.chose == "1devCorrect" ) middleEvent = `Making one of the developers fixing the backdoor on your first game saved you some future problems`
+			if( companyYear.middleEvent.chose == "nothing" ){
+				middleEvent = `Leaving the database from your first game exposed made you go to tribunal and pay a huge fine`
+				fine = 50000
+				finalTotal -= fine
+			} 
+	}
+
+
+	function make3YearRenderEvent(){
+
+		if( fine != null )
+			return ( `<div class='recap-numbers'>
+					Tribunal fine <label>-${fine}</label>
+				</div>` )
+
+		if( extraDlc != null ) 
+			return ( `<div class='recap-numbers'>
+					1º Game Dlc<label>+${extraDlc}</label>
+				</div>` )
+
+		return ""
+	}	
+
+	bill.game = gameRevenue
+	var expanses = totalSalary + infrastructures
+	if( fine != null ) expanses += fine
+	bill.expanses = expanses
+
+	var toSendBack = {
+		finalTotal,
+		bill
+	}
+
+
+	var textOfTheYear = `<b>End Event: </b>${companyYear.recapOfYearText}.<br/><b>Middle Event: </b> ${middleEvent}
+	<br/>${investors}`
+
+	// HTML DOM
+	var title = "3 Years have passed"
+	var description = `
+	<div class='descriptionDiv'>
+		<p class='descriptionModal'>
+			${textOfTheYear}
+		</p>
+	</div>
+	<div class='recap'>
+		<div class='recap-numbers'>
+			Your cash: <label>${state.company.income}</label>
+		</div>
+		<div class='recap-numbers'>
+			Game1 <label>+${gameRevenue}</label>
+		</div>
+		${ drawTeamExpansives() }
+		<div class='recap-numbers'>
+			Infrastructures <label>-${infrastructures}</label>
+		</div>
+		${ make3YearRenderEvent() }
+		<hr/>
+		<div class='recap-numbers total'>
+			Total <label>${ finalTotal }</label>
+		</div>
+	</div>`
+
 	return {
-		title: "year 3",
-		description: "description 3"
+		title,
+		description,
+		toSendBack
 	}
 }

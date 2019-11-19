@@ -6,11 +6,11 @@ class PageContent extends React.Component {
     this.backup = null
 
     this.state = {
-      year: 3,
+      year: 1,
       goingDev: true,
-      isPaused: true,
+      isPaused: false,
       moduleShow: false,  // Ecra de Eventos
-      optionalScreen: false, // Ecra de entrada e final
+      optionalScreen: true, // Ecra de entrada e final
       middleEvent: false, // Trigger para o middle Event
       recapEvent: false, // Recap Event após o modulo final
       company: {
@@ -28,6 +28,7 @@ class PageContent extends React.Component {
           middleEvent: null,
         }
       },
+      bill: {},
     }
 
     this.prepareNextYear = this.prepareNextYear.bind( this )
@@ -177,6 +178,9 @@ class PageContent extends React.Component {
       case 1:
         this.editCompanyState( "vision", toSendBack.vision )
         this.editCompanyState( "income", toSendBack.finalTotal )
+        var bill = this.state.bill
+        bill.year1 = toSendBack.bill
+        this.setState({ bill })
         if( toSendBack.developerLeft == true ){
           var team = this.state.company.team
           team.developers -= 1
@@ -186,8 +190,15 @@ class PageContent extends React.Component {
       case 2:
         this.editCompanyState( "income", toSendBack.finalTotal )
         this.editCompanyState( "equity", toSendBack.equity )
+        var bill = this.state.bill
+        bill.year2 = toSendBack.bill
+        this.setState({ bill })
         break;
       case 3:
+        this.editCompanyState( "income", toSendBack.finalTotal )
+        var bill = this.state.bill
+        bill.year3 = toSendBack.bill
+        this.setState({ bill })
         break;
       default: console.log( "failed year")
     }

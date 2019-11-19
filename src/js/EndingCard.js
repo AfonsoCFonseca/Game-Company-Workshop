@@ -1,7 +1,8 @@
 const EndingCard = ( props ) => {
 	var everything = props.sendEverything
 	var company = everything.company
-
+	console.log( everything )
+	var bill = everything.bill
 	function makeTextForPdf(){
 		return ( 
 			<React.Fragment> 
@@ -11,7 +12,11 @@ const EndingCard = ( props ) => {
 					</div> 
 					<div className='textIncome'>
 						<p>First Game:</p> 
-						<label>${company.income}</label> 
+						<label>+${bill.year1.game}</label> 
+					</div>
+					<div className='textIncome'>
+						<p>Expanses:</p> 
+						<label>-${bill.year1.expanses}</label> 
 					</div> 
 				<hr/>
 
@@ -19,21 +24,29 @@ const EndingCard = ( props ) => {
 						<p>2 Years</p> 
 					</div> 
 					<div className='textIncome'>
-						<p>First Game:</p> 
-						<label>${company.income}</label> 
+						<p>Second Game:</p> 
+						<label>+${bill.year2.game}</label> 
 					</div> 
 					<div className='textIncome'>
 						<p>Investment</p> 
-						<label>${company.income}</label> 
-					</div> 
+						<label>+${bill.year2.investment}</label> 
+					</div>
+					<div className='textIncome'>
+						<p>Expanses:</p> 
+						<label>-${bill.year2.expanses}</label> 
+					</div>
 				<hr/>
 
 					<div className='yearCapDiv'>
 						<p>3 Years</p> 
 					</div>
 					<div className='textIncome'>
-						<p>First Game:</p> 
-						<label>${company.income}</label> 
+						<p>Thrid Game:</p> 
+						<label>+${bill.year3.game}</label> 
+					</div> 
+					<div className='textIncome'>
+						<p>Expanses:</p> 
+						<label>- ${bill.year3.expanses}</label> 
 					</div> 
 				<hr/>
 

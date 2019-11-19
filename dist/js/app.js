@@ -6,11 +6,11 @@ class PageContent extends React.Component {
     this.backup = null
 
     this.state = {
-      year: 3,
+      year: 1,
       goingDev: true,
-      isPaused: true,
+      isPaused: false,
       moduleShow: false,  // Ecra de Eventos
-      optionalScreen: false, // Ecra de entrada e final
+      optionalScreen: true, // Ecra de entrada e final
       middleEvent: false, // Trigger para o middle Event
       recapEvent: false, // Recap Event após o modulo final
       company: {
@@ -28,6 +28,7 @@ class PageContent extends React.Component {
           middleEvent: null,
         }
       },
+      bill: {},
     }
 
     this.prepareNextYear = this.prepareNextYear.bind( this )
@@ -177,6 +178,9 @@ class PageContent extends React.Component {
       case 1:
         this.editCompanyState( "vision", toSendBack.vision )
         this.editCompanyState( "income", toSendBack.finalTotal )
+        var bill = this.state.bill
+        bill.year1 = toSendBack.bill
+        this.setState({ bill })
         if( toSendBack.developerLeft == true ){
           var team = this.state.company.team
           team.developers -= 1
@@ -186,8 +190,15 @@ class PageContent extends React.Component {
       case 2:
         this.editCompanyState( "income", toSendBack.finalTotal )
         this.editCompanyState( "equity", toSendBack.equity )
+        var bill = this.state.bill
+        bill.year2 = toSendBack.bill
+        this.setState({ bill })
         break;
       case 3:
+        this.editCompanyState( "income", toSendBack.finalTotal )
+        var bill = this.state.bill
+        bill.year3 = toSendBack.bill
+        this.setState({ bill })
         break;
       default: console.log( "failed year")
     }
@@ -692,7 +703,8 @@ class PageContent extends React.Component {
 };const EndingCard = ( props ) => {
 	var everything = props.sendEverything
 	var company = everything.company
-
+	console.log( everything )
+	var bill = everything.bill
 	function makeTextForPdf(){
 		return ( 
 			React.createElement(React.Fragment, null, 
@@ -702,7 +714,11 @@ class PageContent extends React.Component {
 					), 
 					React.createElement("div", {className: "textIncome"}, 
 						React.createElement("p", null, "First Game:"), 
-						React.createElement("label", null, "$", company.income)
+						React.createElement("label", null, "+$", bill.year1.game)
+					), 
+					React.createElement("div", {className: "textIncome"}, 
+						React.createElement("p", null, "Expanses:"), 
+						React.createElement("label", null, "-$", bill.year1.expanses)
 					), 
 				React.createElement("hr", null), 
 
@@ -710,12 +726,16 @@ class PageContent extends React.Component {
 						React.createElement("p", null, "2 Years")
 					), 
 					React.createElement("div", {className: "textIncome"}, 
-						React.createElement("p", null, "First Game:"), 
-						React.createElement("label", null, "$", company.income)
+						React.createElement("p", null, "Second Game:"), 
+						React.createElement("label", null, "+$", bill.year2.game)
 					), 
 					React.createElement("div", {className: "textIncome"}, 
 						React.createElement("p", null, "Investment"), 
-						React.createElement("label", null, "$", company.income)
+						React.createElement("label", null, "+$", bill.year2.investment)
+					), 
+					React.createElement("div", {className: "textIncome"}, 
+						React.createElement("p", null, "Expanses:"), 
+						React.createElement("label", null, "-$", bill.year2.expanses)
 					), 
 				React.createElement("hr", null), 
 
@@ -723,8 +743,12 @@ class PageContent extends React.Component {
 						React.createElement("p", null, "3 Years")
 					), 
 					React.createElement("div", {className: "textIncome"}, 
-						React.createElement("p", null, "First Game:"), 
-						React.createElement("label", null, "$", company.income)
+						React.createElement("p", null, "Thrid Game:"), 
+						React.createElement("label", null, "+$", bill.year3.game)
+					), 
+					React.createElement("div", {className: "textIncome"}, 
+						React.createElement("p", null, "Expanses:"), 
+						React.createElement("label", null, "- $", bill.year3.expanses)
 					), 
 				React.createElement("hr", null), 
 
@@ -1098,7 +1122,7 @@ class PageContent extends React.Component {
 
          React.createElement(InputBlock, {
             size: "large", 
-            valueReceived:  value => this.props.editCompanyState( "ValuePropositions", value )}, 
+            valueReceived:  value => this.updateToParent( "ValuePropositions", value )}, 
              React.createElement(Description, {
                 title: "Value Propositions", 
                 description:  description3YearValuePropositions })
@@ -1106,7 +1130,7 @@ class PageContent extends React.Component {
 
          React.createElement(InputBlock, {
           size: "large", 
-          valueReceived:  value => this.props.editCompanyState( "CustomerSegments", value )}, 
+          valueReceived:  value => this.updateToParent( "CustomerSegments", value )}, 
            React.createElement(Description, {
               title: "Customer Segments", 
               description:  description3YearCustomerSegments })
@@ -1114,7 +1138,7 @@ class PageContent extends React.Component {
 
          React.createElement(InputBlock, {
           size: "large", 
-          valueReceived:  value => this.props.editCompanyState( "CustomerRelationships", value )}, 
+          valueReceived:  value => this.updateToParent( "CustomerRelationships", value )}, 
            React.createElement(Description, {
               title: "Customer Relationships", 
               description:  description3YearCustomerRelationships })
@@ -1122,7 +1146,7 @@ class PageContent extends React.Component {
 
         React.createElement(InputBlock, {
           size: "large", 
-          valueReceived:  value => this.props.editCompanyState( "KeyResources", value )}, 
+          valueReceived:  value => this.updateToParent( "KeyResources", value )}, 
            React.createElement(Description, {
               title: "Key Resources", 
               description:  description3YearKeyResources })
@@ -1130,7 +1154,7 @@ class PageContent extends React.Component {
 
         React.createElement(InputBlock, {
           size: "large", 
-          valueReceived:  value => this.props.editCompanyState( "KeyPartners", value )}, 
+          valueReceived:  value => this.updateToParent( "KeyPartners", value )}, 
            React.createElement(Description, {
               title: "Key Partners", 
               description:  description3YearKeyPartners })
@@ -1138,7 +1162,7 @@ class PageContent extends React.Component {
 
         React.createElement(InputBlock, {
           size: "large", 
-          valueReceived:  value => this.props.editCompanyState( "RevenueStream", value )}, 
+          valueReceived:  value => this.updateToParent( "RevenueStream", value )}, 
            React.createElement(Description, {
               title: "Revenue Stream", 
               description:  description3YearRevenueStream })
@@ -1149,7 +1173,7 @@ class PageContent extends React.Component {
         React.createElement(InputBlock, {
           size: "large", 
           placeholder: "Energetic, Motivational, Organized...", 
-          valueReceived:  value => this.props.editCompanyState( "interviewValues", value )}, 
+          valueReceived:  value => this.updateToParent( "interviewValues", value )}, 
            React.createElement(Description, {
               title: "Values in people", 
               description:  teamValuesInterviewYear3 })
@@ -1158,7 +1182,7 @@ class PageContent extends React.Component {
         React.createElement(InputBlock, {
           size: "large", 
           placeholder: "Do you have any personal projects? What do you see doing 5 years from now?", 
-          valueReceived:  value => this.props.editCompanyState( "questionsToMake", value )}, 
+          valueReceived:  value => this.updateToParent( "questionsToMake", value )}, 
            React.createElement(Description, {
               title: "Two Questions", 
               description:  team2QuestionsToMake })
@@ -1231,7 +1255,7 @@ const officeSpaceArrayYear2 = [
 				return year2Recap( state )
 				break;
 			case 3:
-				return year3Recap()
+				return year3Recap( state )
 				break;
 	}
 
@@ -1241,6 +1265,11 @@ const officeSpaceArrayYear2 = [
 function year1Recap( state ){
 
 	var companyYear = state.company.year1
+
+	var bill = {
+		game: 0,
+		expanses: 0,
+	}
 
 	//SALARIES
 	var plus = 0
@@ -1253,7 +1282,7 @@ function year1Recap( state ){
 	var artistsSalary = salaries.artistsSalary * 24
 
 	// GAME REVENUE
-	var gameRevenue = 40500
+	var gameRevenue = 41534
 	if( companyYear.middleEvent ){
 		if( companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "meetings" )
 			gameRevenue += 2000
@@ -1272,9 +1301,15 @@ function year1Recap( state ){
 	finalTotal -= artistsSalary
 	finalTotal -= infrastructures
 
+	var expanses = parseInt( total ) + parseInt( infrastructures )
+	bill.expanses = expanses
+	bill.game = gameRevenue
+
+	var vision = companyYear.endEvent == "changeVision" ? companyYear.visionChanged : companyYear.vision
 	var toSendBack = {
-		vision: companyYear.vision,
+		vision,
 		finalTotal,
+		bill,
 		developerLeft: ( companyYear.endEvent == "changeVision" ? true : false )
 	}
 
@@ -1331,6 +1366,12 @@ function year2Recap( state ){
 	
 	var companyYear = state.company.year2
 
+	var bill = {
+		game: 0,
+		investment: 0,
+		expanses: 0,
+	}
+
 //Investment
 	var equity = 0
 	var investment = 0
@@ -1342,6 +1383,7 @@ function year2Recap( state ){
 		equity = 47 // 53
 		investment = 500000
 	}
+	bill.investment = investment
 
 //SALARIES
 	salaries = countSalary( state.company.team, 100 )
@@ -1383,7 +1425,7 @@ function year2Recap( state ){
 	office *= 24
 
 //GAME
-	var gameRevenue = 20000
+	var gameRevenue = 21252
 	if( companyYear.officeChoice == "Small but with other start-ups near" )
 		gameRevenue += 2000
 
@@ -1418,7 +1460,12 @@ function year2Recap( state ){
 
 //TOTAL
 	var finalTotal = office + gameRevenue + infrastructures +
-		 totalSalary + state.company.income
+		 totalSalary + state.company.income + investment
+
+	var expanses = office + infrastructures + totalSalary
+	bill.expanses = expanses
+
+	bill.game = gameRevenue
 
 	// HTML DOM
 	//Falta middle eventr
@@ -1441,6 +1488,7 @@ function year2Recap( state ){
 	var toSendBack = {
 		finalTotal,
 		equity,
+		bill,
 	}
 
 	var description = `
@@ -1481,10 +1529,149 @@ function year2Recap( state ){
 }
 
 
-function year3Recap(){
+function year3Recap( state ){
+	var companyYear = state.company.year3
+
+	var bill = {
+		game: 0,
+		expanses: 0,
+	}
+
+	//GAME REVENUE
+	var gameRevenue = 51321;
+	var finalTotal = state.company.income
+
+	var investors = ""
+
+	if( state.company.year2.endEvent && state.company.year2.endEvent == "500k" ){
+		gameRevenue - 10000
+		investors =`<b>Others: </b> The investors made you change a few things in your game and that made the game sold less. Since more then 50%
+		of the company belongs to them, they can make this calls whenever they want`
+	}
+
+	//SALARIES
+	salaries = countSalary( state.company.team, 100 )
+	var totalSalary = salaries.total * 24
+
+	var salariesObj = {
+		Developers: salaries.developersSalary * 24,
+		Artist: salaries.artistsSalary * 24,
+		Designers: salaries.designersSalary * 24,
+		SFX: salaries.sfxSalary * 24,
+		Marketing: salaries.marketingSalary * 24
+	}
+
+	finalTotal -= totalSalary
+
+	function drawTeamExpansives( ){
+
+		var elements = ""
+		for( var x in salariesObj ){
+			if( salariesObj[x] == 0 ) continue 
+
+			if( salariesObj[x] ){
+				elements += `<div class='recap-numbers'>${x} <label>-${salariesObj[x]}</label></div>`
+			}
+
+		}
+
+		return elements 
+	}
+
+	//INFRASTRUCTURES 
+	var infrastructures = 800 // 200
+	infrastructures *= 24
+
+	totalSalary - infrastructures
+
+	// FINAL TEXT
+	var extraDlc = null
+	var fine = null
+	var middleEvent = ""
+	if( companyYear.middleEvent  && companyYear.middleEvent.event == 1 ){
+		if( companyYear.middleEvent.chose == "dlc1dev" ){
+			middleEvent = `The dlc of your first game made some bucks but it lacked development`
+			extraDlc = 4000
+			finalTotal += extraDlc
+		}
+		if( companyYear.middleEvent.chose == "dlc2dev" ){
+			middleEvent = `Making a dlc for you first game made the community really excited and made a few bucks with it`
+			extraDlc = 7000
+			finalTotal += extraDlc
+		} 
+		if( companyYear.middleEvent.chose == "ignore" ) middleEvent = `Your community was unhappy since you ignore them on the forums for the DLC's for your first game`
+		
+	}
+	if( companyYear.middleEvent  && companyYear.middleEvent.event == 2 ){
+		if( companyYear.middleEvent.chose == "close" ) middleEvent = `You closed your first game and left the community unsatisfied`
+		if( companyYear.middleEvent.chose == "1devCorrect" ) middleEvent = `Making one of the developers fixing the backdoor on your first game saved you some future problems`
+			if( companyYear.middleEvent.chose == "nothing" ){
+				middleEvent = `Leaving the database from your first game exposed made you go to tribunal and pay a huge fine`
+				fine = 50000
+				finalTotal -= fine
+			} 
+	}
+
+
+	function make3YearRenderEvent(){
+
+		if( fine != null )
+			return ( `<div class='recap-numbers'>
+					Tribunal fine <label>-${fine}</label>
+				</div>` )
+
+		if( extraDlc != null ) 
+			return ( `<div class='recap-numbers'>
+					1º Game Dlc<label>+${extraDlc}</label>
+				</div>` )
+
+		return ""
+	}	
+
+	bill.game = gameRevenue
+	var expanses = totalSalary + infrastructures
+	if( fine != null ) expanses += fine
+	bill.expanses = expanses
+
+	var toSendBack = {
+		finalTotal,
+		bill
+	}
+
+
+	var textOfTheYear = `<b>End Event: </b>${companyYear.recapOfYearText}.<br/><b>Middle Event: </b> ${middleEvent}
+	<br/>${investors}`
+
+	// HTML DOM
+	var title = "3 Years have passed"
+	var description = `
+	<div class='descriptionDiv'>
+		<p class='descriptionModal'>
+			${textOfTheYear}
+		</p>
+	</div>
+	<div class='recap'>
+		<div class='recap-numbers'>
+			Your cash: <label>${state.company.income}</label>
+		</div>
+		<div class='recap-numbers'>
+			Game1 <label>+${gameRevenue}</label>
+		</div>
+		${ drawTeamExpansives() }
+		<div class='recap-numbers'>
+			Infrastructures <label>-${infrastructures}</label>
+		</div>
+		${ make3YearRenderEvent() }
+		<hr/>
+		<div class='recap-numbers total'>
+			Total <label>${ finalTotal }</label>
+		</div>
+	</div>`
+
 	return {
-		title: "year 3",
-		description: "description 3"
+		title,
+		description,
+		toSendBack
 	}
 }
 ;
@@ -1612,7 +1799,8 @@ var focusYear1 = [
 		React.createElement("button", {
 			onClick:   () => {
 					year1 = {
-						endEvent: "changeVision"
+						endEvent: "changeVision",
+						visionChanged: otherVision
 					}
 					pC.editCompanyState( "year1", year1 )
 					pC.recapTheYear( firstChoice, 1 )
@@ -1968,11 +2156,52 @@ the company environment`
 
  var year3Story = function( company, pC ){
 
-	var title = ""
-	var text = ""
+	var text = `
+	<div class='descriptionDiv'>
+		<p class='descriptionModal'>The company is running for 3 straight years, now it's time for expand your business.</p>
+		<p class='descriptionModal-type2'>
+			You have two propositions
+		</p>
+		<p class='descriptionModal'>
+			Go to a moch larger office in Londom and run this company from there<br/>
+			Open a new small studio, in Hungary, called ${ company.name } 2.0, to focus on other game ideias that you have
+		</p>
+	</div>`
+
+	var firstChoice = `You decided to open a new studio. In Hungary you can start from scratch new ideias and explore, new games,
+	mechanics, platforms and ways to do revenue`
+
+	var secondChoice = `London it's a great city for game's development. You are sure that you'll learn a lot there and make a lot of 
+	new projects and contacts`
+
+	var year3 = {}
+
+	var buttons = React.createElement(React.Fragment, null, 
+		React.createElement("button", {
+			onClick:   () => {
+					year3 = {
+						endEvent: "newStudio"
+					}
+					pC.editCompanyState( "year3", year3 )
+					pC.recapTheYear( firstChoice, 3 )
+
+				}
+			}, "New Studio"), 
+		React.createElement("button", {
+			onClick:  () => {
+					year3 = {
+						endEvent: "goToLondon"
+					}
+					pC.editCompanyState( "year3", year3 )
+					pC.recapTheYear( secondChoice, 3 )
+
+				}
+			}, "Go to London")
+	)
 
  	return {
  		title: '3 Years have passed',
+ 		buttons,
  		description: text
  	}
 
@@ -2022,8 +2251,9 @@ the company environment`
 	var text2 = `
 	<div class='descriptionDiv'>
 		<p class='descriptionModal'>You first game have a lot of people playing nowdays, nevertheless, someone found something about your code</p>
-		<p class='descriptionModal'>On a community forum someone posted a hack that can expose some data from your database.</div>
-		<p class='descriptionModal-type2'>What measures do you take?</p>`
+		<p class='descriptionModal'>On a community forum someone posted a hack that can expose some data from your database.</p>
+		<p class='descriptionModal-type2'>What measures do you take?</p>
+	</div>`
 
 	var buttons2 = React.createElement(React.Fragment, null, 
 	React.createElement("button", {

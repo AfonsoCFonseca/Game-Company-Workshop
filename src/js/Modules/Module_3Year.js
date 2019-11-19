@@ -34,7 +34,7 @@ class Module_3Year extends React.Component {
 
          <InputBlock
             size='large'
-            valueReceived={ value => this.props.editCompanyState( "ValuePropositions", value ) }>
+            valueReceived={ value => this.updateToParent( "ValuePropositions", value ) }>
              <Description
                 title='Value Propositions'
                 description={ description3YearValuePropositions } />
@@ -42,7 +42,7 @@ class Module_3Year extends React.Component {
 
          <InputBlock
           size='large'
-          valueReceived={ value => this.props.editCompanyState( "CustomerSegments", value ) }>
+          valueReceived={ value => this.updateToParent( "CustomerSegments", value ) }>
            <Description
               title='Customer Segments'
               description={ description3YearCustomerSegments } />
@@ -50,7 +50,7 @@ class Module_3Year extends React.Component {
 
          <InputBlock
           size='large'
-          valueReceived={ value => this.props.editCompanyState( "CustomerRelationships", value ) }>
+          valueReceived={ value => this.updateToParent( "CustomerRelationships", value ) }>
            <Description
               title='Customer Relationships'
               description={ description3YearCustomerRelationships } />
@@ -58,7 +58,7 @@ class Module_3Year extends React.Component {
 
         <InputBlock
           size='large'
-          valueReceived={ value => this.props.editCompanyState( "KeyResources", value ) }>
+          valueReceived={ value => this.updateToParent( "KeyResources", value ) }>
            <Description
               title='Key Resources'
               description={ description3YearKeyResources } />
@@ -66,7 +66,7 @@ class Module_3Year extends React.Component {
 
         <InputBlock
           size='large'
-          valueReceived={ value => this.props.editCompanyState( "KeyPartners", value ) }>
+          valueReceived={ value => this.updateToParent( "KeyPartners", value ) }>
            <Description
               title='Key Partners'
               description={ description3YearKeyPartners } />
@@ -74,7 +74,7 @@ class Module_3Year extends React.Component {
 
         <InputBlock
           size='large'
-          valueReceived={ value => this.props.editCompanyState( "RevenueStream", value ) }>
+          valueReceived={ value => this.updateToParent( "RevenueStream", value ) }>
            <Description
               title='Revenue Stream'
               description={ description3YearRevenueStream } />
@@ -85,7 +85,7 @@ class Module_3Year extends React.Component {
         <InputBlock
           size='large'
           placeholder='Energetic, Motivational, Organized...'
-          valueReceived={ value => this.props.editCompanyState( "interviewValues", value ) }>
+          valueReceived={ value => this.updateToParent( "interviewValues", value ) }>
            <Description
               title='Values in people'
               description={ teamValuesInterviewYear3 } />
@@ -94,7 +94,7 @@ class Module_3Year extends React.Component {
         <InputBlock
           size='large'
           placeholder='Do you have any personal projects? What do you see doing 5 years from now?'
-          valueReceived={ value => this.props.editCompanyState( "questionsToMake", value ) }>
+          valueReceived={ value => this.updateToParent( "questionsToMake", value ) }>
            <Description
               title='Two Questions'
               description={ team2QuestionsToMake } />
