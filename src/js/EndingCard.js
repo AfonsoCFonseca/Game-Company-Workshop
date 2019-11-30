@@ -4,78 +4,78 @@ const EndingCard = ( props ) => {
 
 	var bill = everything.bill
 	function makeTextForPdf(){
-		return ( 
-			<React.Fragment> 
+		return (
+			<React.Fragment>
 					<hr/>
-					<h3 className='title'>Company Overview</h3> 
+					<h3 className='title'>Company Overview</h3>
 					<div className='yearCapDiv'>
-						<p>1 Years</p> 
-					</div> 
-					{ 
-						bill.year1 ? 
+						<p>1 Years</p>
+					</div>
+					{
+						bill.year1 ?
 						<React.Fragment>
 							<div className='textIncome'>
-								<p>First Game:</p> 
-								<label>+{bill.year1.game}$</label> 
+								<p>First Game:</p>
+								<label>+{bill.year1.game}$</label>
 							</div>
 							<div className='textIncome'>
-								<p>Expanses:</p> 
-								<label>-{bill.year1.expanses}$</label> 
+								<p>Expanses:</p>
+								<label>-{bill.year1.expanses}$</label>
 							</div>
-						</React.Fragment>   : null 
+						</React.Fragment>   : null
 					}
-					
+
 				<hr/>
 
 					<div className='yearCapDiv'>
-						<p>2 Years</p> 
+						<p>2 Years</p>
 					</div>
-					{ 
-						bill.year2 ? 
+					{
+						bill.year2 ?
 						<React.Fragment>
 							<div className='textIncome'>
-								<p>Second Game:</p> 
-								<label>+{bill.year2.game}$</label> 
-							</div> 
-							<div className='textIncome'>
-								<p>Investment</p> 
-								<label>+{bill.year2.investment}$</label> 
+								<p>Second Game:</p>
+								<label>+{bill.year2.game}$</label>
 							</div>
 							<div className='textIncome'>
-								<p>Expanses:</p> 
-								<label>-{bill.year2.expanses}$</label> 
+								<p>Investment</p>
+								<label>+{bill.year2.investment}$</label>
+							</div>
+							<div className='textIncome'>
+								<p>Expanses:</p>
+								<label>-{bill.year2.expanses}$</label>
 							</div>
 						</React.Fragment> : null
 					}
 				<hr/>
 
 					<div className='yearCapDiv'>
-						<p>3 Years</p> 
+						<p>3 Years</p>
 					</div>
-					{ 
-						bill.year3 ? 
+					{
+						bill.year3 ?
 						<React.Fragment>
 							<div className='textIncome'>
-								<p>Thrid Game:</p> 
-								<label>+{bill.year3.game}$</label> 
-							</div> 
+								<p>Thrid Game:</p>
+								<label>+{bill.year3.game}$</label>
+							</div>
 							<div className='textIncome'>
-								<p>Expanses:</p> 
-								<label>- {bill.year3.expanses}$</label> 
-							</div> 
+								<p>Expanses:</p>
+								<label>- {bill.year3.expanses}$</label>
+							</div>
 						</React.Fragment> : null
 					}
 				<hr/>
 
 				<div style={{marginTop : '20px'}} className='textIncome'>
-					<p>Total Cash:</p> 
-					<label>{company.income}$</label> 
-				</div> 
+					<p>Total Cash:</p>
+					<label>{company.income}$</label>
+				</div>
 				<div className='textIncome'>
-					<p>Company Equity:</p> 
-					<label>{company.equity}%</label> 
-				</div> 
-			</React.Fragment> 
+					<p>Company Equity:</p>
+					<label>{company.equity}%</label>
+				</div>
+			</React.Fragment>
 		)
 	}
 
@@ -85,45 +85,45 @@ const EndingCard = ( props ) => {
 		var year1 = company.year1
 
 		return (
-			<React.Fragment> 
-				<h3 className='title'>Choices Year 1</h3> 
+			<React.Fragment>
+				<h3 className='title'>Choices Year 1</h3>
 				<div style={{marginTop: '20px'}} className='textIncome choices'>
-					<p><b>Vision: </b> { year1.vision || "" }</p>  
+					<p><b>Vision: </b> { year1.vision || "" }</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Game Name: </b> { year1.gameName || "" }</p>  
+					<p><b>Game Name: </b> { year1.gameName || "" }</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Game genre: </b> { year1.genres || "" }</p>  
+					<p><b>Game genre: </b> { year1.genres || "" }</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Game Description: </b> { year1.gameDescription || "" }</p>  
+					<p><b>Game Description: </b> { year1.gameDescription || "" }</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Game Unique Feature: </b> { year1.gameUniqueFeatureyear1 || "" }</p>  
+					<p><b>Game Unique Feature: </b> { year1.gameUniqueFeatureyear1 || "" }</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Team Choice: </b> <br/> 
-						Developers - { year1.teamChoice.developers } <br/> 
+					<p><b>Team Choice: </b> <br/>
+						Developers - { year1.teamChoice.developers } <br/>
 						{ year1.teamChoice.artists ? `Artists - ${ year1.teamChoice.artists }` : null }
-					</p>  
+					</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Workshop: </b> {year1.workshop || ""}</p>  
+					<p><b>Workshop: </b> {year1.workshop || ""}</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Environment: </b> { year1.environment || "" }</p>  
+					<p><b>Environment: </b> { year1.environment || "" }</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Team Building: </b> { year1.teamBuilding || "" }</p>  
+					<p><b>Team Building: </b> { year1.teamBuilding || "" }</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Middle Event: </b> { year1.middleEvent ? year1.middleEvent.chose : "" }</p>  
+					<p><b>Middle Event: </b> { year1.middleEvent ? year1.middleEvent.chose : "" }</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>End Event: </b> { year1.endEvent || "" }</p>  
+					<p><b>End Event: </b> { year1.endEvent || "" }</p>
 				</div>
-			</React.Fragment> 
+			</React.Fragment>
 		)
 	}
 
@@ -139,9 +139,9 @@ const EndingCard = ( props ) => {
 		console.log( mStr )
 		return (
 			<div className='textIncome choices'>
-				<p><b>Team Choice: </b> <br/> 
+				<p><b>Team Choice: </b> <br/>
 					{ mStr }
-				</p>  
+				</p>
 			</div>
 			)
 	}
@@ -152,40 +152,40 @@ const EndingCard = ( props ) => {
 		var year2 = company.year2
 
 		return(
-			<React.Fragment> 
-				<h3 className='title'>Choices Year 2</h3> 
+			<React.Fragment>
+				<h3 className='title'>Choices Year 2</h3>
 				<div className='textIncome choices'>
-					<p><b>Game Name: </b> {year2.gameNameYear2 || ""}</p>  
+					<p><b>Game Name: </b> {year2.gameNameYear2 || ""}</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Game Genre: </b> {year2.genres || ""}</p>  
+					<p><b>Game Genre: </b> {year2.genres || ""}</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Game Mechanics: </b> {year2.gameMechanicsyear2 || ""}</p>  
+					<p><b>Game Mechanics: </b> {year2.gameMechanicsyear2 || ""}</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>GamePlay loop: </b> {year2.gameplayLoop || ""}</p>  
+					<p><b>GamePlay loop: </b> {year2.gameplayLoop || ""}</p>
 				</div>
 				{ drawTeamFor2Year() }
 				<div className='textIncome choices'>
-					<p><b>Office: </b> {year2.officeChoice || ""}</p>  
+					<p><b>Office: </b> {year2.officeChoice || ""}</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Digital Marketing: </b> {year2.marketingOrDesign || ""}</p>  
+					<p><b>Digital Marketing: </b> {year2.marketingOrDesign || ""}</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Bigger Team: </b> {year2.biggerTeam || ""}</p>  
+					<p><b>Bigger Team: </b> {year2.biggerTeam || ""}</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Unfocused Team: </b> {year2.unfocusTeam || ""}</p>  
+					<p><b>Unfocused Team: </b> {year2.unfocusTeam || ""}</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Middle Event: </b> { year2.middleEvent ? year2.middleEvent.chose : ""}</p>  
+					<p><b>Middle Event: </b> { year2.middleEvent ? year2.middleEvent.chose : ""}</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>End Event: </b> {year2.endEvent || ""}</p>  
+					<p><b>End Event: </b> {year2.endEvent || ""}</p>
 				</div>
-			</React.Fragment> 
+			</React.Fragment>
 		)
 	}
 
@@ -193,73 +193,73 @@ const EndingCard = ( props ) => {
 		if ( !bill.year3 ) return null
 
 		var year3 = company.year3
-		
+
 		return(
-			<React.Fragment> 
-				<h3 className='title'>Choices Year 3</h3> 
+			<React.Fragment>
+				<h3 className='title'>Choices Year 3</h3>
 				<div className='textIncome choices'>
-					<p><b>Game Name: </b> {year3.gameNameYear3 || ""}</p>  
+					<p><b>Game Name: </b> {year3.gameNameYear3 || ""}</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Value Proposition: </b> {year3.ValuePropositions || "" }</p>  
+					<p><b>Value Proposition: </b> {year3.ValuePropositions || "" }</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Customer Segments: </b> {year3.CustomerSegments || "" }</p>  
+					<p><b>Customer Segments: </b> {year3.CustomerSegments || "" }</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Customer Relationships: </b> {year3.CustomerRelationships || "" }</p>  
+					<p><b>Customer Relationships: </b> {year3.CustomerRelationships || "" }</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Key Resources: </b> {year3.KeyResources || "" }</p>  
+					<p><b>Key Resources: </b> {year3.KeyResources || "" }</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Revenue Stream: </b> {year3.RevenueStream || "" }</p>  
-				</div>
-
-				<div className='textIncome choices'>
-					<p><b>Team Confort: </b> {year3.spentConfort || "" }</p>  
-				</div>
-				<div className='textIncome choices'>
-					<p><b>Maintenace: </b> {year3.spentMaintenance || "" }</p>  
-				</div>
-				<div className='textIncome choices'>
-					<p><b>Job Training: </b> {year3.spentJobTraining || "" }</p>  
+					<p><b>Revenue Stream: </b> {year3.RevenueStream || "" }</p>
 				</div>
 
 				<div className='textIncome choices'>
-					<p><b>Interview: </b> {year3.interviewValues || "" }</p>  
+					<p><b>Team Confort: </b> {year3.spentConfort || "" }</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>2 Questions: </b> {year3.questionsToMake || "" }</p>  
+					<p><b>Maintenace: </b> {year3.spentMaintenance || "" }</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Bootcamp: </b> {year3.bootcamp || "" }</p>  
+					<p><b>Job Training: </b> {year3.spentJobTraining || "" }</p>
+				</div>
+
+				<div className='textIncome choices'>
+					<p><b>Interview: </b> {year3.interviewValues || "" }</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Gamejam: </b> {year3.gamejam || "" }</p>  
+					<p><b>2 Questions: </b> {year3.questionsToMake || "" }</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Middle Event: </b> { year3.middleEvent ? year3.middleEvent.chose : "" }</p>  
+					<p><b>Bootcamp: </b> {year3.bootcamp || "" }</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>End Event: </b> {year3.endEvent || "" }</p>  
+					<p><b>Gamejam: </b> {year3.gamejam || "" }</p>
 				</div>
-			</React.Fragment> 
+				<div className='textIncome choices'>
+					<p><b>Middle Event: </b> { year3.middleEvent ? year3.middleEvent.chose : "" }</p>
+				</div>
+				<div className='textIncome choices'>
+					<p><b>End Event: </b> {year3.endEvent || "" }</p>
+				</div>
+			</React.Fragment>
 		)
-	}	
+	}
 
 
 	function makeChoicesOverview(){
 
-		return( 
-			<React.Fragment> 
+		return(
+			<React.Fragment>
 				{ company.name ? <h2 className='title'>{ company.name }</h2>  : null }
 	  			{ year1Choice() }
 	  			{ year2Choice() }
 	  			{ year3Choice() }
-      		</React.Fragment> 
+      		</React.Fragment>
 		)
-		
+
 	}
 
 
@@ -279,7 +279,28 @@ const EndingCard = ( props ) => {
 
 
 				<button className='endingCard-button' onClick={ () => props.exportToImage() }>Download Overview</button>
-				<label className='endingCard-label'>Download your Workshop, click thhe button above </label>
+				<label className='endingCard-label'>Download your Workshop, click the button above </label>
+				<div className='kb-links'>
+					<p>Resource Links</p>
+					<a href="https://www.gamasutra.com/blogs/SergioJimenez/20131106/204134/Gamification_Model_Canvas.php" className='link'>
+						Gamification Model Canvas
+					</a>
+					<a href="https://medium.com/seed-digital/how-to-business-model-canvas-explained-ad3676b6fe4a" className='link'>
+						Business Model Canvas
+					</a>
+					<a href="https://www.youtube.com/watch?v=Sk-nbAtIUko" className='link'>
+						Gameplay Loop Video
+					</a>
+					<a href="https://www.youtube.com/watch?v=H4kbJObhcHw" className='link'>
+						Feedback Loops Video
+					</a>
+					<a href="https://startupnation.com/sponsored-content/types-investors-startups/" className='link'>
+						Types of Investment
+					</a>
+					<a href="https://www.upcounsel.com/funding-round-meaning" className='link'>
+						Funding Rounds
+					</a>
+				</div>
 
 			</div>
 		</div>

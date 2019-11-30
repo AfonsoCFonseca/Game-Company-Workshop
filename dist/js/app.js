@@ -6,11 +6,11 @@ class PageContent extends React.Component {
     this.backup = null
 
     this.state = {
-      year: 2,
-      goingDev: true,
+      year: 1,
+      goingDev: false,
       isPaused: false,
       moduleShow: false,  // Ecra de Eventos
-      optionalScreen: false, // Ecra de entrada e final
+      optionalScreen: true, // Ecra de entrada e final
       middleEvent: false, // Trigger para o middle Event
       recapEvent: false, // Recap Event após o modulo final
       company: {
@@ -153,7 +153,7 @@ class PageContent extends React.Component {
 
   editCompanyState( name, value ){
     var company = this.state.company || {}
-    var replace = name == "team" ? true : false 
+    var replace = name == "team" ? true : false
     company = objInsideChecker( company, name, value, replace )
     this.setState({ company })
   }
@@ -710,15 +710,15 @@ class PageContent extends React.Component {
 
 	var bill = everything.bill
 	function makeTextForPdf(){
-		return ( 
+		return (
 			React.createElement(React.Fragment, null, 
 					React.createElement("hr", null), 
 					React.createElement("h3", {className: "title"}, "Company Overview"), 
 					React.createElement("div", {className: "yearCapDiv"}, 
 						React.createElement("p", null, "1 Years")
 					), 
-					 
-						bill.year1 ? 
+					
+						bill.year1 ?
 						React.createElement(React.Fragment, null, 
 							React.createElement("div", {className: "textIncome"}, 
 								React.createElement("p", null, "First Game:"), 
@@ -730,14 +730,14 @@ class PageContent extends React.Component {
 							)
 						)   : null, 
 					
-					
+
 				React.createElement("hr", null), 
 
 					React.createElement("div", {className: "yearCapDiv"}, 
 						React.createElement("p", null, "2 Years")
 					), 
-					 
-						bill.year2 ? 
+					
+						bill.year2 ?
 						React.createElement(React.Fragment, null, 
 							React.createElement("div", {className: "textIncome"}, 
 								React.createElement("p", null, "Second Game:"), 
@@ -758,8 +758,8 @@ class PageContent extends React.Component {
 					React.createElement("div", {className: "yearCapDiv"}, 
 						React.createElement("p", null, "3 Years")
 					), 
-					 
-						bill.year3 ? 
+					
+						bill.year3 ?
 						React.createElement(React.Fragment, null, 
 							React.createElement("div", {className: "textIncome"}, 
 								React.createElement("p", null, "Thrid Game:"), 
@@ -781,7 +781,7 @@ class PageContent extends React.Component {
 					React.createElement("p", null, "Company Equity:"), 
 					React.createElement("label", null, company.equity, "%")
 				)
-			) 
+			)
 		)
 	}
 
@@ -829,7 +829,7 @@ class PageContent extends React.Component {
 				React.createElement("div", {className: "textIncome choices"}, 
 					React.createElement("p", null, React.createElement("b", null, "End Event: "), " ",  year1.endEvent || "")
 				)
-			) 
+			)
 		)
 	}
 
@@ -891,7 +891,7 @@ class PageContent extends React.Component {
 				React.createElement("div", {className: "textIncome choices"}, 
 					React.createElement("p", null, React.createElement("b", null, "End Event: "), " ", year2.endEvent || "")
 				)
-			) 
+			)
 		)
 	}
 
@@ -899,7 +899,7 @@ class PageContent extends React.Component {
 		if ( !bill.year3 ) return null
 
 		var year3 = company.year3
-		
+
 		return(
 			React.createElement(React.Fragment, null, 
 				React.createElement("h3", {className: "title"}, "Choices Year 3"), 
@@ -950,22 +950,22 @@ class PageContent extends React.Component {
 				React.createElement("div", {className: "textIncome choices"}, 
 					React.createElement("p", null, React.createElement("b", null, "End Event: "), " ", year3.endEvent || "")
 				)
-			) 
+			)
 		)
-	}	
+	}
 
 
 	function makeChoicesOverview(){
 
-		return( 
+		return(
 			React.createElement(React.Fragment, null, 
 				 company.name ? React.createElement("h2", {className: "title"},  company.name)  : null, 
 	  			 year1Choice(), 
 	  			 year2Choice(), 
 	  			 year3Choice() 
-      		) 
+      		)
 		)
-		
+
 	}
 
 
@@ -985,13 +985,35 @@ class PageContent extends React.Component {
 
 
 				React.createElement("button", {className: "endingCard-button", onClick:  () => props.exportToImage()}, "Download Overview"), 
-				React.createElement("label", {className: "endingCard-label"}, "Download your Workshop, click thhe button above ")
+				React.createElement("label", {className: "endingCard-label"}, "Download your Workshop, click the button above "), 
+				React.createElement("div", {className: "kb-links"}, 
+					React.createElement("p", null, "Resource Links"), 
+					React.createElement("a", {href: "https://www.gamasutra.com/blogs/SergioJimenez/20131106/204134/Gamification_Model_Canvas.php", className: "link"}, 
+						"Gamification Model Canvas"
+					), 
+					React.createElement("a", {href: "https://medium.com/seed-digital/how-to-business-model-canvas-explained-ad3676b6fe4a", className: "link"}, 
+						"Business Model Canvas"
+					), 
+					React.createElement("a", {href: "https://www.youtube.com/watch?v=Sk-nbAtIUko", className: "link"}, 
+						"Gameplay Loop Video"
+					), 
+					React.createElement("a", {href: "https://www.youtube.com/watch?v=H4kbJObhcHw", className: "link"}, 
+						"Feedback Loops Video"
+					), 
+					React.createElement("a", {href: "https://startupnation.com/sponsored-content/types-investors-startups/", className: "link"}, 
+						"Types of Investment"
+					), 
+					React.createElement("a", {href: "https://www.upcounsel.com/funding-round-meaning", className: "link"}, 
+						"Funding Rounds"
+					)
+				)
 
 			)
 		)
 	)
 
-};class Footer extends React.Component {
+}
+;class Footer extends React.Component {
 
   constructor( props ){
     super( props )
@@ -1553,15 +1575,16 @@ const giveRecomendationArr = [
   'Keep working on your game'
 ]
 
-const gamejamArr = [ 
+const gamejamArr = [
   "I dont know, maybe not",
    "Let them do it"
  ]
 
- const bootcampArr = [ 
-  "Organize the bootcamp every 3 months ( price )",
+ const bootcampArr = [
+  "Organize the bootcamp every 3 months ( 3000$ x 4 )",
   "It's a kind of expansive, maybe later"
-];var createRecapBasedOnChoices = function( state ){
+]
+;var createRecapBasedOnChoices = function( state ){
 
 		switch( state.year ){
 			case 1:
@@ -1622,7 +1645,7 @@ function year1Recap( state ){
 	finalTotal -= infrastructures
 	finalTotal += gameRevenue
 
-	var expanses = parseInt( total ) + parseInt( infrastructures ) 
+	var expanses = parseInt( total ) + parseInt( infrastructures )
 	bill.expanses = expanses
 	bill.game = gameRevenue
 
@@ -1684,7 +1707,7 @@ function year1Recap( state ){
 
 
 function year2Recap( state ){
-	
+
 	var companyYear = state.company.year2
 
 	var bill = {
@@ -1708,7 +1731,7 @@ function year2Recap( state ){
 
 //SALARIES
 	var plus = 100
-	if( state.company.year1.middleEvent && companyYear.middleEvent.event == 1 
+	if( state.company.year1.middleEvent && companyYear.middleEvent.event == 1
 		&& state.company.year1.middleEvent.chose == "Salary Raised" )
 		plus = 200
 
@@ -1727,7 +1750,7 @@ function year2Recap( state ){
 
 		var elements = ""
 		for( var x in salariesObj ){
-			if( salariesObj[x] == 0 ) continue 
+			if( salariesObj[x] == 0 ) continue
 
 			if( salariesObj[x] ){
 				elements += `<div class='recap-numbers'>${x} <label>-${salariesObj[x]}</label></div>`
@@ -1735,7 +1758,7 @@ function year2Recap( state ){
 
 		}
 
-		return elements 
+		return elements
 	}
 
 
@@ -1755,7 +1778,7 @@ function year2Recap( state ){
 	if( companyYear.officeChoice == "Small but with other start-ups near" )
 		gameRevenue += 2000
 
-	if( companyYear.middleEvent ){ 
+	if( companyYear.middleEvent ){
 		if( companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "Assign Lead Developer")
 			gameRevenue += 2000
 
@@ -1767,16 +1790,16 @@ function year2Recap( state ){
 
 	function makeMathWithTeamSelection( ){
 		//salaries
-		var total = 10000 
-		if( salaries.developersSalary < 3 ) 
+		var total = 10000
+		if( salaries.developersSalary < 3 )
 			total -= 2000
-		if( salaries.artistsSalary < 1 && salaries.artistsSalary > 3 ) 
+		if( salaries.artistsSalary < 1 && salaries.artistsSalary > 3 )
 			total -= 2000
 		if(  salaries.designersSalary < 1 && salaries.designersSalary > 2 )
 			total -= 1000
-		if( salaries.sfxSalary != 1 ) 
+		if( salaries.sfxSalary != 1 )
 			total -= 1000
-		if( salaries.marketingSalary != 1 ) 
+		if( salaries.marketingSalary != 1 )
 			total -= 2000
 
 		return total
@@ -1796,7 +1819,7 @@ function year2Recap( state ){
 
 
   function drawChoiceDigitalMarketing(){
-    if( digitalMarketing != 0 ) 
+    if( digitalMarketing != 0 )
       return `<div class='recap-numbers'>
         Web Campaign <label>-${digitalMarketing}</label>
       </div>`
@@ -1827,7 +1850,7 @@ function year2Recap( state ){
 			if( companyYear.middleEvent.chose == "Ignored Developer" ) middleEvent = `Ignoring the proposal of one of the developers to became a Lead programmer made him unfocused and uninterested on the job he's doing.`
 		}
 		if( companyYear.middleEvent  && companyYear.middleEvent.event == 2 ){
-			if( companyYear.middleEvent.chose == "Accept working on other feature" ) middleEvent = `You accepted that one of the developers start working for other company at the same time. The responsabilty 
+			if( companyYear.middleEvent.chose == "Accept working on other feature" ) middleEvent = `You accepted that one of the developers start working for other company at the same time. The responsabilty
 					he took made him work harder and made a better game for ${ state.company.name }. Your game sold better because of that choice.`
 			if( companyYear.middleEvent.chose == "Reject working on other feature" ) middleEvent = ` Ignoring the proposal of one of the developers to make a feature for other company made him unfocused and uninterested on the job he's doing.`
 		}
@@ -1903,7 +1926,7 @@ function year3Recap( state ){
 
 	//SALARIES
 	var plus = 150
-	if( state.company.year1.middleEvent && companyYear.middleEvent.event == 1 
+	if( state.company.year1.middleEvent && companyYear.middleEvent.event == 1
 		&& state.company.year1.middleEvent.chose == "Salary Raised" )
 		plus = 250
 	salaries = countSalary( state.company.team, plus )
@@ -1923,7 +1946,7 @@ function year3Recap( state ){
 
 		var elements = ""
 		for( var x in salariesObj ){
-			if( salariesObj[x] == 0 ) continue 
+			if( salariesObj[x] == 0 ) continue
 
 			if( salariesObj[x] ){
 				elements += `<div class='recap-numbers'>${x} <label>-${salariesObj[x]}</label></div>`
@@ -1931,11 +1954,11 @@ function year3Recap( state ){
 
 		}
 
-		return elements 
+		return elements
 	}
 
-	//INFRASTRUCTURES 
-	var infrastructures = 800 
+	//INFRASTRUCTURES
+	var infrastructures = 800
 	infrastructures *= 12
 
 	finalTotal -= parseInt( infrastructures )
@@ -1950,7 +1973,7 @@ function year3Recap( state ){
 
 	if( companyYear.spentConfort > 1500 )
 		gameRevenue += parseInt( companyYear.spentConfort * 1.2 )
-	
+
 	if( companyYear.spentMaintenance > 2500 )
 		gameRevenue += parseInt( companyYear.spentConfort * 1.5 )
 
@@ -1978,16 +2001,33 @@ function year3Recap( state ){
 				Maintenance <label>-${companyYear.spentJobTraining}</label>
 			</div>`
 		}
-	    
+
+		if( bootcampValue != null ){
+			mStr += `<div class='recap-numbers'>
+				Bootcamp <label>-${ bootcampValue }</label>
+			</div>`
+		}
+
 	    return mStr
   }
+
+	//Bootcamp & Gamejam
+	var bootcampValue = null
+	if( companyYear.bootcamp == "Organize the bootcamp every 3 months ( 3000$ x 4 )" ){
+		bootcampValue = 12000
+		finalTotal -= bootcampValue
+		gameRevenue += 15000
+	}
+	if( companyYear.gamejam == "Let them do it" ){
+		gameRevenue += 3000
+	}
 
 
 	// FINAL TEXT
 	var extraDlc = null
 	var fine = null
 	var middleEvent = ""
-	if( companyYear.middleEvent  && companyYear.middleEvent.event == 1 ){
+	if( companyYear.middleEvent && companyYear.middleEvent.event == 1 ){
 		if( companyYear.middleEvent.chose == "Dlc with 1 developer" ){
 			middleEvent = `The dlc of your first game made some bucks but it lacked development`
 			extraDlc = 4000
@@ -1997,9 +2037,9 @@ function year3Recap( state ){
 			middleEvent = `Making a dlc for you first game made the community really excited and made a few bucks with it`
 			extraDlc = 7000
 			finalTotal += extraDlc
-		} 
+		}
 		if( companyYear.middleEvent.chose == "Ignored Dlc" ) middleEvent = `Your community was unhappy since you ignore them on the forums for the DLC's for your first game`
-		
+
 	}
 	if( companyYear.middleEvent  && companyYear.middleEvent.event == 2 ){
 		if( companyYear.middleEvent.chose == "Close first Game" ) middleEvent = `You closed your first game and left the community unsatisfied`
@@ -2008,7 +2048,7 @@ function year3Recap( state ){
 				middleEvent = `Leaving the database from your first game exposed made you go to tribunal and pay a huge fine`
 				fine = 50000
 				finalTotal -= fine
-			} 
+			}
 	}
 
 
@@ -2019,18 +2059,19 @@ function year3Recap( state ){
 					Tribunal fine <label>-${fine}</label>
 				</div>` )
 
-		if( extraDlc != null ) 
+		if( extraDlc != null )
 			return ( `<div class='recap-numbers'>
 					1º Game Dlc<label>+${extraDlc}</label>
 				</div>` )
 
 		return ""
-	}	
+	}
 
 	finalTotal += gameRevenue
 	bill.game = parseInt( gameRevenue )
 	var expanses = parseInt( totalSalary ) + parseInt( infrastructures ) + parseInt( teamExpanses )
 	if( fine != null ) expanses += fine
+	if( bootcampValue != null ) expanses += bootcampValue
 	bill.expanses = expanses
 
 	var toSendBack = {
@@ -2122,7 +2163,7 @@ workshop is to help you understand a bit better what it takes to start a videoga
 your future team.`
 
 var startingCardHowTo = `This web application simulates one year of your company life for each thirty minutes ( approximately ) of real life. You
-will start the event with 2500$, some of the choices will be yours, others will pre-determined, be honest, give original answers and enjoy the workshop.` 
+will start the event with 2500$, some of the choices will be yours, others will pre-determined, be honest, give original answers and enjoy the workshop.`
 
 var startingCardStory = `You are about to start your company. To do so, write down the name for the company and a small description
 of something unique you wanna do with it`
@@ -2171,7 +2212,7 @@ Think of a mobile game that you love and try to make a similar game but for a co
 let focusYear1Second = `${intro1Focus} You wanna do something different, so you are making your main game mechanics based on sound`
 
 let focusYear1Thrid = `${intro1Focus} You are feeling pretty confident and relaxed, so you decided that this game will be something pretty relaxing.
-Something like ( Journey, Everything or Katamari )`
+Something like "Journey", "Everything" or "Katamari"`
 
 var focusYear1 = [
 	focusYear1First,
@@ -2336,12 +2377,12 @@ so everything is well organized inside the office and with the game's developmen
 apply to your company`
 
 var gameplayloopDescription = `Gameplay loop it's an important step to explain in the game design of a game.
-Describe what ts the main activities the player do while playing, in other words, repetitive actions you do to advance in the game. Check this video for more details: https://www.youtube.com/watch?v=Sk-nbAtIUko` 
+Describe what ts the main activities the player do while playing, in other words, repetitive actions you do to advance in the game. Check this video for more details: https://www.youtube.com/watch?v=Sk-nbAtIUko`
 
-var gameplayloopPlaceholder= `In pokemon you fight through routes, heal your pokemon and reach/win gym badges` 
+var gameplayloopPlaceholder= `In pokemon you fight through routes, heal your pokemon and reach/win gym badges`
 
 var designOrMarketingDescription = `Your next game will need some presence on the internet. If you have people talking about your game
-you will "probably" sell better. Pick one of the options below.` 
+you will "probably" sell better. Pick one of the options below.`
 
  var focusDescription = [
  	focusOption1,
@@ -2557,7 +2598,7 @@ to bring revenue to the company... Always keep one thing in mind, the revenue th
 var teamDescriptionYear3 = `You need to put someone taking care oh Human Resources Department, but for that, you need to have your
 values for the company and people you want to hire`
 
-var teamValuesInterviewYear3 = `What do you value the most for future members of the team? What type of person do you think fits best in your company interests?` 
+var teamValuesInterviewYear3 = `What do you value the most for future members of the team? What type of person do you think fits best in your company interests?`
 
 var team2QuestionsToMake = `Tell two questions you would like to ask in an interview. The questions must be simple, direct and related to
 the company environment`
@@ -2565,10 +2606,10 @@ the company environment`
 var explanationTeamExpanses = `Down below you can choose where to spend money with your company.
  You have a cash limit of 15000$. Where do you want to invest?`
 
-var explanationTeamExpansesPlaceHolder = `I decided to spend all the money on the team comfort, buying them a new relaxing area where they can play games, eat and talk` 
+var explanationTeamExpansesPlaceHolder = `I decided to spend all the money on the team comfort, buying them a new relaxing area where they can play games, eat and talk`
 
 var explanationForBootcamp = `There's a possibility of organizing a game dev boot camp, every 3 months, for new people that wanna join your company.
-   This can help them at the begging, technical and socially but it's a kind of expensive` 
+   This can help them at the begging, technical and socially but it's a kind of expensive`
 
 var explanationForGamejam = `There are a few people of the team that want to organize a game jam during the week on the office. It will take 2 days of work and
     your developments will stop because of it. It's a good idea but not very productive`
@@ -2590,7 +2631,7 @@ var year3Story = function( company, pC ){
     var firstChoice = `You decided to open a new studio. In Hungary, you can start from scratch new ideas and explore new games,
     mechanics, platforms and ways to do revenue`
 
-    var secondChoice = `London it's a great city for the game's development. You are sure that you'll learn a lot there and make a lot of 
+    var secondChoice = `London it's a great city for the game's development. You are sure that you'll learn a lot there and make a lot of
     new projects and contacts`
 
 	var year3 = {}
@@ -2779,7 +2820,8 @@ var recapScreen = function( state, pC ){
   constructor( props ){
     super( props )
 
-    this.timer30Minutes = 6 * 3 //60 * 30
+    //this.timer30Minutes = 6 * 3 //60 * 30
+    this.timer30Minutes = 60 * 30 //60 * 30
     this.actualTimer = 0
     // 20 80
     this.middleYearEvent = getRandomInt( (this.timer30Minutes/ 2) - 2 , (this.timer30Minutes/ 2) + 5 )
@@ -2838,7 +2880,7 @@ var recapScreen = function( state, pC ){
     }
 
     var timerValue = giveMinutesAndSeconds( this.actualTimer )
-    this.setState({ 
+    this.setState({
       timerValue,
     })
   }

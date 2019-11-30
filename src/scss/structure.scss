@@ -34,7 +34,7 @@ $optionalGreen: #84c294;
   height: auto;
   width: 70%;
   margin-top: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 
   >.module{
     @extend %display_flexbox;
@@ -133,7 +133,7 @@ $optionalGreen: #84c294;
       >input {
         border: 1px solid $grey_dark;
         width: 50%;
-        
+
         &:hover{
           border: 1px solid $grey_darker;
         }
@@ -282,7 +282,7 @@ $optionalGreen: #84c294;
       }
 
       >.beginningCard-input{
-        margin-top: 25px; 
+        margin-top: 25px;
         width: 55%;
         border: 1px solid $grey_dark;
         resize: none;
@@ -293,20 +293,20 @@ $optionalGreen: #84c294;
       }
 
       >.beginningCard-textarea{
-        margin-top: 15px; 
+        margin-top: 15px;
         width: 55%;
         border: 1px solid $grey_dark;
         resize: none;
       }
 
       >.beginningCard-label{
-        margin-top: 5px; 
+        margin-top: 5px;
         font-size: 11px;
         color: $grey_dark;
       }
 
       >.beginningCard-button{
-        margin-top: 15px; 
+        margin-top: 15px;
         justify-content: center;
         cursor: pointer;
         background-color: $backgroundGreen;
@@ -353,13 +353,13 @@ $optionalGreen: #84c294;
       }
 
       >.endingCard-label{
-        margin-top: 5px; 
+        margin-top: 5px;
         font-size: 11px;
         color: $grey_dark;
       }
 
       >.endingCard-button{
-        margin-top: 25px; 
+        margin-top: 25px;
         justify-content: center;
         cursor: pointer;
         background-color: $backgroundGreen;
@@ -388,7 +388,7 @@ $optionalGreen: #84c294;
         }
 
         >.subtitle{
-  
+
         }
 
         >.yearCapDiv {
@@ -401,19 +401,33 @@ $optionalGreen: #84c294;
           justify-content: space-between;
 
           >p{
-            margin:0; 
+            margin:0;
             margin-left:15px;
           }
           >label{
             text-align: right;
             font-weight: bold;
-          }  
+          }
 
           &.choices {
             margin-top: 7px;
           }
         }
 
+      }
+
+      .kb-links {
+        background-color: $grey_lighter;
+        border-radius: 8px;
+        margin: 30px;
+        width: 100%;
+        height: auto;
+        padding: 20px;
+
+        >.link {
+          display: block;
+          margin-bottom: 5px;
+        }
       }
 
     }

@@ -45,7 +45,7 @@ workshop is to help you understand a bit better what it takes to start a videoga
 your future team.`
 
 var startingCardHowTo = `This web application simulates one year of your company life for each thirty minutes ( approximately ) of real life. You
-will start the event with 2500$, some of the choices will be yours, others will pre-determined, be honest, give original answers and enjoy the workshop.` 
+will start the event with 2500$, some of the choices will be yours, others will pre-determined, be honest, give original answers and enjoy the workshop.`
 
 var startingCardStory = `You are about to start your company. To do so, write down the name for the company and a small description
 of something unique you wanna do with it`
@@ -94,7 +94,7 @@ Think of a mobile game that you love and try to make a similar game but for a co
 let focusYear1Second = `${intro1Focus} You wanna do something different, so you are making your main game mechanics based on sound`
 
 let focusYear1Thrid = `${intro1Focus} You are feeling pretty confident and relaxed, so you decided that this game will be something pretty relaxing.
-Something like ( Journey, Everything or Katamari )`
+Something like "Journey", "Everything" or "Katamari"`
 
 var focusYear1 = [
 	focusYear1First,
@@ -259,12 +259,12 @@ so everything is well organized inside the office and with the game's developmen
 apply to your company`
 
 var gameplayloopDescription = `Gameplay loop it's an important step to explain in the game design of a game.
-Describe what ts the main activities the player do while playing, in other words, repetitive actions you do to advance in the game. Check this video for more details: https://www.youtube.com/watch?v=Sk-nbAtIUko` 
+Describe what ts the main activities the player do while playing, in other words, repetitive actions you do to advance in the game. Check this video for more details: https://www.youtube.com/watch?v=Sk-nbAtIUko`
 
-var gameplayloopPlaceholder= `In pokemon you fight through routes, heal your pokemon and reach/win gym badges` 
+var gameplayloopPlaceholder= `In pokemon you fight through routes, heal your pokemon and reach/win gym badges`
 
 var designOrMarketingDescription = `Your next game will need some presence on the internet. If you have people talking about your game
-you will "probably" sell better. Pick one of the options below.` 
+you will "probably" sell better. Pick one of the options below.`
 
  var focusDescription = [
  	focusOption1,
@@ -480,7 +480,7 @@ to bring revenue to the company... Always keep one thing in mind, the revenue th
 var teamDescriptionYear3 = `You need to put someone taking care oh Human Resources Department, but for that, you need to have your
 values for the company and people you want to hire`
 
-var teamValuesInterviewYear3 = `What do you value the most for future members of the team? What type of person do you think fits best in your company interests?` 
+var teamValuesInterviewYear3 = `What do you value the most for future members of the team? What type of person do you think fits best in your company interests?`
 
 var team2QuestionsToMake = `Tell two questions you would like to ask in an interview. The questions must be simple, direct and related to
 the company environment`
@@ -488,10 +488,10 @@ the company environment`
 var explanationTeamExpanses = `Down below you can choose where to spend money with your company.
  You have a cash limit of 15000$. Where do you want to invest?`
 
-var explanationTeamExpansesPlaceHolder = `I decided to spend all the money on the team comfort, buying them a new relaxing area where they can play games, eat and talk` 
+var explanationTeamExpansesPlaceHolder = `I decided to spend all the money on the team comfort, buying them a new relaxing area where they can play games, eat and talk`
 
 var explanationForBootcamp = `There's a possibility of organizing a game dev boot camp, every 3 months, for new people that wanna join your company.
-   This can help them at the begging, technical and socially but it's a kind of expensive` 
+   This can help them at the begging, technical and socially but it's a kind of expensive`
 
 var explanationForGamejam = `There are a few people of the team that want to organize a game jam during the week on the office. It will take 2 days of work and
     your developments will stop because of it. It's a good idea but not very productive`
@@ -513,7 +513,7 @@ var year3Story = function( company, pC ){
     var firstChoice = `You decided to open a new studio. In Hungary, you can start from scratch new ideas and explore new games,
     mechanics, platforms and ways to do revenue`
 
-    var secondChoice = `London it's a great city for the game's development. You are sure that you'll learn a lot there and make a lot of 
+    var secondChoice = `London it's a great city for the game's development. You are sure that you'll learn a lot there and make a lot of
     new projects and contacts`
 
 	var year3 = {}

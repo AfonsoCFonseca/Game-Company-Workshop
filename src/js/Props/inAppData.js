@@ -63,12 +63,12 @@ const giveRecomendationArr = [
   'Keep working on your game'
 ]
 
-const gamejamArr = [ 
+const gamejamArr = [
   "I dont know, maybe not",
    "Let them do it"
  ]
 
- const bootcampArr = [ 
-  "Organize the bootcamp every 3 months ( price )",
+ const bootcampArr = [
+  "Organize the bootcamp every 3 months ( 3000$ x 4 )",
   "It's a kind of expansive, maybe later"
 ]

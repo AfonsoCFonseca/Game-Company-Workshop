@@ -6,11 +6,11 @@ class PageContent extends React.Component {
     this.backup = null
 
     this.state = {
-      year: 2,
-      goingDev: true,
+      year: 1,
+      goingDev: false,
       isPaused: false,
       moduleShow: false,  // Ecra de Eventos
-      optionalScreen: false, // Ecra de entrada e final
+      optionalScreen: true, // Ecra de entrada e final
       middleEvent: false, // Trigger para o middle Event
       recapEvent: false, // Recap Event após o modulo final
       company: {
@@ -153,7 +153,7 @@ class PageContent extends React.Component {
 
   editCompanyState( name, value ){
     var company = this.state.company || {}
-    var replace = name == "team" ? true : false 
+    var replace = name == "team" ? true : false
     company = objInsideChecker( company, name, value, replace )
     this.setState({ company })
   }

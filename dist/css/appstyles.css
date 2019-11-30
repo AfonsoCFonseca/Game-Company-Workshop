@@ -192,7 +192,7 @@ body label {
   height: auto;
   width: 70%;
   margin-top: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 #content > .structure > .module {
   flex-direction: column;
@@ -493,6 +493,18 @@ body label {
 }
 #content > .structure .endingCard .endingCard-inner > #endingCard-overview > .textIncome.choices {
   margin-top: 7px;
+}
+#content > .structure .endingCard .endingCard-inner .kb-links {
+  background-color: #fafafa;
+  border-radius: 8px;
+  margin: 30px;
+  width: 100%;
+  height: auto;
+  padding: 20px;
+}
+#content > .structure .endingCard .endingCard-inner .kb-links > .link {
+  display: block;
+  margin-bottom: 5px;
 }
 #content > .footer {
   position: fixed;

@@ -59,7 +59,7 @@ function year1Recap( state ){
 	finalTotal -= infrastructures
 	finalTotal += gameRevenue
 
-	var expanses = parseInt( total ) + parseInt( infrastructures ) 
+	var expanses = parseInt( total ) + parseInt( infrastructures )
 	bill.expanses = expanses
 	bill.game = gameRevenue
 
@@ -121,7 +121,7 @@ function year1Recap( state ){
 
 
 function year2Recap( state ){
-	
+
 	var companyYear = state.company.year2
 
 	var bill = {
@@ -145,7 +145,7 @@ function year2Recap( state ){
 
 //SALARIES
 	var plus = 100
-	if( state.company.year1.middleEvent && companyYear.middleEvent.event == 1 
+	if( state.company.year1.middleEvent && companyYear.middleEvent.event == 1
 		&& state.company.year1.middleEvent.chose == "Salary Raised" )
 		plus = 200
 
@@ -164,7 +164,7 @@ function year2Recap( state ){
 
 		var elements = ""
 		for( var x in salariesObj ){
-			if( salariesObj[x] == 0 ) continue 
+			if( salariesObj[x] == 0 ) continue
 
 			if( salariesObj[x] ){
 				elements += `<div class='recap-numbers'>${x} <label>-${salariesObj[x]}</label></div>`
@@ -172,7 +172,7 @@ function year2Recap( state ){
 
 		}
 
-		return elements 
+		return elements
 	}
 
 
@@ -192,7 +192,7 @@ function year2Recap( state ){
 	if( companyYear.officeChoice == "Small but with other start-ups near" )
 		gameRevenue += 2000
 
-	if( companyYear.middleEvent ){ 
+	if( companyYear.middleEvent ){
 		if( companyYear.middleEvent.event == 1 && companyYear.middleEvent.chose == "Assign Lead Developer")
 			gameRevenue += 2000
 
@@ -204,16 +204,16 @@ function year2Recap( state ){
 
 	function makeMathWithTeamSelection( ){
 		//salaries
-		var total = 10000 
-		if( salaries.developersSalary < 3 ) 
+		var total = 10000
+		if( salaries.developersSalary < 3 )
 			total -= 2000
-		if( salaries.artistsSalary < 1 && salaries.artistsSalary > 3 ) 
+		if( salaries.artistsSalary < 1 && salaries.artistsSalary > 3 )
 			total -= 2000
 		if(  salaries.designersSalary < 1 && salaries.designersSalary > 2 )
 			total -= 1000
-		if( salaries.sfxSalary != 1 ) 
+		if( salaries.sfxSalary != 1 )
 			total -= 1000
-		if( salaries.marketingSalary != 1 ) 
+		if( salaries.marketingSalary != 1 )
 			total -= 2000
 
 		return total
@@ -233,7 +233,7 @@ function year2Recap( state ){
 
 
   function drawChoiceDigitalMarketing(){
-    if( digitalMarketing != 0 ) 
+    if( digitalMarketing != 0 )
       return `<div class='recap-numbers'>
         Web Campaign <label>-${digitalMarketing}</label>
       </div>`
@@ -264,7 +264,7 @@ function year2Recap( state ){
 			if( companyYear.middleEvent.chose == "Ignored Developer" ) middleEvent = `Ignoring the proposal of one of the developers to became a Lead programmer made him unfocused and uninterested on the job he's doing.`
 		}
 		if( companyYear.middleEvent  && companyYear.middleEvent.event == 2 ){
-			if( companyYear.middleEvent.chose == "Accept working on other feature" ) middleEvent = `You accepted that one of the developers start working for other company at the same time. The responsabilty 
+			if( companyYear.middleEvent.chose == "Accept working on other feature" ) middleEvent = `You accepted that one of the developers start working for other company at the same time. The responsabilty
 					he took made him work harder and made a better game for ${ state.company.name }. Your game sold better because of that choice.`
 			if( companyYear.middleEvent.chose == "Reject working on other feature" ) middleEvent = ` Ignoring the proposal of one of the developers to make a feature for other company made him unfocused and uninterested on the job he's doing.`
 		}
@@ -340,7 +340,7 @@ function year3Recap( state ){
 
 	//SALARIES
 	var plus = 150
-	if( state.company.year1.middleEvent && companyYear.middleEvent.event == 1 
+	if( state.company.year1.middleEvent && companyYear.middleEvent.event == 1
 		&& state.company.year1.middleEvent.chose == "Salary Raised" )
 		plus = 250
 	salaries = countSalary( state.company.team, plus )
@@ -360,7 +360,7 @@ function year3Recap( state ){
 
 		var elements = ""
 		for( var x in salariesObj ){
-			if( salariesObj[x] == 0 ) continue 
+			if( salariesObj[x] == 0 ) continue
 
 			if( salariesObj[x] ){
 				elements += `<div class='recap-numbers'>${x} <label>-${salariesObj[x]}</label></div>`
@@ -368,11 +368,11 @@ function year3Recap( state ){
 
 		}
 
-		return elements 
+		return elements
 	}
 
-	//INFRASTRUCTURES 
-	var infrastructures = 800 
+	//INFRASTRUCTURES
+	var infrastructures = 800
 	infrastructures *= 12
 
 	finalTotal -= parseInt( infrastructures )
@@ -387,7 +387,7 @@ function year3Recap( state ){
 
 	if( companyYear.spentConfort > 1500 )
 		gameRevenue += parseInt( companyYear.spentConfort * 1.2 )
-	
+
 	if( companyYear.spentMaintenance > 2500 )
 		gameRevenue += parseInt( companyYear.spentConfort * 1.5 )
 
@@ -415,16 +415,33 @@ function year3Recap( state ){
 				Maintenance <label>-${companyYear.spentJobTraining}</label>
 			</div>`
 		}
-	    
+
+		if( bootcampValue != null ){
+			mStr += `<div class='recap-numbers'>
+				Bootcamp <label>-${ bootcampValue }</label>
+			</div>`
+		}
+
 	    return mStr
   }
+
+	//Bootcamp & Gamejam
+	var bootcampValue = null
+	if( companyYear.bootcamp == "Organize the bootcamp every 3 months ( 3000$ x 4 )" ){
+		bootcampValue = 12000
+		finalTotal -= bootcampValue
+		gameRevenue += 15000
+	}
+	if( companyYear.gamejam == "Let them do it" ){
+		gameRevenue += 3000
+	}
 
 
 	// FINAL TEXT
 	var extraDlc = null
 	var fine = null
 	var middleEvent = ""
-	if( companyYear.middleEvent  && companyYear.middleEvent.event == 1 ){
+	if( companyYear.middleEvent && companyYear.middleEvent.event == 1 ){
 		if( companyYear.middleEvent.chose == "Dlc with 1 developer" ){
 			middleEvent = `The dlc of your first game made some bucks but it lacked development`
 			extraDlc = 4000
@@ -434,9 +451,9 @@ function year3Recap( state ){
 			middleEvent = `Making a dlc for you first game made the community really excited and made a few bucks with it`
 			extraDlc = 7000
 			finalTotal += extraDlc
-		} 
+		}
 		if( companyYear.middleEvent.chose == "Ignored Dlc" ) middleEvent = `Your community was unhappy since you ignore them on the forums for the DLC's for your first game`
-		
+
 	}
 	if( companyYear.middleEvent  && companyYear.middleEvent.event == 2 ){
 		if( companyYear.middleEvent.chose == "Close first Game" ) middleEvent = `You closed your first game and left the community unsatisfied`
@@ -445,7 +462,7 @@ function year3Recap( state ){
 				middleEvent = `Leaving the database from your first game exposed made you go to tribunal and pay a huge fine`
 				fine = 50000
 				finalTotal -= fine
-			} 
+			}
 	}
 
 
@@ -456,18 +473,19 @@ function year3Recap( state ){
 					Tribunal fine <label>-${fine}</label>
 				</div>` )
 
-		if( extraDlc != null ) 
+		if( extraDlc != null )
 			return ( `<div class='recap-numbers'>
 					1º Game Dlc<label>+${extraDlc}</label>
 				</div>` )
 
 		return ""
-	}	
+	}
 
 	finalTotal += gameRevenue
 	bill.game = parseInt( gameRevenue )
 	var expanses = parseInt( totalSalary ) + parseInt( infrastructures ) + parseInt( teamExpanses )
 	if( fine != null ) expanses += fine
+	if( bootcampValue != null ) expanses += bootcampValue
 	bill.expanses = expanses
 
 	var toSendBack = {

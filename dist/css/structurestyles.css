@@ -20,7 +20,7 @@
   height: auto;
   width: 70%;
   margin-top: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 > .structure > .module {
   flex-direction: column;
@@ -321,6 +321,18 @@
 }
 > .structure .endingCard .endingCard-inner > #endingCard-overview > .textIncome.choices {
   margin-top: 7px;
+}
+> .structure .endingCard .endingCard-inner .kb-links {
+  background-color: #fafafa;
+  border-radius: 8px;
+  margin: 30px;
+  width: 100%;
+  height: auto;
+  padding: 20px;
+}
+> .structure .endingCard .endingCard-inner .kb-links > .link {
+  display: block;
+  margin-bottom: 5px;
 }
 
 /*# sourceMappingURL=structurestyles.css.map */
