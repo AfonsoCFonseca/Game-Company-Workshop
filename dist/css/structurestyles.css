@@ -319,5 +319,8 @@
   text-align: right;
   font-weight: bold;
 }
+> .structure .endingCard .endingCard-inner > #endingCard-overview > .textIncome.choices {
+  margin-top: 7px;
+}
 
 /*# sourceMappingURL=structurestyles.css.map */

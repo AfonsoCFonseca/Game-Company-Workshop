@@ -3,7 +3,11 @@ class Module_3Year extends React.Component {
   constructor( props ){
     super( props )
 
-    console.log( props )
+    this.state = {
+      spentConfort: 0,
+      spentMaintenance: 0,
+      spentJobTraining: 0,
+    }
   }
 
   //'https://www.gamasutra.com/blogs/SergioJimenez/20131106/204134/Gamification_Model_Canvas.php'
@@ -12,11 +16,16 @@ class Module_3Year extends React.Component {
     this.props.editCompanyState( "year3", { [name]: value })
   }
 
+  updateSpentValues( name, value ){
+    this.setState({ [name]: value })
+    this.updateToParent( name, value )
+  }
+
   render() {
 
     return(
       <div className='module'>
-        <TextField title='Getting the hang of it' textValue={ modelCanvasExplanation }/>
+        <TextField title='Business Model Canvas' textValue={ modelCanvasExplanation }/>
 
         <div className='businessModelCanvas'>
 
@@ -30,7 +39,13 @@ class Module_3Year extends React.Component {
           </div>
         </div>
 
-        <TextField title='Business Model Canvas' />
+        <TextField title='Third Game'/>
+
+        <InputBlock
+            valueReceived={ value => this.updateToParent( "gameNameYear3", value ) }>
+             <Description
+                title='Game Name'/>
+        </InputBlock>
 
          <InputBlock
             size='large'
@@ -66,23 +81,51 @@ class Module_3Year extends React.Component {
 
         <InputBlock
           size='large'
-          valueReceived={ value => this.updateToParent( "KeyPartners", value ) }>
-           <Description
-              title='Key Partners'
-              description={ description3YearKeyPartners } />
-        </InputBlock>
-
-        <InputBlock
-          size='large'
           valueReceived={ value => this.updateToParent( "RevenueStream", value ) }>
            <Description
               title='Revenue Stream'
               description={ description3YearRevenueStream } />
         </InputBlock>
 
-        <TextField title='Team'  textValue={teamDescriptionYear3}/>
+        <InputBlock
+          inputTile={ "Team Confort" }
+          typeDiv={'small'}
+          numbers={true}
+          limit={ 5000 }
+          valueReceived={ value =>  this.updateSpentValues( "spentConfort", value ) }
+          inputValue={ this.state.spentConfort }>
+           <Description
+              title={ `Where to Spend Money` }
+              description={ explanationTeamExpanses } />
+        </InputBlock>
+        <InputBlock
+          inputTile={ "Job Training" }
+          typeDiv={'small'}
+          numbers={true}
+          limit={ 5000 }
+          inputValue={ this.state.spentJobTraining }
+          valueReceived={ value =>  this.updateSpentValues( "spentJobTraining", value ) }>
+        </InputBlock>
+        <InputBlock
+          inputTile={ "Maintenance" }
+          typeDiv={'small'}
+          numbers={true}
+          limit={ 5000 }
+          inputValue={ this.state.spentMaintenance }
+          valueReceived={ value =>  this.updateSpentValues( "spentMaintenance", value ) }>
+        </InputBlock>
 
         <InputBlock
+          size='large'
+          placeholder={ explanationTeamExpansesPlaceHolder }
+          valueReceived={ value => this.updateToParent( "explanationExpanses", value ) }>
+           <Description
+              title='Explain the cash expanses ( Optional )'/>
+        </InputBlock>
+
+        <TextField title='Team'  textValue={teamDescriptionYear3}/>
+
+         <InputBlock
           size='large'
           placeholder='Energetic, Motivational, Organized...'
           valueReceived={ value => this.updateToParent( "interviewValues", value ) }>
@@ -90,6 +133,22 @@ class Module_3Year extends React.Component {
               title='Values in people'
               description={ teamValuesInterviewYear3 } />
         </InputBlock>
+
+        <RadioButtonBlock
+            valuesSent={ bootcampArr }
+            valueReceived={ value => this.updateToParent( "bootcamp", value ) }>
+           <Description 
+            title='Interns' 
+            description={ explanationForBootcamp }/>
+        </RadioButtonBlock>
+
+        <RadioButtonBlock
+            valuesSent={ gamejamArr }
+            valueReceived={ value => this.updateToParent( "gamejam", value ) }>
+           <Description 
+            title='GameJam' 
+            description={ explanationForGamejam }/>
+        </RadioButtonBlock>
 
         <InputBlock
           size='large'
@@ -106,3 +165,5 @@ class Module_3Year extends React.Component {
   }
 
 }
+
+

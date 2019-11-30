@@ -67,6 +67,52 @@ class Module_2Year extends React.Component {
 
         <TextField title='Focus' textValue={ this.focusDescription }/>
 
+        <TextField title='Second Game' textValue={ this.getDescriptionYear2 }/>
+
+        <InputBlock
+          placeholder='Insert game name'
+          valueReceived={ value => this.updateToParent( "gameNameYear2", value ) }>
+          <Description title='Game Name' />
+        </InputBlock>
+
+        <DropdownBlock
+          dataEntries={ genres }
+          locked={ this.dropdownGenre }
+          placeholder='Pick a genre'
+          valueReceived={ value => this.updateToParent( "genres", value ) }>
+          <Description title={ 'Genre' }/>
+        </DropdownBlock>
+
+        <DropdownBlock
+          dataEntries={ platforms }
+          placeholder='Pick a platform'
+          valueReceived={ value => this.updateToParent( "platformYear2", value ) }>
+          <Description title={ 'Platform' } />
+        </DropdownBlock>
+
+        <InputBlock
+          size='large'
+          placeholder="Levels, points, leaderboards, resource managment..." 
+          valueReceived={ value => this.updateToParent( "gameMechanicsyear2", value ) }>
+           <Description title='Game Mechanics'
+            />
+        </InputBlock>
+
+        <RadioButtonBlock
+            valuesSent={ payForDesignOrMarketing }
+            valueReceived={ value => this.updateToParent( "marketingOrDesign", value ) }>
+           <Description title='Design or Marketing' description={ designOrMarketingDescription }/>
+        </RadioButtonBlock>
+
+        <InputBlock
+          size='large'
+          placeholder={ gameplayloopPlaceholder }
+          valueReceived={ value => this.updateToParent( "gameplayLoop", value ) }>
+           <Description title='Gameplay Loop' description={ gameplayloopDescription } />
+        </InputBlock>
+
+        <TextField title='Team'/>
+
         <RadioButtonBlock
             valuesSent={ officeSpaceArrayYear2 }
             valueReceived={ this.getRadioOffice }>
@@ -132,46 +178,6 @@ class Module_2Year extends React.Component {
            <Description
               title='Unfocused Team'
               description={ this.state.descriptionForUnfocusTeam }/>
-        </InputBlock>
-
-        <TextField title='Second Game' textValue={ this.getDescriptionYear2 }/>
-
-        <InputBlock
-          placeholder='Insert game name'
-          valueReceived={ value => this.updateToParent( "gameNameYear2", value ) }>
-          <Description title='Game Name' />
-        </InputBlock>
-
-        <DropdownBlock
-          dataEntries={ genres }
-          locked={ this.dropdownGenre }
-          placeholder='Pick a genre'
-          valueReceived={ value => this.updateToParent( "genres", value ) }>
-          <Description title={ 'Genre' }/>
-        </DropdownBlock>
-
-        <DropdownBlock
-          dataEntries={ platforms }
-          placeholder='Pick a platform'
-          valueReceived={ value => this.updateToParent( "platformYear2", value ) }>
-          <Description title={ 'Platform' } />
-        </DropdownBlock>
-
-        <InputBlock
-          size='large'
-          placeholder="Levels, points, leaderboards, resource managment..." 
-          valueReceived={ value => this.updateToParent( "gameGameMechanicsyear2", value ) }>
-           <Description title='Game Mechanics'
-            />
-        </InputBlock>
-
-        <InputBlock
-          size='large'
-          placeholder="A funny easter egg, social interactions or unlockables" 
-          valueReceived={ value => this.updateToParent( "gameUniqueFeatureyear2", value ) }>
-           <Description 
-           description={gameUniqueFeatureyear2}
-           title='Unique Feature' />
         </InputBlock>
 
       </div>

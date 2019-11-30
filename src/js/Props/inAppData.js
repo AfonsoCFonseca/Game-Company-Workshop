@@ -46,6 +46,29 @@ const visionArrayYear1 = [
 ]
 
 const officeSpaceArrayYear2 = [
-  'Small but with other start-ups near',
-  'Bigger but isolated'
+  'Small but with other start-ups near ( 1500 per month )',
+  'Bigger but isolated ( 2000 per month )'
+]
+
+const payForDesignOrMarketing = [
+  'A nice webpage and instagram presence ( 1500$ webpage and 300 x 15 insta-posts = 1800$ )',
+  'Digital Marketing campaign on facebook ( 10$ x 90days = 900$)',
+  "Nothing. I don't wanna spent money"
+]
+
+const giveRecomendationArr = [
+  'Game-Design Seminar',
+  'Pro Gaming Workshop',
+  'SFX for Games Workshop',
+  'Keep working on your game'
+]
+
+const gamejamArr = [ 
+  "I dont know, maybe not",
+   "Let them do it"
+ ]
+
+ const bootcampArr = [ 
+  "Organize the bootcamp every 3 months ( price )",
+  "It's a kind of expansive, maybe later"
 ]

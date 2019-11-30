@@ -491,6 +491,9 @@ body label {
   text-align: right;
   font-weight: bold;
 }
+#content > .structure .endingCard .endingCard-inner > #endingCard-overview > .textIncome.choices {
+  margin-top: 7px;
+}
 #content > .footer {
   position: fixed;
   bottom: 0;

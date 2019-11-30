@@ -41,6 +41,8 @@ class Module_1Year extends React.Component {
       <div className='module'>
         <TextField title='Your Focus' textValue={ this.focusYear1 }/>
 
+        <TextField title='First Game'/>
+
         <RadioButtonBlock
             valuesSent={ visionArrayYear1 }
             valueReceived={ value => this.updateToParent( "vision", value ) }>
@@ -71,8 +73,19 @@ class Module_1Year extends React.Component {
           size='large'
           placeholder="Describe game mechanics, features or Story"
           valueReceived={ value => this.updateToParent( "gameDescription", value ) }>
-           <Description title='Description' />
+           <Description title='Features Description' />
         </InputBlock>
+
+        <InputBlock
+          size='large'
+          placeholder="A funny easter egg, social interactions or unlockables" 
+          valueReceived={ value => this.updateToParent( "gameUniqueFeatureyear1", value ) }>
+           <Description 
+           description={gameUniqueFeatureyear1}
+           title='Unique Feature' />
+        </InputBlock>
+
+        <TextField title='Team'/>
 
         <RadioButtonBlock
             valuesSent={ teamArrayYear1 }
@@ -85,6 +98,12 @@ class Module_1Year extends React.Component {
           valueReceived={ value => this.updateToParent( "environment", value ) }>
            <Description title='Company Environment' description={ environment1YearDescription }/>
         </InputBlock>
+
+        <RadioButtonBlock
+            valuesSent={ giveRecomendationArr }
+            valueReceived={ value => this.updateToParent( "workshop", value ) }>
+           <Description title='"WorkShoping"' description={ RadioRecomendationdDescription }/>
+        </RadioButtonBlock>
 
         <InputBlock
           size='large'

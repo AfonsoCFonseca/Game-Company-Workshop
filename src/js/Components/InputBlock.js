@@ -41,7 +41,11 @@ class InputBlock extends React.Component{
     var value = e.target.value
 
     if( this.props.numbers ){
-      if( value >= 0 && value <= 4 ){
+
+      if( this.props.limit && value >= 0 && value <= this.props.limit ){
+        this.props.valueReceived( value )
+      }
+      else if( value >= 0 && value <= 4 ){
         this.props.valueReceived( value )
       }
     }

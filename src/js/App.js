@@ -6,11 +6,11 @@ class PageContent extends React.Component {
     this.backup = null
 
     this.state = {
-      year: 1,
+      year: 2,
       goingDev: true,
       isPaused: false,
       moduleShow: false,  // Ecra de Eventos
-      optionalScreen: true, // Ecra de entrada e final
+      optionalScreen: false, // Ecra de entrada e final
       middleEvent: false, // Trigger para o middle Event
       recapEvent: false, // Recap Event após o modulo final
       company: {
