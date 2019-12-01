@@ -24,5 +24,5 @@ app.use( '/' , controller )
 
 app.listen(port, function(){
 	console.log(__dirname);
-	console.log('Simple Server Running on port 8080')
+	console.log('Workshop Server Running on port 8080')
 })
