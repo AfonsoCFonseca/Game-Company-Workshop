@@ -16,11 +16,11 @@ const EndingCard = ( props ) => {
 						<React.Fragment>
 							<div className='textIncome'>
 								<p>First Game:</p>
-								<label>+{bill.year1.game}$</label>
+								<label>+{ makePointsInCash( bill.year1.game )}$</label>
 							</div>
 							<div className='textIncome'>
 								<p>Expanses:</p>
-								<label>-{bill.year1.expanses}$</label>
+								<label>-{ makePointsInCash( bill.year1.expanses )}$</label>
 							</div>
 						</React.Fragment>   : null
 					}
@@ -35,15 +35,15 @@ const EndingCard = ( props ) => {
 						<React.Fragment>
 							<div className='textIncome'>
 								<p>Second Game:</p>
-								<label>+{bill.year2.game}$</label>
+								<label>+{ makePointsInCash( bill.year2.game )}$</label>
 							</div>
 							<div className='textIncome'>
 								<p>Investment</p>
-								<label>+{bill.year2.investment}$</label>
+								<label>+{ makePointsInCash( bill.year2.investment )}$</label>
 							</div>
 							<div className='textIncome'>
 								<p>Expanses:</p>
-								<label>-{bill.year2.expanses}$</label>
+								<label>-{ makePointsInCash( bill.year2.expanses )}$</label>
 							</div>
 						</React.Fragment> : null
 					}
@@ -57,11 +57,11 @@ const EndingCard = ( props ) => {
 						<React.Fragment>
 							<div className='textIncome'>
 								<p>Thrid Game:</p>
-								<label>+{bill.year3.game}$</label>
+								<label>+{ makePointsInCash( bill.year3.game )}$</label>
 							</div>
 							<div className='textIncome'>
 								<p>Expanses:</p>
-								<label>- {bill.year3.expanses}$</label>
+								<label>- { makePointsInCash( bill.year3.expanses ) }$</label>
 							</div>
 						</React.Fragment> : null
 					}
@@ -69,11 +69,11 @@ const EndingCard = ( props ) => {
 
 				<div style={{marginTop : '20px'}} className='textIncome'>
 					<p>Total Cash:</p>
-					<label>{company.income}$</label>
+					<label>{ makePointsInCash( company.income )}$</label>
 				</div>
 				<div className='textIncome'>
 					<p>Company Equity:</p>
-					<label>{company.equity}%</label>
+					<label>{ company.equity }%</label>
 				</div>
 			</React.Fragment>
 		)
@@ -210,7 +210,7 @@ const EndingCard = ( props ) => {
 					<p><b>Customer Relationships: </b> {year3.CustomerRelationships || "" }</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Key Resources: </b> {year3.KeyResources || "" }</p>
+					<p><b>Cost Structures: </b> {year3.CostStructures || "" }</p>
 				</div>
 				<div className='textIncome choices'>
 					<p><b>Revenue Stream: </b> {year3.RevenueStream || "" }</p>

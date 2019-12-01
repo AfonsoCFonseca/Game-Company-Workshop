@@ -73,10 +73,10 @@ class Module_3Year extends React.Component {
 
         <InputBlock
           size='large'
-          valueReceived={ value => this.updateToParent( "KeyResources", value ) }>
+          valueReceived={ value => this.updateToParent( "CostStructures", value ) }>
            <Description
-              title='Key Resources'
-              description={ description3YearKeyResources } />
+              title='Cost Structures'
+              description={ description3YearCostStructure } />
         </InputBlock>
 
         <InputBlock
@@ -137,16 +137,16 @@ class Module_3Year extends React.Component {
         <RadioButtonBlock
             valuesSent={ bootcampArr }
             valueReceived={ value => this.updateToParent( "bootcamp", value ) }>
-           <Description 
-            title='Interns' 
+           <Description
+            title='Interns'
             description={ explanationForBootcamp }/>
         </RadioButtonBlock>
 
         <RadioButtonBlock
             valuesSent={ gamejamArr }
             valueReceived={ value => this.updateToParent( "gamejam", value ) }>
-           <Description 
-            title='GameJam' 
+           <Description
+            title='GameJam'
             description={ explanationForGamejam }/>
         </RadioButtonBlock>
 
@@ -165,5 +165,3 @@ class Module_3Year extends React.Component {
   }
 
 }
-
-

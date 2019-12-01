@@ -462,16 +462,14 @@ When creating a game you have to worry about designing, development, marketing..
 Probably you will need patches, testing, updating... If you think of releasing DLCs and new features, you need to invest in the story and testing.
 What are the activities your game need to offer the value proposition to your players?`
 
-var description3YearKeyResources = `What resources you need to make your game doable. You need staff/team, computers, internet, office space, workshops, electricity... Think of every resource you need
-if you want your company to make a game`
+var description3YearKeyResources = `Think of all the resources you will need if you want to create a game. You need from physical resources like computers, to human resources, like staff or financial resources like money`
 
 var description3YearKeyPartners = `Your partners are third parties company that helps you build the game. The best example for this is to think what platform you will be releasing your game, if it's a mobile app, your partners
 will be Apple or Google ( AppStore or PlayStore ), if you choose a PC game, then Steam, Epic Game Launcher, Humble Bundle Store will be your partners.
 The Partners are external companies that help you create, maintain and distribute your product/game`
 
-var description3YearCostStructure = `Your product has costs being created ( Key Activities ), you need to worry about sustaining a valuable product once it goes live ( patches, updates, server, DataBases )
-How much do you pay for your partnerships? 2 Years from now, what do you think you will have to pay for your server? For this answer, I don't want you to think precise costs but to write what are the costs you need to
-worry about when your game is created and going live`
+var description3YearCostStructure = `Write the costs you think you will have to maintain your company/game functional. Things like office, internet, electricity, server are costs that
+ you have to worry about from now on. Tell a few of them`
 
 var description3YearRevenueStream = `The Revenue Streams is one of the things that makes the wheels turn and keep to product moving. This is what makes your income grow, what lets the company
 keep going forward and what pays the games that you are making. Where does your game make money? what way? Through selling the game itself? By microtransactions or maybe Ads revenue? There's a lot of ways

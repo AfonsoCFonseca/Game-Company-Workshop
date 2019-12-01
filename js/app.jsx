@@ -723,11 +723,11 @@ class PageContent extends React.Component {
 						<React.Fragment>
 							<div className='textIncome'>
 								<p>First Game:</p>
-								<label>+{bill.year1.game}$</label>
+								<label>+{ makePointsInCash( bill.year1.game )}$</label>
 							</div>
 							<div className='textIncome'>
 								<p>Expanses:</p>
-								<label>-{bill.year1.expanses}$</label>
+								<label>-{ makePointsInCash( bill.year1.expanses )}$</label>
 							</div>
 						</React.Fragment>   : null
 					}
@@ -742,15 +742,15 @@ class PageContent extends React.Component {
 						<React.Fragment>
 							<div className='textIncome'>
 								<p>Second Game:</p>
-								<label>+{bill.year2.game}$</label>
+								<label>+{ makePointsInCash( bill.year2.game )}$</label>
 							</div>
 							<div className='textIncome'>
 								<p>Investment</p>
-								<label>+{bill.year2.investment}$</label>
+								<label>+{ makePointsInCash( bill.year2.investment )}$</label>
 							</div>
 							<div className='textIncome'>
 								<p>Expanses:</p>
-								<label>-{bill.year2.expanses}$</label>
+								<label>-{ makePointsInCash( bill.year2.expanses )}$</label>
 							</div>
 						</React.Fragment> : null
 					}
@@ -764,11 +764,11 @@ class PageContent extends React.Component {
 						<React.Fragment>
 							<div className='textIncome'>
 								<p>Thrid Game:</p>
-								<label>+{bill.year3.game}$</label>
+								<label>+{ makePointsInCash( bill.year3.game )}$</label>
 							</div>
 							<div className='textIncome'>
 								<p>Expanses:</p>
-								<label>- {bill.year3.expanses}$</label>
+								<label>- { makePointsInCash( bill.year3.expanses ) }$</label>
 							</div>
 						</React.Fragment> : null
 					}
@@ -776,11 +776,11 @@ class PageContent extends React.Component {
 
 				<div style={{marginTop : '20px'}} className='textIncome'>
 					<p>Total Cash:</p>
-					<label>{company.income}$</label>
+					<label>{ makePointsInCash( company.income )}$</label>
 				</div>
 				<div className='textIncome'>
 					<p>Company Equity:</p>
-					<label>{company.equity}%</label>
+					<label>{ company.equity }%</label>
 				</div>
 			</React.Fragment>
 		)
@@ -917,7 +917,7 @@ class PageContent extends React.Component {
 					<p><b>Customer Relationships: </b> {year3.CustomerRelationships || "" }</p>
 				</div>
 				<div className='textIncome choices'>
-					<p><b>Key Resources: </b> {year3.KeyResources || "" }</p>
+					<p><b>Cost Structures: </b> {year3.CostStructures || "" }</p>
 				</div>
 				<div className='textIncome choices'>
 					<p><b>Revenue Stream: </b> {year3.RevenueStream || "" }</p>
@@ -1417,10 +1417,10 @@ class PageContent extends React.Component {
 
         <InputBlock
           size='large'
-          valueReceived={ value => this.updateToParent( "KeyResources", value ) }>
+          valueReceived={ value => this.updateToParent( "CostStructures", value ) }>
            <Description
-              title='Key Resources'
-              description={ description3YearKeyResources } />
+              title='Cost Structures'
+              description={ description3YearCostStructure } />
         </InputBlock>
 
         <InputBlock
@@ -1481,16 +1481,16 @@ class PageContent extends React.Component {
         <RadioButtonBlock
             valuesSent={ bootcampArr }
             valueReceived={ value => this.updateToParent( "bootcamp", value ) }>
-           <Description 
-            title='Interns' 
+           <Description
+            title='Interns'
             description={ explanationForBootcamp }/>
         </RadioButtonBlock>
 
         <RadioButtonBlock
             valuesSent={ gamejamArr }
             valueReceived={ value => this.updateToParent( "gamejam", value ) }>
-           <Description 
-            title='GameJam' 
+           <Description
+            title='GameJam'
             description={ explanationForGamejam }/>
         </RadioButtonBlock>
 
@@ -1509,8 +1509,6 @@ class PageContent extends React.Component {
   }
 
 }
-
-
 ;const genres = [
   'Platform games',
   'Shooter games',
@@ -2581,16 +2579,14 @@ When creating a game you have to worry about designing, development, marketing..
 Probably you will need patches, testing, updating... If you think of releasing DLCs and new features, you need to invest in the story and testing.
 What are the activities your game need to offer the value proposition to your players?`
 
-var description3YearKeyResources = `What resources you need to make your game doable. You need staff/team, computers, internet, office space, workshops, electricity... Think of every resource you need
-if you want your company to make a game`
+var description3YearKeyResources = `Think of all the resources you will need if you want to create a game. You need from physical resources like computers, to human resources, like staff or financial resources like money`
 
 var description3YearKeyPartners = `Your partners are third parties company that helps you build the game. The best example for this is to think what platform you will be releasing your game, if it's a mobile app, your partners
 will be Apple or Google ( AppStore or PlayStore ), if you choose a PC game, then Steam, Epic Game Launcher, Humble Bundle Store will be your partners.
 The Partners are external companies that help you create, maintain and distribute your product/game`
 
-var description3YearCostStructure = `Your product has costs being created ( Key Activities ), you need to worry about sustaining a valuable product once it goes live ( patches, updates, server, DataBases )
-How much do you pay for your partnerships? 2 Years from now, what do you think you will have to pay for your server? For this answer, I don't want you to think precise costs but to write what are the costs you need to
-worry about when your game is created and going live`
+var description3YearCostStructure = `Write the costs you think you will have to maintain your company/game functional. Things like office, internet, electricity, server are costs that
+ you have to worry about from now on. Tell a few of them`
 
 var description3YearRevenueStream = `The Revenue Streams is one of the things that makes the wheels turn and keep to product moving. This is what makes your income grow, what lets the company
 keep going forward and what pays the games that you are making. Where does your game make money? what way? Through selling the game itself? By microtransactions or maybe Ads revenue? There's a lot of ways
@@ -2821,7 +2817,7 @@ var recapScreen = function( state, pC ){
   constructor( props ){
     super( props )
 
-    this.timer30Minutes = 60 * 33 //60 * 30
+    this.timer30Minutes = 60 * 30 //60 * 30
     //this.timer30Minutes = 60 * 30 //60 * 30
     this.actualTimer = 0
     // 20 80
@@ -2971,7 +2967,7 @@ var recapScreen = function( state, pC ){
 					<p style={{marginLeft: '10px'}} > <b>{ this.substringTheCompanyName( this.state.companyName ) } </b></p>
 				</div>
 				<div className='right'>
-					<p>Cash: <b>{ this.state.income }$</b></p>
+					<p>Cash: <b>{ makePointsInCash( this.state.income ) }$</b></p>
 					<p>Equity: <b>{ this.state.equity }%</b></p>
 					<p>Team: <b>{ this.state.team }</b></p>
 				</div>
@@ -2985,7 +2981,7 @@ var recapScreen = function( state, pC ){
     var minutes = dateObj.getUTCMinutes();
     var seconds = dateObj.getSeconds();
 
-    return  minutes.toString().padStart(2, '0') + ':' + 
+    return  minutes.toString().padStart(2, '0') + ':' +
         seconds.toString().padStart(2, '0');
 }
 
@@ -2995,14 +2991,26 @@ function giveMinutesSecondsAndHours( seconds ){
     var minutes = dateObj.getUTCMinutes();
     var seconds = dateObj.getSeconds();
 
-    return hours.toString().padStart(2, '0') + ':' + 
-        minutes.toString().padStart(2, '0') + ':' + 
+    return hours.toString().padStart(2, '0') + ':' +
+        minutes.toString().padStart(2, '0') + ':' +
         seconds.toString().padStart(2, '0');
 }
 
 
 function getRandomInt( min = 1, max ){
     return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function makePointsInCash( numbers ){
+  var newNumber = numbers.toString()
+  if( newNumber.length >= 4 ){
+    var leftPart = newNumber.substring( 0, newNumber.length - 3 )
+    var rightPart = newNumber.substring( newNumber.length - 3, newNumber.length )
+    newNumber = leftPart + "." + rightPart
+    return newNumber
+  }
+
+  return newNumber
 }
 
 function countTeam( teamObj ){
@@ -3015,10 +3023,10 @@ function countTeam( teamObj ){
 }
 
 function countSalary( teamObj, plus = 0 ){
-    
+
     var developers = artists = designers = sfx = marketing = 0
     if( teamObj ){
-        developers = teamObj.developers | 0 
+        developers = teamObj.developers | 0
         artists = teamObj.artists || 0
         designers = teamObj.designers || 0
         sfx = teamObj.sfx || 0
@@ -3052,7 +3060,7 @@ function countSalary( teamObj, plus = 0 ){
 function objInsideChecker( actualState, name, value, replace = null ){
 
     if( actualState[ name ] ){
-      
+
       if( typeof value === 'object' && replace == false){
            for( var x in value ){
               actualState[ name ][x] = value[x]
@@ -3072,7 +3080,7 @@ function getOtherVisionFromArray( vision ){
     for( var i = 0; i < visionArrayYear1.length; i++ ){
         if( vision == visionArrayYear1[i] ) notThis = i
     }
-    
+
     var newPos;
     do{
         newPos = getRandomInt(0,2)
@@ -3080,7 +3088,8 @@ function getOtherVisionFromArray( vision ){
 
     return visionArrayYear1[newPos]
 
-};ReactDOM.render(
+}
+;ReactDOM.render(
   <PageContent/>,
   document.getElementById('content')
 );

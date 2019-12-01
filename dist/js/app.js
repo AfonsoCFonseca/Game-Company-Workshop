@@ -723,11 +723,11 @@ class PageContent extends React.Component {
 						React.createElement(React.Fragment, null, 
 							React.createElement("div", {className: "textIncome"}, 
 								React.createElement("p", null, "First Game:"), 
-								React.createElement("label", null, "+", bill.year1.game, "$")
+								React.createElement("label", null, "+",  makePointsInCash( bill.year1.game), "$")
 							), 
 							React.createElement("div", {className: "textIncome"}, 
 								React.createElement("p", null, "Expanses:"), 
-								React.createElement("label", null, "-", bill.year1.expanses, "$")
+								React.createElement("label", null, "-",  makePointsInCash( bill.year1.expanses), "$")
 							)
 						)   : null, 
 					
@@ -742,15 +742,15 @@ class PageContent extends React.Component {
 						React.createElement(React.Fragment, null, 
 							React.createElement("div", {className: "textIncome"}, 
 								React.createElement("p", null, "Second Game:"), 
-								React.createElement("label", null, "+", bill.year2.game, "$")
+								React.createElement("label", null, "+",  makePointsInCash( bill.year2.game), "$")
 							), 
 							React.createElement("div", {className: "textIncome"}, 
 								React.createElement("p", null, "Investment"), 
-								React.createElement("label", null, "+", bill.year2.investment, "$")
+								React.createElement("label", null, "+",  makePointsInCash( bill.year2.investment), "$")
 							), 
 							React.createElement("div", {className: "textIncome"}, 
 								React.createElement("p", null, "Expanses:"), 
-								React.createElement("label", null, "-", bill.year2.expanses, "$")
+								React.createElement("label", null, "-",  makePointsInCash( bill.year2.expanses), "$")
 							)
 						) : null, 
 					
@@ -764,11 +764,11 @@ class PageContent extends React.Component {
 						React.createElement(React.Fragment, null, 
 							React.createElement("div", {className: "textIncome"}, 
 								React.createElement("p", null, "Thrid Game:"), 
-								React.createElement("label", null, "+", bill.year3.game, "$")
+								React.createElement("label", null, "+",  makePointsInCash( bill.year3.game), "$")
 							), 
 							React.createElement("div", {className: "textIncome"}, 
 								React.createElement("p", null, "Expanses:"), 
-								React.createElement("label", null, "- ", bill.year3.expanses, "$")
+								React.createElement("label", null, "- ",  makePointsInCash( bill.year3.expanses), "$")
 							)
 						) : null, 
 					
@@ -776,11 +776,11 @@ class PageContent extends React.Component {
 
 				React.createElement("div", {style: {marginTop : '20px'}, className: "textIncome"}, 
 					React.createElement("p", null, "Total Cash:"), 
-					React.createElement("label", null, company.income, "$")
+					React.createElement("label", null,  makePointsInCash( company.income), "$")
 				), 
 				React.createElement("div", {className: "textIncome"}, 
 					React.createElement("p", null, "Company Equity:"), 
-					React.createElement("label", null, company.equity, "%")
+					React.createElement("label", null,  company.equity, "%")
 				)
 			)
 		)
@@ -917,7 +917,7 @@ class PageContent extends React.Component {
 					React.createElement("p", null, React.createElement("b", null, "Customer Relationships: "), " ", year3.CustomerRelationships || "")
 				), 
 				React.createElement("div", {className: "textIncome choices"}, 
-					React.createElement("p", null, React.createElement("b", null, "Key Resources: "), " ", year3.KeyResources || "")
+					React.createElement("p", null, React.createElement("b", null, "Cost Structures: "), " ", year3.CostStructures || "")
 				), 
 				React.createElement("div", {className: "textIncome choices"}, 
 					React.createElement("p", null, React.createElement("b", null, "Revenue Stream: "), " ", year3.RevenueStream || "")
@@ -1417,10 +1417,10 @@ class PageContent extends React.Component {
 
         React.createElement(InputBlock, {
           size: "large", 
-          valueReceived:  value => this.updateToParent( "KeyResources", value )}, 
+          valueReceived:  value => this.updateToParent( "CostStructures", value )}, 
            React.createElement(Description, {
-              title: "Key Resources", 
-              description:  description3YearKeyResources })
+              title: "Cost Structures", 
+              description:  description3YearCostStructure })
         ), 
 
         React.createElement(InputBlock, {
@@ -1509,8 +1509,6 @@ class PageContent extends React.Component {
   }
 
 }
-
-
 ;const genres = [
   'Platform games',
   'Shooter games',
@@ -2581,16 +2579,14 @@ When creating a game you have to worry about designing, development, marketing..
 Probably you will need patches, testing, updating... If you think of releasing DLCs and new features, you need to invest in the story and testing.
 What are the activities your game need to offer the value proposition to your players?`
 
-var description3YearKeyResources = `What resources you need to make your game doable. You need staff/team, computers, internet, office space, workshops, electricity... Think of every resource you need
-if you want your company to make a game`
+var description3YearKeyResources = `Think of all the resources you will need if you want to create a game. You need from physical resources like computers, to human resources, like staff or financial resources like money`
 
 var description3YearKeyPartners = `Your partners are third parties company that helps you build the game. The best example for this is to think what platform you will be releasing your game, if it's a mobile app, your partners
 will be Apple or Google ( AppStore or PlayStore ), if you choose a PC game, then Steam, Epic Game Launcher, Humble Bundle Store will be your partners.
 The Partners are external companies that help you create, maintain and distribute your product/game`
 
-var description3YearCostStructure = `Your product has costs being created ( Key Activities ), you need to worry about sustaining a valuable product once it goes live ( patches, updates, server, DataBases )
-How much do you pay for your partnerships? 2 Years from now, what do you think you will have to pay for your server? For this answer, I don't want you to think precise costs but to write what are the costs you need to
-worry about when your game is created and going live`
+var description3YearCostStructure = `Write the costs you think you will have to maintain your company/game functional. Things like office, internet, electricity, server are costs that
+ you have to worry about from now on. Tell a few of them`
 
 var description3YearRevenueStream = `The Revenue Streams is one of the things that makes the wheels turn and keep to product moving. This is what makes your income grow, what lets the company
 keep going forward and what pays the games that you are making. Where does your game make money? what way? Through selling the game itself? By microtransactions or maybe Ads revenue? There's a lot of ways
@@ -2821,7 +2817,7 @@ var recapScreen = function( state, pC ){
   constructor( props ){
     super( props )
 
-    this.timer30Minutes = 60 * 33 //60 * 30
+    this.timer30Minutes = 60 * 30 //60 * 30
     //this.timer30Minutes = 60 * 30 //60 * 30
     this.actualTimer = 0
     // 20 80
@@ -2971,7 +2967,7 @@ var recapScreen = function( state, pC ){
 					React.createElement("p", {style: {marginLeft: '10px'}}, " ", React.createElement("b", null,  this.substringTheCompanyName( this.state.companyName), " "))
 				), 
 				React.createElement("div", {className: "right"}, 
-					React.createElement("p", null, "Cash: ", React.createElement("b", null,  this.state.income, "$")), 
+					React.createElement("p", null, "Cash: ", React.createElement("b", null,  makePointsInCash( this.state.income), "$")), 
 					React.createElement("p", null, "Equity: ", React.createElement("b", null,  this.state.equity, "%")), 
 					React.createElement("p", null, "Team: ", React.createElement("b", null,  this.state.team))
 				)
@@ -2985,7 +2981,7 @@ var recapScreen = function( state, pC ){
     var minutes = dateObj.getUTCMinutes();
     var seconds = dateObj.getSeconds();
 
-    return  minutes.toString().padStart(2, '0') + ':' + 
+    return  minutes.toString().padStart(2, '0') + ':' +
         seconds.toString().padStart(2, '0');
 }
 
@@ -2995,14 +2991,26 @@ function giveMinutesSecondsAndHours( seconds ){
     var minutes = dateObj.getUTCMinutes();
     var seconds = dateObj.getSeconds();
 
-    return hours.toString().padStart(2, '0') + ':' + 
-        minutes.toString().padStart(2, '0') + ':' + 
+    return hours.toString().padStart(2, '0') + ':' +
+        minutes.toString().padStart(2, '0') + ':' +
         seconds.toString().padStart(2, '0');
 }
 
 
 function getRandomInt( min = 1, max ){
     return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function makePointsInCash( numbers ){
+  var newNumber = numbers.toString()
+  if( newNumber.length >= 4 ){
+    var leftPart = newNumber.substring( 0, newNumber.length - 3 )
+    var rightPart = newNumber.substring( newNumber.length - 3, newNumber.length )
+    newNumber = leftPart + "." + rightPart
+    return newNumber
+  }
+
+  return newNumber
 }
 
 function countTeam( teamObj ){
@@ -3015,10 +3023,10 @@ function countTeam( teamObj ){
 }
 
 function countSalary( teamObj, plus = 0 ){
-    
+
     var developers = artists = designers = sfx = marketing = 0
     if( teamObj ){
-        developers = teamObj.developers | 0 
+        developers = teamObj.developers | 0
         artists = teamObj.artists || 0
         designers = teamObj.designers || 0
         sfx = teamObj.sfx || 0
@@ -3052,7 +3060,7 @@ function countSalary( teamObj, plus = 0 ){
 function objInsideChecker( actualState, name, value, replace = null ){
 
     if( actualState[ name ] ){
-      
+
       if( typeof value === 'object' && replace == false){
            for( var x in value ){
               actualState[ name ][x] = value[x]
@@ -3072,7 +3080,7 @@ function getOtherVisionFromArray( vision ){
     for( var i = 0; i < visionArrayYear1.length; i++ ){
         if( vision == visionArrayYear1[i] ) notThis = i
     }
-    
+
     var newPos;
     do{
         newPos = getRandomInt(0,2)
@@ -3080,7 +3088,8 @@ function getOtherVisionFromArray( vision ){
 
     return visionArrayYear1[newPos]
 
-};ReactDOM.render(
+}
+;ReactDOM.render(
   React.createElement(PageContent, null),
   document.getElementById('content')
 );

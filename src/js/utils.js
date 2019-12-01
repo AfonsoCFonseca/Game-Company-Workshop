@@ -4,7 +4,7 @@ function giveMinutesAndSeconds( seconds ){
     var minutes = dateObj.getUTCMinutes();
     var seconds = dateObj.getSeconds();
 
-    return  minutes.toString().padStart(2, '0') + ':' + 
+    return  minutes.toString().padStart(2, '0') + ':' +
         seconds.toString().padStart(2, '0');
 }
 
@@ -14,14 +14,26 @@ function giveMinutesSecondsAndHours( seconds ){
     var minutes = dateObj.getUTCMinutes();
     var seconds = dateObj.getSeconds();
 
-    return hours.toString().padStart(2, '0') + ':' + 
-        minutes.toString().padStart(2, '0') + ':' + 
+    return hours.toString().padStart(2, '0') + ':' +
+        minutes.toString().padStart(2, '0') + ':' +
         seconds.toString().padStart(2, '0');
 }
 
 
 function getRandomInt( min = 1, max ){
     return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function makePointsInCash( numbers ){
+  var newNumber = numbers.toString()
+  if( newNumber.length >= 4 ){
+    var leftPart = newNumber.substring( 0, newNumber.length - 3 )
+    var rightPart = newNumber.substring( newNumber.length - 3, newNumber.length )
+    newNumber = leftPart + "." + rightPart
+    return newNumber
+  }
+
+  return newNumber
 }
 
 function countTeam( teamObj ){
@@ -34,10 +46,10 @@ function countTeam( teamObj ){
 }
 
 function countSalary( teamObj, plus = 0 ){
-    
+
     var developers = artists = designers = sfx = marketing = 0
     if( teamObj ){
-        developers = teamObj.developers | 0 
+        developers = teamObj.developers | 0
         artists = teamObj.artists || 0
         designers = teamObj.designers || 0
         sfx = teamObj.sfx || 0
@@ -71,7 +83,7 @@ function countSalary( teamObj, plus = 0 ){
 function objInsideChecker( actualState, name, value, replace = null ){
 
     if( actualState[ name ] ){
-      
+
       if( typeof value === 'object' && replace == false){
            for( var x in value ){
               actualState[ name ][x] = value[x]
@@ -91,7 +103,7 @@ function getOtherVisionFromArray( vision ){
     for( var i = 0; i < visionArrayYear1.length; i++ ){
         if( vision == visionArrayYear1[i] ) notThis = i
     }
-    
+
     var newPos;
     do{
         newPos = getRandomInt(0,2)

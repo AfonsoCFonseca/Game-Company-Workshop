@@ -37,7 +37,7 @@ class Toolbar extends React.Component {
 					<p style={{marginLeft: '10px'}} > <b>{ this.substringTheCompanyName( this.state.companyName ) } </b></p>
 				</div>
 				<div className='right'>
-					<p>Cash: <b>{ this.state.income }$</b></p>
+					<p>Cash: <b>{ makePointsInCash( this.state.income ) }$</b></p>
 					<p>Equity: <b>{ this.state.equity }%</b></p>
 					<p>Team: <b>{ this.state.team }</b></p>
 				</div>

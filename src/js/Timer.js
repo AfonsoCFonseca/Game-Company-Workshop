@@ -3,7 +3,7 @@ class Timer extends React.Component {
   constructor( props ){
     super( props )
 
-    this.timer30Minutes = 60 * 33 //60 * 30
+    this.timer30Minutes = 60 * 30 //60 * 30
     //this.timer30Minutes = 60 * 30 //60 * 30
     this.actualTimer = 0
     // 20 80
