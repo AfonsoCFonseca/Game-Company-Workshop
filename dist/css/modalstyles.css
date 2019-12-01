@@ -85,6 +85,7 @@
 }
 .modal > .modalInner > .footer.center {
   align-items: center;
+  margin-top: 10px;
 }
 .modal > .modalInner > .footer.center > input {
   margin-bottom: 15px;

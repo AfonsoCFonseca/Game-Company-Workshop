@@ -603,6 +603,7 @@ body label {
 }
 #content .modal > .modalInner > .footer.center {
   align-items: center;
+  margin-top: 10px;
 }
 #content .modal > .modalInner > .footer.center > input {
   margin-bottom: 15px;
