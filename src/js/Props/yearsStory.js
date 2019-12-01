@@ -274,10 +274,10 @@ you will "probably" sell better. Pick one of the options below.`
 
  function getDescriptionUnfocusTeam( value ){
    var descriptionForUnfocusTeam = ""
- 	    if( value == "Small but with other start-ups near" )
+ 	    if( value == "Small but with other start-ups near ( 1500 per month )" )
       descriptionForUnfocusTeam = "The office it's small and cosy, but with your team getting used to work together, they started to getting noisy."+
       "It's hard to get focused and develop. Approach the team, in an original way, asking them for being more quiet"
-    else if( value == "Bigger but isolated" )
+    else if( value == "Bigger but isolated ( 2000 per month )" )
       descriptionForUnfocusTeam = "The office it's gigantic.. and someone of the team tought it would be cool to bring there own PS4 and television"+
     "to play videogames on his break. But the problem it's that the rest of the team gets unfocused watching him play. Approach him, in an original way, asking him to stop that."
     return descriptionForUnfocusTeam
@@ -444,9 +444,9 @@ Every big company used this canvas and it's named Business Modal Canvas. Its pur
 
 
 
-var description3YearValuePropositions = `Here you have to describe the purpose of your game. What it as to offer to your client/player. What does the player have to win with your game?
-Trains logic or reaction? Learn to strategy in an online game? Working together in a co-op game? In a nutshell, why would someone want to have this problem solved?
-What does your game offers, that can be converted in value to the player?`
+var description3YearValuePropositions = `What is the main value that your product /Game offers to the customers?What are their needs?
+What it as to offer to your client/player? Trains logic or reaction? Learn to strategy in an online game? Working together in a co-op game? In a nutshell,
+why would someone want to have this problem solved? What does your game offers, that can be converted in value to the player?`
 
 var description3YearCustomerSegments = `In the customer Segment your think of your target player and try to break them in small parts. For gender, age, interests or habits.
 This way you can start to check the market for what does this group of targets look for, what type of genre, story or commitment to the game`

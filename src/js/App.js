@@ -7,7 +7,7 @@ class PageContent extends React.Component {
 
     this.state = {
       year: 1,
-      goingDev: false,
+      goingDev: false, //dev toolbar
       isPaused: false,
       moduleShow: false,  // Ecra de Eventos
       optionalScreen: true, // Ecra de entrada e final
@@ -131,6 +131,7 @@ class PageContent extends React.Component {
       recapEvent: false,
       optionalScreen
     })
+
 
   }
 

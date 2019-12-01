@@ -145,7 +145,7 @@ function year2Recap( state ){
 
 //SALARIES
 	var plus = 100
-	if( state.company.year1.middleEvent && companyYear.middleEvent.event == 1
+	if( state.company.year1.middleEvent && state.company.year1.middleEvent.event == 1
 		&& state.company.year1.middleEvent.chose == "Salary Raised" )
 		plus = 200
 
@@ -340,7 +340,7 @@ function year3Recap( state ){
 
 	//SALARIES
 	var plus = 150
-	if( state.company.year1.middleEvent && companyYear.middleEvent.event == 1
+	if( state.company.year1.middleEvent && state.company.year1.middleEvent.event == 1
 		&& state.company.year1.middleEvent.chose == "Salary Raised" )
 		plus = 250
 	salaries = countSalary( state.company.team, plus )

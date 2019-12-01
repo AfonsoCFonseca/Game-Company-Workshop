@@ -3,11 +3,12 @@ class Timer extends React.Component {
   constructor( props ){
     super( props )
 
-    //this.timer30Minutes = 6 * 3 //60 * 30
-    this.timer30Minutes = 60 * 30 //60 * 30
+    this.timer30Minutes = 60 * 33 //60 * 30
+    //this.timer30Minutes = 60 * 30 //60 * 30
     this.actualTimer = 0
     // 20 80
-    this.middleYearEvent = getRandomInt( (this.timer30Minutes/ 2) - 2 , (this.timer30Minutes/ 2) + 5 )
+    //2 5
+    this.middleYearEvent = getRandomInt( (this.timer30Minutes/ 2) - 20 , (this.timer30Minutes/ 2) + 80 )
 
     this.state = {
       year: props.year,
@@ -69,6 +70,7 @@ class Timer extends React.Component {
   }
 
   static getDerivedStateFromProps( props, state ) {
+
     return {
       year: props.year,
       isTimerPaused: props.isTimerPaused,
