@@ -8,9 +8,9 @@ Each 30 minutes of real-life time simulates 1 year of the company life
 
 Password for each year: ( for advancing in each year ) 
 
-year1 - 1991
-year2 - JAN
-year3 - JAN17
+year1 - 1991;
+year2 - JAN;
+year3 - JAN17;
 
 #### Screenshots
 - Year1 
