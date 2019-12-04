@@ -2,10 +2,11 @@
 
 A single page application written in React and Sass
 
-A Web App for a university workshop propose, that explains how a videogame company behave when growing.
-The actions of the company adapts to the the options you choose
+A Web App for a university workshop propose. 
+Explains how a videogame company behave when growing, the actions of the company adapts to the the options you choose in the process.
+Each 30 minutes of real-life time simulates 1 year of the company life
 
-Password for each year:
+Password for each year: ( for advancing in each year ) 
 
 year1 - 1991
 year2 - JAN
@@ -19,7 +20,7 @@ year3 - JAN17
 <img src='https://github.com/afonsofcfonseca/ExGameCompanyInYears/blob/master/public/images/recap.png'>
 
 - Middle Year Event
-<img src='https://github.com/afonsofcfonseca/ExGameCompanyInYears/blob/master/public/images/timer.png'>
+<img src='https://github.com/afonsofcfonseca/ExGameCompanyInYears/blob/master/public/images/middleYearEvent.png'>
 
 - End Screen
-<img src='https://github.com/afonsofcfonseca/ExGameCompanyInYears/blob/master/public/images/middleYearEvent.png'>
+<img src='https://github.com/afonsofcfonseca/ExGameCompanyInYears/blob/master/public/images/endScreen.png'>
