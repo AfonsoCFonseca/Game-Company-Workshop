@@ -17,13 +17,13 @@ year3: JAN17,
 
 #### Screenshots
 - Year1 
-<img src='https://github.com/afonsofcfonseca/ExGameCompanyInYears/blob/master/public/images/Screen Shot 2019-12-04 at 18.28.52.png'>
+<img src='https://github.com/AfonsoCFonseca/Game-Company-Workshop/blob/master/public/images/Screen Shot 2019-12-04 at 18.28.52.png'>
 
 - Recap Screen
-<img src='https://github.com/afonsofcfonseca/ExGameCompanyInYears/blob/master/public/images/recap.png'>
+<img src='https://github.com/AfonsoCFonseca/Game-Company-Workshop/blob/master/public/images/recap.png'>
 
 - Middle Year Event
-<img src='https://github.com/afonsofcfonseca/ExGameCompanyInYears/blob/master/public/images/middleYearEvent.png'>
+<img src='https://github.com/AfonsoCFonseca/Game-Company-Workshop/blob/master/public/images/middleYearEvent.png'>
 
 - End Screen
-<img src='https://github.com/afonsofcfonseca/ExGameCompanyInYears/blob/master/public/images/endScreen.png'>
+<img src='https://github.com/AfonsoCFonseca/Game-Company-Workshop/blob/master/public/images/endScreen.png'>
